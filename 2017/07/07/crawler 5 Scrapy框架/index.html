@@ -1,0 +1,334 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="scrapy" />
+
+
+<meta name="description" content="1 Scrapy 介绍&#x2F;架构 Scrapy一个开源和协作的框架，其最初是为了页面抓取 (更确切来说, 网络抓取 )所设计的，使用它可以以快速、简单、可扩展的方式从网站中提取所需的数据。..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Scrapy框架 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa fa-home"></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/"><i class="fa fa-th-list"></i>
+                                文章分类</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/tags/"><i class="fa fa-tags"></i>
+                                标签</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa fa-archive"></i>
+                                归档</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Scrapy框架">
+            
+            Scrapy框架
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E7%88%AC%E8%99%AB/">爬虫</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/scrapy/" rel="tag">scrapy</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2017/07/07</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="1-Scrapy-介绍-x2F-架构"><a href="#1-Scrapy-介绍-x2F-架构" class="headerlink" title="1 Scrapy 介绍&#x2F;架构"></a>1 Scrapy 介绍&#x2F;架构</h2><p> Scrapy一个开源和协作的框架，其最初是为了页面抓取 (更确切来说, 网络抓取 )所设计的，使用它可以以快速、简单、可扩展的方式从网站中提取所需的数据。但目前Scrapy的用途十分广泛，可用于如数据挖掘、监测和自动化测试等领域，也可以应用在获取API所返回的数据(例如 Amazon Associates Web Services ) 或者通用的网络爬虫。</p>
+<p>  Scrapy 是基于twisted框架开发而来，twisted是一个流行的事件驱动的python网络框架。因此Scrapy使用了一种非阻塞（又名异步）的代码来实现并发。整体架构大致如下</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/20200412083213.png"></p>
+<p><strong>Components：</strong></p>
+<ol>
+<li><p>引擎(EGINE)</p>
+<p>引擎负责控制系统所有组件之间的数据流，并在某些动作发生时触发事件。有关详细信息，请参见上面的数据流部分。</p>
+</li>
+<li><p><strong>调度器(SCHEDULER)</strong><br>用来接受引擎发过来的请求, 压入队列中, 并在引擎再次请求的时候返回. 可以想像成一个URL的优先级队列, 由它来决定下一个要抓取的网址是什么, 同时去除重复的网址</p>
+</li>
+<li><p><strong>下载器(DOWLOADER)</strong><br>用于下载网页内容, 并将网页内容返回给EGINE，下载器是建立在twisted这个高效的异步模型上的</p>
+</li>
+<li><p><strong>爬虫(SPIDERS)</strong><br>SPIDERS是开发人员自定义的类，用来解析responses，并且提取items，或者发送新的请求</p>
+</li>
+<li><p><strong>项目管道(ITEM PIPLINES)</strong><br>在items被提取后负责处理它们，主要包括清理、验证、持久化（比如存到数据库）等操作</p>
+</li>
+<li><p>下载器中间件(Downloader Middlewares)</p>
+<p>位于Scrapy引擎和下载器之间，主要用来处理从EGINE传到DOWLOADER的请求request，已经从DOWNLOADER传到EGINE的响应response，你可用该中间件做以下几件事</p>
+<ol>
+<li>process a request just before it is sent to the Downloader (i.e. right before Scrapy sends the request to the website);</li>
+<li>change received response before passing it to a spider;</li>
+<li>send a new Request instead of passing received response to a spider;</li>
+<li>pass response to a spider without fetching a web page;</li>
+<li>silently drop some requests.</li>
+</ol>
+</li>
+<li><p><strong>爬虫中间件(Spider Middlewares)</strong><br>位于EGINE和SPIDERS之间，主要工作是处理SPIDERS的输入（即responses）和输出（即requests）</p>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://docs.scrapy.org/en/latest/topics/architecture.html">官网链接：https://docs.scrapy.org/en/latest/topics/architecture.html</a></p>
+<h2 id="2-Scripy框架的安装和启动"><a href="#2-Scripy框架的安装和启动" class="headerlink" title="2 Scripy框架的安装和启动"></a>2 Scripy框架的安装和启动</h2><p>安装</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Windows平台</span></span><br><span class="line">    <span class="number">1</span>、pip3 install wheel <span class="comment">#安装后，便支持通过wheel文件安装软件，wheel文件官网：https://www.lfd.uci.edu/~gohlke/pythonlibs</span></span><br><span class="line">    <span class="number">3</span>、pip3 install lxml</span><br><span class="line">    <span class="number">4</span>、pip3 install pyopenssl</span><br><span class="line">    <span class="number">5</span>、下载并安装pywin32：https://sourceforge.net/projects/pywin32/files/pywin32/</span><br><span class="line">    <span class="number">6</span>、下载twisted的wheel文件：http://www.lfd.uci.edu/~gohlke/pythonlibs/<span class="comment">#twisted</span></span><br><span class="line">    <span class="number">7</span>、执行pip3 install 下载目录\Twisted-<span class="number">17.9</span><span class="number">.0</span>-cp36-cp36m-win_amd64.whl</span><br><span class="line">    <span class="number">8</span>、pip3 install scrapy</span><br><span class="line"></span><br><span class="line"><span class="comment">#Linux和 mac平台</span></span><br><span class="line">    <span class="number">1</span>、pip3 install scrapy</span><br></pre></td></tr></table></figure>
+
+<p>创建</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scrapy startproject <span class="comment">#创建项目</span></span><br><span class="line">scrapy genspider    <span class="comment">#创建爬虫程序</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>启动</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scrapy crawl  爬虫名字 <span class="comment"># 启动爬虫</span></span><br><span class="line">scrapy crawl 爬虫名字 --nolog   <span class="comment"># 不打印日志启动</span></span><br></pre></td></tr></table></figure>
+
+<p>从文件启动</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.cmdline <span class="keyword">import</span> execute</span><br><span class="line">  <span class="comment"># execute([&#x27;scrapy&#x27;,&#x27;crawl&#x27;,&#x27;chouti&#x27;,&#x27;--nolog&#x27;])</span></span><br><span class="line">  execute([<span class="string">&#x27;scrapy&#x27;</span>,<span class="string">&#x27;crawl&#x27;</span>,<span class="string">&#x27;chouti&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-配置文件和目录介绍"><a href="#3-配置文件和目录介绍" class="headerlink" title="3 配置文件和目录介绍"></a>3 配置文件和目录介绍</h2><p>目录介绍</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-crawl_chouti   <span class="comment"># 项目名</span></span><br><span class="line">  -crawl_chouti <span class="comment"># 跟项目一个名，文件夹</span></span><br><span class="line">    -spiders    <span class="comment"># spiders：放着爬虫  genspider生成的爬虫，都放在这下面</span></span><br><span class="line">    	-__init__.py</span><br><span class="line">      -chouti.py <span class="comment"># 抽屉爬虫</span></span><br><span class="line">      -cnblogs.py <span class="comment"># cnblogs 爬虫</span></span><br><span class="line">    -items.py     <span class="comment"># 对比django中的models.py文件 ,写一个个的模型类</span></span><br><span class="line">    -middlewares.py  <span class="comment"># 中间件（爬虫中间件，下载中间件），中间件写在这</span></span><br><span class="line">    -pipelines.py   <span class="comment"># 写持久化的地方（持久化到文件，mysql，redis，mongodb）</span></span><br><span class="line">    -settings.py    <span class="comment"># 配置文件</span></span><br><span class="line">  -scrapy.cfg       <span class="comment"># 不用关注，上线相关的</span></span><br></pre></td></tr></table></figure>
+
+<p>配置文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置文件</span></span><br><span class="line"></span><br><span class="line">ROBOTSTXT_OBEY = <span class="literal">False</span>   <span class="comment"># 是否遵循爬虫协议，强行运行</span></span><br><span class="line">USER_AGENT = <span class="string">&#x27;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36&#x27;</span>    <span class="comment"># 请求头中的ua</span></span><br><span class="line">LOG_LEVEL=<span class="string">&#x27;ERROR&#x27;</span> <span class="comment"># 这样配置，程序错误信息才会打印，</span></span><br><span class="line">	<span class="comment">#启动爬虫直接 scrapy crawl 爬虫名   就没有日志输出</span></span><br><span class="line">  <span class="comment"># scrapy crawl 爬虫名 --nolog</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>爬虫文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ChoutiSpider</span>(scrapy.Spider):</span><br><span class="line">    name = <span class="string">&#x27;chouti&#x27;</span>   <span class="comment"># 爬虫名字</span></span><br><span class="line">    allowed_domains = [<span class="string">&#x27;https://dig.chouti.com/&#x27;</span>]  <span class="comment"># 允许爬取的域</span></span><br><span class="line">    start_urls = [<span class="string">&#x27;https://dig.chouti.com/&#x27;</span>]   <span class="comment"># 起始爬取的位置，爬虫一启动，会先向它发请求</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parse</span>(<span class="params">self, response</span>):  <span class="comment"># 解析，请求回来，自动执行parser，在这个方法中做解析</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;---------------------------&#x27;</span>,response)</span><br></pre></td></tr></table></figure>
+
+<p>数据解析</p>
+<ul>
+<li><p>使用bs4</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1 解析，可以使用bs4解析</span></span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line">soup=BeautifulSoup(response.text,<span class="string">&#x27;lxml&#x27;</span>)</span><br><span class="line">soup.find_all()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用内置解析器</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">response.css  </span><br><span class="line">response.xpath</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解析 </span></span><br><span class="line">  <span class="comment"># 所有用css或者xpath选择出来的都放在列表中</span></span><br><span class="line">  <span class="comment"># 取第一个:extract_first()</span></span><br><span class="line">  <span class="comment"># 取出所有extract()</span></span><br><span class="line">  <span class="comment"># css选择器取文本和属性：</span></span><br><span class="line">    response.css(<span class="string">&quot;.link-title::text&quot;</span>)   </span><br><span class="line">    response.css(<span class="string">&quot;.link-title::attr(href)&quot;</span>)</span><br><span class="line">  <span class="comment"># xpath选择器取文本和属性</span></span><br><span class="line">  	response.xpath(<span class="string">&#x27;.//a[contains(@class,&quot;link-title&quot;)/text()]&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    response.xpath(<span class="string">&#x27;//a[contains(@class,&quot;link-title&quot;)/@href]&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="4-数据持久化"><a href="#4-数据持久化" class="headerlink" title="4 数据持久化"></a>4 数据持久化</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方式一</span></span><br><span class="line">	-<span class="number">1</span> parser解析函数，<span class="keyword">return</span> 列表，列表套字典</span><br><span class="line">  -<span class="number">2</span> scrapy crawl chouti -o aa.json   (支持：(<span class="string">&#x27;json&#x27;</span>, <span class="string">&#x27;jsonlines&#x27;</span>, <span class="string">&#x27;jl&#x27;</span>, <span class="string">&#x27;csv&#x27;</span>, <span class="string">&#x27;xml&#x27;</span>, <span class="string">&#x27;marshal&#x27;</span>, <span class="string">&#x27;pickle&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 方式二 pipline的方式（管道）</span></span><br><span class="line">   -<span class="number">1</span> 在items.py中创建模型类</span><br><span class="line">   -<span class="number">2</span> 在爬虫中chouti.py，引入，把解析的数据放到item对象中（要用中括号）</span><br><span class="line">   -<span class="number">3</span> <span class="keyword">yield</span> item对象</span><br><span class="line">   -<span class="number">4</span> 配置文件配置管道</span><br><span class="line">       ITEM_PIPELINES = &#123;</span><br><span class="line">        <span class="comment"># 数字表示优先级（数字越小，优先级越大）</span></span><br><span class="line">       <span class="string">&#x27;crawl_chouti.pipelines.CrawlChoutiPipeline&#x27;</span>: <span class="number">300</span>,</span><br><span class="line">       <span class="string">&#x27;crawl_chouti.pipelines.CrawlChoutiRedisPipeline&#x27;</span>: <span class="number">301</span>，</span><br><span class="line">    	&#125;</span><br><span class="line">  -<span class="number">5</span> pipline.py中写持久化的类</span><br><span class="line"></span><br><span class="line">   				<span class="comment">#  在保存数据之前执行的函数</span></span><br><span class="line">          -spider_open</span><br><span class="line">      	  <span class="comment"># 在执行数据持久化之后执行的函数</span></span><br><span class="line">          -spider_close</span><br><span class="line">          -process_item（在这写保存到哪）</span><br></pre></td></tr></table></figure>
+
+
+
+<p>[toc]</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Qilitang</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2017/07/08/crawler%206%20scrapy%E9%AB%98%E7%BA%A7/" class="pre-post btn btn-default" title='Scrapy高级'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            Scrapy高级</span>
+    </a>
+    
+    
+    <a href="/2017/07/06/crawler%204%20selenium/" class="next-post btn btn-default" title='selenium'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            selenium</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Scrapy-%E4%BB%8B%E7%BB%8D-x2F-%E6%9E%B6%E6%9E%84"><span class="toc-text">1 Scrapy 介绍&#x2F;架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Scripy%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E5%90%AF%E5%8A%A8"><span class="toc-text">2 Scripy框架的安装和启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%E4%BB%8B%E7%BB%8D"><span class="toc-text">3 配置文件和目录介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-text">4 数据持久化</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="#" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+
+</body>
+</html>

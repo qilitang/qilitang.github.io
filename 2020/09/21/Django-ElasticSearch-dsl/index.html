@@ -1,0 +1,309 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="Django Elasticsearch DSLDjango Elasticsearch DSL 介绍Django Elasticsearch DSL是一个软件包，允许在elasticsearc..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Django Elasticsearch DSL |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa fa-home"></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/"><i class="fa fa-th-list"></i>
+                                文章分类</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/tags/"><i class="fa fa-tags"></i>
+                                标签</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa fa-archive"></i>
+                                归档</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Django Elasticsearch DSL">
+            
+            Django Elasticsearch DSL
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/Django-Elasticserch-DSL/">Django Elasticserch DSL</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/09/21</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="Django-Elasticsearch-DSL"><a href="#Django-Elasticsearch-DSL" class="headerlink" title="Django Elasticsearch DSL"></a>Django Elasticsearch DSL</h1><h2 id="Django-Elasticsearch-DSL-介绍"><a href="#Django-Elasticsearch-DSL-介绍" class="headerlink" title="Django Elasticsearch DSL 介绍"></a>Django Elasticsearch DSL 介绍</h2><p>Django Elasticsearch DSL是一个软件包，允许在elasticsearch中索引Django模型。它是作为<a target="_blank" rel="noopener" href="https://github.com/elastic/elasticsearch-dsl-py">Elasticsearch-dsl-py</a>的封装而构建的， 因此您可以使用elasticsearch-dsl-py团队开发的所有功能。</p>
+<p>您可以在<a target="_blank" rel="noopener" href="https://django-elasticsearch-dsl.readthedocs.io/">https://django-elasticsearch-dsl.readthedocs.io上</a>查看完整文</p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
+<li><p>基于elasticsearch-dsl-py，因此您可以使用Search类进行查询。</p>
+</li>
+<li><p>Django信号接收器处于保存和删除状态，以保持Elasticsearch同步。</p>
+</li>
+<li><p>从Django模型字段中的Elasticsearch自动映射。</p>
+</li>
+<li><p>复杂字段类型支持（ObjectField，NestedField）。</p>
+</li>
+<li><p>使用并行索引快速建立索引。</p>
+</li>
+<li><p>Requirements</p>
+<ul>
+<li>Django &gt;&#x3D; 1.11</li>
+<li>Python 2.7, 3.5, 3.6, 3.7</li>
+</ul>
+</li>
+</ul>
+<p>Elasticsearch兼容性：该库与5.x以后的所有Elasticsearch版本兼容，但是您必须使用匹配的主要版本：</p>
+<ul>
+<li><p>对于Elasticsearch 7.0及更高版本，请使用该库的主要版本7（7.x.y）。</p>
+</li>
+<li><p>对于Elasticsearch 6.0及更高版本，请使用该库的主要版本6（6.x.y）。</p>
+</li>
+<li><p>对于Elasticsearch 5.0和更高版本，请使用库的主要版本0.5（0.5.x）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Elasticsearch 7.x</span></span><br><span class="line">elasticsearch-dsl&gt;=<span class="number">7.0</span><span class="number">.0</span>,&lt;<span class="number">8.0</span><span class="number">.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Elasticsearch 6.x</span></span><br><span class="line">elasticsearch-dsl&gt;=<span class="number">6.0</span><span class="number">.0</span>,&lt;<span class="number">7.0</span><span class="number">.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Elasticsearch 5.x</span></span><br><span class="line">elasticsearch-dsl&gt;=<span class="number">0.5</span><span class="number">.1</span>,&lt;<span class="number">6.0</span><span class="number">.0</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="安装和配置"><a href="#安装和配置" class="headerlink" title="安装和配置"></a>安装和配置</h3><p>安装 django-elasticsearch-dsl</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install django-elasticsearch-dsl</span><br></pre></td></tr></table></figure>
+
+<p>然后添加 django-elasticsearch-dsl 到 INSTALLED_APPS</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">&#x27;django_elasticsearch_dsl&#x27;</span>,</span><br><span class="line">]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>必须在django settings 中定义 ELASTICSEARCH_DSL</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ELASTICSEARCH_DSL=&#123;</span><br><span class="line">    <span class="string">&#x27;default&#x27;</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;hosts&#x27;</span>: <span class="string">&#x27;localhost:9200&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后将ELASTICSEARCH_DSL传递到elasticsearch-dsl-py.connections.configure（详细参数请看）。</p>
+<h3 id="生命要被索引的模型表"><a href="#生命要被索引的模型表" class="headerlink" title="生命要被索引的模型表"></a>生命要被索引的模型表</h3><p>model.py</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class NcInfo(models.Model)<span class="punctuation">:</span></span><br><span class="line">    cluster = models.CharField(max_length=<span class="number">12</span><span class="punctuation">,</span> verbose_name=&#x27;用户名&#x27;)</span><br><span class="line">    ip = models.GenericIPAddressField(verbose_name=&#x27;IP地址&#x27;)</span><br><span class="line">    desc = models.CharField(max_length=<span class="number">128</span><span class="punctuation">,</span> verbose_name=&#x27;简介&#x27;)</span><br><span class="line">    instance_id = models.CharField(max_length=<span class="number">64</span><span class="punctuation">,</span> verbose_name=&#x27;实例id&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>要使该模型与Elasticsearch一起使用，请创建django_elasticsearch_dsl.Document的子类，在Document类中创建一个Index类以定义您的Elasticsearch索引，名称，设置等，最后使用Registry.register_document装饰器注册该类。 它需要在您的应用目录中的documents.py中定义Document类。</p>
+<p>创建document.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django_elasticsearch_dsl <span class="keyword">import</span> Document</span><br><span class="line"><span class="keyword">from</span> django_elasticsearch_dsl.registries <span class="keyword">import</span> registry</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> NcInfo</span><br><span class="line"></span><br><span class="line"><span class="meta">@registry.register_document</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">NcInfoDocument</span>(<span class="title class_ inherited__">Document</span>):</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Index</span>:</span><br><span class="line">        <span class="comment"># es 索引名</span></span><br><span class="line">        name = <span class="string">&#x27;ncinfo&#x27;</span></span><br><span class="line">        <span class="comment"># 有关可用设置，请参阅Elasticsearch Indices API参考。</span></span><br><span class="line">        settings = &#123;<span class="string">&#x27;number_of_shards&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">                    <span class="string">&#x27;number_of_replicas&#x27;</span>: <span class="number">0</span>&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Django</span>:</span><br><span class="line">        model = NcInfo <span class="comment"># 与此文档关联的模型</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 要在Elasticsearch中建立索引的模型的字段</span></span><br><span class="line">        fields = [</span><br><span class="line">            <span class="string">&#x27;cluster&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;ip&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;instance_id&#x27;</span>,</span><br><span class="line">        ]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 保存模型时忽略弹性搜索的自动更新</span></span><br><span class="line">        <span class="comment"># or deleted:</span></span><br><span class="line">        <span class="comment"># ignore_signals = True</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 每次更新后都不要执行索引刷新（覆盖全局设置）：</span></span><br><span class="line">        <span class="comment"># auto_refresh = False</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 对django查询集进行分页，该查询集用于以指定大小填充索引</span></span><br><span class="line">        <span class="comment">#（默认情况下，它使用数据库驱动程序的默认设置）</span></span><br><span class="line">        <span class="comment"># queryset_pagination = 5000</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="迁移"><a href="#迁移" class="headerlink" title="迁移"></a>迁移</h3><p>要创建并填充Elasticsearch索引和映射，请使用search_index命令：</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Qilitang</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2022/03/23/3-IO%E6%93%8D%E4%BD%9C%E4%B8%8EIO%E6%A8%A1%E5%9E%8B/" class="pre-post btn btn-default" title=''>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            </span>
+    </a>
+    
+    
+    <a href="/2020/09/06/ElasticSearch%2008%20term%E4%B8%8Ematch/" class="next-post btn btn-default" title='ElasticSearch 09 term 与 match'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            ElasticSearch 09 term 与 match</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Django-Elasticsearch-DSL"><span class="toc-text">Django Elasticsearch DSL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Django-Elasticsearch-DSL-%E4%BB%8B%E7%BB%8D"><span class="toc-text">Django Elasticsearch DSL 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%80%A7"><span class="toc-text">特性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="toc-text">快速开始</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="toc-text">安装和配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E8%A6%81%E8%A2%AB%E7%B4%A2%E5%BC%95%E7%9A%84%E6%A8%A1%E5%9E%8B%E8%A1%A8"><span class="toc-text">生命要被索引的模型表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%81%E7%A7%BB"><span class="toc-text">迁移</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="#" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+
+</body>
+</html>

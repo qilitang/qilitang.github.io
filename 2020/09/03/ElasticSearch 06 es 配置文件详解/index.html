@@ -1,0 +1,268 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="Es Docker" />
+
+
+<meta name="description" content="1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    ElasticSearch 06 Es配置文件详解 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa fa-home"></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/"><i class="fa fa-th-list"></i>
+                                文章分类</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/tags/"><i class="fa fa-tags"></i>
+                                标签</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa fa-archive"></i>
+                                归档</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="ElasticSearch 06 Es配置文件详解">
+            
+            ElasticSearch 06 Es配置文件详解
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/ElasticSearch/">ElasticSearch</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/Es-Docker/" rel="tag">Es Docker</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/09/03</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##################### Elasticsearch Configuration Example ##################### </span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 只是挑些重要的配置选项进行注释,其实自带的已经有非常细致的英文注释了!</span></span><br><span class="line"><span class="comment"># https://www.elastic.co/guide/en/elasticsearch/reference/current/modules.html</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">################################### Cluster ################################### </span></span><br><span class="line"><span class="comment"># 代表一个集群,集群中有多个节点,其中有一个为主节点,这个主节点是可以通过选举产生的,主从节点是对于集群内部来说的. </span></span><br><span class="line"><span class="comment"># es的一个概念就是去中心化,字面上理解就是无中心节点,这是对于集群外部来说的,因为从外部来看es集群,在逻辑上是个整体,你与任何一个节点的通信和与整个es集群通信是等价的。 </span></span><br><span class="line"><span class="comment"># cluster.name可以确定你的集群名称,当你的elasticsearch集群在同一个网段中elasticsearch会自动的找到具有相同cluster.name的elasticsearch服务. </span></span><br><span class="line"><span class="comment"># 所以当同一个网段具有多个elasticsearch集群时cluster.name就成为同一个集群的标识. </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># cluster.name: elasticsearch </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#################################### Node ##################################### </span></span><br><span class="line"><span class="comment"># https://www.elastic.co/guide/en/elasticsearch/reference/5.1/modules-node.html#master-node</span></span><br><span class="line"><span class="comment"># 节点名称同理,可自动生成也可手动配置. </span></span><br><span class="line"><span class="comment"># node.name: node-1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 允许一个节点是否可以成为一个master节点,es是默认集群中的第一台机器为master,如果这台机器停止就会重新选举master. </span></span><br><span class="line"><span class="comment"># node.master: true </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 允许该节点存储数据(默认开启) </span></span><br><span class="line"><span class="comment"># node.data: true </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置文件中给出了三种配置高性能集群拓扑结构的模式,如下： </span></span><br><span class="line"><span class="comment"># 1. 如果你想让节点从不选举为主节点,只用来存储数据,可作为负载器 </span></span><br><span class="line"><span class="comment"># node.master: false </span></span><br><span class="line"><span class="comment"># node.data: true </span></span><br><span class="line"><span class="comment"># node.ingest: false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 如果想让节点成为主节点,且不存储任何数据,并保有空闲资源,可作为协调器 </span></span><br><span class="line"><span class="comment"># node.master: true </span></span><br><span class="line"><span class="comment"># node.data: false</span></span><br><span class="line"><span class="comment"># node.ingest: false </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 如果想让节点既不称为主节点,又不成为数据节点,那么可将他作为搜索器,从节点中获取数据,生成搜索结果等 </span></span><br><span class="line"><span class="comment"># node.master: false </span></span><br><span class="line"><span class="comment"># node.data: false </span></span><br><span class="line"><span class="comment"># node.ingest: true (可不指定默认开启)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 仅作为协调器 </span></span><br><span class="line"><span class="comment"># node.master: false </span></span><br><span class="line"><span class="comment"># node.data: false</span></span><br><span class="line"><span class="comment"># node.ingest: false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 监控集群状态有一下插件和API可以使用: </span></span><br><span class="line"><span class="comment"># Use the Cluster Health API [http://localhost:9200/_cluster/health], the </span></span><br><span class="line"><span class="comment"># Node Info API [http://localhost:9200/_nodes] or GUI tools # such as &lt;http://www.elasticsearch.org/overview/marvel/&gt;, </span></span><br><span class="line"><span class="comment"># &lt;http://github.com/karmi/elasticsearch-paramedic&gt;, </span></span><br><span class="line"><span class="comment"># &lt;http://github.com/lukas-vlcek/bigdesk&gt; and </span></span><br><span class="line"><span class="comment"># &lt;http://mobz.github.com/elasticsearch-head&gt; to inspect the cluster state. </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># A node can have generic attributes associated with it, which can later be used </span></span><br><span class="line"><span class="comment"># for customized shard allocation filtering, or allocation awareness. An attribute </span></span><br><span class="line"><span class="comment"># is a simple key value pair, similar to node.key: value, here is an example: </span></span><br><span class="line"><span class="comment"># 每个节点都可以定义一些与之关联的通用属性，用于后期集群进行碎片分配时的过滤</span></span><br><span class="line"><span class="comment"># node.rack: rack314 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认情况下，多个节点可以在同一个安装路径启动，如果你想让你的es只启动一个节点，可以进行如下设置</span></span><br><span class="line"><span class="comment"># node.max_local_storage_nodes: 1 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#################################### Index #################################### </span></span><br><span class="line"><span class="comment"># 设置索引的分片数,默认为5 </span></span><br><span class="line"><span class="comment">#index.number_of_shards: 5 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置索引的副本数,默认为1: </span></span><br><span class="line"><span class="comment">#index.number_of_replicas: 1 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置文件中提到的最佳实践是,如果服务器够多,可以将分片提高,尽量将数据平均分布到大集群中去</span></span><br><span class="line"><span class="comment"># 同时,如果增加副本数量可以有效的提高搜索性能 </span></span><br><span class="line"><span class="comment"># 需要注意的是,&quot;number_of_shards&quot; 是索引创建后一次生成的,后续不可更改设置 </span></span><br><span class="line"><span class="comment"># &quot;number_of_replicas&quot; 是可以通过API去实时修改设置的 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#################################### Paths #################################### </span></span><br><span class="line"><span class="comment"># 配置文件存储位置 </span></span><br><span class="line"><span class="comment"># path.conf: /path/to/conf </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据存储位置(单个目录设置) </span></span><br><span class="line"><span class="comment"># path.data: /path/to/data </span></span><br><span class="line"><span class="comment"># 多个数据存储位置,有利于性能提升 </span></span><br><span class="line"><span class="comment"># path.data: /path/to/data1,/path/to/data2 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 临时文件的路径 </span></span><br><span class="line"><span class="comment"># path.work: /path/to/work </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 日志文件的路径 </span></span><br><span class="line"><span class="comment"># path.logs: /path/to/logs </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 插件安装路径 </span></span><br><span class="line"><span class="comment"># path.plugins: /path/to/plugins </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#################################### Plugin ################################### </span></span><br><span class="line"><span class="comment"># 设置插件作为启动条件,如果一下插件没有安装,则该节点服务不会启动 </span></span><br><span class="line"><span class="comment"># plugin.mandatory: mapper-attachments,lang-groovy </span></span><br><span class="line"></span><br><span class="line"><span class="comment">################################### Memory #################################### </span></span><br><span class="line"><span class="comment"># 当JVM开始写入交换空间时（swapping）ElasticSearch性能会低下,你应该保证它不会写入交换空间 </span></span><br><span class="line"><span class="comment"># 设置这个属性为true来锁定内存,同时也要允许elasticsearch的进程可以锁住内存,linux下可以通过 `ulimit -l unlimited` 命令 </span></span><br><span class="line"><span class="comment"># bootstrap.mlockall: true </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 确保 ES_MIN_MEM 和 ES_MAX_MEM 环境变量设置为相同的值,以及机器有足够的内存分配给Elasticsearch </span></span><br><span class="line"><span class="comment"># 注意:内存也不是越大越好,一般64位机器,最大分配内存别才超过32G </span></span><br><span class="line"></span><br><span class="line"><span class="comment">############################## Network And HTTP ############################### </span></span><br><span class="line"><span class="comment"># 设置绑定的ip地址,可以是ipv4或ipv6的,默认为0.0.0.0 </span></span><br><span class="line"><span class="comment"># network.bind_host: 192.168.0.1 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置其它节点和该节点交互的ip地址,如果不设置它会自动设置,值必须是个真实的ip地址 </span></span><br><span class="line"><span class="comment"># network.publish_host: 192.168.0.1 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 同时设置bind_host和publish_host上面两个参数 </span></span><br><span class="line"><span class="comment"># network.host: 192.168.0.1 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置节点间交互的tcp端口,默认是9300 </span></span><br><span class="line"><span class="comment"># transport.tcp.port: 9300 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置是否压缩tcp传输时的数据，默认为false,不压缩</span></span><br><span class="line"><span class="comment"># transport.tcp.compress: true </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置对外服务的http端口,默认为9200 </span></span><br><span class="line"><span class="comment"># http.port: 9200 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置请求内容的最大容量,默认100mb </span></span><br><span class="line"><span class="comment"># http.max_content_length: 100mb </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用http协议对外提供服务,默认为true,开启 </span></span><br><span class="line"><span class="comment"># http.enabled: false </span></span><br><span class="line"></span><br><span class="line"><span class="comment">###################### 使用head等插件监控集群信息，需要打开以下配置项 ###########</span></span><br><span class="line"><span class="comment"># http.cors.enabled: true</span></span><br><span class="line"><span class="comment"># http.cors.allow-origin: &quot;*&quot;</span></span><br><span class="line"><span class="comment"># http.cors.allow-credentials: true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################################### Gateway ################################### </span></span><br><span class="line"><span class="comment"># gateway的类型,默认为local即为本地文件系统,可以设置为本地文件系统 </span></span><br><span class="line"><span class="comment"># gateway.type: local </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面的配置控制怎样以及何时启动一整个集群重启的初始化恢复过程 </span></span><br><span class="line"><span class="comment"># (当使用shard gateway时,是为了尽可能的重用local data(本地数据)) </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 一个集群中的N个节点启动后,才允许进行恢复处理 </span></span><br><span class="line"><span class="comment"># gateway.recover_after_nodes: 1 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置初始化恢复过程的超时时间,超时时间从上一个配置中配置的N个节点启动后算起 </span></span><br><span class="line"><span class="comment"># gateway.recover_after_time: 5m </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置这个集群中期望有多少个节点.一旦这N个节点启动(并且recover_after_nodes也符合), </span></span><br><span class="line"><span class="comment"># 立即开始恢复过程(不等待recover_after_time超时) </span></span><br><span class="line"><span class="comment"># gateway.expected_nodes: 2</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">############################# Recovery Throttling ############################# </span></span><br><span class="line"><span class="comment"># 下面这些配置允许在初始化恢复,副本分配,再平衡,或者添加和删除节点时控制节点间的分片分配 </span></span><br><span class="line"><span class="comment"># 设置一个节点的并行恢复数 </span></span><br><span class="line"><span class="comment"># 1.初始化数据恢复时,并发恢复线程的个数,默认为4 </span></span><br><span class="line"><span class="comment"># cluster.routing.allocation.node_initial_primaries_recoveries: 4 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.添加删除节点或负载均衡时并发恢复线程的个数,默认为2 </span></span><br><span class="line"><span class="comment"># cluster.routing.allocation.node_concurrent_recoveries: 2 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置恢复时的吞吐量(例如:100mb,默认为0无限制.如果机器还有其他业务在跑的话还是限制一下的好) </span></span><br><span class="line"><span class="comment"># indices.recovery.max_bytes_per_sec: 20mb </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置来限制从其它分片恢复数据时最大同时打开并发流的个数,默认为5 </span></span><br><span class="line"><span class="comment"># indices.recovery.concurrent_streams: 5 </span></span><br><span class="line"><span class="comment"># 注意: 合理的设置以上参数能有效的提高集群节点的数据恢复以及初始化速度 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">################################## Discovery ################################## </span></span><br><span class="line"><span class="comment"># 设置这个参数来保证集群中的节点可以知道其它N个有master资格的节点.默认为1,对于大的集群来说,可以设置大一点的值(2-4) </span></span><br><span class="line"><span class="comment"># discovery.zen.minimum_master_nodes: 1 </span></span><br><span class="line"><span class="comment"># 探查的超时时间,默认3秒,提高一点以应对网络不好的时候,防止脑裂 </span></span><br><span class="line"><span class="comment"># discovery.zen.ping.timeout: 3s </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># For more information, see </span></span><br><span class="line"><span class="comment"># &lt;http://elasticsearch.org/guide/en/elasticsearch/reference/current/modules-discovery-zen.html&gt; </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置是否打开多播发现节点.默认是true. </span></span><br><span class="line"><span class="comment"># 当多播不可用或者集群跨网段的时候集群通信还是用单播吧 </span></span><br><span class="line"><span class="comment"># discovery.zen.ping.multicast.enabled: false </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 这是一个集群中的主节点的初始列表,当节点(主节点或者数据节点)启动时使用这个列表进行探测 </span></span><br><span class="line"><span class="comment"># discovery.zen.ping.unicast.hosts: [&quot;host1&quot;, &quot;host2:port&quot;] </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Slow Log部分与GC log部分略,不过可以通过相关日志优化搜索查询速度 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">################  X-Pack ###########################################</span></span><br><span class="line"><span class="comment"># 官方插件 相关设置请查看此处</span></span><br><span class="line"><span class="comment"># https://www.elastic.co/guide/en/x-pack/current/xpack-settings.html</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment">############## Memory(重点需要调优的部分) ################ </span></span><br><span class="line"><span class="comment"># Cache部分: </span></span><br><span class="line"><span class="comment"># es有很多种方式来缓存其内部与索引有关的数据.其中包括filter cache </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># filter cache部分: </span></span><br><span class="line"><span class="comment"># filter cache是用来缓存filters的结果的.默认的cache type是node type.node type的机制是所有的索引内部的分片共享filter cache.node type采用的方式是LRU方式.即:当缓存达到了某个临界值之后，es会将最近没有使用的数据清除出filter cache.使让新的数据进入es. </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 这个临界值的设置方法如下：indices.cache.filter.size 值类型：eg.:512mb 20%。默认的值是10%。 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># out of memory错误避免过于频繁的查询时集群假死 </span></span><br><span class="line"><span class="comment"># 1.设置es的缓存类型为Soft Reference,它的主要特点是据有较强的引用功能.只有当内存不够的时候,才进行回收这类内存,因此在内存足够的时候,它们通常不被回收.另外,这些引用对象还能保证在Java抛出OutOfMemory异常之前,被设置为null.它可以用于实现一些常用图片的缓存,实现Cache的功能,保证最大限度的使用内存而不引起OutOfMemory.在es的配置文件加上index.cache.field.type: soft即可. </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.设置es最大缓存数据条数和缓存失效时间,通过设置index.cache.field.max_size: 50000来把缓存field的最大值设置为50000,设置index.cache.field.expire: 10m把过期时间设置成10分钟. </span></span><br><span class="line"><span class="comment"># index.cache.field.max_size: 50000 </span></span><br><span class="line"><span class="comment"># index.cache.field.expire: 10m </span></span><br><span class="line"><span class="comment"># index.cache.field.type: soft </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># field data部分&amp;&amp;circuit breaker部分： </span></span><br><span class="line"><span class="comment"># 用于fielddata缓存的内存数量,主要用于当使用排序,faceting操作时,elasticsearch会将一些热点数据加载到内存中来提供给客户端访问,但是这种缓存是比较珍贵的,所以对它进行合理的设置. </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以使用值：eg:50mb 或者 30％(节点 node heap内存量),默认是：unbounded #indices.fielddata.cache.size： unbounded </span></span><br><span class="line"><span class="comment"># field的超时时间.默认是-1,可以设置的值类型: 5m #indices.fielddata.cache.expire: -1 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># circuit breaker部分: </span></span><br><span class="line"><span class="comment"># 断路器是elasticsearch为了防止内存溢出的一种操作,每一种circuit breaker都可以指定一个内存界限触发此操作,这种circuit breaker的设定有一个最高级别的设定:indices.breaker.total.limit 默认值是JVM heap的70%.当内存达到这个数量的时候会触发内存回收</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 另外还有两组子设置： </span></span><br><span class="line"><span class="comment">#indices.breaker.fielddata.limit:当系统发现fielddata的数量达到一定数量时会触发内存回收.默认值是JVM heap的70% </span></span><br><span class="line"><span class="comment">#indices.breaker.fielddata.overhead:在系统要加载fielddata时会进行预先估计,当系统发现要加载进内存的值超过limit * overhead时会进行进行内存回收.默认是1.03 </span></span><br><span class="line"><span class="comment">#indices.breaker.request.limit:这种断路器是elasticsearch为了防止OOM(内存溢出),在每次请求数据时设定了一个固定的内存数量.默认值是40% </span></span><br><span class="line"><span class="comment">#indices.breaker.request.overhead:同上,也是elasticsearch在发送请求时设定的一个预估系数,用来防止内存溢出.默认值是1 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Translog部分: </span></span><br><span class="line"><span class="comment"># 每一个分片(shard)都有一个transaction log或者是与它有关的预写日志,(write log),在es进行索引(index)或者删除(delete)操作时会将没有提交的数据记录在translog之中,当进行flush 操作的时候会将tranlog中的数据发送给Lucene进行相关的操作.一次flush操作的发生基于如下的几个配置 </span></span><br><span class="line"><span class="comment">#index.translog.flush_threshold_ops:当发生多少次操作时进行一次flush.默认是 unlimited #index.translog.flush_threshold_size:当translog的大小达到此值时会进行一次flush操作.默认是512mb </span></span><br><span class="line"><span class="comment">#index.translog.flush_threshold_period:在指定的时间间隔内如果没有进行flush操作,会进行一次强制flush操作.默认是30m #index.translog.interval:多少时间间隔内会检查一次translog,来进行一次flush操作.es会随机的在这个值到这个值的2倍大小之间进行一次操作,默认是5s </span></span><br><span class="line"><span class="comment">#index.gateway.local.sync:多少时间进行一次的写磁盘操作,默认是5s </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 以上的translog配置都可以通过API进行动态的设置 - See more at: http://bigbo.github.io/pages/2015/04/10/elasticsearch_config/#sthash.AvOSUcQ4.dpuf</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="最新配置"><a href="#最新配置" class="headerlink" title="最新配置"></a>最新配置</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">cluster.name:</span> <span class="string">elasticsearch</span></span><br><span class="line"><span class="comment"># 配置的集群名称，默认是elasticsearch，es服务会通过广播方式自动连接在同一网段下的es服务，通过多播方式进行通信，同一网段下可以有多个集群，通过集群名称这个属性来区分不同的集群</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">node.name:</span> <span class="string">&quot;Franz Kafka&quot;</span></span><br><span class="line"><span class="comment"># 当前配置所在机器的节点名</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">node.master:</span> <span class="literal">true</span></span><br><span class="line"><span class="string">指定该节点是否有资格被选举成为node（注意这里只是设置成有资格),默认true</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">node.data:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment"># 指定该节点是否存储索引数据，默认为true。</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">index.number_of_shards:</span> <span class="number">5</span></span><br><span class="line"><span class="comment"># 设置默认索引分片个数，默认为5片。7.X版本以上配置无效</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">index.number_of_replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="comment"># 设置默认索引副本个数，默认为1个副本。7.x版本以上配置无效</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">path.conf:</span> <span class="string">/path/to/conf</span></span><br><span class="line"><span class="comment"># 设置配置文件的存储路径，默认是es根目录下的config文件夹。</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">path.data:</span> <span class="string">/path/to/data</span></span><br><span class="line"><span class="comment"># 设置索引数据的存储路径</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">path.work:</span> <span class="string">/path/to/work</span></span><br><span class="line"><span class="comment"># 设置临时文件的存储路径</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">path.logs:</span> <span class="string">/path/to/logs</span></span><br><span class="line"><span class="comment"># 设置日志文件的存储路径</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">path.plugins:</span> <span class="string">/path/to/plugins</span></span><br><span class="line"><span class="comment"># 设置插件的存放路径</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">network.bind_host:</span> <span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="comment"># 设置绑定的ip地址，可以是ipv4或ipv6的，默认为0.0.0.0，绑定这台机器的任何一个ip。</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">network.publish_host:</span> <span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="comment"># 设置其它节点和该节点交互的ip地址，如果不设置它会自动判断，值必须是个真实的ip地址。</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">network.host:</span> <span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="comment"># 这个参数是用来同时设置bind_host和publish_host上面两个参数。</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">transport.tcp.port:</span> <span class="number">9300</span></span><br><span class="line"><span class="comment"># 设置节点之间交互的tcp端口，默认是9300。</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">transport.tcp.compress:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment"># 设置是否压缩tcp传输时的数据，默认为false，不压缩。</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">http.port:</span> <span class="number">9200</span></span><br><span class="line"><span class="comment"># 设置对外服务的http端口，默认为9200。</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">http.max_content_length:</span> <span class="string">100mb</span></span><br><span class="line"><span class="comment"># 设置内容的最大容量，默认100mb</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">http.enabled:</span> <span class="literal">false</span></span><br><span class="line"><span class="comment"># 是否使用http协议对外提供服务，默认为true，开启。</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">gateway.type:</span> <span class="string">local</span></span><br><span class="line"><span class="comment"># gateway的类型，默认为local即为本地文件系统，可以设置为本地文件系统，分布式文件系统，hadoop的HDFS，和amazon的s3服务器等。</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="attr">cluster.routing.allocation.node_initial_primaries_recoveries:</span> <span class="number">4</span></span><br><span class="line"><span class="comment"># 初始化数据恢复时，并发恢复线程的个数，默认为4。</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">cluster.routing.allocation.node_concurrent_recoveries:</span> <span class="number">2</span></span><br><span class="line"><span class="comment"># 添加删除节点或负载均衡时并发恢复线程的个数，默认为4。</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">indices.recovery.max_size_per_sec:</span> <span class="number">0</span></span><br><span class="line"><span class="comment"># 设置数据恢复时限制的带宽，如入100mb，默认为0，即无限制。</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">indices.recovery.concurrent_streams:</span> <span class="number">5</span></span><br><span class="line"><span class="comment"># 设置这个参数来限制从其它分片恢复数据时最大同时打开并发流的个数，默认为5。</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">discovery.zen.minimum_master_nodes:</span> <span class="number">1</span></span><br><span class="line"><span class="comment"># 设置这个参数来保证集群中的节点可以知道其它N个有master资格的节点。默认为1，对于大的集群来说，可以设置大一点的值（2-4）。7.x版本无效</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">discovery.zen.ping.timeout:</span> <span class="string">3s</span></span><br><span class="line"><span class="comment"># 设置集群中自动发现其它节点时ping连接超时时间，默认为3秒，对于比较差的网络环境可以高点的值来防止自动发现时出错。7.x版本无效</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">discovery.zen.ping.multicast.enabled:</span> <span class="literal">false</span></span><br><span class="line"><span class="comment"># 设置是否打开多播发现节点，默认是true。7.x版本无效</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">discovery.zen.ping.unicast.hosts:</span> [<span class="string">&quot;host1&quot;</span>, <span class="string">&quot;host2:port&quot;</span>, <span class="string">&quot;host3[portX-portY]&quot;</span>]</span><br><span class="line"><span class="comment"># 设置集群中master节点的初始列表，可以通过这些节点来自动发现新加入集群的节点。7.x版本无效</span></span><br><span class="line"> </span><br><span class="line"><span class="string">discovery.seed_hosts</span></span><br><span class="line"><span class="comment"># 在启动此节点时传递要执行发现的主机的初始列表</span></span><br><span class="line"><span class="string">cluster.initial_master_nodes</span></span><br><span class="line"><span class="comment"># 使用初始的一组符合主节点条件的节点引导集群</span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Qilitang</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2020/09/03/ElasticSearch%2007%20kibana%20%E4%B8%8E%20es%20%E8%BF%9E%E6%8E%A5/" class="pre-post btn btn-default" title='ElasticSearch 07 es与Kibana通讯及 es-head 开源管理项目'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            ElasticSearch 07 es与Kibana通讯及 es-head 开源管理项目</span>
+    </a>
+    
+    
+    <a href="/2020/09/03/ElasticSearch%2008%20es%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C/" class="next-post btn btn-default" title='ElasticSearch 08 es简单操作'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            ElasticSearch 08 es简单操作</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E6%96%B0%E9%85%8D%E7%BD%AE"><span class="toc-text">最新配置</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="#" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+
+</body>
+</html>

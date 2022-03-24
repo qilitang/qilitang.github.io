@@ -1,0 +1,289 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="scrapy" />
+
+
+<meta name="description" content="scrapy 请求传参123# 1 放 ：yield Request(url,callback=self.parser_detail,meta=&#123;&#x27;item&#x27;:it..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Scrapy高级 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa fa-home"></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/"><i class="fa fa-th-list"></i>
+                                文章分类</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/tags/"><i class="fa fa-tags"></i>
+                                标签</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa fa-archive"></i>
+                                归档</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Scrapy高级">
+            
+            Scrapy高级
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E7%88%AC%E8%99%AB/">爬虫</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/scrapy/" rel="tag">scrapy</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2017/07/08</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="scrapy-请求传参"><a href="#scrapy-请求传参" class="headerlink" title="scrapy 请求传参"></a>scrapy 请求传参</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1 放 ：yield Request(url,callback=self.parser_detail,meta=&#123;&#x27;item&#x27;:item&#125;)</span></span><br><span class="line"><span class="comment"># 2 取：response.meta.get(&#x27;item&#x27;)</span></span><br><span class="line"><span class="comment"># 3 指定解析函数 callback=self.解析函数. </span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CnblogSpider</span>(scrapy.Spider):</span><br><span class="line">    name = <span class="string">&#x27;cnblog&#x27;</span></span><br><span class="line">    <span class="comment"># allowed_domains = [&#x27;https://www.cnblogs.com/&#x27;]</span></span><br><span class="line">    start_urls = [<span class="string">&#x27;https://www.cnblogs.com/sitehome/p/1&#x27;</span>]</span><br><span class="line">    num = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># post_list &gt; div:nth-child(19) &gt; div</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parse</span>(<span class="params">self, response</span>):</span><br><span class="line">        article_list = response.css(<span class="string">&quot;.post_item_body&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> article <span class="keyword">in</span> article_list:</span><br><span class="line">            item = CrawlCnblogsItem()</span><br><span class="line">            title = article.css(<span class="string">&quot;.titlelnk::text&quot;</span>).extract_first()</span><br><span class="line">            url = article.css(<span class="string">&quot;.titlelnk::attr(href)&quot;</span>).extract_first()</span><br><span class="line">            desc = article.css(<span class="string">&quot;p::text&quot;</span>).extract()[-<span class="number">1</span>]</span><br><span class="line">            author = article.css(<span class="string">&quot;.post_item_foot&gt;a::text&quot;</span>).extract_first()</span><br><span class="line">            comment = article.xpath(<span class="string">&quot;.//*[contains(@class,&#x27;post_item_foot&#x27;)]/span[1]/a/text()&quot;</span>).extract_first()</span><br><span class="line">            view = article.xpath(<span class="string">&quot;.//*[contains(@class,&#x27;post_item_foot&#x27;)]/span[2]/a/text()&quot;</span>).extract_first()</span><br><span class="line">            item[<span class="string">&quot;title&quot;</span>] = title.strip()</span><br><span class="line">            item[<span class="string">&quot;url&quot;</span>] = url</span><br><span class="line">            item[<span class="string">&quot;desc&quot;</span>] = desc</span><br><span class="line">            item[<span class="string">&quot;author&quot;</span>] = author.strip()</span><br><span class="line">            item[<span class="string">&quot;comment&quot;</span>] = comment.strip()</span><br><span class="line">            item[<span class="string">&quot;view&quot;</span>] = view.strip()</span><br><span class="line"></span><br><span class="line">            <span class="keyword">yield</span> item</span><br><span class="line">        nextpage = <span class="string">f&#x27;https://www.cnblogs.com<span class="subst">&#123;response.css(<span class="string">&quot;.pager&gt; a:last-child::attr(href)&quot;</span>).extract_first()&#125;</span>&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> nextpage <span class="keyword">and</span> (self.num &lt; <span class="number">10</span>):</span><br><span class="line">            <span class="keyword">yield</span> Request(url=nextpage, callback=self.parse)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="提高爬取效率"><a href="#提高爬取效率" class="headerlink" title="提高爬取效率"></a>提高爬取效率</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- 在配置文件中进行相关的配置即可:(默认还有一套setting)</span><br><span class="line"><span class="comment">#1 增加并发：</span></span><br><span class="line">默认scrapy开启的并发线程为<span class="number">32</span>个，可以适当进行增加。在settings配置文件中修改CONCURRENT_REQUESTS = <span class="number">100</span>值为<span class="number">100</span>,并发设置成了为<span class="number">100</span>。</span><br><span class="line"><span class="comment">#2 提高日志级别：</span></span><br><span class="line">在运行scrapy时，会有大量日志信息的输出，为了减少CPU的使用率。可以设置log输出信息为INFO或者ERROR即可。在配置文件中编写：LOG_LEVEL = ‘INFO’</span><br><span class="line"><span class="comment"># 3 禁止cookie：</span></span><br><span class="line">如果不是真的需要cookie，则在scrapy爬取数据时可以禁止cookie从而减少CPU的使用率，提升爬取效率。在配置文件中编写：COOKIES_ENABLED = <span class="literal">False</span></span><br><span class="line"><span class="comment"># 4禁止重试：</span></span><br><span class="line">对失败的HTTP进行重新请求（重试）会减慢爬取速度，因此可以禁止重试。在配置文件中编写：RETRY_ENABLED = <span class="literal">False</span></span><br><span class="line"><span class="comment"># 5 减少下载超时：</span></span><br><span class="line">如果对一个非常慢的链接进行爬取，减少下载超时可以能让卡住的链接快速被放弃，从而提升效率。在配置文件中进行编写：DOWNLOAD_TIMEOUT = <span class="number">10</span> 超时时间为10s</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="下载中间件"><a href="#下载中间件" class="headerlink" title="下载中间件"></a>下载中间件</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2大中间件：下载中间件，爬虫中间件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1 写在middlewares.py中（名字随便命名）</span></span><br><span class="line"><span class="comment"># 2 配置生效（）</span></span><br><span class="line">		SPIDER_MIDDLEWARES = &#123;</span><br><span class="line">   <span class="string">&#x27;cnblogs_crawl.middlewares.CnblogsCrawlSpiderMiddleware&#x27;</span>: <span class="number">543</span>,</span><br><span class="line">&#125;</span><br><span class="line">	DOWNLOADER_MIDDLEWARES = &#123;</span><br><span class="line">   <span class="string">&#x27;cnblogs_crawl.middlewares.CnblogsCrawlDownloaderMiddleware&#x27;</span>: <span class="number">543</span>,</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"><span class="comment"># 2 下载中间件</span></span><br><span class="line">	-process_request：（请求去，走）</span><br><span class="line">  			<span class="comment"># - return None: 继续处理当次请求，进入下一个中间件</span></span><br><span class="line">        <span class="comment"># - return Response： 当次请求结束，把Response丢给引擎处理（可以自己爬，包装成Response）</span></span><br><span class="line">        <span class="comment"># - return Request ： 相当于把Request重新给了引擎，引擎再去做调度</span></span><br><span class="line">        <span class="comment"># - 抛异常：执行process_exception</span></span><br><span class="line">  -process_response：（请求回来，走）</span><br><span class="line">  		  <span class="comment"># - return a Response object ：继续处理当次Response，继续走后续的中间件</span></span><br><span class="line">        <span class="comment"># - return a Request object：重新给引擎做调度</span></span><br><span class="line">        <span class="comment"># - or raise IgnoreRequest ：process_exception</span></span><br><span class="line">  -process_exception：（出异常，走）</span><br><span class="line">  		   <span class="comment"># - return None: continue processing this exception</span></span><br><span class="line">        <span class="comment"># - return a Response object: stops process_exception() chain  ：停止异常处理链，给引擎（给爬虫）</span></span><br><span class="line">        <span class="comment"># - return a Request object: stops process_exception() chain ：停止异常处理链，给引擎（重新调度）</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="集成-selenium"><a href="#集成-selenium" class="headerlink" title="集成 selenium"></a>集成 selenium</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在爬虫已启动，就打开一个chrom浏览器，以后都用这一个浏览器来爬数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1 在爬虫中创建bro对象</span></span><br><span class="line">	bro = webdriver.Chrome(executable_path=<span class="string">&#x27;./chromedriver&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2 中间件中使用：</span></span><br><span class="line">  spider.bro.get(request.url)</span><br><span class="line">  text=spider.bro.page_source</span><br><span class="line">  response=HtmlResponse(url=request.url,status=<span class="number">200</span>,body=text.encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">  <span class="keyword">return</span> response</span><br><span class="line"><span class="comment"># 3 关闭，在爬虫中</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">close</span>(<span class="params">self, reason</span>):</span><br><span class="line">        self.bro.close()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="fack-useragent"><a href="#fack-useragent" class="headerlink" title="fack-useragent"></a>fack-useragent</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 请求头中的user-agent</span></span><br><span class="line"><span class="built_in">list</span>=[<span class="string">&#x27;&#x27;</span>,<span class="string">&#x27;&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># pip3 install fake-useragent</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># https://github.com/hellysmile/fake-useragent</span></span><br><span class="line"><span class="keyword">from</span> fake_useragent <span class="keyword">import</span> UserAgent</span><br><span class="line">ua=UserAgent(verify_ssl=<span class="literal">False</span>)</span><br><span class="line"><span class="built_in">print</span>(ua.random)</span><br></pre></td></tr></table></figure>
+
+<h2 id="去重源码分析"><a href="#去重源码分析" class="headerlink" title="去重源码分析"></a>去重源码分析</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 去重源码分析</span></span><br><span class="line"><span class="comment"># from scrapy.core.scheduler import Scheduler</span></span><br><span class="line"><span class="comment"># Scheduler下：def enqueue_request(self, request)方法判断是否去重</span></span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">not</span> request.dont_filter <span class="keyword">and</span> self.df.request_seen(request):</span><br><span class="line">   	Requests对象，RFPDupeFilter对象</span><br><span class="line"><span class="comment"># 如果要自己写一个去重类</span></span><br><span class="line">	-写一个类，继承BaseDupeFilter类</span><br><span class="line">  -重写<span class="keyword">def</span> <span class="title function_">request_seen</span>(<span class="params">self, request</span>):</span><br><span class="line">  -在setting中配置：DUPEFILTER_CLASS = <span class="string">&#x27;项目名.dup.UrlFilter&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># scrapy起始爬取的地址</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">start_requests</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> self.start_urls:</span><br><span class="line">            <span class="keyword">yield</span> Request(url)</span><br><span class="line">          </span><br></pre></td></tr></table></figure>
+
+<p>增量爬取</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">-增量爬取（<span class="number">100</span>链接，<span class="number">150</span>个链接）</span><br><span class="line">  -已经爬过的，放到某个位置（mysql，redis中：集合）</span><br><span class="line">  -如果用默认的，爬过的地址，放在内存中，只要项目一重启，就没了，它也不知道我爬过那个了，所以要自己重写去重方案</span><br><span class="line">-你写的去重方案，占得内存空间更小</span><br><span class="line">	-bitmap方案</span><br><span class="line">	-BloomFilter布隆过滤器</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">from</span> scrapy.http <span class="keyword">import</span> Request</span><br><span class="line"><span class="keyword">from</span> scrapy.utils.request <span class="keyword">import</span> request_fingerprint</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这种网址是一个</span></span><br><span class="line">requests1=Request(url=<span class="string">&#x27;https://www.baidu.com?name=lqz&amp;age=19&#x27;</span>)</span><br><span class="line">requests2=Request(url=<span class="string">&#x27;https://www.baidu.com?age=18&amp;name=lqz&#x27;</span>)</span><br><span class="line"></span><br><span class="line">ret1=request_fingerprint(requests1)</span><br><span class="line">ret2=request_fingerprint(requests2)</span><br><span class="line"><span class="built_in">print</span>(ret1)</span><br><span class="line"><span class="built_in">print</span>(ret2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># bitmap去重  一个小格表示一个连接地址 32个连接，一个比特位来存一个地址</span></span><br><span class="line"><span class="comment"># https://www.baidu.com?age=18&amp;name=lqz ---》44</span></span><br><span class="line"><span class="comment"># https://www.baidu.com?age=19&amp;name=lqz ---》89</span></span><br><span class="line"><span class="comment"># c2c73dfccf73bf175b903c82b06a31bc7831b545假设它占4个bytes，4*8=32个比特位</span></span><br><span class="line"><span class="comment"># 存一个地址，占32个比特位</span></span><br><span class="line"><span class="comment"># 10个地址，占320个比特位</span></span><br><span class="line"><span class="comment">#计算机计量单位</span></span><br><span class="line"><span class="comment"># 比特位：只能存0和1</span></span><br><span class="line"><span class="comment"># 8个比特位是一个bytes</span></span><br><span class="line"><span class="comment"># 1024bytes=1kb</span></span><br><span class="line"><span class="comment"># 1024kb=1m</span></span><br><span class="line"><span class="comment"># 1024m=1g</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 布隆过滤器：原理和python中如何使用</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">request_seen</span>(<span class="params">self, request</span>):</span><br><span class="line">        <span class="comment"># 把request对象传入request_fingerprint得到一个值：aefasdfeasd</span></span><br><span class="line">        <span class="comment"># 把request对象，唯一生成一个字符串</span></span><br><span class="line">        fp = self.request_fingerprint(request)</span><br><span class="line">        <span class="comment">#判断fp，是否在集合中，在集合中，表示已经爬过，return True，他就不会再爬了</span></span><br><span class="line">        <span class="keyword">if</span> fp <span class="keyword">in</span> self.fingerprints:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="comment"># 如果不在集合中，放到集合中</span></span><br><span class="line">        self.fingerprints.add(fp)</span><br><span class="line">        <span class="keyword">if</span> self.file:</span><br><span class="line">            self.file.write(fp + os.linesep)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="分布式爬虫"><a href="#分布式爬虫" class="headerlink" title="分布式爬虫"></a>分布式爬虫</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1 安装pip3 install scrapy-redis</span></span><br><span class="line"><span class="comment"># 1 原来的爬虫继承</span></span><br><span class="line"><span class="keyword">from</span> scrapy_redis.spiders <span class="keyword">import</span> RedisSpider</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CnblogsSpider</span>(<span class="title class_ inherited__">RedisSpider</span>):</span><br><span class="line">  	<span class="comment">#start_urls = [&#x27;http://www.cnblogs.com/&#x27;]</span></span><br><span class="line">    redis_key = <span class="string">&#x27;myspider:start_urls&#x27;</span></span><br><span class="line">    </span><br><span class="line"><span class="comment"># 2 在setting中配置</span></span><br><span class="line">  SCHEDULER = <span class="string">&quot;scrapy_redis.scheduler.Scheduler&quot;</span></span><br><span class="line">  DUPEFILTER_CLASS = <span class="string">&quot;scrapy_redis.dupefilter.RFPDupeFilter&quot;</span></span><br><span class="line">  ITEM_PIPELINES = &#123;</span><br><span class="line">     <span class="string">&#x27;scrapy_redis.pipelines.RedisPipeline&#x27;</span>: <span class="number">300</span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment"># 3 多台机器上启动scrapy</span></span><br><span class="line"><span class="comment"># 4 向reids中发送起始url</span></span><br><span class="line">lpush myspider:start_urls https://www.cnblogs.com</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Qilitang</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2017/07/09/crawler%207%20%E5%8A%A8%E4%BD%9C%E9%93%BE,%20%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%9512306/" class="pre-post btn btn-default" title='bs4实现动作链'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            bs4实现动作链</span>
+    </a>
+    
+    
+    <a href="/2017/07/07/crawler%205%20Scrapy%E6%A1%86%E6%9E%B6/" class="next-post btn btn-default" title='Scrapy框架'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Scrapy框架</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#scrapy-%E8%AF%B7%E6%B1%82%E4%BC%A0%E5%8F%82"><span class="toc-text">scrapy 请求传参</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E9%AB%98%E7%88%AC%E5%8F%96%E6%95%88%E7%8E%87"><span class="toc-text">提高爬取效率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-text">下载中间件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E6%88%90-selenium"><span class="toc-text">集成 selenium</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fack-useragent"><span class="toc-text">fack-useragent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%BB%E9%87%8D%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-text">去重源码分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%88%AC%E8%99%AB"><span class="toc-text">分布式爬虫</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="#" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+
+</body>
+</html>

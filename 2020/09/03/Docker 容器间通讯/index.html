@@ -1,0 +1,323 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="Docker" />
+
+
+<meta name="description" content="Docker容器间通信Docker会为每个创建的容器自动分配一个虚拟IP，这个虚拟IP无法从容器外侧进行访问，只是Docker环境内部容器间彼此通信的标识，容器间的网络是互通互联的。
+但是通过这..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Docker 容器间通讯 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa fa-home"></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/"><i class="fa fa-th-list"></i>
+                                文章分类</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/tags/"><i class="fa fa-tags"></i>
+                                标签</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa fa-archive"></i>
+                                归档</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Docker 容器间通讯">
+            
+            Docker 容器间通讯
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/Docker/">Docker</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/Docker/" rel="tag">Docker</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/09/03</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="Docker容器间通信"><a href="#Docker容器间通信" class="headerlink" title="Docker容器间通信"></a>Docker容器间通信</h2><p>Docker会为每个创建的容器自动分配一个<strong>虚拟IP</strong>，这个虚拟IP无法从容器外侧进行访问，只是Docker环境内部容器间彼此通信的标识，容器间的网络是互通互联的。</p>
+<p><strong>但是通过这种虚拟IP方式，进行容器间的通信，有一些局限性</strong>。因为在Docker中创建一个容器非常容易，比如说新创建的MySQL容器可能会替代之前创建的MySQL容器，而此时Tomcat服务器中配置的是之前的MySQL容器的Ip地址，因此随着新容器的创建，之前Tomcat配置的Ip地址需要不断的变更，并重启服务。当有很多Tomcat服务器同时连接MySQL数据库时，这个修改工作就是一个很大的工作量。</p>
+<p><strong>那这个问题如何解决呢？</strong></p>
+<p>容器创建时进行命名，配置连接时不在配置IP地址，而是配置容器的名字，这样以后再创建容器时，只要名字不变，就可以自动连接到新创建的容器。</p>
+<p><strong>举例说明：</strong></p>
+<p><strong>（1）创建web服务</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建容器 运行Tomcat服务 --name 为容器命名</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker run -d --name webserver tomcat</span><br></pre></td></tr></table></figure>
+
+<p><strong>（2）创建数据库服务（模拟）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name database -it centos /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>注：命令添加中的-<strong>d -it</strong> 和**&#x2F;bin&#x2F;bash** 是因为centos容器创建完成后，默认就进入退出状态。如果想让其保持运行状态，后台必须保持一个进程在运行，&#x2F;bin&#x2F;bash表示启动容器后启动bash。</p>
+<p><strong>（3）查看正在运行的容器</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200812155425803.png" alt="img"></p>
+<p>（4）查看连个容器的虚拟IP地址</p>
+<p>通过docker inspect [OPTIONS] NAME|ID 命令查看</p>
+<p><strong>docker inspect :</strong> 获取容器&#x2F;镜像的元数据。</p>
+<ul>
+<li>首先查看webserver容器的Ip地址</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect webserver</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200812160157328.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3NjE3Nzc4,size_16,color_FFFFFF,t_70" alt="img"></p>
+<ul>
+<li>查看database容器的IP地址</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect database</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200812160243197.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3NjE3Nzc4,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p><strong>（5）进入webserver容器内容，测试网络</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it webserver /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200812160553340.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3NjE3Nzc4,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p>但是直接ping database却是不通的，因为我们并没有进行相应的网络设置，docker并不知道database和哪个IP是对应的，因此我们可以在创建webserver容器时指定webserver到database的单向通信。</p>
+<h3 id="1、容器间单向通信"><a href="#1、容器间单向通信" class="headerlink" title="1、容器间单向通信"></a>1、容器间单向通信</h3><p>移除上面创建的web容器，并重新创建</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 强制移除webserver容器</span></span><br><span class="line"></span><br><span class="line">docker <span class="built_in">rm</span> -f webserver</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新创建webserver容器 --link 要链接的容器名称 （--link 可以使新生成的容器链接到已在运行的容器）</span></span><br><span class="line"></span><br><span class="line">docker run -d --name webserver --<span class="built_in">link</span> database tomcat</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200812162320893.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3NjE3Nzc4,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p>Tomcat中的数据库连接配置文件中的<strong>url</strong>中的<strong>IP地址</strong>即可换成<strong>database</strong></p>
+<h3 id="2、容器间双向通信"><a href="#2、容器间双向通信" class="headerlink" title="2、容器间双向通信"></a>2、容器间双向通信</h3><p><img src="https://img-blog.csdnimg.cn/2020081216451796.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3NjE3Nzc4,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p>图中的网桥充当了Docker容器和外界宿主机之间的通信源，使得容器内部也可以访问互联网</p>
+<p>例如在webserver内部可以访问百度</p>
+<p><img src="https://img-blog.csdnimg.cn/20200812164801515.png" alt="img"></p>
+<p>网桥也可以用于容器内部，实现容器间的双向通信。不仅如此网桥还有另一个重要作用，就是对容器从网络层面进行分组</p>
+<p>（1）通过【docker network ls 】列出当前网络状况明细</p>
+<p><img src="https://img-blog.csdnimg.cn/20200812165323923.png" alt="img"></p>
+<p>上图中列出的bridge即为容器和外界通信的桥梁，如果我们想实现容器内部的双向通信也可以创建一个网桥，具体操作过程如下：</p>
+<p>（2）创建网桥</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建网桥</span></span><br><span class="line"></span><br><span class="line">docker network create -d bridge my-bridge</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行命令进行查看</span></span><br><span class="line"></span><br><span class="line">docker network <span class="built_in">ls</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200812170200462.png" alt="img"></p>
+<p>（3）将需要通信的容器添加到网桥中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker network connect my-bridge webserver</span><br><span class="line"></span><br><span class="line">docker network connect my-bridge database</span><br></pre></td></tr></table></figure>
+
+<p>（4）进入容器进行验证是否能够互相通信</p>
+<p><img src="https://img-blog.csdnimg.cn/20200812170457927.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3NjE3Nzc4,size_16,color_FFFFFF,t_70" alt="img"><img src="https://img-blog.csdnimg.cn/20200812170540602.png" alt="img"></p>
+<p>网桥的原理：创建一个网桥，就相当于在宿主机上安装了一个虚拟网卡，这个虚拟网卡也承担了网关的作用。虚拟网卡和物理网卡之间需要做地址转换</p>
+<p><img src="https://img-blog.csdnimg.cn/20200812170908689.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3NjE3Nzc4,size_16,color_FFFFFF,t_70" alt="img"></p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Qilitang</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2020/09/06/ElasticSearch%2008%20term%E4%B8%8Ematch/" class="pre-post btn btn-default" title='ElasticSearch 09 term 与 match'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            ElasticSearch 09 term 与 match</span>
+    </a>
+    
+    
+    <a href="/2020/09/03/Docker-compose/" class="next-post btn btn-default" title='Docker-compose'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Docker-compose</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker%E5%AE%B9%E5%99%A8%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="toc-text">Docker容器间通信</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%AE%B9%E5%99%A8%E9%97%B4%E5%8D%95%E5%90%91%E9%80%9A%E4%BF%A1"><span class="toc-text">1、容器间单向通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%AE%B9%E5%99%A8%E9%97%B4%E5%8F%8C%E5%90%91%E9%80%9A%E4%BF%A1"><span class="toc-text">2、容器间双向通信</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="#" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+
+</body>
+</html>

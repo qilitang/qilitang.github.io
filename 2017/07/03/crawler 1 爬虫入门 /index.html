@@ -1,0 +1,350 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="requests模块" />
+
+
+<meta name="description" content="爬虫介绍12345# 1 本质：模拟发送http请求（requests）----》解析返回数据（re，bs4，lxml，json）---》入库（redis，mysql，mongodb）# 2 a..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    爬虫入门/requests模块 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa fa-home"></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/"><i class="fa fa-th-list"></i>
+                                文章分类</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/tags/"><i class="fa fa-tags"></i>
+                                标签</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa fa-archive"></i>
+                                归档</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="爬虫入门/requests模块">
+            
+            爬虫入门/requests模块
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E7%88%AC%E8%99%AB/">爬虫</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/requests%E6%A8%A1%E5%9D%97/" rel="tag">requests模块</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2017/07/03</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="爬虫介绍"><a href="#爬虫介绍" class="headerlink" title="爬虫介绍"></a>爬虫介绍</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1 本质：模拟发送http请求（requests）----》解析返回数据（re，bs4，lxml，json）---》入库（redis，mysql，mongodb）</span></span><br><span class="line"><span class="comment"># 2 app爬虫：本质一模一样</span></span><br><span class="line"><span class="comment"># 3 为什么python做爬虫最好：包多，爬虫框架：scrapy：性能很高的爬虫框架，爬虫界的django，大而全（爬虫相关的东西都集成了）</span></span><br><span class="line"><span class="comment"># 4 百度，谷歌，就是个大爬虫  在百度搜索，其实是去百度的服务器的库搜的，百度一直开着爬虫，一刻不停的在互联网上爬取，把页面存储到自己库中</span></span><br><span class="line"><span class="comment"># 5 全文检索：全文检索</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="requests-模块"><a href="#requests-模块" class="headerlink" title="requests  模块"></a>requests  模块</h3><p>requests模块是基于urllib2 内置库的基础上封装的一个模块, 被广泛应用</p>
+<ul>
+<li>安装方法</li>
+</ul>
+<p>  <code>pip3 install requests</code></p>
+<h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><ul>
+<li>返回值的属性</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># # 发送http请求</span></span><br><span class="line"><span class="comment"># # get,delete,post。。本质都是调用request函数</span></span><br><span class="line"><span class="comment"># ret=requests.get(&#x27;https://www.cnblogs.com&#x27;)</span></span><br><span class="line"><span class="comment"># print(ret.status_code) # 响应状态码</span></span><br><span class="line"><span class="comment"># print(ret.text)  # 响应体，转成了字符串</span></span><br><span class="line"><span class="comment"># print(ret.content) # 响应体，二进制</span></span><br><span class="line"><span class="comment"># ret=requests.post()\</span></span><br><span class="line"><span class="comment"># ret=requests.request(&quot;get&quot;,)</span></span><br><span class="line"><span class="comment"># ret=requests.delete()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## get 请求 带参数</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>get请求带参数</li>
+</ul>
+<p>  方式一</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ret = requests.get(<span class="string">&#x27;https://www.baidu.com/&#x27;</span>,</span><br><span class="line">                    headers=&#123;</span><br><span class="line">                         <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36&#x27;</span>,</span><br><span class="line">                                          &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>  方式二（建议用方式二）中文会自动转码</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ret=requests.get(<span class="string">&#x27;http://0.0.0.0:8001/&#x27;</span>,params=&#123;<span class="string">&#x27;name&#x27;</span>:<span class="string">&quot;美女&quot;</span>,<span class="string">&#x27;age&#x27;</span>:<span class="number">18</span>&#125;)</span><br><span class="line"><span class="built_in">print</span>(ret.text)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>带 headers</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">ret = requests.get(<span class="string">&#x27;http://0.0.0.0:8001/?name=%E7%BE%8E%E5%A5%B3&#x27;</span>,</span><br><span class="line">                   headers=&#123;</span><br><span class="line">                       <span class="comment"># 标志，什么东西发出的请求，浏览器信息，django框架，从哪取？（meta）</span></span><br><span class="line">                       <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;request&#x27;</span>,</span><br><span class="line">                      <span class="comment"># 上一个页面的地址，图片防盗链</span></span><br><span class="line">                       <span class="string">&#x27;Referer&#x27;</span>: <span class="string">&#x27;xxx&#x27;</span></span><br><span class="line">                  &#125;)</span><br><span class="line"><span class="built_in">print</span>(ret)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 图片防盗链：如果图片的referer不是我自己的网站，就直接禁止掉</span></span><br><span class="line">&lt;img src=<span class="string">&quot;https://www.lgstatic.com/lg-community-fed/community/modules/common/img/avatar_default_7225407.png&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>带 cookie</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 带cookie,随机字符串(用户信息：也代表session)，不管后台用的token认证，还是session认证</span></span><br><span class="line"><span class="comment"># 一旦登陆了，带着cookie发送请求，表示登陆了（下单，12306买票，评论）</span></span><br></pre></td></tr></table></figure>
+
+<p>方式一</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ret = requests.get(<span class="string">&#x27;http://0.0.0.0:8001/?name=%E7%BE%8E%E5%A5%B3&#x27;</span>,</span><br><span class="line">                   headers=&#123;</span><br><span class="line">                       <span class="string">&#x27;cookie&#x27;</span>: <span class="string">&#x27;key3=value;key2=value&#x27;</span>,</span><br><span class="line">                   &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>方式二</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ret = requests.get(<span class="string">&#x27;http://0.0.0.0:8001/?name=%E7%BE%8E%E5%A5%B3&#x27;</span>,</span><br><span class="line">                   cookies=&#123;<span class="string">&quot;islogin&quot;</span>:<span class="string">&quot;xxx&quot;</span>&#125;)</span><br><span class="line"><span class="built_in">print</span>(ret)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发送post 请求</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span> 发送post请求（注册，登陆），携带数据（body）</span><br><span class="line">data=<span class="literal">None</span>, json=<span class="literal">None</span></span><br><span class="line"><span class="comment"># data:urlencoded编码</span></span><br><span class="line">ret=requests.post(<span class="string">&#x27;http://0.0.0.0:8001/&#x27;</span>,data=&#123;<span class="string">&#x27;name&#x27;</span>:<span class="string">&quot;lqz&quot;</span>,<span class="string">&#x27;age&#x27;</span>:<span class="number">18</span>&#125;)</span><br><span class="line"><span class="comment"># json:json编码</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line">data=json.dumps(&#123;<span class="string">&#x27;name&#x27;</span>:<span class="string">&quot;lqz&quot;</span>,<span class="string">&#x27;age&#x27;</span>:<span class="number">18</span>&#125;)</span><br><span class="line">ret=requests.post(<span class="string">&#x27;http://0.0.0.0:8001/&#x27;</span>,json=data)</span><br><span class="line"><span class="built_in">print</span>(ret)</span><br><span class="line"><span class="comment"># 注意：编码格式是请求头中带的，所有我可以手动修改，在headers中改</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>session 对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">session=requests.session()</span><br><span class="line"><span class="comment"># 跟requests.get/post用起来完全一样，但是它处理了cookie</span></span><br><span class="line"><span class="comment"># 假设是一个登陆，并且成功</span></span><br><span class="line">session.post()</span><br><span class="line"><span class="comment"># 再向该网站发请求，就是登陆状态，不需要手动携带cookie</span></span><br><span class="line">session.get(<span class="string">&quot;地址&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>响应对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(respone.text)   <span class="comment"># 响应体转成str</span></span><br><span class="line"><span class="built_in">print</span>(respone.content) <span class="comment"># 响应体二进制（图片，视频）</span></span><br><span class="line"><span class="built_in">print</span>(respone.status_code) <span class="comment"># 响应状态码</span></span><br><span class="line"><span class="built_in">print</span>(respone.headers) <span class="comment"># 响应头</span></span><br><span class="line"><span class="built_in">print</span>(respone.cookies) <span class="comment"># 服务端返回的cookie</span></span><br><span class="line"><span class="built_in">print</span>(respone.cookies.get_dict()) <span class="comment"># 转成字典</span></span><br><span class="line"><span class="built_in">print</span>(respone.cookies.items())</span><br><span class="line"><span class="built_in">print</span>(respone.url)  <span class="comment"># 当次请求的地址</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(respone.history) <span class="comment"># 如果有重定向，放到一个列表中</span></span><br><span class="line">ret=requests.post(<span class="string">&#x27;http://0.0.0.0:8001/&#x27;</span>)</span><br><span class="line">ret=requests.get(<span class="string">&#x27;http://0.0.0.0:8001/admin&#x27;</span>)</span><br><span class="line"><span class="comment">#不要误解</span></span><br><span class="line">ret=requests.get(<span class="string">&#x27;http://0.0.0.0:8001/user&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(ret.history)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(respone.encoding) <span class="comment"># 编码方式</span></span><br><span class="line">response.iter_content() <span class="comment"># 视频，图片迭代取值</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;a.mp4&quot;</span>,<span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> response.iter_content():</span><br><span class="line">        f.write(lin</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>乱码问题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加载回来的页面，打印出来，乱码（我们用的是utf8编码），如果网站用gbk，</span></span><br><span class="line">ret.encoding=<span class="string">&#x27;gbk&#x27;</span></span><br><span class="line">ret=requests.get(<span class="string">&#x27;http://0.0.0.0:8001/user&#x27;</span>)</span><br><span class="line"><span class="comment"># ret.apparent_encoding当前页面的编码</span></span><br><span class="line">ret.encoding=ret.apparent_encoding</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解析json</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 返回数据，有可能是json格式，有可能是html格式</span></span><br><span class="line">ret=requests.get(<span class="string">&#x27;http://0.0.0.0:8001/&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(ret.text))</span><br><span class="line"><span class="built_in">print</span>(ret.text)</span><br><span class="line"><span class="comment">#</span></span><br><span class="line">a=ret.json()</span><br><span class="line"><span class="built_in">print</span>(a[<span class="string">&#x27;name&#x27;</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(a))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用代理 proxies&#x3D;{}</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 正向代理</span></span><br><span class="line"><span class="comment"># django如何拿到客户端ip地址 META.get(&quot;REMOTE_ADDR&quot;)</span></span><br><span class="line"><span class="comment"># 如何去获取代理，如何使用（用自己项目验收）</span></span><br><span class="line"><span class="comment"># 使用代理有什么用</span></span><br><span class="line">ret=requests.get(<span class="string">&#x27;http://0.0.0.0:8001/&#x27;</span>,proxies=&#123;<span class="string">&#x27;http&#x27;</span>:<span class="string">&#x27;地址&#x27;</span>&#125;)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(ret.text))</span><br><span class="line"><span class="built_in">print</span>(ret.text)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>异常处理</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用try except捕获一下 就用它就型了：Exception</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上传文件 (爬虫用的比较少，后台写服务，)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">file=&#123;<span class="string">&#x27;myfile&#x27;</span>:<span class="built_in">open</span>(<span class="string">&quot;1.txt&quot;</span>,<span class="string">&#x27;rb&#x27;</span>)&#125;</span><br><span class="line">ret=requests.post(<span class="string">&#x27;http://0.0.0.0:8001/&#x27;</span>,files=file)</span><br><span class="line"><span class="built_in">print</span>(ret.content)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="爬梨视频"><a href="#爬梨视频" class="headerlink" title="爬梨视频"></a>爬梨视频</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">############</span></span><br><span class="line"><span class="comment"># 2 爬取视频</span></span><br><span class="line"><span class="comment">#############</span></span><br><span class="line"><span class="comment">#categoryId=9 分类id</span></span><br><span class="line"><span class="comment">#start=0 从哪个位置开始，每次加载12个</span></span><br><span class="line"><span class="comment"># https://www.pearvideo.com/category_loading.jsp?reqType=5&amp;categoryId=9&amp;start=0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">ret=requests.get(<span class="string">&#x27;https://www.pearvideo.com/category_loading.jsp?reqType=5&amp;categoryId=9&amp;start=0&#x27;</span>)</span><br><span class="line"><span class="comment"># print(ret.text)</span></span><br><span class="line"><span class="comment"># 正则取解析</span></span><br><span class="line">reg=<span class="string">&#x27;&lt;a href=&quot;(.*?)&quot; class=&quot;vervideo-lilink actplay&quot;&gt;&#x27;</span></span><br><span class="line">video_urls=re.findall(reg,ret.text)</span><br><span class="line"><span class="built_in">print</span>(video_urls)</span><br><span class="line"><span class="keyword">for</span> url <span class="keyword">in</span> video_urls:</span><br><span class="line">    ret_detail=requests.get(<span class="string">&#x27;https://www.pearvideo.com/&#x27;</span>+url)</span><br><span class="line">    reg=<span class="string">&#x27;srcUrl=&quot;(.*?)&quot;,vdoUrl=srcUrl&#x27;</span></span><br><span class="line">    mp4_url=re.findall(reg,ret_detail.text)[<span class="number">0</span>] <span class="comment">#type:str</span></span><br><span class="line">    <span class="comment"># 下载视频</span></span><br><span class="line">    video_content=requests.get(mp4_url)</span><br><span class="line">    video_name=mp4_url.rsplit(<span class="string">&#x27;/&#x27;</span>,<span class="number">1</span>)[-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(video_name,<span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> video_content.iter_content():</span><br><span class="line">            f.write(line)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="模拟登陆"><a href="#模拟登陆" class="headerlink" title="模拟登陆"></a>模拟登陆</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">############</span></span><br><span class="line"><span class="comment"># 3 模拟登陆某网站</span></span><br><span class="line"><span class="comment">#############</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">ret = requests.post(<span class="string">&#x27;http://www.aa7a.cn/user.php&#x27;</span>,</span><br><span class="line">                    data=&#123;</span><br><span class="line">                        <span class="string">&#x27;username&#x27;</span>: <span class="string">&#x27;616564099@qq.com&#x27;</span>,</span><br><span class="line">                        <span class="string">&#x27;password&#x27;</span>: <span class="string">&#x27;lqz123&#x27;</span>,</span><br><span class="line">                        <span class="string">&#x27;captcha&#x27;</span>: <span class="string">&#x27;f5jn&#x27;</span>,</span><br><span class="line">                        <span class="string">&#x27;remember&#x27;</span>: <span class="string">&#x27;1&#x27;</span>,</span><br><span class="line">                        <span class="string">&#x27;ref&#x27;</span>: <span class="string">&#x27;http://www.aa7a.cn/&#x27;</span>,</span><br><span class="line">                        <span class="string">&#x27;act&#x27;</span>: <span class="string">&#x27;act_login&#x27;</span>,</span><br><span class="line">                    &#125;)</span><br><span class="line">cookie=ret.cookies.get_dict()</span><br><span class="line"><span class="built_in">print</span>(cookie)</span><br><span class="line"><span class="comment"># 如果不出意外，咱么就登陆上了,再向首页发请求，首页返回的数据中就有616564099@qq.com</span></span><br><span class="line">ret1=requests.get(<span class="string">&#x27;http://www.aa7a.cn/&#x27;</span>,cookies=cookie)</span><br><span class="line"><span class="comment"># ret1=requests.get(&#x27;http://www.aa7a.cn/&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;616564099@qq.com&#x27;</span> <span class="keyword">in</span> ret1.text)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 秒杀小米手机，一堆小号</span></span><br><span class="line"><span class="comment"># 定时任务：一到时间，就可以发送post请求，秒杀手机</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 以后碰到特别难登陆的网站，代码登陆不进去怎么办？</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 之所以要登陆，就是为了拿到cookie，下次发请求（如果程序拿不到cookie，自动登陆不进去）</span></span><br><span class="line"><span class="comment"># 就手动登陆进去，然后用程序发请求</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Qilitang</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2017/07/04/crawler%202%20%E7%88%AC%E8%99%AB%E9%AB%98%E7%BA%A7/" class="pre-post btn btn-default" title='bs4'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            bs4</span>
+    </a>
+    
+    
+    <a href="/2017/06/03/HTTP0.9%20HTTP1.0%20HTTP1.1%20HTTP2.9%E5%8C%BA%E5%88%AB/" class="next-post btn btn-default" title='HTTP 协议'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            HTTP 协议</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%AC%E8%99%AB%E4%BB%8B%E7%BB%8D"><span class="toc-text">爬虫介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#requests-%E6%A8%A1%E5%9D%97"><span class="toc-text">requests  模块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-text">基本使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%AC%E6%A2%A8%E8%A7%86%E9%A2%91"><span class="toc-text">爬梨视频</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E7%99%BB%E9%99%86"><span class="toc-text">模拟登陆</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="#" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+
+</body>
+</html>

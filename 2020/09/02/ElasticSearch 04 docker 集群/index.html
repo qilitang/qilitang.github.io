@@ -1,0 +1,290 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="Es Docker" />
+
+
+<meta name="description" content="Elasticsearch以7.2.0为例
+挂载在宿主机上创建Elasticsearch的数据存储、config配置目录eg:
+123456# 在 Document 下创建 ElasticSea..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    ElasticSearch 04 docker 集群 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa fa-home"></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/"><i class="fa fa-th-list"></i>
+                                文章分类</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/tags/"><i class="fa fa-tags"></i>
+                                标签</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa fa-archive"></i>
+                                归档</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="ElasticSearch 04 docker 集群">
+            
+            ElasticSearch 04 docker 集群
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/ElasticSearch/">ElasticSearch</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/Es-Docker/" rel="tag">Es Docker</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/09/02</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h2><p>以7.2.0为例</p>
+<h3 id="挂载"><a href="#挂载" class="headerlink" title="挂载"></a>挂载</h3><p>在宿主机上创建Elasticsearch的数据存储、config配置目录<br>eg:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 Document 下创建 ElasticSearch 文件夹， 然后再创建 conf  data logs  文件夹 用于放置 es的数据， 配置 ， 日志文件</span></span><br><span class="line"><span class="built_in">mkdir</span> ELasticSearch</span><br><span class="line"><span class="built_in">cd</span> ElasticSearch</span><br><span class="line"><span class="built_in">mkdir</span> config</span><br><span class="line"><span class="built_in">mkdir</span> logs</span><br><span class="line"><span class="built_in">mkdir</span> data</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>新建用户 adduser es<br>数据存储需要赋予权限：sudo chown -R 1000:1000 ~&#x2F;ELasticSearch&#x2F;data</p>
+</blockquote>
+<h3 id="Elasticsearch配置"><a href="#Elasticsearch配置" class="headerlink" title="Elasticsearch配置"></a>Elasticsearch配置</h3><p>在 ~&#x2F;ELasticSearch&#x2F;data&#x2F;config文件夹下新建elasticsearch.yml、 jvm.options</p>
+<p>具体内容可以参考：<br>elasticsearch.yml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cluster.name: business-log</span><br><span class="line">node.name: es-b-188</span><br><span class="line">http.port: 9200</span><br><span class="line">transport.tcp.port: 9301</span><br><span class="line">network.bind_host: 10.133.0.188</span><br><span class="line">network.publish_host: 10.133.0.188</span><br></pre></td></tr></table></figure>
+
+<p>jvm.options</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line">## JVM configuration</span><br><span class="line"></span><br><span class="line">################################################################</span><br><span class="line">## IMPORTANT: JVM heap size</span><br><span class="line">################################################################</span><br><span class="line">##</span><br><span class="line">## You should always set the min and max JVM heap</span><br><span class="line">## size to the same value. For example, to set</span><br><span class="line">## the heap to 4 GB, set:</span><br><span class="line">##</span><br><span class="line">## -Xms4g</span><br><span class="line">## -Xmx4g</span><br><span class="line">##</span><br><span class="line">## See https://www.elastic.co/guide/en/elasticsearch/reference/current/heap-size.html</span><br><span class="line">## for more information</span><br><span class="line">##</span><br><span class="line">################################################################</span><br><span class="line"></span><br><span class="line"># Xms represents the initial size of total heap space</span><br><span class="line"># Xmx represents the maximum size of total heap space</span><br><span class="line"></span><br><span class="line">-Xms26g</span><br><span class="line">-Xmx26g</span><br><span class="line"></span><br><span class="line">################################################################</span><br><span class="line">## Expert settings</span><br><span class="line">################################################################</span><br><span class="line">##</span><br><span class="line">## All settings below this section are considered</span><br><span class="line">## expert settings. Don&#x27;t tamper with them unless</span><br><span class="line">## you understand what you are doing</span><br><span class="line">##</span><br><span class="line">################################################################</span><br><span class="line"></span><br><span class="line">## GC configuration</span><br><span class="line">#-XX:+UseConcMarkSweepGC</span><br><span class="line">#-XX:CMSInitiatingOccupancyFraction=75</span><br><span class="line">#-XX:+UseCMSInitiatingOccupancyOnly</span><br><span class="line"></span><br><span class="line">## G1GC Configuration</span><br><span class="line"># NOTE: G1GC is only supported on JDK version 10 or later.</span><br><span class="line"># To use G1GC uncomment the lines below.</span><br><span class="line">#-XX:-UseConcMarkSweepGC</span><br><span class="line">#-XX:-UseCMSInitiatingOccupancyOnly</span><br><span class="line">-XX:+UseG1GC</span><br><span class="line">-XX:InitiatingHeapOccupancyPercent=75</span><br><span class="line"></span><br><span class="line">## DNS cache policy</span><br><span class="line"># cache ttl in seconds for positive DNS lookups noting that this overrides the</span><br><span class="line"># JDK security property networkaddress.cache.ttl; set to -1 to cache forever</span><br><span class="line">-Des.networkaddress.cache.ttl=60</span><br><span class="line"># cache ttl in seconds for negative DNS lookups noting that this overrides the</span><br><span class="line"># JDK security property networkaddress.cache.negative ttl; set to -1 to cache</span><br><span class="line"># forever</span><br><span class="line">-Des.networkaddress.cache.negative.ttl=10</span><br><span class="line"></span><br><span class="line">## optimizations</span><br><span class="line"></span><br><span class="line"># pre-touch memory pages used by the JVM during initialization</span><br><span class="line">-XX:+AlwaysPreTouch</span><br><span class="line"></span><br><span class="line">## basic</span><br><span class="line"></span><br><span class="line"># explicitly set the stack size</span><br><span class="line">-Xss1m</span><br><span class="line"></span><br><span class="line"># set to headless, just in case</span><br><span class="line">-Djava.awt.headless=true</span><br><span class="line"></span><br><span class="line"># ensure UTF-8 encoding by default (e.g. filenames)</span><br><span class="line">-Dfile.encoding=UTF-8</span><br><span class="line"></span><br><span class="line"># use our provided JNA always versus the system one</span><br><span class="line">-Djna.nosys=true</span><br><span class="line"></span><br><span class="line"># turn off a JDK optimization that throws away stack traces for common</span><br><span class="line"># exceptions because stack traces are important for debugging</span><br><span class="line">-XX:-OmitStackTraceInFastThrow</span><br><span class="line"></span><br><span class="line"># flags to configure Netty</span><br><span class="line">-Dio.netty.noUnsafe=true</span><br><span class="line">-Dio.netty.noKeySetOptimization=true</span><br><span class="line">-Dio.netty.recycler.maxCapacityPerThread=0</span><br><span class="line"></span><br><span class="line"># log4j 2</span><br><span class="line">-Dlog4j.shutdownHookEnabled=false</span><br><span class="line">-Dlog4j2.disable.jmx=true</span><br><span class="line"></span><br><span class="line">-Djava.io.tmpdir=$&#123;ES_TMPDIR&#125;</span><br><span class="line"></span><br><span class="line">## heap dumps</span><br><span class="line"></span><br><span class="line"># generate a heap dump when an allocation from the Java heap fails</span><br><span class="line"># heap dumps are created in the working directory of the JVM</span><br><span class="line">-XX:+HeapDumpOnOutOfMemoryError</span><br><span class="line"></span><br><span class="line"># specify an alternative path for heap dumps; ensure the directory exists and</span><br><span class="line"># has sufficient space</span><br><span class="line">-XX:HeapDumpPath=data</span><br><span class="line"></span><br><span class="line"># specify an alternative path for JVM fatal error logs</span><br><span class="line">-XX:ErrorFile=logs/hs_err_pid%p.log</span><br><span class="line"></span><br><span class="line">## JDK 8 GC logging</span><br><span class="line"></span><br><span class="line">8:-XX:+PrintGCDetails</span><br><span class="line">8:-XX:+PrintGCDateStamps</span><br><span class="line">8:-XX:+PrintTenuringDistribution</span><br><span class="line">8:-XX:+PrintGCApplicationStoppedTime</span><br><span class="line">8:-Xloggc:logs/gc.log</span><br><span class="line">8:-XX:+UseGCLogFileRotation</span><br><span class="line">8:-XX:NumberOfGCLogFiles=32</span><br><span class="line">8:-XX:GCLogFileSize=64m</span><br><span class="line"></span><br><span class="line"># JDK 9+ GC logging</span><br><span class="line">9-:-Xlog:gc*,gc+age=trace,safepoint:file=logs/gc.log:utctime,pid,tags:filecount=32,filesize=64m</span><br><span class="line"># due to internationalization enhancements in JDK 9 Elasticsearch need to set the provider to COMPAT otherwise</span><br><span class="line"># time/date parsing will break in an incompatible way for some date patterns and locals</span><br><span class="line">9-:-Djava.locale.providers=COMPAT</span><br><span class="line">123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>创建docker-compose.yml文件，内容如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;2.2&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">elasticsearch:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">elasticsearch:7.2.0</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">es-a</span></span><br><span class="line">    <span class="attr">network_mode:</span> <span class="string">host</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/home/zhang/Documents/ElasticSearch/data-a:/usr/share/elasticsearch/data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/home/zhang/Documents/ElasticSearch/config/el-a.yml:/usr/share/elasticsearch/config/elasticsearch.yml</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/home/zhang/Documents/ElasticSearch/config/jvm.options:/usr/share/elasticsearch/config/jvm.options</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">bootstrap.memory_lock=true</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">ES_JAVA_OPTS=</span> <span class="string">-Xms64m</span> <span class="string">-Xmx128m</span></span><br><span class="line">    <span class="attr">ulimits:</span></span><br><span class="line">      <span class="attr">memlock:</span></span><br><span class="line">        <span class="attr">soft:</span> <span class="number">-1</span></span><br><span class="line">        <span class="attr">hard:</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="启动："><a href="#启动：" class="headerlink" title="启动："></a>启动：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在使用  docker-compose 创建容器的过程中  创建端口映射不成功  所以使用一下命令创建， 可解决此问题。</span></span><br><span class="line">sudo docker run -<span class="built_in">id</span> --name=es-a -p 9200:9200 -p 9300:9300 -v /home/zhang/Documents/ElasticSearch/data/data-a:/usr/share/elasticsearch/data -v /home/zhang/Documents/ElasticSearch/config/el-a.yml:/usr/share/elasticsearch/config/elasticsearch.yml -v /home/zhang/Documents/ElasticSearch/config/jvm.options:/usr/share/elasticsearch/config/jvm.options -e <span class="string">&quot;discovery.type=single-node&quot;</span> -e <span class="string">&quot;ES_JAVA_OPTS= -Xms1024m -Xmx1024m&quot;</span> elasticsearch:7.2.0</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><p>elasticsearch.yml、jvm.options、docker-compose.yml等每个节点都需要配置，其中elasticsearch.yml、docker-compose.yml具体节点信息需要替换。</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Qilitang</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2020/09/03/ElasticSearch%2008%20es%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C/" class="pre-post btn btn-default" title='ElasticSearch 08 es简单操作'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            ElasticSearch 08 es简单操作</span>
+    </a>
+    
+    
+    <a href="/2020/08/31/ElasticSearch%2001%20%E5%85%A5%E9%97%A8/" class="next-post btn btn-default" title='ElasticSearch 01 什么是ElasticSearch'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            ElasticSearch 01 什么是ElasticSearch</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Elasticsearch"><span class="toc-text">Elasticsearch</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%82%E8%BD%BD"><span class="toc-text">挂载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Elasticsearch%E9%85%8D%E7%BD%AE"><span class="toc-text">Elasticsearch配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8"><span class="toc-text">启动</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%EF%BC%9A"><span class="toc-text">启动：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%87%E6%B3%A8"><span class="toc-text">备注</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="#" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+
+</body>
+</html>

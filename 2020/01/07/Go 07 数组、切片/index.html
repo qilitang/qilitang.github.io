@@ -1,0 +1,332 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="数组1、定义123456//1 基本使用：定义//定义了一个大小为3的int类型数组//数组在定义阶段，大小和类型就固定了var a [3]int    //只定义，没有初始化fmt.Print..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Go 数组/切片/map |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa fa-home"></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/"><i class="fa fa-th-list"></i>
+                                文章分类</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/tags/"><i class="fa fa-tags"></i>
+                                标签</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa fa-archive"></i>
+                                归档</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Go 数组/切片/map">
+            
+            Go 数组/切片/map
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/GO/">GO</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/01/07</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h3 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1 基本使用：定义</span></span><br><span class="line"><span class="comment">//定义了一个大小为3的int类型数组</span></span><br><span class="line"><span class="comment">//数组在定义阶段，大小和类型就固定了</span></span><br><span class="line"><span class="keyword">var</span> a [<span class="number">3</span>]<span class="type">int</span>    <span class="comment">//只定义，没有初始化</span></span><br><span class="line">fmt.Println(a)</span><br><span class="line"><span class="comment">// 因int 类型的0值是0 所以， 未初始化数组是[0,0,0]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、使用数组"><a href="#2、使用数组" class="headerlink" title="2、使用数组"></a>2、使用数组</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a [<span class="number">3</span>]<span class="type">int</span></span><br><span class="line">a[<span class="number">2</span>]=<span class="number">100</span></span><br><span class="line">fmt.Println(a) <span class="comment">// [0,0,100]</span></span><br><span class="line">fmt.Println(a[<span class="number">0</span>]) <span class="comment">// 100</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、定义并赋值"><a href="#3、定义并赋值" class="headerlink" title="3、定义并赋值"></a>3、定义并赋值</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方式1</span></span><br><span class="line"><span class="keyword">var</span> a [<span class="number">3</span>]<span class="type">int</span>=[<span class="number">3</span>]<span class="type">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;</span><br><span class="line"><span class="comment">// 方式2</span></span><br><span class="line"><span class="keyword">var</span> a =[<span class="number">3</span>]<span class="type">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;</span><br><span class="line"><span class="comment">// 方式3</span></span><br><span class="line">a := [<span class="number">3</span>]<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//只给第2个位置设为99</span></span><br><span class="line">a := [<span class="number">3</span>]<span class="type">int</span>&#123;<span class="number">2</span>:<span class="number">99</span>&#125;</span><br><span class="line"><span class="comment">// 进阶版</span></span><br><span class="line">a := [<span class="number">3</span>]<span class="type">int</span>&#123;<span class="number">2</span>:<span class="number">99</span>,<span class="number">1</span>:<span class="number">88</span>&#125;</span><br><span class="line">fmt.Println(a)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="4、数组的大小是类型的一部分"><a href="#4、数组的大小是类型的一部分" class="headerlink" title="4、数组的大小是类型的一部分"></a>4、数组的大小是类型的一部分</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这两个不是一个类型</span></span><br><span class="line"><span class="keyword">var</span> a [<span class="number">2</span>]<span class="type">int</span></span><br><span class="line"><span class="keyword">var</span> b [<span class="number">3</span>]<span class="type">int</span></span><br><span class="line">a=b <span class="comment">// 类型不一样 无法赋值</span></span><br><span class="line">fmt.Println(a&gt;b)  <span class="comment">// 类型不一样 无法比较</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5、数组是值类型（当参数传递到函数中，修改不会改变原来的值）"><a href="#5、数组是值类型（当参数传递到函数中，修改不会改变原来的值）" class="headerlink" title="5、数组是值类型（当参数传递到函数中，修改不会改变原来的值）"></a>5、数组是值类型（当参数传递到函数中，修改不会改变原来的值）</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// go语言中，都是copy传递</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	python中都是引用传递，一切皆对象，就是地址，当做参数传递是把地址传过去了</span></span><br><span class="line"><span class="comment">	python中比较特殊：可变类型和不可变类型</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line"><span class="keyword">var</span> a [<span class="number">3</span>]<span class="type">int</span>=[<span class="number">3</span>]<span class="type">int</span>&#123;<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>&#125;</span><br><span class="line">fmt.Println(a)</span><br><span class="line">test1(a)</span><br><span class="line">fmt.Println(a)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test</span><span class="params">(a <span class="type">int</span>)</span></span>&#123;</span><br><span class="line">  a[<span class="number">0</span>]=<span class="number">999</span></span><br><span class="line">  fmt.Println(a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、数组长度（len-）"><a href="#6、数组长度（len-）" class="headerlink" title="6、数组长度（len()）"></a>6、数组长度（len()）</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a [<span class="number">3</span>]<span class="type">int</span>=[<span class="number">3</span>]<span class="type">int</span>&#123;<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>&#125;</span><br><span class="line">fmt.Println(<span class="built_in">len</span>(a))</span><br></pre></td></tr></table></figure>
+
+<h3 id="7、循环数组"><a href="#7、循环数组" class="headerlink" title="7、循环数组"></a>7、循环数组</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方式一</span></span><br><span class="line"><span class="keyword">var</span> a [<span class="number">3</span>]<span class="type">int</span>=[<span class="number">3</span>]<span class="type">int</span>&#123;<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>&#125;</span><br><span class="line"><span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="built_in">len</span>(a);i++&#123;</span><br><span class="line">	fmt.Println(a[i])</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方式二</span></span><br><span class="line"><span class="keyword">range</span>:是一个关键字</span><br><span class="line"><span class="keyword">var</span> a [<span class="number">3</span>]<span class="type">int</span>=[<span class="number">3</span>]<span class="type">int</span>&#123;<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>&#125;</span><br><span class="line"><span class="keyword">for</span> i,v:=<span class="keyword">range</span> a&#123;</span><br><span class="line">	fmt.Println(i)  <span class="comment">//索引</span></span><br><span class="line">	fmt.Println(v)  <span class="comment">//数组的值</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//函数如果返回两个值，必须用两个值来接收</span></span><br><span class="line"><span class="comment">//range可以用一个值来接收，如果用一个值来接收，就是索引</span></span><br><span class="line"><span class="keyword">for</span> i:=<span class="keyword">range</span> a&#123;</span><br><span class="line">	fmt.Println(i)  <span class="comment">//索引</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//只取值，不取索引</span></span><br><span class="line"><span class="keyword">for</span> _,v:=<span class="keyword">range</span> a&#123;</span><br><span class="line">	fmt.Println(v)  <span class="comment">//值</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="8、多维数组"><a href="#8、多维数组" class="headerlink" title="8、多维数组"></a>8、多维数组</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a [<span class="number">3</span>][<span class="number">2</span>]<span class="type">int</span>=[<span class="number">3</span>][<span class="number">2</span>]<span class="type">int</span>&#123;&#123;<span class="number">1</span>,<span class="number">2</span>&#125;,&#123;<span class="number">4</span>,<span class="number">5</span>&#125;,&#123;<span class="number">9</span>,<span class="number">70</span>&#125;&#125;</span><br><span class="line">	<span class="comment">//a[1][0]=999</span></span><br><span class="line">	fmt.Println(a)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h2><p>切片是由数组建立的一种方便、灵活且功能强大的包装（Wrapper）。切片本身不拥有任何数据。它们只是对现有数组的引用。<br>切片底层依附于数组</p>
+<h3 id="1、创建切片"><a href="#1、创建切片" class="headerlink" title="1、创建切片"></a>1、创建切片</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  先创建数组</span></span><br><span class="line"><span class="keyword">var</span> a [<span class="number">9</span>]<span class="type">int</span> = [<span class="number">9</span>]<span class="type">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;</span><br><span class="line"><span class="comment">// []int  就是切片的一种类型</span></span><br><span class="line"><span class="keyword">var</span> b []<span class="type">int</span></span><br><span class="line">b = a[<span class="number">0</span>:<span class="number">3</span>]  <span class="comment">// 前闭后开</span></span><br><span class="line"><span class="comment">// 没有 -1  没有步长</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、使用切片"><a href="#2、使用切片" class="headerlink" title="2、使用切片"></a>2、使用切片</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fmt.Println(b[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、切片的修改会影响底层数组，-数组的修改也会影响切片"><a href="#3、切片的修改会影响底层数组，-数组的修改也会影响切片" class="headerlink" title="3、切片的修改会影响底层数组， 数组的修改也会影响切片"></a>3、切片的修改会影响底层数组， 数组的修改也会影响切片</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a [<span class="number">9</span>]<span class="type">int</span>=[<span class="number">9</span>]<span class="type">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;</span><br><span class="line"><span class="keyword">var</span> b []<span class="type">int</span>=a[<span class="number">0</span>:<span class="number">3</span>]  <span class="comment">//前闭后开</span></span><br><span class="line"></span><br><span class="line">fmt.Println(a)</span><br><span class="line">fmt.Println(b)</span><br><span class="line">a[<span class="number">0</span>]=<span class="number">999</span></span><br><span class="line">b[<span class="number">2</span>]=<span class="number">888</span></span><br><span class="line">fmt.Println(a)</span><br><span class="line">fmt.Println(b)</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、切片的长度和容量"><a href="#4、切片的长度和容量" class="headerlink" title="4、切片的长度和容量"></a>4、切片的长度和容量</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a [<span class="number">9</span>]<span class="type">int</span>=[<span class="number">9</span>]<span class="type">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;</span><br><span class="line"><span class="keyword">var</span> b []<span class="type">int</span>=a[<span class="number">2</span>:<span class="number">3</span>]  <span class="comment">//前闭后开</span></span><br><span class="line"></span><br><span class="line">fmt.Println(<span class="built_in">len</span>(b))</span><br><span class="line"><span class="comment">// 切片的长度是1</span></span><br><span class="line"><span class="comment">//切片容量是9，意思是，可以往里追加值，追加成9个</span></span><br><span class="line">fmt.Println(<span class="built_in">cap</span>(b))</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong> 切片的容量不是源数组的长度， 是源数组从开始切的位置到数组末尾的长度</p>
+<h3 id="5、追加值"><a href="#5、追加值" class="headerlink" title="5、追加值"></a>5、追加值</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a [<span class="number">9</span>]<span class="type">int</span>=[<span class="number">9</span>]<span class="type">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;</span><br><span class="line"><span class="keyword">var</span> b []<span class="type">int</span>=a[<span class="number">2</span>:<span class="number">3</span>]  <span class="comment">//前闭后开</span></span><br><span class="line">b=<span class="built_in">append</span>(b,<span class="number">1</span>)</span><br><span class="line">b=<span class="built_in">append</span>(b,<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>,<span class="number">44</span>,<span class="number">55</span>)</span><br><span class="line">fmt.Println(<span class="built_in">len</span>(b))</span><br><span class="line">fmt.Println(<span class="built_in">cap</span>(b))</span><br><span class="line">fmt.Println(b)</span><br><span class="line">fmt.Println(a)</span><br><span class="line"><span class="comment">//到了数组的尾部，继续追加值</span></span><br><span class="line">b=<span class="built_in">append</span>(b,<span class="number">999</span>)</span><br><span class="line">fmt.Println(<span class="built_in">len</span>(b))</span><br><span class="line">fmt.Println(<span class="built_in">cap</span>(b))  <span class="comment">//容量是14</span></span><br><span class="line"><span class="comment">//总结1：当切片追加值，超过了切片容量，切片容量会翻倍，在原来容量基础上乘以2</span></span><br><span class="line"><span class="comment">//b=append(b,222,333,444,555,666,7,8)</span></span><br><span class="line"><span class="comment">//fmt.Println(len(b))</span></span><br><span class="line"><span class="comment">//fmt.Println(cap(b))  //容量是14</span></span><br><span class="line"><span class="comment">//总结2：一旦超过了原数组， 就会重新申请数组，把数据copy到新数组，切片和原数组就没有关系了</span></span><br><span class="line"><span class="comment">//fmt.Println(a)</span></span><br><span class="line"><span class="comment">//fmt.Println(b)</span></span><br><span class="line"><span class="comment">//a[8]=7777</span></span><br><span class="line"><span class="comment">//fmt.Println(a)</span></span><br><span class="line"><span class="comment">//fmt.Println(b)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6、通过-make创建切片（底层也是依附于数组）"><a href="#6、通过-make创建切片（底层也是依附于数组）" class="headerlink" title="6、通过 make创建切片（底层也是依附于数组）"></a>6、通过 make创建切片（底层也是依附于数组）</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a []<span class="type">int</span></span><br><span class="line"><span class="comment">// 切片的零值是什么？ nil类型： 是所有引用类型的空值</span></span><br><span class="line">fmt.Println(a)</span><br><span class="line"><span class="keyword">if</span> a==<span class="literal">nil</span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;我是空的&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a []<span class="type">int</span>=<span class="built_in">make</span>([]<span class="type">int</span>,<span class="number">3</span>,<span class="number">4</span>)  <span class="comment">// 3是长度，4是容量</span></span><br><span class="line"></span><br><span class="line">a=<span class="built_in">append</span>(a,<span class="number">55</span>)</span><br><span class="line">fmt.Println(a)</span><br><span class="line">fmt.Println(<span class="built_in">len</span>(a))  <span class="comment">// 3</span></span><br><span class="line">fmt.Println(<span class="built_in">cap</span>(a))  <span class="comment">// 4</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="7、切片定义并赋初值"><a href="#7、切片定义并赋初值" class="headerlink" title="7、切片定义并赋初值"></a>7、切片定义并赋初值</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a []<span class="type">int</span>=[]<span class="type">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;</span><br><span class="line">fmt.Println(a)</span><br><span class="line">fmt.Println(<span class="built_in">len</span>(a))</span><br><span class="line">fmt.Println(<span class="built_in">cap</span>(a))</span><br></pre></td></tr></table></figure>
+
+<h3 id="8、切片是引用类型，当参数传递，-会修改掉原来的值"><a href="#8、切片是引用类型，当参数传递，-会修改掉原来的值" class="headerlink" title="8、切片是引用类型，当参数传递， 会修改掉原来的值"></a>8、切片是引用类型，当参数传递， 会修改掉原来的值</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a []<span class="type">int</span>=[]<span class="type">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;</span><br><span class="line">fmt.Println(a)</span><br><span class="line">test3(a)</span><br><span class="line">fmt.Println(a)</span><br></pre></td></tr></table></figure>
+
+<h3 id="9、多维切片"><a href="#9、多维切片" class="headerlink" title="9、多维切片"></a>9、多维切片</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a [][]<span class="type">int</span>=<span class="built_in">make</span>([][]<span class="type">int</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">fmt.Println(a)</span><br><span class="line">fmt.Println(a[<span class="number">0</span>]==<span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line">a[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">999</span>  <span class="comment">// 这样赋值会报错， 因为make 只是初始化了最外层， 即第一层[]  第二层[] 没有初始化。</span></span><br><span class="line"><span class="comment">// 解决， 可以使用for循环进行初始化</span></span><br><span class="line"></span><br><span class="line">a[<span class="number">0</span>]=<span class="built_in">make</span>([]<span class="type">int</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">a[<span class="number">0</span>][<span class="number">1</span>]=<span class="number">999</span></span><br><span class="line">fmt.Println(a)</span><br><span class="line">a[<span class="number">1</span>][<span class="number">0</span>]=<span class="number">99999</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义并赋初始值常用</span></span><br><span class="line"><span class="keyword">var</span> a [][]<span class="type">int</span>=[][]<span class="type">int</span>&#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">7</span>,<span class="number">8</span>&#125;&#125;</span><br><span class="line"><span class="comment">//跟上面不一样</span></span><br><span class="line"><span class="keyword">var</span> a [][<span class="number">3</span>]<span class="type">int</span>=[][<span class="number">3</span>]<span class="type">int</span>&#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;&#125;</span><br><span class="line">fmt.Println(a)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="10、切片拷贝"><a href="#10、切片拷贝" class="headerlink" title="10、切片拷贝"></a>10、切片拷贝</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a[]<span class="type">int</span> = <span class="built_in">make</span>([]<span class="type">int</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="keyword">var</span> b[]<span class="type">int</span>=<span class="built_in">make</span>([]<span class="type">int</span>,<span class="number">2</span>,<span class="number">6</span>)</span><br><span class="line">a[<span class="number">0</span>]=<span class="number">11</span></span><br><span class="line">a[<span class="number">1</span>]=<span class="number">22</span></span><br><span class="line">a[<span class="number">2</span>]=<span class="number">33</span></span><br><span class="line">b[<span class="number">0</span>]=<span class="number">999</span></span><br><span class="line"><span class="built_in">copy</span>(b,a)</span><br><span class="line">fmt.Println(b)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="11、切片越界"><a href="#11、切片越界" class="headerlink" title="11、切片越界"></a>11、切片越界</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a[]<span class="type">int</span> = <span class="built_in">make</span>([]<span class="type">int</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">a[<span class="number">0</span>]=<span class="number">11</span></span><br><span class="line">a[<span class="number">1</span>]=<span class="number">22</span></span><br><span class="line">a[<span class="number">2</span>]=<span class="number">33</span></span><br><span class="line">a=<span class="built_in">append</span>(a,<span class="number">000</span>)</span><br><span class="line"><span class="comment">// 中括号取值， 只能取到长度， 不能取到容量大小</span></span><br><span class="line">fmt.Println(a[<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
+
+<h2 id="Maps-hash-字典-key-value"><a href="#Maps-hash-字典-key-value" class="headerlink" title="Maps: hash, 字典  (key:value)"></a>Maps: hash, 字典  (key:value)</h2><h3 id="1、map的定义和使用"><a href="#1、map的定义和使用" class="headerlink" title="1、map的定义和使用"></a>1、map的定义和使用</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// map[key]value 类型： key 的类型必须是可hash的， key值： 数字， 字符串</span></span><br><span class="line"><span class="comment">// map的零值是 nil， 它是一个引用类型</span></span><br><span class="line"><span class="keyword">var</span> a <span class="keyword">map</span>[<span class="type">int</span>]<span class="type">string</span></span><br><span class="line">fmt.Println(a)</span><br><span class="line"><span class="keyword">if</span> a==<span class="literal">nil</span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;我是空的&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、map的使用"><a href="#2、map的使用" class="headerlink" title="2、map的使用"></a>2、map的使用</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义未初始化</span></span><br><span class="line"><span class="keyword">var</span> <span class="keyword">map</span>[<span class="type">int</span>]<span class="type">string</span> </span><br><span class="line"><span class="comment">// 定义并初始化 使用make</span></span><br><span class="line"><span class="keyword">var</span> <span class="keyword">map</span>[<span class="type">int</span>]<span class="type">string</span> = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">int</span>]<span class="type">string</span>)</span><br><span class="line"><span class="comment">// 使用[] 添加/修改， </span></span><br><span class="line">a[<span class="number">1</span>]=<span class="string">&quot;zhang&quot;</span></span><br><span class="line">a[<span class="number">2</span>]:<span class="string">&quot;wang&quot;</span></span><br><span class="line">a[<span class="number">3</span>]:<span class="string">&quot;qilitang&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// a[&quot;xx&quot;] key 值不能乱写</span></span><br><span class="line">fmt.Println(a)</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、获取元素"><a href="#3、获取元素" class="headerlink" title="3、获取元素"></a>3、获取元素</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a <span class="keyword">map</span>[<span class="type">int</span>]<span class="type">string</span>=<span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">int</span>]<span class="type">string</span>)</span><br><span class="line">fmt.Println(a[<span class="number">0</span>])  <span class="comment">//取出value值的空值  &quot;&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>统一的方案来判断value值是否存在</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//a[0] 可以返回两个值，一个是value值（可能为空），另一个是true或false</span></span><br><span class="line"><span class="keyword">var</span> a <span class="keyword">map</span>[<span class="type">int</span>]<span class="type">int</span>=<span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">int</span>]<span class="type">int</span>)</span><br><span class="line">a[<span class="number">0</span>]=<span class="number">0</span></span><br><span class="line">v,ok:=a[<span class="number">0</span>]</span><br><span class="line">fmt.Println(v)</span><br><span class="line">fmt.Println(ok)</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、map-删除元素"><a href="#4、map-删除元素" class="headerlink" title="4、map 删除元素"></a>4、map 删除元素</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a <span class="keyword">map</span>[<span class="type">int</span>]<span class="type">int</span>=<span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">int</span>]<span class="type">int</span>)</span><br><span class="line">a[<span class="number">1</span>]=<span class="number">11</span></span><br><span class="line">a[<span class="number">2</span>]=<span class="number">22</span></span><br><span class="line">fmt.Println(a)</span><br><span class="line"><span class="comment">//根据key删（内置函数）</span></span><br><span class="line"><span class="built_in">delete</span>(a,<span class="number">1</span>)</span><br><span class="line">fmt.Println(a)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="5、map长度"><a href="#5、map长度" class="headerlink" title="5、map长度"></a>5、map长度</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a <span class="keyword">map</span>[<span class="type">int</span>]<span class="type">int</span>=<span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">int</span>]<span class="type">int</span>)</span><br><span class="line">fmt.Println(<span class="built_in">len</span>(a))</span><br><span class="line">a[<span class="number">1</span>]=<span class="number">11</span></span><br><span class="line">a[<span class="number">2</span>]=<span class="number">22</span></span><br><span class="line">fmt.Println(<span class="built_in">len</span>(a))</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、map是引用类型"><a href="#6、map是引用类型" class="headerlink" title="6、map是引用类型"></a>6、map是引用类型</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a <span class="keyword">map</span>[<span class="type">int</span>]<span class="type">int</span>=<span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">int</span>]<span class="type">int</span>)</span><br><span class="line">a[<span class="number">1</span>]=<span class="number">11</span></span><br><span class="line"></span><br><span class="line">test4(a)</span><br><span class="line">fmt.Println(a)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test4</span><span class="params">(a <span class="keyword">map</span>[<span class="type">int</span>]<span class="type">int</span>)</span></span>  &#123;</span><br><span class="line">	a[<span class="number">1</span>]=<span class="number">999</span></span><br><span class="line">	fmt.Println(a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7、-map的相等性"><a href="#7、-map的相等性" class="headerlink" title="7、 map的相等性"></a>7、 map的相等性</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span>=<span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span>)</span><br><span class="line">a[<span class="string">&quot;name&quot;</span>]=<span class="string">&quot;zhang&quot;</span></span><br><span class="line"><span class="keyword">var</span> b <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span>=<span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span>)</span><br><span class="line">b[<span class="string">&quot;name&quot;</span>]=<span class="string">&quot;zhang&quot;</span></span><br><span class="line"><span class="comment">//  不能判断， map只能跟nil比较</span></span><br><span class="line"><span class="keyword">if</span> a==<span class="literal">nil</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="8、循环map"><a href="#8、循环map" class="headerlink" title="8、循环map"></a>8、循环map</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 需要借助内置range循环</span></span><br><span class="line"><span class="keyword">var</span> a <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span>=<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span>&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;zhang&quot;</span>,<span class="string">&quot;age&quot;</span>:<span class="string">&quot;19&quot;</span>,<span class="string">&quot;sex&quot;</span>:<span class="string">&quot;男&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> k,v:=<span class="keyword">range</span> a&#123;</span><br><span class="line">		fmt.Println(k)</span><br><span class="line">		fmt.Println(v)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="9、map是无序的"><a href="#9、map是无序的" class="headerlink" title="9、map是无序的"></a>9、map是无序的</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如何让map变为有序</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>[toc]</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Qilitang</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2020/01/09/Go%2008%20%E6%8C%87%E9%92%88%20%E7%BB%93%E6%9E%84%E4%BD%93/" class="pre-post btn btn-default" title='Go 指针/结构体/方法'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            Go 指针/结构体/方法</span>
+    </a>
+    
+    
+    <a href="/2020/01/06/Go%2004%20%E5%87%BD%E6%95%B0/" class="next-post btn btn-default" title='Go 函数'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Go 函数</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-text">数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%AE%9A%E4%B9%89"><span class="toc-text">1、定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E4%BD%BF%E7%94%A8%E6%95%B0%E7%BB%84"><span class="toc-text">2、使用数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E5%AE%9A%E4%B9%89%E5%B9%B6%E8%B5%8B%E5%80%BC"><span class="toc-text">3、定义并赋值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E6%95%B0%E7%BB%84%E7%9A%84%E5%A4%A7%E5%B0%8F%E6%98%AF%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%B8%80%E9%83%A8%E5%88%86"><span class="toc-text">4、数组的大小是类型的一部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E6%95%B0%E7%BB%84%E6%98%AF%E5%80%BC%E7%B1%BB%E5%9E%8B%EF%BC%88%E5%BD%93%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E5%88%B0%E5%87%BD%E6%95%B0%E4%B8%AD%EF%BC%8C%E4%BF%AE%E6%94%B9%E4%B8%8D%E4%BC%9A%E6%94%B9%E5%8F%98%E5%8E%9F%E6%9D%A5%E7%9A%84%E5%80%BC%EF%BC%89"><span class="toc-text">5、数组是值类型（当参数传递到函数中，修改不会改变原来的值）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6%EF%BC%88len-%EF%BC%89"><span class="toc-text">6、数组长度（len()）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7%E3%80%81%E5%BE%AA%E7%8E%AF%E6%95%B0%E7%BB%84"><span class="toc-text">7、循环数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8%E3%80%81%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="toc-text">8、多维数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%87%E7%89%87"><span class="toc-text">切片</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%88%9B%E5%BB%BA%E5%88%87%E7%89%87"><span class="toc-text">1、创建切片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E4%BD%BF%E7%94%A8%E5%88%87%E7%89%87"><span class="toc-text">2、使用切片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E5%88%87%E7%89%87%E7%9A%84%E4%BF%AE%E6%94%B9%E4%BC%9A%E5%BD%B1%E5%93%8D%E5%BA%95%E5%B1%82%E6%95%B0%E7%BB%84%EF%BC%8C-%E6%95%B0%E7%BB%84%E7%9A%84%E4%BF%AE%E6%94%B9%E4%B9%9F%E4%BC%9A%E5%BD%B1%E5%93%8D%E5%88%87%E7%89%87"><span class="toc-text">3、切片的修改会影响底层数组， 数组的修改也会影响切片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E5%88%87%E7%89%87%E7%9A%84%E9%95%BF%E5%BA%A6%E5%92%8C%E5%AE%B9%E9%87%8F"><span class="toc-text">4、切片的长度和容量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E8%BF%BD%E5%8A%A0%E5%80%BC"><span class="toc-text">5、追加值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81%E9%80%9A%E8%BF%87-make%E5%88%9B%E5%BB%BA%E5%88%87%E7%89%87%EF%BC%88%E5%BA%95%E5%B1%82%E4%B9%9F%E6%98%AF%E4%BE%9D%E9%99%84%E4%BA%8E%E6%95%B0%E7%BB%84%EF%BC%89"><span class="toc-text">6、通过 make创建切片（底层也是依附于数组）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7%E3%80%81%E5%88%87%E7%89%87%E5%AE%9A%E4%B9%89%E5%B9%B6%E8%B5%8B%E5%88%9D%E5%80%BC"><span class="toc-text">7、切片定义并赋初值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8%E3%80%81%E5%88%87%E7%89%87%E6%98%AF%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%BD%93%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%EF%BC%8C-%E4%BC%9A%E4%BF%AE%E6%94%B9%E6%8E%89%E5%8E%9F%E6%9D%A5%E7%9A%84%E5%80%BC"><span class="toc-text">8、切片是引用类型，当参数传递， 会修改掉原来的值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9%E3%80%81%E5%A4%9A%E7%BB%B4%E5%88%87%E7%89%87"><span class="toc-text">9、多维切片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10%E3%80%81%E5%88%87%E7%89%87%E6%8B%B7%E8%B4%9D"><span class="toc-text">10、切片拷贝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11%E3%80%81%E5%88%87%E7%89%87%E8%B6%8A%E7%95%8C"><span class="toc-text">11、切片越界</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Maps-hash-%E5%AD%97%E5%85%B8-key-value"><span class="toc-text">Maps: hash, 字典  (key:value)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81map%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="toc-text">1、map的定义和使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81map%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">2、map的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0"><span class="toc-text">3、获取元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81map-%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0"><span class="toc-text">4、map 删除元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81map%E9%95%BF%E5%BA%A6"><span class="toc-text">5、map长度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81map%E6%98%AF%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="toc-text">6、map是引用类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7%E3%80%81-map%E7%9A%84%E7%9B%B8%E7%AD%89%E6%80%A7"><span class="toc-text">7、 map的相等性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8%E3%80%81%E5%BE%AA%E7%8E%AFmap"><span class="toc-text">8、循环map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9%E3%80%81map%E6%98%AF%E6%97%A0%E5%BA%8F%E7%9A%84"><span class="toc-text">9、map是无序的</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="#" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+
+</body>
+</html>

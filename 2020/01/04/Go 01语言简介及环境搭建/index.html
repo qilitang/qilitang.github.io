@@ -1,0 +1,311 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="go语言介绍123456#  诞生于09年, 是谷歌公司推出的. -python  1989年 -java   1990年# 缺点:	生态不是特别好
+
+
+Go 语言特性
+1234# 跨平台编译型..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Go语言介绍及环境搭建 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa fa-home"></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/"><i class="fa fa-th-list"></i>
+                                文章分类</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/tags/"><i class="fa fa-tags"></i>
+                                标签</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa fa-archive"></i>
+                                归档</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Go语言介绍及环境搭建">
+            
+            Go语言介绍及环境搭建
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/GO/">GO</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/01/04</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="go语言介绍"><a href="#go语言介绍" class="headerlink" title="go语言介绍"></a>go语言介绍</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#  诞生于09年, 是谷歌公司推出的.</span></span><br><span class="line"> -python  <span class="number">1989</span>年</span><br><span class="line"> -java   <span class="number">1990</span>年</span><br><span class="line"></span><br><span class="line"><span class="comment"># 缺点:</span></span><br><span class="line">	生态不是特别好</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Go 语言特性</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 跨平台编译型语言</span></span><br><span class="line"><span class="comment"># 语法接近C</span></span><br><span class="line"><span class="comment"># 有垃圾回收机制(gc)</span></span><br><span class="line"><span class="comment"># 支持面向对象和面向过程式的编程模式.(没有class 但是支持)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Go 语言发展</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 目前最新的是1.14.2 版本. go语言向下兼容. 不用考虑版本问题</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Go 语言应用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 国内的很多大型的互联网公司,  腾讯, 百度, 京东, 知乎等</span></span><br><span class="line"><span class="comment"># 国外 谷歌. facebook</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Go 应用领域</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 服务开发</span></span><br><span class="line"><span class="comment"># 并发</span></span><br><span class="line"><span class="comment"># 分布式</span></span><br><span class="line"><span class="comment"># 微服务方向</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Go 语言项目</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Docker</span></span><br><span class="line"><span class="comment"># K8s (kubernetes)</span></span><br><span class="line"><span class="comment"># 区块链</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Go 语言发展前景</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新兴语言 最牛逼! 不解释</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># go 开发包安装</span></span><br><span class="line"><span class="comment"># go ide 安装(gplang, vscode, sublime text)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装完成后 go version  查看版本</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># go env 查看go环境变量</span></span><br><span class="line">GO111MODULE=<span class="string">&quot;&quot;</span>    <span class="comment"># 当此配置 为空或者off 则代表没有开启 go mode 模式, 用的是gopath 模式</span></span><br><span class="line">GOROOT=<span class="string">&quot;/usr/local/Cellar/go/1.14.2_1/libexec&quot;</span>  <span class="comment">#  go 开发安装路径</span></span><br><span class="line">GOPATH=<span class="string">&quot;/Users/zhang/go&quot;</span>  <span class="comment">#  代码的存放路径</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># go mode 模式: 代码可以存放在任意路径</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 单行注释</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">多行注释</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> main  <span class="comment">// 表示声明包, 每一个go代码第一行都必须写这个</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span>  <span class="comment">// 导入fmt包  类比  python中 import os.path</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;  <span class="comment">// 声明 main 函数    函数体 放在 &#123;&#125;之中.</span></span><br><span class="line">	fmt.Println(<span class="string">&quot;Hello, World&quot;</span>) <span class="comment">// Println 是输入至控制台, 类比python中的print</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 程序的执行入口是 main包下的 main函数</span></span><br><span class="line"><span class="comment">// 编译型语言都有入口, 对比 python中  一个py文件就是一个 main 函数.</span></span><br><span class="line"><span class="comment">// 一个项目只能有一个 main函数</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><ul>
+<li><p>build </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go build 文件   <span class="comment"># 生成本机环境的可执行文件</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>fmt </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go fmt 文件  <span class="comment"># 代码格式化</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>install</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编译并安装包和依赖</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>run</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run 文件  <span class="comment"># 编译并运行go程序</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> 变量：<span class="keyword">go</span>语言中变量区分大小写，建议用驼峰</span><br><span class="line">	<span class="keyword">var</span> Name=<span class="string">&quot;lqz&quot;</span></span><br><span class="line">	<span class="keyword">var</span> name=<span class="string">&quot;lqz&quot;</span></span><br><span class="line">	fmt.Println(Name)</span><br><span class="line">	fmt.Println(name)</span><br><span class="line"><span class="number">2</span> 文件名：建议用下划线</span><br><span class="line"><span class="number">3</span> 大写字母开头，表示导出字段（外部包可以使用）</span><br><span class="line"></span><br><span class="line"><span class="number">4</span> 先导入第三方包，内置包，自己写的包</span><br><span class="line"><span class="number">5</span> 不像python中缩进代表同一段代码块</span><br><span class="line">		<span class="keyword">var</span> a =<span class="number">10</span></span><br><span class="line">	fmt.Println(a)</span><br><span class="line">		   fmt.Println(<span class="string">&quot;xxx&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>[toc]</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Qilitang</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2020/01/05/Go%2003%20%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="pre-post btn btn-default" title='Go 基本数据类型'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            Go 基本数据类型</span>
+    </a>
+    
+    
+    <a href="/2020/01/04/Go%2002%20%E5%8F%98%E9%87%8F%20/" class="next-post btn btn-default" title='Go 变量'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Go 变量</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#go%E8%AF%AD%E8%A8%80%E4%BB%8B%E7%BB%8D"><span class="toc-text">go语言介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hello-World"><span class="toc-text">Hello World</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">常用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E8%8C%83"><span class="toc-text">规范</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="#" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+
+</body>
+</html>

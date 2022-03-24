@@ -1,0 +1,295 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="变量的定义方式12345678910111213141516171819202122232425262728293031323334package mainimport &quot;fmt&qu..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Go 变量 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa fa-home"></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/"><i class="fa fa-th-list"></i>
+                                文章分类</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/tags/"><i class="fa fa-tags"></i>
+                                标签</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa fa-archive"></i>
+                                归档</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Go 变量">
+            
+            Go 变量
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/GO/">GO</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/01/04</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="变量的定义方式"><a href="#变量的定义方式" class="headerlink" title="变量的定义方式"></a>变量的定义方式</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 方式一</span></span><br><span class="line">	<span class="comment">// var 变量名 变量类型=变量值</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">	<span class="comment">// 注意 变量定义后 必须使用, 不适使用报错</span></span><br><span class="line">	<span class="comment">//  导入的包必须使用 不适用报错</span></span><br><span class="line">	<span class="keyword">var</span> age <span class="type">int</span> =<span class="number">18</span>  <span class="comment">// 定义并赋值</span></span><br><span class="line">	<span class="keyword">var</span> name <span class="type">string</span>  <span class="comment">// 定义</span></span><br><span class="line">	name = <span class="string">&quot;我是你爸爸&quot;</span>  <span class="comment">//赋值</span></span><br><span class="line">	fmt.Println(name, age)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">	<span class="comment">//  方式二 类型推导(不需要加类型)</span></span><br><span class="line">	<span class="keyword">var</span> salary = <span class="number">1000</span></span><br><span class="line">	fmt.Println(salary)</span><br><span class="line">	fmt.Printf(<span class="string">&quot;salary的类型是:%T, 值是%d\n&quot;</span>,salary,salary)  <span class="comment">// Printf 表示格式化输出</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 方式三  简略声明</span></span><br><span class="line">	male := <span class="number">100</span></span><br><span class="line">	fmt.Println(male)</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 同时定义多个变量(3种方式都可以)</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> a, b,c = <span class="number">1</span>,<span class="string">&quot;2&quot;</span>,<span class="string">&quot;3&quot;</span></span><br><span class="line">	fmt.Println(a,b,c)</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong></p>
+<ul>
+<li>变量不能重复定义</li>
+<li>变量要先定义后使用</li>
+<li>简略声明方式定义特殊, 冒号前至少有一个未定义变量则不报错. </li>
+<li>变量类型是固定的. </li>
+<li>变量定义了, 必须使用,否则报错</li>
+<li>包导入则必须使用, 不使用就报错</li>
+</ul>
+<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  常量 : 恒定不变得量 , 建议全部大写</span></span><br><span class="line"><span class="comment">// 程序在运行过程中, 不会改变值, 例如: 数据库链接地址, 端口号等</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">// 批量声明</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	notFound = <span class="number">404</span></span><br><span class="line">	statusOk = <span class="number">200</span></span><br><span class="line">)</span><br><span class="line"><span class="comment">// 当 出现 n2 n3 这样的没有被赋值的声明  则默认为 n1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	n1 =<span class="number">100</span></span><br><span class="line">	n2</span><br><span class="line">	n3</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="comment">//1 const关键字 常量名 常量类型 =值</span></span><br><span class="line">  <span class="keyword">const</span> A <span class="type">int</span> =<span class="number">99</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//2 常量可以定义了不使用</span></span><br><span class="line">	<span class="keyword">const</span> B <span class="type">int</span> =<span class="number">99</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//3 类型可以省略</span></span><br><span class="line">	<span class="keyword">const</span> C  =<span class="number">99</span></span><br><span class="line">	fmt.Printf(<span class="string">&quot;%T&quot;</span>,b)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//4 同时定义多个常量</span></span><br><span class="line">	<span class="keyword">const</span> (</span><br><span class="line">		AGE=<span class="number">19</span></span><br><span class="line">		NAME=<span class="string">&quot;zyz&quot;</span></span><br><span class="line">		sex=<span class="string">&quot;男&quot;</span></span><br><span class="line">	)</span><br><span class="line">	fmt.Println(AGE)</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//5 改变常量(不允许)</span></span><br><span class="line">	<span class="comment">// AGE=199</span></span><br><span class="line">	<span class="comment">//fmt.Println(AGE)</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Iota"><a href="#Iota" class="headerlink" title="Iota"></a>Iota</h3><p><code>iota</code> 是go语言中的常量计数器, 只能在常量的表达式中使用.</p>
+<p><code>iota</code> 在const 关键字出现时 将被重置为 0 , const 中每新增一行常量声明将使<code>iota</code> 计数加一次,  类似 枚举. 在定义枚举时候很有用.</p>
+<p>举例说明:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	n1 = <span class="literal">iota</span></span><br><span class="line">	n2</span><br><span class="line">	n3</span><br><span class="line">	n4</span><br><span class="line">	n5</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="常见的几个iota-例子"><a href="#常见的几个iota-例子" class="headerlink" title="常见的几个iota 例子"></a>常见的几个iota 例子</h3><p>使用<code>_</code> 跳过某些值</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">		n1 = <span class="literal">iota</span> <span class="comment">//0</span></span><br><span class="line">		n2        <span class="comment">//1</span></span><br><span class="line">		_</span><br><span class="line">		n4        <span class="comment">//3</span></span><br><span class="line">	)</span><br></pre></td></tr></table></figure>
+
+<p><code>iota</code>声明中间插队</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">		n1 = <span class="literal">iota</span> <span class="comment">//0</span></span><br><span class="line">		n2 = <span class="number">100</span>  <span class="comment">//100</span></span><br><span class="line">		n3 = <span class="literal">iota</span> <span class="comment">//2</span></span><br><span class="line">		n4        <span class="comment">//3</span></span><br><span class="line">	)</span><br><span class="line"><span class="keyword">const</span> n5 = <span class="literal">iota</span> <span class="comment">//0</span></span><br></pre></td></tr></table></figure>
+
+<p>多个常量声明在<code>一行</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">		a, b = <span class="literal">iota</span> + <span class="number">1</span>, <span class="literal">iota</span> + <span class="number">2</span> <span class="comment">//1,2</span></span><br><span class="line">		c, d                      <span class="comment">//2,3</span></span><br><span class="line">		e, f                      <span class="comment">//3,4</span></span><br><span class="line">	)</span><br></pre></td></tr></table></figure>
+
+<p>定义数量级 （这里的<code>&lt;&lt;</code>表示左移操作，<code>1&lt;&lt;10</code>表示将1的二进制表示向左移10位，也就是由<code>1</code>变成了<code>10000000000</code>，也就是十进制的1024。同理<code>2&lt;&lt;2</code>表示将2的二进制表示向左移2位，也就是由<code>10</code>变成了<code>1000</code>，也就是十进制的8。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">		_  = <span class="literal">iota</span></span><br><span class="line">		KB = <span class="number">1</span> &lt;&lt; (<span class="number">10</span> * <span class="literal">iota</span>)</span><br><span class="line">		MB = <span class="number">1</span> &lt;&lt; (<span class="number">10</span> * <span class="literal">iota</span>)</span><br><span class="line">		GB = <span class="number">1</span> &lt;&lt; (<span class="number">10</span> * <span class="literal">iota</span>)</span><br><span class="line">		TB = <span class="number">1</span> &lt;&lt; (<span class="number">10</span> * <span class="literal">iota</span>)</span><br><span class="line">		PB = <span class="number">1</span> &lt;&lt; (<span class="number">10</span> * <span class="literal">iota</span>)</span><br><span class="line">	)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>[toc]</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Qilitang</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2020/01/04/Go%2001%E8%AF%AD%E8%A8%80%E7%AE%80%E4%BB%8B%E5%8F%8A%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="pre-post btn btn-default" title='Go语言介绍及环境搭建'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            Go语言介绍及环境搭建</span>
+    </a>
+    
+    
+    <a href="/2019/08/02/Redis%20%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF/" class="next-post btn btn-default" title='Redis 缓存击穿 穿透  雪崩及解决办法'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Redis 缓存击穿 穿透  雪崩及解决办法</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89%E6%96%B9%E5%BC%8F"><span class="toc-text">变量的定义方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F"><span class="toc-text">常量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Iota"><span class="toc-text">Iota</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E4%B8%AAiota-%E4%BE%8B%E5%AD%90"><span class="toc-text">常见的几个iota 例子</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="#" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+
+</body>
+</html>

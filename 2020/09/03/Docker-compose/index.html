@@ -1,0 +1,393 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="Docker" />
+
+
+<meta name="description" content="安装 docker-compose切换到root 用户下载1curl -L https://get.daocloud.io/docker/compose/releases/download/1...." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Docker-compose |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa fa-home"></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/"><i class="fa fa-th-list"></i>
+                                文章分类</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/tags/"><i class="fa fa-tags"></i>
+                                标签</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa fa-archive"></i>
+                                归档</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Docker-compose">
+            
+            Docker-compose
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/Docker/">Docker</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/Docker/" rel="tag">Docker</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/09/03</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="安装-docker-compose"><a href="#安装-docker-compose" class="headerlink" title="安装 docker-compose"></a>安装 docker-compose</h3><h3 id="切换到root-用户"><a href="#切换到root-用户" class="headerlink" title="切换到root 用户"></a>切换到root 用户</h3><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.4/docker-compose-`<span class="built_in">uname</span> -s`-`<span class="built_in">uname</span> -m` &gt; /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改权限"><a href="#修改权限" class="headerlink" title="修改权限"></a>修改权限</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<h4 id="检查是否成功"><a href="#检查是否成功" class="headerlink" title="检查是否成功"></a>检查是否成功</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose -version	</span><br></pre></td></tr></table></figure>
+
+
+
+<p>此外，因为 docker-compose 使用 Python 编写，所以可以使用 pip 直接安装：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pip install -U docker-compose</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="第一个-Compose-file"><a href="#第一个-Compose-file" class="headerlink" title="第一个 Compose file"></a>第一个 Compose file</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">version: &#x27;3&#x27;</span><br><span class="line">services:</span><br><span class="line">  spider:</span><br><span class="line">    build:</span><br><span class="line">      context: .</span><br><span class="line">      dockerfile: Dockerfile</span><br><span class="line">    volumes:</span><br><span class="line">      - $PWD:/code</span><br><span class="line">      - /data1/datascience/scrapy-data:/data</span><br><span class="line">    command: scrapy crawl comment</span><br><span class="line">12345678910</span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<ul>
+<li>version 指定了 compose file 的版本，最新的版本为 3.4</li>
+<li>services 下定义服务，这里定义了一个爬虫服务 spider</li>
+<li>build 指定构建镜像上下文、Dockerfile 文件和 ARGS 等。</li>
+<li>volumes 用于创建卷并挂载，这里挂载了源码目录和数据存储目录</li>
+<li>command 指定服务启动时执行的命令，参考 Dockerfile COMMAND。</li>
+</ul>
+<hr>
+<h2 id="Compose-file-指令"><a href="#Compose-file-指令" class="headerlink" title="Compose file 指令"></a>Compose file 指令</h2><p>先来看一份 docker-compose.yml 文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">version: &#x27;2&#x27;</span><br><span class="line">services:</span><br><span class="line">  web:</span><br><span class="line">    image: dockercloud/hello-world</span><br><span class="line">    ports:</span><br><span class="line">      - 8080</span><br><span class="line">    networks:</span><br><span class="line">      - front-tier</span><br><span class="line">      - back-tier</span><br><span class="line"></span><br><span class="line">  redis:</span><br><span class="line">    image: redis</span><br><span class="line">    links:</span><br><span class="line">      - web</span><br><span class="line">    networks:</span><br><span class="line">      - back-tier</span><br><span class="line"></span><br><span class="line">  lb:</span><br><span class="line">    image: dockercloud/haproxy</span><br><span class="line">    ports:</span><br><span class="line">      - 80:80</span><br><span class="line">    links:</span><br><span class="line">      - web</span><br><span class="line">    networks:</span><br><span class="line">      - front-tier</span><br><span class="line">      - back-tier</span><br><span class="line">    volumes:</span><br><span class="line">      - /var/run/docker.sock:/var/run/docker.sock </span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  front-tier:</span><br><span class="line">    driver: bridge</span><br><span class="line">  back-tier:</span><br><span class="line">driver: bridge</span><br></pre></td></tr></table></figure>
+
+<p>可以看到一份标准配置文件应该包含 version、services、networks 三大部分，其中最关键的就是 services 和 networks 两个部分，下面先来看 services 的书写规则。</p>
+<ul>
+<li><p><strong>image</strong>: 指定容器启动的镜像，对应 Dockerfile FROM。<br>在 services 标签下的第二级标签是 web，这个名字是用户自己自定义，它就是服务名称。image 则是指定服务的镜像名称或镜像 ID。如果镜像在本地不存在，Compose 将会尝试拉取这个镜像。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">image: redis</span><br><span class="line">image: ubuntu:14.04</span><br><span class="line">image: tutum/influxdb</span><br><span class="line">image: example-registry.com:4000/postgresql</span><br><span class="line">image: a4bc65fd</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>build</strong>: 服务除了可以基于指定的镜像，还可以基于一份 Dockerfile，在使用 up 启动之时执行构建任务，这个构建标签就是 build，它可以指定 Dockerfile 所在文件夹的路径。Compose 将会利用它自动构建这个镜像，然后使用这个镜像启动服务容器。</p>
+<p>最简单的直接利用 Dockerfile 构建，只需要指定上下文或者 Dockerfile 位置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">version: &#x27;2&#x27;</span><br><span class="line">services:</span><br><span class="line">  webapp:</span><br><span class="line">    build: .</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>如果需要更细粒度的配置，需要使用 context, dockerfile, args, labels 等选项。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># Dockerfile</span><br><span class="line">ARG buildno</span><br><span class="line">ARG password</span><br><span class="line"></span><br><span class="line">RUN echo &quot;Build number: $buildno&quot;</span><br><span class="line">RUN script-requiring-password.sh &quot;$password&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># docker-compose file</span><br><span class="line">version: &#x27;2&#x27;</span><br><span class="line">services:</span><br><span class="line">  webapp:</span><br><span class="line">    image: webapp:tag</span><br><span class="line">    build:</span><br><span class="line">      context: ./dir</span><br><span class="line">      dockerfile: Dockerfile-alternate</span><br><span class="line">      args:</span><br><span class="line">        buildno: 1</span><br><span class="line">        password: secret</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>command</strong>: 使用 command 可以覆盖容器启动后默认执行的命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">command: bundle exec thin -p 3000</span><br><span class="line"></span><br><span class="line">command: [&quot;bundle&quot;, &quot;exec&quot;, &quot;thin&quot;, &quot;-p&quot;, &quot;3000&quot;]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>container_name</strong>: 指定运行时容器名称，而不使用默认格式（&lt;项目名称&gt;&lt;服务名称&gt;&lt;序号&gt;）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">container_name: my-web-container</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>depends_on</strong>: 指明服务之间依赖，解决了容器的依赖、启动先后的问题。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">version: &#x27;3&#x27;</span><br><span class="line">services:</span><br><span class="line">  web:</span><br><span class="line">    build: .</span><br><span class="line">    depends_on:</span><br><span class="line">      - db</span><br><span class="line">      - redis</span><br><span class="line">  redis:</span><br><span class="line">    image: redis</span><br><span class="line">  db:</span><br><span class="line">    image: postgres</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>被依赖的服务会优先启动（显然）<br>若服务启动时被依赖服务没有启动，则自动被启动</p>
+</blockquote>
+<ul>
+<li><p><strong>dns</strong>: 指定 DNS 服务器。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dns: 8.8.8.8</span><br><span class="line">dns:</span><br><span class="line">  - 8.8.8.8</span><br><span class="line">  - 9.9.9.9</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>tmpfs</strong>: 挂载临时目录到容器内部，与 run 的参数一样效果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tmpfs: /run</span><br><span class="line">tmpfs:</span><br><span class="line">  - /run</span><br><span class="line">  - /tmp</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>entrypoint</strong>: 在 Dockerfile 中有一个指令叫做 ENTRYPOINT 指令，用于指定接入点，在 docker-compose.yml 中可以定义接入点，覆盖 Dockerfile 中的定义。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">entrypoint: /code/entrypoint.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>env_file</strong>: 专门存放变量的文件。如果通过 docker-compose -f FILE 指定了配置文件，则 env_file 中路径会使用配置文件路径。如果有变量名称与 environment 指令冲突，则以后者为准。格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">env_file: .env</span><br><span class="line"></span><br><span class="line">env_file:</span><br><span class="line">  - ./common.env</span><br><span class="line">  - ./apps/web.env</span><br><span class="line">  - /opt/secrets.env</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>文件格式如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RACK_ENV=development</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意的是这里所说的环境变量是对宿主机的 Compose 而言的，如果在配置文件中有 build 操作，这些变量并不会进入构建过程中，如果要在构建中使用变量还是首选前面刚讲的 arg 标签。</p>
+</blockquote>
+<ul>
+<li><p><strong>environment</strong>: 与上面的 env_file 标签完全不同，反而和 arg 有几分类似，这个标签的作用是设置镜像变量，它可以保存变量到镜像里面，也就是说启动的容器也会包含这些变量设置，这是与 arg 最大的不同。</p>
+<blockquote>
+<p>一般 arg 标签的变量仅用在构建过程中。而 environment 和 Dockerfile 中的 ENV 指令一样会把变量一直保存在镜像、容器中，类似 docker run -e 的效果。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">environment:</span><br><span class="line">  RACK_ENV: development</span><br><span class="line">  SHOW: &#x27;true&#x27;</span><br><span class="line">  SESSION_SECRET:</span><br><span class="line"></span><br><span class="line">environment:</span><br><span class="line">  - RACK_ENV=development</span><br><span class="line">  - SHOW=true</span><br><span class="line">  - SESSION_SECRET</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>expose</strong>: 这个标签与 Dockerfile 中的 EXPOSE 指令一样，用于指定暴露的端口，但是只是作为一种参考，实际上 docker-compose.yml 的端口映射还得 ports 这样的标签。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">expose:</span><br><span class="line">  - &quot;3000&quot;</span><br><span class="line">  - &quot;8000&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>external_links</strong>: 在使用 Docker 过程中，我们会有许多单独使用<code>docker run</code>启动的容器，为了使 Compose 能够连接这些不在 docker-compose.yml 中定义的容器，我们需要一个特殊的标签，就是 external_links，它可以让 Compose 项目里面的容器连接到那些项目配置外部的容器（前提是外部容器中必须至少有一个容器是连接到与项目内的服务的同一个网络里面）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">external_links:</span><br><span class="line">  - redis_1</span><br><span class="line">  - project_db_1:mysql</span><br><span class="line">  - project_db_1:postgresql</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>extra_hosts</strong>: 添加主机名的标签，就是往 &#x2F;etc&#x2F;hosts 文件中添加一些记录、</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extra_hosts:</span><br><span class="line">  - &quot;somehost:162.242.195.82&quot;</span><br><span class="line">  - &quot;otherhost:50.31.209.229&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>labels</strong>: 向容器添加元数据，和 Dockerfile 的 LABEL 指令一个意思。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">labels:</span><br><span class="line">  com.example.description: &quot;Accounting webapp&quot;</span><br><span class="line">  com.example.department: &quot;Finance&quot;</span><br><span class="line">  com.example.label-with-empty-value: &quot;&quot;</span><br><span class="line">labels:</span><br><span class="line">  - &quot;com.example.description=Accounting webapp&quot;</span><br><span class="line">  - &quot;com.example.department=Finance&quot;</span><br><span class="line">  - &quot;com.example.label-with-empty-value&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>links</strong>: 上面的 depends_on 标签解决的是<strong>启动顺序</strong>问题，这个标签解决的是<strong>容器连接</strong>问题，与 Docker client 的 –link 一样效果，会连接到其它服务中的容器。。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">web:</span><br><span class="line">  links:</span><br><span class="line">  - db</span><br><span class="line">  - db:database</span><br><span class="line">  - redis</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>使用的别名将会自动在服务容器中的 &#x2F;etc&#x2F;hosts 里创建。<br>相应的环境变量也将被创建。</p>
+</blockquote>
+<ul>
+<li><p><strong>logging</strong>: 用于配置日志服务。默认的 driver 是 json-file。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">logging:</span><br><span class="line">  driver: syslog</span><br><span class="line">  options:</span><br><span class="line">    syslog-address: &quot;tcp://192.168.0.42:123&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>pid</strong>: 将 PID 模式设置为主机 PID 模式，跟主机系统共享进程命名空间。容器使用这个标签将能够访问和操纵其他容器和宿主机的名称空间。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pid: &quot;host&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>ports</strong>: 映射端口的标签。使用 HOST:CONTAINER 格式或者只是指定容器的端口，宿主机会随机映射端口。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ports:</span><br><span class="line">  - &quot;3000&quot;</span><br><span class="line">  - &quot;8000:8000&quot;</span><br><span class="line">  - &quot;49100:22&quot;</span><br><span class="line">  - &quot;127.0.0.1:8001:8001&quot;</span><br><span class="line">12345</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：当使用 HOST:CONTAINER 格式来映射端口时，如果你使用的容器端口小于 60 你可能会得到错误得结果，因为 YAML 将会解析 xx:yy 这种数字格式为 60 进制。所以建议采用字符串格式。</p>
+</blockquote>
+</li>
+<li><p><strong>security_opt</strong>: 为每个容器覆盖默认的标签。简单说来就是管理全部服务的标签。比如设置全部服务的 user 标签值为 USER:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">security_opt:</span><br><span class="line">  - label:user:USER</span><br><span class="line">  - label:role:ROLE</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>stop_signal</strong>: 设置另一个信号来停止容器。在默认情况下使用的是 SIGTERM 停止容器。设置另一个信号可以使用 stop_signal 标签。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stop_signal: SIGUSR1</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>volumes</strong>: 挂载一个目录或者一个已存在的数据卷容器，可以直接使用 HOST:CONTAINER 这样的格式，或者使用 HOST:CONTAINER:ro 这样的格式，后者对于容器来说，数据卷是只读的，这样可以有效保护宿主机的文件系统。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">volumes:</span><br><span class="line">  # 只是指定一个路径，Docker 会自动在创建一个数据卷（这个路径是容器内部的）。</span><br><span class="line">  - /var/lib/mysql</span><br><span class="line"></span><br><span class="line">  # 使用绝对路径挂载数据卷</span><br><span class="line">  - /opt/data:/var/lib/mysql</span><br><span class="line"></span><br><span class="line">  # 以 Compose 配置文件为中心的相对路径作为数据卷挂载到容器。</span><br><span class="line">  - ./cache:/tmp/cache</span><br><span class="line"></span><br><span class="line">  # 使用用户的相对路径（~/ 表示的目录是 /home/&lt;用户目录&gt;/ 或者 /root/）。</span><br><span class="line">  - ~/configs:/etc/configs/:ro</span><br><span class="line"></span><br><span class="line">  # 已经存在的命名的数据卷。</span><br><span class="line">  - datavolume:/var/lib/mysql</span><br><span class="line">123456789101112131415</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>cap_add, cap_drop</strong>: 添加或删除容器的内核功能。</p>
+</li>
+<li><p><strong>devices</strong>: 设备映射列表。与 Docker client 的<code>--device</code>参数类似。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">devices:</span><br><span class="line">  - &quot;/dev/ttyUSB0:/dev/ttyUSB0&quot;</span><br><span class="line">12</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>extends</strong>: 这个标签可以扩展另一个服务，扩展内容可以是来自在当前文件，也可以是来自其他文件，相同服务的情况下，后来者会有选择地覆盖原有配置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">extends:</span><br><span class="line">  file: common.yml</span><br><span class="line">  service: webapp</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+
+<p>用户可以在任何地方使用这个标签，只要标签内容包含 file 和 service 两个值就可以了。file 的值可以是相对或者绝对路径，如果不指定 file 的值，那么 Compose 会读取当前 YML 文件的信息。</p>
+</li>
+</ul>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Qilitang</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2020/09/03/Docker%20%E5%AE%B9%E5%99%A8%E9%97%B4%E9%80%9A%E8%AE%AF/" class="pre-post btn btn-default" title='Docker 容器间通讯'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            Docker 容器间通讯</span>
+    </a>
+    
+    
+    <a href="/2020/09/03/ElasticSearch%2005%20Kibana/" class="next-post btn btn-default" title='ElasticSearch 05 Kibana docker 容器安装'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            ElasticSearch 05 Kibana docker 容器安装</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-docker-compose"><span class="toc-text">安装 docker-compose</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E5%88%B0root-%E7%94%A8%E6%88%B7"><span class="toc-text">切换到root 用户</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD"><span class="toc-text">下载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%9D%83%E9%99%90"><span class="toc-text">修改权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><span class="toc-text">检查是否成功</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA-Compose-file"><span class="toc-text">第一个 Compose file</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Compose-file-%E6%8C%87%E4%BB%A4"><span class="toc-text">Compose file 指令</span></a>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="#" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+
+</body>
+</html>

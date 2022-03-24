@@ -1,0 +1,523 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="redis" />
+
+
+<meta name="description" content="1 Redis 的持久化1.1 什么是持久化持久化就是讲数据保存到磁盘中，机器宕机或者重启数据不丢失， 因为储存在内存中的数据会丢失。
+
+1.2 RDB
+1.2.1 配置1.2.1.1、持久化条..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Redis高级 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa fa-home"></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/"><i class="fa fa-th-list"></i>
+                                文章分类</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/tags/"><i class="fa fa-tags"></i>
+                                标签</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa fa-archive"></i>
+                                归档</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Redis高级">
+            
+            Redis高级
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/Redis/">Redis</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/redis/" rel="tag">redis</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2019/08/02</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="1-Redis-的持久化"><a href="#1-Redis-的持久化" class="headerlink" title="1 Redis 的持久化"></a>1 Redis 的持久化</h2><h3 id="1-1-什么是持久化"><a href="#1-1-什么是持久化" class="headerlink" title="1.1 什么是持久化"></a>1.1 什么是持久化</h3><p>持久化就是讲数据保存到磁盘中，机器宕机或者重启数据不丢失， 因为储存在内存中的数据会丢失。</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422193922463.png" alt="image-20200422193922463"></p>
+<h3 id="1-2-RDB"><a href="#1-2-RDB" class="headerlink" title="1.2 RDB"></a>1.2 RDB</h3><p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422194135169.png" alt="image-20200422194135169"></p>
+<h4 id="1-2-1-配置"><a href="#1-2-1-配置" class="headerlink" title="1.2.1 配置"></a>1.2.1 配置</h4><h5 id="1-2-1-1、持久化条件配置"><a href="#1-2-1-1、持久化条件配置" class="headerlink" title="1.2.1.1、持久化条件配置"></a>1.2.1.1、持久化条件配置</h5><p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422194353876.png" alt="image-20200422194353876"></p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422194409637.png" alt="image-20200422194409637"></p>
+<h5 id="1-2-1-2、-指定快照文件"><a href="#1-2-1-2、-指定快照文件" class="headerlink" title="1.2.1.2、 指定快照文件"></a>1.2.1.2、 指定快照文件</h5><p>当持久化的任意条件出发， 就会在配置文件指定位置生成一个 后缀为 .rdb 的文件， 里面保存所有的数据，。 因此也称之为快照</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422194613575.png" alt="image-20200422194613575"></p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422194641557.png" alt="image-20200422194641557"></p>
+<h4 id="1-2-2-创建快照"><a href="#1-2-2-创建快照" class="headerlink" title="1.2.2 创建快照"></a>1.2.2 创建快照</h4><h5 id="1-2-2-1、快照创建的过程"><a href="#1-2-2-1、快照创建的过程" class="headerlink" title="1.2.2.1、快照创建的过程"></a>1.2.2.1、快照创建的过程</h5><p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422195008447.png" alt="image-20200422195008447"></p>
+<h5 id="1-2-2-2-、手动创建快照"><a href="#1-2-2-2-、手动创建快照" class="headerlink" title="1.2.2.2 、手动创建快照"></a>1.2.2.2 、手动创建快照</h5><p>如果没有出发自动快照的创建， 可以使用save 和 bgsave 手动创建快照</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422195252835.png" alt="image-20200422195252835"></p>
+<p>在redis 高级版本中 一旦服务重启， 会自动做 RDB</p>
+<h5 id="1-2-2-3-、-快照注意事项"><a href="#1-2-2-3-、-快照注意事项" class="headerlink" title="1.2.2.3 、 快照注意事项"></a>1.2.2.3 、 快照注意事项</h5><p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422195621959.png" alt="image-20200422195621959"></p>
+<h5 id="1-2-2-4-、存储文件压缩"><a href="#1-2-2-4-、存储文件压缩" class="headerlink" title="1.2.2.4 、存储文件压缩"></a>1.2.2.4 、存储文件压缩</h5><p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422195816559.png" alt="image-20200422195816559"></p>
+<p>压缩与不压缩的优缺点：</p>
+<p>​    压缩：</p>
+<p>​            优点：减少磁盘的储存空间使用</p>
+<p>​            缺点：消耗cpu资源</p>
+<p>​    不压缩：</p>
+<p>​            优点： 不消耗cpu资源</p>
+<p>​            缺点:    占用磁盘空间多</p>
+<p>如何选择需要看需求和服务器资源情况。</p>
+<p>redis 默认是开启压缩的</p>
+<h4 id="1-2-3-快照的恢复"><a href="#1-2-3-快照的恢复" class="headerlink" title="1.2.3 快照的恢复"></a>1.2.3 快照的恢复</h4><p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422200056126.png" alt="image-20200422200056126"></p>
+<h3 id="1-3-AOF"><a href="#1-3-AOF" class="headerlink" title="1.3 AOF"></a>1.3 AOF</h3><h4 id="1-3-1-、开启AOF"><a href="#1-3-1-、开启AOF" class="headerlink" title="1.3.1 、开启AOF"></a>1.3.1 、开启AOF</h4><p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422200336795.png" alt="image-20200422200336795"></p>
+<p>指定aof文件的名字：</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422200444500.png" alt="image-20200422200444500"></p>
+<h4 id="1-3-2、-AOF的工作方式"><a href="#1-3-2、-AOF的工作方式" class="headerlink" title="1.3.2、 AOF的工作方式"></a>1.3.2、 AOF的工作方式</h4><p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422200604647.png" alt="image-20200422200604647"></p>
+<h4 id="1-3-3、-测试AOF"><a href="#1-3-3、-测试AOF" class="headerlink" title="1.3.3、 测试AOF"></a>1.3.3、 测试AOF</h4><p>当客户端向服务器发送redis 命令时， redis会将所执行的命令记录到aof文件中</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422200854795.png" alt="image-20200422200854795"></p>
+<p>当 redis 服务器重启后， 会将执行该aof文件， 达到数据恢复的目的</p>
+<h4 id="1-3-4、AOF-文件的重写"><a href="#1-3-4、AOF-文件的重写" class="headerlink" title="1.3.4、AOF 文件的重写"></a>1.3.4、AOF 文件的重写</h4><p>在以上的案例中， 有两次对age 进行操作，都记录在了AOF文件中， 其实对于一个变量的多次操作， 只需要记录一次即可。</p>
+<p>AOF 重写机制会自动对AOF 文件进行优化， 当文件过大时， 就会把文件中多余（对一个key的重复操作）命令移除，从而保证文件体积。 自动重写的规则， 可以在配置文件中设置。</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422203953900.png" alt="image-20200422203953900"></p>
+<p>手动开启重启</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422204053453.png" alt="image-20200422204053453"></p>
+<p>目的： 去除数据的中间执行过程， 保留组一种数据命令即可。</p>
+<h4 id="1-3-5、文件同步策略"><a href="#1-3-5、文件同步策略" class="headerlink" title="1.3.5、文件同步策略"></a>1.3.5、文件同步策略</h4><p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422225216429.png" alt="image-20200422225216429"></p>
+<p>注意： 即使每秒做文件同步也可能导致数据丢失。</p>
+<h2 id="2-Redis-主从复制-读写分离"><a href="#2-Redis-主从复制-读写分离" class="headerlink" title="2 Redis 主从复制(读写分离)"></a>2 Redis 主从复制(读写分离)</h2><p>主从复制的好处有2点：</p>
+<ul>
+<li>避免redis单点故障</li>
+<li>构建读写分离架构， 满足读多写少的应用场景</li>
+</ul>
+<h3 id="2-1-主从架构"><a href="#2-1-主从架构" class="headerlink" title="2.1 主从架构"></a>2.1 主从架构</h3><p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422230519833.png" alt="image-20200422230519833"></p>
+<h4 id="2-1-1-、-启动实例"><a href="#2-1-1-、-启动实例" class="headerlink" title="2.1.1 、 启动实例"></a>2.1.1 、 启动实例</h4><p>redis 是单进程应用，所以一台机器可以启动多个redis实例， 只需要启动时指定不同的配置文件即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意</span></span><br><span class="line"><span class="comment"># 更改配置文件中的 port 和 pidfile /var/run/redis_6379.pid  文件</span></span><br><span class="line"><span class="comment"># 端口号要不一样，  pid 文件要不一样 避免冲突</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-2-设置主从"><a href="#2-1-2-设置主从" class="headerlink" title="2.1.2 设置主从"></a>2.1.2 设置主从</h4><ul>
+<li>设置主从的两种方式</li>
+</ul>
+<p>  1、 在redis.conf 中设置 slaveof 配置</p>
+<p>  ​    a)  slaveof <masterip><masterport></p>
+<p>  2、 使用 redis-cli 客户端连接到 redis 服务， 执行 slaveof 命令</p>
+<p>  ​    a) slaveof <masterip><masterport></p>
+<p>第二种方式在重启后将失去主从复制关系。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 redis-cli 客户端连接后 使用</span></span><br><span class="line"><span class="comment"># INFO replication  查看redis数据库的信息</span></span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:master</span><br><span class="line">connected_slaves:<span class="number">0</span></span><br><span class="line">master_replid:efe95faf98856187743d45c516050b70cbbef92b</span><br><span class="line">master_replid2:<span class="number">0000000000000000000000000000000000000000</span></span><br><span class="line">master_repl_offset:<span class="number">0</span></span><br><span class="line">second_repl_offset:-<span class="number">1</span></span><br><span class="line">repl_backlog_active:<span class="number">0</span></span><br><span class="line">repl_backlog_size:<span class="number">1048576</span></span><br><span class="line">repl_backlog_first_byte_offset:<span class="number">0</span></span><br><span class="line">repl_backlog_histlen:<span class="number">0</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-3-从库设置可写（一般用不到）"><a href="#2-1-3-从库设置可写（一般用不到）" class="headerlink" title="2.1.3 从库设置可写（一般用不到）"></a>2.1.3 从库设置可写（一般用不到）</h4><p><strong>注意</strong> </p>
+<p>读写分离中， 主库可读写，  从库 只能读。</p>
+<p>如果有需求， 从库可以配置可写: </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slave-read-only no  </span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-主从复制的过程和原理"><a href="#2-2-主从复制的过程和原理" class="headerlink" title="2.2 主从复制的过程和原理"></a>2.2 主从复制的过程和原理</h3><ol>
+<li>当从库和主库建立ms关系后， 从库会向主数据库发送PSYNC 命令；</li>
+<li>主库接收到PSYNC 命令后 开始在后台保存快照（RDB持久化过程）， 并将期间接收到的写命令缓存起来；</li>
+<li>当快照完成后， 主redis 会将快照文件和所有缓存的写命令发送给从redis</li>
+<li>从redis 接收到后， 会载入快照文件并且执行收到的缓存命令；</li>
+<li>之后， 主redis 每当接收到写命令时， 就会将命令发送给从redis， 从而保证数据的一致</li>
+</ol>
+<p><strong>一旦玩集群， 主就无需设置RDB或AOF了</strong></p>
+<p>问题：</p>
+<p>​    第一次需要执行RDB持久化， 会经过多次硬盘IO, 网络IO 所以 效率很低， 由此， 会有下面这个方式。</p>
+<h3 id="2-3-无磁盘复制"><a href="#2-3-无磁盘复制" class="headerlink" title="2.3 无磁盘复制"></a>2.3 无磁盘复制</h3><p>原理：</p>
+<p>​    redis 在与从数据库进行复制初始化时 不再将快照存储到磁盘， 而是直接通过网络发送给从数据库，避免io性能差的问题</p>
+<p>​    redis 在 2.8.18 版本开始实现了无磁盘复制功能 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开启无磁盘复制：</span></span><br><span class="line">repl-diskless-sync <span class="built_in">yes</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4、从库宕机"><a href="#2-4、从库宕机" class="headerlink" title="2.4、从库宕机"></a>2.4、从库宕机</h3><ul>
+<li>从库需要做AOF 防止宕机后 全量的读主库</li>
+<li>从库有偏移量  master_rep1_offset:  100  </li>
+<li>在重新建立关系后， 从库发送的PSYNC命令会携带以上参数，  主库会进行增量复制</li>
+</ul>
+<h3 id="2-5、主库宕机"><a href="#2-5、主库宕机" class="headerlink" title="2.5、主库宕机"></a>2.5、主库宕机</h3><p>相对较复杂</p>
+<ol>
+<li>在从数据库中执行 slaveof no one 命令， 断开主从关系并提升为主库继续服务</li>
+<li>主库重新启动后， 执行 slaveof 命苦， 讲其设置为其他库的从库， 这时的数据就能更新回来。</li>
+</ol>
+<p><strong>问题</strong></p>
+<p>主库宕机， 很麻烦， 所以 提供了 哨兵功能！</p>
+<h2 id="3-哨兵"><a href="#3-哨兵" class="headerlink" title="3 哨兵"></a>3 哨兵</h2><h3 id="3-1、-什么是哨兵"><a href="#3-1、-什么是哨兵" class="headerlink" title="3.1、 什么是哨兵"></a>3.1、 什么是哨兵</h3><p>哨兵的作用就是对Redis的系统的运行情况进行监控， 它是一个独立的进程， 有2个功能：</p>
+<ol>
+<li>监控主从数据库是否运行征程</li>
+<li>主数据库出现故障后， 自动将从数据库转化为主数据库；</li>
+</ol>
+<h3 id="3-2、哨兵原理"><a href="#3-2、哨兵原理" class="headerlink" title="3.2、哨兵原理"></a>3.2、哨兵原理</h3><ul>
+<li><p>单哨兵架构</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422235404953.png" alt="image-20200422235404953"></p>
+</li>
+<li><p>多哨兵架构</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200422235432920.png" alt="image-20200422235432920"></p>
+</li>
+</ul>
+<p>多个哨兵， 不仅能同时监控主从数据库， 而且哨兵之间互为监控。</p>
+<h3 id="3-3、-配置哨兵"><a href="#3-3、-配置哨兵" class="headerlink" title="3.3、 配置哨兵"></a>3.3、 配置哨兵</h3><h4 id="3-3-1、配置文件"><a href="#3-3-1、配置文件" class="headerlink" title="3.3.1、配置文件"></a>3.3.1、配置文件</h4><p> redis 安装后在安装目录下会有 哨兵的配置文件， sentinel.conf</p>
+<p>在配置文件中添加配置  sentinel monitor myredis 127.0.0.1 6379 1</p>
+<p>说明：</p>
+<p>​    myredis： 监控主数据库的名称， 自定义即可， </p>
+<p>​    127.0.0.1： 监控主数据库的ip</p>
+<p>​    6379 ： 监控主数据库的端口</p>
+<p>​    1： 最低通过票数</p>
+<h4 id="3-3-2-、启动哨兵进程"><a href="#3-3-2-、启动哨兵进程" class="headerlink" title="3.3.2 、启动哨兵进程"></a>3.3.2 、启动哨兵进程</h4><p>redis-sentinel .&#x2F;sentinel.conf</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423000337729.png" alt="image-20200423000337729"></p>
+<p>由上图可以看到：</p>
+<ol>
+<li>哨兵已经启动，并且id为：905.,…</li>
+<li>为master数据库添加了一个监控</li>
+<li>发现2个slave （由此可以看出， 哨兵无需配置slave，只需要指定master， 哨兵会自动发现slave）</li>
+</ol>
+<p>3.3.3、 主库宕机 哨兵控制台打印信息如下</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423000712562.png" alt="image-20200423000712562"></p>
+<h4 id="3-3-4、多哨兵"><a href="#3-3-4、多哨兵" class="headerlink" title="3.3.4、多哨兵"></a>3.3.4、多哨兵</h4><p>使用哨兵文件启动多个哨兵。</p>
+<h2 id="4-分片集群"><a href="#4-分片集群" class="headerlink" title="4 分片集群"></a>4 分片集群</h2><p>即使有了主从复制, 每个数据都要保存整个集群中的数据, 容易形成木桶效应( 就是, 当数据量超过一条redis 服务器的内存大小的时候,  redis受制于服务器的性能, 无法实现水平扩展, 这时候就需要用到集群)</p>
+<p>以前使用的是jedis实现分片集群, 游客户端控制那些key数据保存到那个数据中, 如果在水平扩容时就必须手动进行数据迁移. 需要将整个集群服务停止, 这样做非常不好</p>
+<p>在redis3.0 版本一大特性就是集群(Cluster)</p>
+<h3 id="4-1、-架构"><a href="#4-1、-架构" class="headerlink" title="4.1、 架构"></a>4.1、 架构</h3><p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423145413957.png" alt="image-20200423145413957"></p>
+<ol>
+<li>所有的redis节点彼此互联（PING-PONG机制）， 内部使用二进制协议优化传输和宽带</li>
+<li>节点的fail是通过集群中超过半数点的失效才失效（确认节点是否宕机）</li>
+<li>客户端直接与 redis节点直连， 不需要中间proxy层， 客户端不需要连接集群中所有的节点， 连接集群中一个可用节点即可</li>
+<li>redis-cluster 把所有的物理节点映射到[0-16383]slot（插槽）上， cluster 负责维护 node&lt;-&gt;slot&lt;-&gt;value</li>
+</ol>
+<h3 id="4-2-、-集群配置"><a href="#4-2-、-集群配置" class="headerlink" title="4.2 、 集群配置"></a>4.2 、 集群配置</h3><p>配置集群要将原所有的dump文件或者 aof 文件 删除</p>
+<p><strong>配置</strong></p>
+<p>进入3个redis目录， 分别修改 redis.conf配置</p>
+<ol>
+<li>设置不同的端口， 6379、6380、6381</li>
+<li>开启集群， cluster-enable yes</li>
+<li>指定集群配置文件 ， cluster-config-file “nodes-xxxx.comf”</li>
+<li>启动每个redis</li>
+</ol>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423185117383.png" alt="image-20200423185117383"></p>
+<h3 id="4-3、创建集群"><a href="#4-3、创建集群" class="headerlink" title="4.3、创建集群"></a>4.3、创建集群</h3><h4 id="4-3-1、-安装ruby-环境"><a href="#4-3-1、-安装ruby-环境" class="headerlink" title="4.3.1、 安装ruby 环境"></a>4.3.1、 安装ruby 环境</h4><p>需要使用 redis-trib.rb 脚本文件创建集群， 因为脚本是使用ruby编写， 所有需要安装ruby环境</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install zlib ruby rubygems</span><br><span class="line">gem install redis</span><br></pre></td></tr></table></figure>
+
+<p>手动安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y install zlib ruby rubygems</span><br><span class="line">rz 上传 redis-3.2.1.gem</span><br><span class="line">gem install -l redis-3.2.1.gem</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-3-2、创建集群"><a href="#4-3-2、创建集群" class="headerlink" title="4.3.2、创建集群"></a>4.3.2、创建集群</h4><p>使用脚本创建集群</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423185830218.png" alt="image-20200423185830218"></p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423185912769.png" alt="image-20200423185912769"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cluster nodes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看集群</span></span><br></pre></td></tr></table></figure>
+
+<p>4.3.3、 测试</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423190533122.png" alt="image-20200423190533122"></p>
+<p>为什么会出现  (error) MOVED 7638 127.0.0.1：6380 ？</p>
+<p>因为 abs 的hash槽位信息是在 6380 上， 现在使用redis-cli链接的 6379 无法完成set操作， 需要客户端追踪冲顶先</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423191041651.png" alt="image-20200423191041651"></p>
+<p><strong>解决办法</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#  使用redis-cli -p 6379 是单点玩法</span></span><br><span class="line"><span class="comment">#  使用redis-cli -p 6379 -c    集群玩法</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-4、-插槽的分配"><a href="#4-4、-插槽的分配" class="headerlink" title="4.4、 插槽的分配"></a>4.4、 插槽的分配</h3><p>通过 cluster nodes 命令可以查看当前集群信息：</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423191348362.png" alt="image-20200423191348362"></p>
+<p>该信息反映出了集群中的每个节点的  id、 身份、 连接数、插槽数</p>
+<p>当我们执行 set abc 123 命令时， redis 是如何将数据保存到集群中的呢？</p>
+<ol>
+<li>接收命令 set abc 123</li>
+<li>通过key（abc） 计算出插槽值， 然后根据插槽值找到对应的节点。（abc的插槽值为：7638）</li>
+<li>冲顶下载那个到该节点执行命令</li>
+</ol>
+<p>整个Redis 提供了 16384 个插槽， 也就是说 集群中的每个节点分得的插槽数总和为16384</p>
+<p>.&#x2F;redis-trib.rb  脚本实现了是讲16384个插槽平均分配给了N 个节点</p>
+<p>注意： 如果插槽数有部分是没有指定到节点的。 name这部分插槽所对应的key 将不能使用</p>
+<h3 id="4-5、-插槽和key的关系"><a href="#4-5、-插槽和key的关系" class="headerlink" title="4.5、 插槽和key的关系"></a>4.5、 插槽和key的关系</h3><p>计算key的插槽值：</p>
+<p>key的<strong>有效部分</strong>使用CRC16算法计算出哈希值， 再讲哈希值对16384取余，得到插槽值</p>
+<p>什么是有效部分：</p>
+<ol>
+<li><p>如果key中包含了 <code>&#123;</code> 且在<code>&#123;</code>之后存在<code>&#125;</code> 并且 <code>&#123;&#125;</code> 之间至少有一个字符， 则有效部分是指<code>&#123;&#125;</code>之间的部分</p>
+<p>a) key&#x3D;{hello}_taobao  则有效部分是 hello</p>
+</li>
+<li><p>如果不满足上一条情况， 整个key都是有效部分；</p>
+<p>a) key&#x3D;hello_taobao  则有效部分是 hello</p>
+</li>
+</ol>
+<p>应用场景</p>
+<p>用有效key 将同类的数据 存储到同一台机器上， 增加速度</p>
+<h3 id="4-6、新增集群节点"><a href="#4-6、新增集群节点" class="headerlink" title="4.6、新增集群节点"></a>4.6、新增集群节点</h3><p>再开启一天集群redis实例。</p>
+<h4 id="4-6-1、-添加节点"><a href="#4-6-1、-添加节点" class="headerlink" title="4.6.1、 添加节点"></a>4.6.1、 添加节点</h4><p>执行 脚本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-trib.rb add-node 192.168.56.102:6382 192.168.56.102:6379</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423195444680.png" alt="image-20200423195444680"></p>
+<p> 查看集群信息</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423195540161.png" alt="image-20200423195540161"></p>
+<p>此时虽然添加进集群， 但是此节点不工作 是个看戏的， 因为没有分配 slot  槽点</p>
+<h4 id="4-6-2、-分配插槽"><a href="#4-6-2、-分配插槽" class="headerlink" title="4.6.2、 分配插槽"></a>4.6.2、 分配插槽</h4><p>没有插槽数</p>
+<p>接下来给6382 分配插槽， 将6379 的一部分（1000）个分配给6382</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423195758141.png" alt="image-20200423195758141"></p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423195818586.png" alt="image-20200423195818586"></p>
+<p>查看节点情况</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423195850118.png" alt="image-20200423195850118"></p>
+<p>总结步骤：</p>
+<ol>
+<li>启动 一个新的redis服务</li>
+<li>运行角门 添加实例到集群中， 使用 redis-trib.rb  add-node</li>
+<li>重新分配槽位， 使用 redis-trib.rb reshard</li>
+</ol>
+<h3 id="4-7、-删除集群节点"><a href="#4-7、-删除集群节点" class="headerlink" title="4.7、 删除集群节点"></a>4.7、 删除集群节点</h3><p>要删除集群节点中的某一个节点， 要严格执行2步</p>
+<ol>
+<li><p>将 这个基点的所有插槽专业到其他节点上；</p>
+</li>
+<li><p>执行脚本 ：.&#x2F;redis-trib.rb 192.168.56.102.6380</p>
+</li>
+<li><p>选择需要转移的插槽数量， 讲所有插槽转移 redis-trib.rb reshard  </p>
+</li>
+<li><p>使用 redis.-trib.rb 删除节点</p>
+<p>a) .&#x2F;redis-trib.rb del-node 192.168.56.102:6380 + id</p>
+<p>b) del-node host:port node_id</p>
+</li>
+</ol>
+<h3 id="4-8、-故障转移"><a href="#4-8、-故障转移" class="headerlink" title="4.8、 故障转移"></a>4.8、 故障转移</h3><p>当集群中一个节点的 宕机， 则整个集群瘫痪</p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423220936447.png" alt="image-20200423220936447"></p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423220949839.png" alt="image-20200423220949839"></p>
+<h4 id="4-8-1、故障机制"><a href="#4-8-1、故障机制" class="headerlink" title="4.8.1、故障机制"></a>4.8.1、故障机制</h4><ol>
+<li><p>集群中的每个节点都会定期向其他的节点发送PING 命令， 并且通过有没有收到回复判断目标节点是否下线；</p>
+</li>
+<li><p>集群中每一秒就会随机选择5个节点，然后选择其中最久没有响应的节点放PING 命令；</p>
+</li>
+<li><p>如果一定时间内目标节点没有响应， 那么该节点就认为目标节点疑似下线；</p>
+</li>
+<li><p>当集群中的节点超过半数认为该目标节点疑似下线， 那么该节点就会被标记为下线（fail）；</p>
+</li>
+<li><p>当集群中的任何一个节点下线，就会导致插槽区空档， 不完整，那么该集群不可用</p>
+</li>
+<li><p>如何解决上述问题？</p>
+<p>a) 在redis集群中科院使用主从模式实现一个节点的高可用</p>
+<p>b) 当该节点（master）宕机后， 集群将改节点的从数据库（slave）转变为（master）继续完成集群服务</p>
+</li>
+</ol>
+<h4 id="4-8-2、集群中的主从复制架构"><a href="#4-8-2、集群中的主从复制架构" class="headerlink" title="4.8.2、集群中的主从复制架构"></a>4.8.2、集群中的主从复制架构</h4><p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423221059221.png" alt="image-20200423221059221"></p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423221146076.png" alt="image-20200423221146076"></p>
+<h4 id="4-8-3、-创建主从集群"><a href="#4-8-3、-创建主从集群" class="headerlink" title="4.8.3、 创建主从集群"></a>4.8.3、 创建主从集群</h4><p> <img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423222252554.png" alt="image-20200423222252554"></p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423222320496.png" alt="image-20200423222320496"></p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423222338721.png" alt="image-20200423222338721"></p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423222353322.png" alt="image-20200423222353322"></p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423222412844.png" alt="image-20200423222412844"></p>
+<h4 id="4-8-4、-测试从宕机"><a href="#4-8-4、-测试从宕机" class="headerlink" title="4.8.4、 测试从宕机"></a>4.8.4、 测试从宕机</h4><p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423222537580.png" alt="image-20200423222537580"></p>
+<p>不会影响集群的工作</p>
+<h4 id="4-8-4、-测试主宕机"><a href="#4-8-4、-测试主宕机" class="headerlink" title="4.8.4、 测试主宕机"></a>4.8.4、 测试主宕机</h4><p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423222639595.png" alt="image-20200423222639595"></p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423222722319.png" alt="image-20200423222722319"></p>
+<p><img src="https://gitee.com/qilitang/Img/raw/master/img/image-20200423222756650.png" alt="image-20200423222756650"></p>
+<p>自动启动  用哨兵</p>
+<p>主宕机重启后  自动变成从</p>
+<h3 id="4-9-使用集群注意事项"><a href="#4-9-使用集群注意事项" class="headerlink" title="4.9 使用集群注意事项"></a>4.9 使用集群注意事项</h3><p>1、 多键的命令操作，如（mget， mset） 如果每个键都位于同一个节点， 则可以正常使用， 否则会提示错误</p>
+<p>2、 集群中的节点只能使用0号库， 如果执行select 切换数据库则会提示错误。</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Qilitang</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2019/08/02/Redis%20%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF/" class="pre-post btn btn-default" title='Redis 缓存击穿 穿透  雪崩及解决办法'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            Redis 缓存击穿 穿透  雪崩及解决办法</span>
+    </a>
+    
+    
+    <a href="/2019/03/05/DRF%2002%20%E6%A1%86%E6%9E%B6%E8%AF%A6%E8%A7%A3/" class="next-post btn btn-default" title='DRF 详解'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            DRF 详解</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Redis-%E7%9A%84%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-text">1 Redis 的持久化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-text">1.1 什么是持久化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-RDB"><span class="toc-text">1.2 RDB</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-%E9%85%8D%E7%BD%AE"><span class="toc-text">1.2.1 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-1-1%E3%80%81%E6%8C%81%E4%B9%85%E5%8C%96%E6%9D%A1%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="toc-text">1.2.1.1、持久化条件配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-1-2%E3%80%81-%E6%8C%87%E5%AE%9A%E5%BF%AB%E7%85%A7%E6%96%87%E4%BB%B6"><span class="toc-text">1.2.1.2、 指定快照文件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-%E5%88%9B%E5%BB%BA%E5%BF%AB%E7%85%A7"><span class="toc-text">1.2.2 创建快照</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-2-1%E3%80%81%E5%BF%AB%E7%85%A7%E5%88%9B%E5%BB%BA%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-text">1.2.2.1、快照创建的过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-2-2-%E3%80%81%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BA%E5%BF%AB%E7%85%A7"><span class="toc-text">1.2.2.2 、手动创建快照</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-2-3-%E3%80%81-%E5%BF%AB%E7%85%A7%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">1.2.2.3 、 快照注意事项</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-2-4-%E3%80%81%E5%AD%98%E5%82%A8%E6%96%87%E4%BB%B6%E5%8E%8B%E7%BC%A9"><span class="toc-text">1.2.2.4 、存储文件压缩</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-%E5%BF%AB%E7%85%A7%E7%9A%84%E6%81%A2%E5%A4%8D"><span class="toc-text">1.2.3 快照的恢复</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-AOF"><span class="toc-text">1.3 AOF</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-%E3%80%81%E5%BC%80%E5%90%AFAOF"><span class="toc-text">1.3.1 、开启AOF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2%E3%80%81-AOF%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F"><span class="toc-text">1.3.2、 AOF的工作方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3%E3%80%81-%E6%B5%8B%E8%AF%95AOF"><span class="toc-text">1.3.3、 测试AOF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-4%E3%80%81AOF-%E6%96%87%E4%BB%B6%E7%9A%84%E9%87%8D%E5%86%99"><span class="toc-text">1.3.4、AOF 文件的重写</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-5%E3%80%81%E6%96%87%E4%BB%B6%E5%90%8C%E6%AD%A5%E7%AD%96%E7%95%A5"><span class="toc-text">1.3.5、文件同步策略</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Redis-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB"><span class="toc-text">2 Redis 主从复制(读写分离)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84"><span class="toc-text">2.1 主从架构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-%E3%80%81-%E5%90%AF%E5%8A%A8%E5%AE%9E%E4%BE%8B"><span class="toc-text">2.1.1 、 启动实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-%E8%AE%BE%E7%BD%AE%E4%B8%BB%E4%BB%8E"><span class="toc-text">2.1.2 设置主从</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-%E4%BB%8E%E5%BA%93%E8%AE%BE%E7%BD%AE%E5%8F%AF%E5%86%99%EF%BC%88%E4%B8%80%E8%88%AC%E7%94%A8%E4%B8%8D%E5%88%B0%EF%BC%89"><span class="toc-text">2.1.3 从库设置可写（一般用不到）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E7%9A%84%E8%BF%87%E7%A8%8B%E5%92%8C%E5%8E%9F%E7%90%86"><span class="toc-text">2.2 主从复制的过程和原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E6%97%A0%E7%A3%81%E7%9B%98%E5%A4%8D%E5%88%B6"><span class="toc-text">2.3 无磁盘复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4%E3%80%81%E4%BB%8E%E5%BA%93%E5%AE%95%E6%9C%BA"><span class="toc-text">2.4、从库宕机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5%E3%80%81%E4%B8%BB%E5%BA%93%E5%AE%95%E6%9C%BA"><span class="toc-text">2.5、主库宕机</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%93%A8%E5%85%B5"><span class="toc-text">3 哨兵</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1%E3%80%81-%E4%BB%80%E4%B9%88%E6%98%AF%E5%93%A8%E5%85%B5"><span class="toc-text">3.1、 什么是哨兵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2%E3%80%81%E5%93%A8%E5%85%B5%E5%8E%9F%E7%90%86"><span class="toc-text">3.2、哨兵原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3%E3%80%81-%E9%85%8D%E7%BD%AE%E5%93%A8%E5%85%B5"><span class="toc-text">3.3、 配置哨兵</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">3.3.1、配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-%E3%80%81%E5%90%AF%E5%8A%A8%E5%93%A8%E5%85%B5%E8%BF%9B%E7%A8%8B"><span class="toc-text">3.3.2 、启动哨兵进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-4%E3%80%81%E5%A4%9A%E5%93%A8%E5%85%B5"><span class="toc-text">3.3.4、多哨兵</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%88%86%E7%89%87%E9%9B%86%E7%BE%A4"><span class="toc-text">4 分片集群</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1%E3%80%81-%E6%9E%B6%E6%9E%84"><span class="toc-text">4.1、 架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E3%80%81-%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE"><span class="toc-text">4.2 、 集群配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3%E3%80%81%E5%88%9B%E5%BB%BA%E9%9B%86%E7%BE%A4"><span class="toc-text">4.3、创建集群</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-1%E3%80%81-%E5%AE%89%E8%A3%85ruby-%E7%8E%AF%E5%A2%83"><span class="toc-text">4.3.1、 安装ruby 环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-2%E3%80%81%E5%88%9B%E5%BB%BA%E9%9B%86%E7%BE%A4"><span class="toc-text">4.3.2、创建集群</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4%E3%80%81-%E6%8F%92%E6%A7%BD%E7%9A%84%E5%88%86%E9%85%8D"><span class="toc-text">4.4、 插槽的分配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5%E3%80%81-%E6%8F%92%E6%A7%BD%E5%92%8Ckey%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">4.5、 插槽和key的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6%E3%80%81%E6%96%B0%E5%A2%9E%E9%9B%86%E7%BE%A4%E8%8A%82%E7%82%B9"><span class="toc-text">4.6、新增集群节点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-6-1%E3%80%81-%E6%B7%BB%E5%8A%A0%E8%8A%82%E7%82%B9"><span class="toc-text">4.6.1、 添加节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-6-2%E3%80%81-%E5%88%86%E9%85%8D%E6%8F%92%E6%A7%BD"><span class="toc-text">4.6.2、 分配插槽</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-7%E3%80%81-%E5%88%A0%E9%99%A4%E9%9B%86%E7%BE%A4%E8%8A%82%E7%82%B9"><span class="toc-text">4.7、 删除集群节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-8%E3%80%81-%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB"><span class="toc-text">4.8、 故障转移</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-8-1%E3%80%81%E6%95%85%E9%9A%9C%E6%9C%BA%E5%88%B6"><span class="toc-text">4.8.1、故障机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-8-2%E3%80%81%E9%9B%86%E7%BE%A4%E4%B8%AD%E7%9A%84%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E6%9E%B6%E6%9E%84"><span class="toc-text">4.8.2、集群中的主从复制架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-8-3%E3%80%81-%E5%88%9B%E5%BB%BA%E4%B8%BB%E4%BB%8E%E9%9B%86%E7%BE%A4"><span class="toc-text">4.8.3、 创建主从集群</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-8-4%E3%80%81-%E6%B5%8B%E8%AF%95%E4%BB%8E%E5%AE%95%E6%9C%BA"><span class="toc-text">4.8.4、 测试从宕机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-8-4%E3%80%81-%E6%B5%8B%E8%AF%95%E4%B8%BB%E5%AE%95%E6%9C%BA"><span class="toc-text">4.8.4、 测试主宕机</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-9-%E4%BD%BF%E7%94%A8%E9%9B%86%E7%BE%A4%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">4.9 使用集群注意事项</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="#" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+
+</body>
+</html>

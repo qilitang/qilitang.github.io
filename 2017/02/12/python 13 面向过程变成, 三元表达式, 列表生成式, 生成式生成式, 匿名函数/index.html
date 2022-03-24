@@ -1,0 +1,336 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="表达式" />
+
+
+<meta name="description" content="面向过程编程面向过程编程是一门编程思想。
+面向 过程 编程:    核心是 ‘过程’ 二字，过程 指的是一种解决问题的步骤，即先干什么再干什么    基于该编程思想编写程序，就好比在设计一条工厂..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    面向过程变成, 三元表达式, 列表生成式, 生成式生成式, 匿名函数 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa fa-home"></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/"><i class="fa fa-th-list"></i>
+                                文章分类</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/tags/"><i class="fa fa-tags"></i>
+                                标签</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa fa-archive"></i>
+                                归档</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="面向过程变成, 三元表达式, 列表生成式, 生成式生成式, 匿名函数">
+            
+            面向过程变成, 三元表达式, 列表生成式, 生成式生成式, 匿名函数
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/Python%E5%9F%BA%E7%A1%80/">Python基础</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">表达式</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2017/02/12</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="面向过程编程"><a href="#面向过程编程" class="headerlink" title="面向过程编程"></a>面向过程编程</h2><p>面向过程编程是一门编程思想。</p>
+<p>面向 过程 编程:<br>    核心是 ‘过程’ 二字，过程 指的是一种解决问题的步骤，即先干什么再干什么<br>    基于该编程思想编写程序，就好比在设计一条工厂流水线，一种机械式的思维方式。</p>
+<ul>
+<li><p>优点:  </p>
+<ul>
+<li>将复杂的问题流程化，进而简单化</li>
+</ul>
+</li>
+<li><p>缺点:<br>  -若修改当前程序设计的某一部分，会导致他部分同时需要修改， 扩展性差。</p>
+</li>
+</ul>
+<h2 id="三元表达式"><a href="#三元表达式" class="headerlink" title="三元表达式"></a>三元表达式</h2><p>三元表达式:<br>可以将if…else…分支变成一行。</p>
+<ul>
+<li>语法:<ul>
+<li>条件成立返回左边的值 if 判断条件 else 条件不成立返回右边的值</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">func</span>(<span class="params">x, y</span>):</span><br><span class="line">    res = x <span class="keyword">if</span> x &gt;y <span class="keyword">else</span> y</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="列表生成式"><a href="#列表生成式" class="headerlink" title="列表生成式"></a>列表生成式</h2><ul>
+<li>可以一行实现生成列表。</li>
+<li>语法:<ul>
+<li><p>list &#x3D; [取出的每一个值、任意值 for 可迭代对象中取出的每一个值 in 可迭代对象]</p>
+</li>
+<li><p>for的右边是循环次数，并且可以取出可迭代对象中每一个值</p>
+</li>
+<li><p>for的左边可以为当前列表添加值<br>list &#x3D; [值 for 可迭代对象中取出的每一个值 in 可迭代对象]</p>
+</li>
+<li><p>list &#x3D; [值 for 可迭代对象中取出的每一个值 in 可迭代对象 if 判断]</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">list1 = [<span class="string">f&#x27;1<span class="subst">&#123;line&#125;</span>&#x27;</span> <span class="keyword">for</span> line <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">101</span>)]</span><br><span class="line"><span class="built_in">print</span>(list1)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="生成器表达式-生成器生成式"><a href="#生成器表达式-生成器生成式" class="headerlink" title="生成器表达式(生成器生成式):"></a>生成器表达式(生成器生成式):</h2><ul>
+<li><p>列表生成式:  若数据量小时采用<br> [line for line in range(1, 6)] —&gt; [1, 2, 3, 4, 5]</p>
+<ul>
+<li><p>优点:<br>可以依赖于索引取值，取值方便</p>
+</li>
+<li><p>缺点:<br>  浪费资源</p>
+</li>
+</ul>
+</li>
+<li><p>生成器生成式:  若数据量过大时采用<br>() —&gt; 返回生成器<br>(line for line in range(1, 6)) —&gt; g生成器(1, 2, 3, 4, 5)  </p>
+<ul>
+<li>优点:</li>
+</ul>
+</li>
+</ul>
+<p>节省资源<br>    - 缺点:<br>取值不方便</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成一个有1000个值的生成器</span></span><br><span class="line">g = (line <span class="keyword">for</span> line <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">1000001</span>))</span><br><span class="line"><span class="comment"># &lt;generator object &lt;genexpr&gt; at 0x00000203262318E0&gt;</span></span><br><span class="line"><span class="built_in">print</span>(g)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列表生成式实现</span></span><br><span class="line">list1 = [line <span class="keyword">for</span> line <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">1000001</span>)]</span><br><span class="line"><span class="built_in">print</span>(list1)</span><br></pre></td></tr></table></figure>
+
+<h2 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数:"></a>匿名函数:</h2><p>无名字的函数  </p>
+<ul>
+<li><p>左边是参数， 右边是返回值</p>
+</li>
+<li><p>lambda :</p>
+</li>
+<li><p>PS: 原因,因为没有名字，函数的调用  函数名 ()<br>匿名函数需要一次性使用。</p>
+</li>
+<li><p>注意: 匿名函数单独使用毫无意义，它必须配合 “内置函数” 一起使用的才有意义。</p>
+</li>
+</ul>
+<p>有名函数:<br>    有名字的函数<br>‘’’</p>
+<p>[toc]</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Qilitang</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2017/02/12/python%2012%20%E7%94%9F%E6%88%90%E5%99%A8/" class="pre-post btn btn-default" title='生成器'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            生成器</span>
+    </a>
+    
+    
+    <a href="/2017/02/11/python%2011%20%E8%BF%AD%E4%BB%A3%E5%99%A8/" class="next-post btn btn-default" title='迭代器'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            迭代器</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%E7%BC%96%E7%A8%8B"><span class="toc-text">面向过程编程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E5%85%83%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">三元表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%97%E8%A1%A8%E7%94%9F%E6%88%90%E5%BC%8F"><span class="toc-text">列表生成式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E7%94%9F%E6%88%90%E5%99%A8%E7%94%9F%E6%88%90%E5%BC%8F"><span class="toc-text">生成器表达式(生成器生成式):</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0"><span class="toc-text">匿名函数:</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="#" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+
+</body>
+</html>

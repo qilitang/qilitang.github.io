@@ -1,0 +1,307 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="封装" />
+
+
+<meta name="description" content="组合什么是组合?
+在一个类中, 以另外一个类的对象作为数据属性, 称之为组合
+
+组合有什么用?
+组合与继承都是用来解决代码的重用性问题
+继承是一种”是”的关系. 例如, 老师是人, 学生也是人 ..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    面向对象之 封装 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa fa-home"></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/"><i class="fa fa-th-list"></i>
+                                文章分类</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/tags/"><i class="fa fa-tags"></i>
+                                标签</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa fa-archive"></i>
+                                归档</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="面向对象之 封装">
+            
+            面向对象之 封装
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/Python%E9%AB%98%E7%BA%A7/">Python高级</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E5%B0%81%E8%A3%85/" rel="tag">封装</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2017/02/26</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><h3 id="什么是组合"><a href="#什么是组合" class="headerlink" title="什么是组合?"></a>什么是组合?</h3><ul>
+<li>在一个类中, 以另外一个类的对象作为数据属性, 称之为组合</li>
+</ul>
+<h3 id="组合有什么用"><a href="#组合有什么用" class="headerlink" title="组合有什么用?"></a>组合有什么用?</h3><ul>
+<li>组合与继承都是用来解决代码的重用性问题</li>
+<li>继承是一种”是”的关系. 例如, 老师是人, 学生也是人 都有, 名字, 年龄 性别</li>
+<li>组合是一种 “有” 的关系,<h2 id="怎么用组合"><a href="#怎么用组合" class="headerlink" title="怎么用组合?"></a>怎么用组合?</h2>看下面代码</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">People</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, age, sex</span>):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line">        self.sex = sex</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Teacher</span>(<span class="title class_ inherited__">People</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, age, sex,</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__(name, age, sex, )</span><br><span class="line">        self.course = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add_course</span>(<span class="params">self, course</span>):</span><br><span class="line">        self.course.append(course)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show_course</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> self.course:</span><br><span class="line">            <span class="built_in">print</span>(line.c_name, line.c_price, line.c_cycle)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Course</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, c_name, c_price, c_cycle</span>):</span><br><span class="line">        self.c_name = c_name</span><br><span class="line">        self.c_price = c_price</span><br><span class="line">        self.c_cycle = c_cycle</span><br><span class="line"><span class="comment">#  实例化处一个 python课程</span></span><br><span class="line">python_obj = Course(<span class="string">&quot;python&quot;</span>, <span class="number">22000</span>, <span class="string">&quot;6 mon&quot;</span>)</span><br><span class="line"><span class="comment">#  将python课程 关联到 老师对象中</span></span><br><span class="line">tea1 = Teacher(<span class="string">&quot;七里塘&quot;</span>, <span class="number">18</span>, <span class="string">&quot;male&quot;</span>)</span><br><span class="line">tea1.add_course(python_obj)</span><br><span class="line"><span class="comment">#  查看组合内对象的属性</span></span><br><span class="line"><span class="comment"># print(tea1.course[0].c_name)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 为了便于查看, 需要在类内定义方法.</span></span><br><span class="line">tea1.show_course()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><h3 id="1-什么是封装"><a href="#1-什么是封装" class="headerlink" title="1. 什么是封装"></a>1. 什么是封装</h3><ul>
+<li>解释1:<br>封装就是将一堆属性即方法封装起来.<ul>
+<li>1: 定义类的过程就是封装, 由类产生对象,就是讲对象的属性和方法封装进对象体内.</li>
+</ul>
+</li>
+<li>解释2:<br>也有说 在类内 定义属性和方法时 使用__属性&#x2F;方法名 这种方式是封装.<br>2: 这种方式, 遵循的是<ul>
+<li>在对象内部属性的使用是开放的,</li>
+<li>在对象外部使用内部属性或方法是封闭的</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li><p>为什么用封装?<br> 可以通过 “对象.” 的方式 “存放&#x2F;获取” 属性或方法。<br> 对象拥有 “.” 的机制。<br> 方便数据的存取。</p>
+</li>
+<li><p>如何进行封装,<br> 在定义类的时候, 就进行了封装<br>“””</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">示例</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>:</span><br><span class="line">    x = <span class="number">10</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="访问限制机制"><a href="#访问限制机制" class="headerlink" title="访问限制机制:"></a>访问限制机制:</h3><h4 id="什么是访问限制机制"><a href="#什么是访问限制机制" class="headerlink" title="什么是访问限制机制:"></a>什么是访问限制机制:</h4><ul>
+<li>在创建类的时候, 定义类内部的 属性和方法是, 使用__ 开头, </li>
+<li>凡是以__开头的属性&#x2F;方法,都会被限制, 外部不能直接访问</li>
+</ul>
+<p>&#x3D;&#x3D;注意: 凡是在类内部定义__开头的属性或方法，都会变形为<code> _类名__属性</code>&#x2F;方法。&#x3D;&#x3D;</p>
+<h4 id="为什么要用-访问限制机制"><a href="#为什么要用-访问限制机制" class="headerlink" title="为什么要用 访问限制机制?"></a>为什么要用 访问限制机制?</h4><p>将一些隐私数据隐藏起来, 不让外部轻易获取 </p>
+<p>如何实现?</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>:</span><br><span class="line">    _name = <span class="string">&quot;王大&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">tell_name</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(self._name)</span><br><span class="line"></span><br><span class="line">obj = User()</span><br><span class="line"><span class="comment"># 直接用.属性名 方法 会找不到,</span></span><br><span class="line"><span class="comment"># print(obj.__name)</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Traceback (most recent call last):</span></span><br><span class="line"><span class="string">  File &quot;D:/Python_study/Project/oldboy/day22/封装.py&quot;, line 55, in &lt;module&gt;</span></span><br><span class="line"><span class="string">    print(obj.__name)</span></span><br><span class="line"><span class="string">AttributeError: &#x27;User&#x27; object has no attribute &#x27;__name&#x27;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment">#  所以只能通过接口调用</span></span><br><span class="line"><span class="comment"># obj.tell_name()</span></span><br></pre></td></tr></table></figure>
+<h3 id="什么是property"><a href="#什么是property" class="headerlink" title="什么是property"></a>什么是property</h3><p>property 是将类中的方法, 伪装成属性的方法. </p>
+<p>[toc]</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Qilitang</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2017/02/27/python%2019%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%20%E7%BB%A7%E6%89%BF/" class="pre-post btn btn-default" title='面向对象之 继承'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            面向对象之 继承</span>
+    </a>
+    
+    
+    <a href="/2017/02/23/python%2017%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" class="next-post btn btn-default" title='面向对象'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            面向对象</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E5%90%88"><span class="toc-text">组合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BB%84%E5%90%88"><span class="toc-text">什么是组合?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8"><span class="toc-text">组合有什么用?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E7%94%A8%E7%BB%84%E5%90%88"><span class="toc-text">怎么用组合?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85"><span class="toc-text">封装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%B0%81%E8%A3%85"><span class="toc-text">1. 什么是封装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E9%99%90%E5%88%B6%E6%9C%BA%E5%88%B6"><span class="toc-text">访问限制机制:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%AE%BF%E9%97%AE%E9%99%90%E5%88%B6%E6%9C%BA%E5%88%B6"><span class="toc-text">什么是访问限制机制:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8-%E8%AE%BF%E9%97%AE%E9%99%90%E5%88%B6%E6%9C%BA%E5%88%B6"><span class="toc-text">为什么要用 访问限制机制?</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFproperty"><span class="toc-text">什么是property</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="#" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+
+</body>
+</html>

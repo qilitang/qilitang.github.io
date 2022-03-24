@@ -1,0 +1,279 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="一 反射
+在Python中，反射指的是通过字符串来操作对象的属性，涉及到四个内置函数的使用（Python中一切皆对象，类和对象都可以用下述四个方法）
+1234567891011121314151..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    反射及内置方法 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa fa-home"></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/"><i class="fa fa-th-list"></i>
+                                文章分类</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/tags/"><i class="fa fa-tags"></i>
+                                标签</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa fa-archive"></i>
+                                归档</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="反射及内置方法">
+            
+            反射及内置方法
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/Python%E9%AB%98%E7%BA%A7/">Python高级</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2017/03/01</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="一-反射"><a href="#一-反射" class="headerlink" title="一 反射"></a>一 反射</h2><p><img src="https://gitee.com/qilitang/Img/raw/master/img/1825659-20191014122618037-617244642.gif" alt="img"></p>
+<p>在Python中，反射指的是通过字符串来操作对象的属性，涉及到四个内置函数的使用（Python中一切皆对象，类和对象都可以用下述四个方法）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Teacher</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,full_name</span>):</span><br><span class="line">        self.full_name =full_name</span><br><span class="line"></span><br><span class="line">t=Teacher(<span class="string">&#x27;Egon Lin&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># hasattr(object,&#x27;name&#x27;)</span></span><br><span class="line"><span class="built_in">hasattr</span>(t,<span class="string">&#x27;full_name&#x27;</span>) <span class="comment"># 按字符串&#x27;full_name&#x27;判断有无属性t.full_name</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># getattr(object, &#x27;name&#x27;, default=None)</span></span><br><span class="line"><span class="built_in">getattr</span>(t,<span class="string">&#x27;full_name&#x27;</span>,<span class="literal">None</span>) <span class="comment"># 等同于t.full_name,不存在该属性则返回默认值None</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># setattr(x, &#x27;y&#x27;, v)</span></span><br><span class="line"><span class="built_in">setattr</span>(t,<span class="string">&#x27;age&#x27;</span>,<span class="number">18</span>) <span class="comment"># 等同于t.age=18</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># delattr(x, &#x27;y&#x27;)</span></span><br><span class="line"><span class="built_in">delattr</span>(t,<span class="string">&#x27;age&#x27;</span>) <span class="comment"># 等同于del t.age</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>基于反射可以十分灵活地操作对象的属性，比如将用户交互的结果反射到具体的功能执行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">class</span> <span class="title class_">FtpServer</span>:</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">def</span> <span class="title function_">serve_forever</span>(<span class="params">self</span>):</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"><span class="meta">... </span>            inp=<span class="built_in">input</span>(<span class="string">&#x27;input your cmd&gt;&gt;: &#x27;</span>).strip()</span><br><span class="line"><span class="meta">... </span>            cmd,file=inp.split()</span><br><span class="line"><span class="meta">... </span>            <span class="keyword">if</span> <span class="built_in">hasattr</span>(self,cmd): <span class="comment"># 根据用户输入的cmd，判断对象self有无对应的方法属性</span></span><br><span class="line"><span class="meta">... </span>                func=<span class="built_in">getattr</span>(self,cmd) <span class="comment"># 根据字符串cmd，获取对象self对应的方法属性</span></span><br><span class="line"><span class="meta">... </span>                func(file)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self,file</span>):</span><br><span class="line"><span class="meta">... </span>        <span class="built_in">print</span>(<span class="string">&#x27;Downloading %s...&#x27;</span> %file)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">def</span> <span class="title function_">put</span>(<span class="params">self,file</span>):</span><br><span class="line"><span class="meta">... </span>        <span class="built_in">print</span>(<span class="string">&#x27;Uploading %s...&#x27;</span> %file)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>server=FtpServer()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>server.serve_forever()</span><br><span class="line"><span class="built_in">input</span> your cmd&gt;&gt;: get a.txt</span><br><span class="line">Downloading a.txt...</span><br><span class="line"><span class="built_in">input</span> your cmd&gt;&gt;: put a.txt</span><br><span class="line">Uploading a.txt...</span><br></pre></td></tr></table></figure>
+
+<h2 id="二-内置方法"><a href="#二-内置方法" class="headerlink" title="二 内置方法"></a>二 内置方法</h2><p>Python的Class机制内置了很多特殊的方法来帮助使用者高度定制自己的类，这些内置方法都是以双下划线开头和结尾的，会在满足某种条件时自动触发，我们以常用的<code>__str__</code>和<code>__del__</code>为例来简单介绍它们的使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```python</span><br><span class="line">&gt;&gt;&gt; class People:</span><br><span class="line">...     def __init__(self,name,age):</span><br><span class="line">...         self.name=name</span><br><span class="line">...         self.age=age</span><br><span class="line">...     def __str__(self):</span><br><span class="line">...         return &#x27;&lt;Name:%s Age:%s&gt;&#x27; %(self.name,self.age) #返回类型必须是字符串</span><br><span class="line">... </span><br><span class="line">&gt;&gt;&gt; p=People(&#x27;lili&#x27;,18)</span><br><span class="line">&gt;&gt;&gt; print(p) #触发p.__str__()，拿到返回值后进行打印</span><br><span class="line">&lt;Name:lili Age:18&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```python</span><br><span class="line">class MySQL:</span><br><span class="line">    def __init__(self,ip,port):</span><br><span class="line">        self.conn=connect(ip,port) # 伪代码，发起网络连接，需要占用系统资源</span><br><span class="line">    def __del__(self):</span><br><span class="line">        self.conn.close() # 关闭网络连接，回收系统资源</span><br><span class="line"></span><br><span class="line">obj=MySQL(&#x27;127.0.0.1&#x27;,3306) # 在对象obj被删除时，自动触发obj.__del__()</span><br></pre></td></tr></table></figure>
+
+<p>[toc]</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Qilitang</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2017/03/02/python%2022%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E9%AB%98%E7%BA%A7%20/" class="pre-post btn btn-default" title='面向对象高级'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            面向对象高级</span>
+    </a>
+    
+    
+    <a href="/2017/02/28/python%2020%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%20%E7%BB%91%E5%AE%9A%E6%96%B9%E6%B3%95%E4%B8%8E%E9%9D%9E%E7%BB%91%E5%AE%9A%E6%96%B9%E6%B3%95/" class="next-post btn btn-default" title='面向对象之 绑定方法与非绑定方法'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            面向对象之 绑定方法与非绑定方法</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E5%8F%8D%E5%B0%84"><span class="toc-text">一 反射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="toc-text">二 内置方法</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="#" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+
+</body>
+</html>

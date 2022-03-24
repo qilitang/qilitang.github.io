@@ -1,0 +1,340 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://example.com">
+    <!--SEO-->
+
+<meta name="keywords" content="指针,结构体,方法" />
+
+
+<meta name="description" content="指针1、定义指针12// 指向int类型的指针（指向什么类型指针，就是在什么类型前加星号）var a *int
+
+2、指针的零值1fmt.Println(a) //nil
+
+3、使用指针1234..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Go 指针/结构体/方法 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://example.com">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa fa-home"></i>
+                                Home</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/"><i class="fa fa-th-list"></i>
+                                文章分类</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/tags/"><i class="fa fa-tags"></i>
+                                标签</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa fa-archive"></i>
+                                归档</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Go 指针/结构体/方法">
+            
+            Go 指针/结构体/方法
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/GO/">GO</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E6%8C%87%E9%92%88/" rel="tag">指针</a> <a class="tag-none-link" href="/tags/%E6%96%B9%E6%B3%95/" rel="tag">方法</a> <a class="tag-none-link" href="/tags/%E7%BB%93%E6%9E%84%E4%BD%93/" rel="tag">结构体</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/01/09</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><h3 id="1、定义指针"><a href="#1、定义指针" class="headerlink" title="1、定义指针"></a>1、定义指针</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 指向int类型的指针（指向什么类型指针，就是在什么类型前加星号）</span></span><br><span class="line"><span class="keyword">var</span> a *<span class="type">int</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、指针的零值"><a href="#2、指针的零值" class="headerlink" title="2、指针的零值"></a>2、指针的零值</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fmt.Println(a) <span class="comment">//nil</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、使用指针"><a href="#3、使用指针" class="headerlink" title="3、使用指针"></a>3、使用指针</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span></span><br><span class="line"><span class="keyword">var</span> b <span class="type">int</span>=<span class="number">100</span></span><br><span class="line"><span class="comment">// a指针指向b  （取谁的地址，就是在谁前面加一个&amp;）</span></span><br><span class="line">a=&amp;b</span><br><span class="line">fmt.Println(a)  <span class="comment">// 0xc0000b4008</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4、了解（骚操作）"><a href="#4、了解（骚操作）" class="headerlink" title="4、了解（骚操作）"></a>4、了解（骚操作）</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="type">int</span></span><br><span class="line"><span class="keyword">var</span> b **<span class="type">int</span>= &amp;a</span><br><span class="line"><span class="keyword">var</span> c ***<span class="type">int</span>= &amp;b</span><br><span class="line"><span class="keyword">var</span> d ****<span class="type">int</span> =&amp;c</span><br><span class="line">fmt.Println(d)</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、-解引用-（把指针反解成值）（在指针变量前加-，表示解引用）"><a href="#5、-解引用-（把指针反解成值）（在指针变量前加-，表示解引用）" class="headerlink" title="5、 解引用 （把指针反解成值）（在指针变量前加*，表示解引用）"></a>5、 解引用 （把指针反解成值）（在指针变量前加*，表示解引用）</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fmt.Println(*a)</span><br><span class="line">fmt.Println(***d)</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、-向函数传递指针参数"><a href="#6、-向函数传递指针参数" class="headerlink" title="6、 向函数传递指针参数"></a>6、 向函数传递指针参数</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a <span class="type">int</span> =<span class="number">100</span></span><br><span class="line"><span class="comment">////在函数中把a的值改成101</span></span><br><span class="line">fmt.Println(a)</span><br><span class="line">test2(&amp;a)</span><br><span class="line">fmt.Println(a)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test2</span><span class="params">(a *<span class="type">int</span>)</span></span>  &#123;</span><br><span class="line">	<span class="comment">//解引用然后，自增1</span></span><br><span class="line">	<span class="comment">//*a++</span></span><br><span class="line">	*a=*a+<span class="number">100</span></span><br><span class="line">	fmt.Println(*a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7、不要向函数传递数组指针，-而应该使用切片"><a href="#7、不要向函数传递数组指针，-而应该使用切片" class="headerlink" title="7、不要向函数传递数组指针， 而应该使用切片"></a>7、不要向函数传递数组指针， 而应该使用切片</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a [<span class="number">4</span>]<span class="type">int</span>  = [<span class="number">4</span>]<span class="type">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;</span><br><span class="line">fmt.Println(a)</span><br><span class="line"><span class="comment">//test3(&amp;a)</span></span><br><span class="line">test4(a[:])</span><br><span class="line">fmt.Println(a)</span><br></pre></td></tr></table></figure>
+
+<h3 id="8、go-不支持指针运算-在c中可以通过数组指针的运算进行取值"><a href="#8、go-不支持指针运算-在c中可以通过数组指针的运算进行取值" class="headerlink" title="8、go 不支持指针运算(在c中可以通过数组指针的运算进行取值)"></a>8、go 不支持指针运算(在c中可以通过数组指针的运算进行取值)</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b <span class="type">int</span>=<span class="number">100</span></span><br><span class="line"><span class="keyword">var</span> a *<span class="type">int</span>=&amp;b</span><br><span class="line"><span class="comment">//a++</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="9、-指针数组和数组指针"><a href="#9、-指针数组和数组指针" class="headerlink" title="9、 指针数组和数组指针"></a>9、 指针数组和数组指针</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 指针数组 --&gt; 数组里面放指针</span></span><br><span class="line"><span class="keyword">var</span> a <span class="type">int</span> =<span class="number">10</span></span><br><span class="line"><span class="keyword">var</span> b <span class="type">int</span> =<span class="number">20</span></span><br><span class="line"><span class="keyword">var</span> c <span class="type">int</span> =<span class="number">30</span></span><br><span class="line"><span class="keyword">var</span> d [<span class="number">3</span>]*<span class="type">int</span>=[<span class="number">3</span>]*<span class="type">int</span>&#123;&amp;a,&amp;b,&amp;c&#125;</span><br><span class="line">fmt.Println(d)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 数组指针  --&gt; 指针数组指针</span></span><br><span class="line"><span class="keyword">var</span> a [<span class="number">3</span>]<span class="type">int</span>=[<span class="number">3</span>]<span class="type">int</span>&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>&#125;</span><br><span class="line"><span class="keyword">var</span> b *[<span class="number">3</span>]<span class="type">int</span>=&amp;a</span><br><span class="line">fmt.Println(b)</span><br></pre></td></tr></table></figure>
+
+<h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><h3 id="1、-什么是结构体"><a href="#1、-什么是结构体" class="headerlink" title="1、 什么是结构体"></a>1、 什么是结构体</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//结构体,go语言中的面向对象</span></span><br><span class="line"><span class="comment">//结构体是用户定义的类型,表示若干个字段（Field）的集合</span></span><br><span class="line"><span class="comment">//类比面向对象中的类，只有属性，没有方法</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、-定义一个结构体"><a href="#2、-定义一个结构体" class="headerlink" title="2、 定义一个结构体"></a>2、 定义一个结构体</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// type关键字 结构体名字 struct关键字 &#123;一个一个的字段&#125;</span></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="type">string</span></span><br><span class="line">	age <span class="type">int</span></span><br><span class="line">	sex <span class="type">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、使用结构体"><a href="#3、使用结构体" class="headerlink" title="3、使用结构体"></a>3、使用结构体</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//（结构体的零值，是属性的零值)不是nil，它不是引用类型，是值类型</span></span><br><span class="line"><span class="keyword">var</span> a Person</span><br><span class="line">fmt.Println(a)</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、-定义并初始化"><a href="#4、-定义并初始化" class="headerlink" title="4、 定义并初始化"></a>4、 定义并初始化</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="keyword">var</span> a Person=Person&#123;&#125;</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="keyword">var</span> a Person=Person&#123;name:<span class="string">&quot;lqz&quot;</span>,age:<span class="number">19</span>,sex:<span class="string">&quot;男&quot;</span>&#125;</span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="keyword">var</span> a =Person&#123;name:<span class="string">&quot;lqz&quot;</span>,age:<span class="number">19</span>,sex:<span class="string">&quot;男&quot;</span>&#125;</span><br><span class="line"><span class="comment">// 4</span></span><br><span class="line">a :=Person&#123;name:<span class="string">&quot;lqz&quot;</span>,age:<span class="number">19</span>,sex:<span class="string">&quot;男&quot;</span>&#125;</span><br><span class="line"><span class="comment">// 5</span></span><br><span class="line">a :=Person&#123;sex:<span class="string">&quot;男&quot;</span>,name:<span class="string">&quot;lqz&quot;</span>,age:<span class="number">19</span>&#125;</span><br><span class="line"><span class="comment">// 6 </span></span><br><span class="line">a :=Person&#123;sex:<span class="string">&quot;男&quot;</span>,name:<span class="string">&quot;lqz&quot;</span>&#125;</span><br><span class="line">	<span class="comment">//按位置初始化(固定位置，并且都传)</span></span><br><span class="line">a :=Person&#123;<span class="string">&quot;lqz&quot;</span>,<span class="number">19</span>,<span class="string">&quot;男&quot;</span>&#125;</span><br><span class="line">fmt.Println(a)</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、-使用结构体"><a href="#5、-使用结构体" class="headerlink" title="5、 使用结构体"></a>5、 使用结构体</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a Person=Person&#123;name:<span class="string">&quot;zhang&quot;</span>,age:<span class="number">19</span>,sex:<span class="string">&quot;男&quot;</span>&#125;</span><br><span class="line">fmt.Println(a.name)</span><br><span class="line">a.name=<span class="string">&quot;wang&quot;</span></span><br><span class="line">fmt.Println(a)</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、-匿名结构体（没有名字-没有type关键字，定义在函数内部）"><a href="#6、-匿名结构体（没有名字-没有type关键字，定义在函数内部）" class="headerlink" title="6、 匿名结构体（没有名字,没有type关键字，定义在函数内部）"></a>6、 匿名结构体（没有名字,没有type关键字，定义在函数内部）</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//什么情况下用？只使用一次，数据整合在一起</span></span><br><span class="line">a:=<span class="keyword">struct</span> &#123;</span><br><span class="line">  name <span class="type">string</span></span><br><span class="line">  age <span class="type">int</span></span><br><span class="line">  sex <span class="type">string</span></span><br><span class="line">&#125;&#123;<span class="string">&quot;lqz&quot;</span>,<span class="number">19</span>,<span class="string">&quot;男&quot;</span>&#125;</span><br><span class="line">fmt.Println(a.name)</span><br></pre></td></tr></table></figure>
+
+<h3 id="7、结构体的指针（结构体是值类型）"><a href="#7、结构体的指针（结构体是值类型）" class="headerlink" title="7、结构体的指针（结构体是值类型）"></a>7、结构体的指针（结构体是值类型）</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *Person=&amp;Person&#123;<span class="string">&quot;zhang&quot;</span>,<span class="number">19</span>,<span class="string">&quot;男&quot;</span>&#125;</span><br><span class="line">fmt.Println(a)</span><br><span class="line"><span class="comment">//Go 语言允许我们在访问 字段时，可以使用 emp8.firstName 来代替显式的解引用 (*emp8).firstName</span></span><br><span class="line">fmt.Println((*a).name)</span><br><span class="line">fmt.Println(a.name)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="8、-匿名字段（字段没有名字-不允许有多个同类型的字段）"><a href="#8、-匿名字段（字段没有名字-不允许有多个同类型的字段）" class="headerlink" title="8、 匿名字段（字段没有名字,不允许有多个同类型的字段）"></a>8、 匿名字段（字段没有名字,不允许有多个同类型的字段）</h3><p><strong>有什么用？用来做字段提升，面向对象中的继承</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">	 <span class="type">string</span></span><br><span class="line">	 <span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//按位置实例化</span></span><br><span class="line">a:=Person&#123;<span class="string">&quot;zhang&quot;</span>,<span class="number">19</span>&#125;</span><br><span class="line">	<span class="comment">//按关键字实例化</span></span><br><span class="line">a:=Person&#123;<span class="type">int</span>:<span class="number">19</span>,<span class="type">string</span>:<span class="string">&quot;zhang&quot;</span>&#125;</span><br><span class="line">fmt.Println(a)</span><br><span class="line">fmt.Println(a.<span class="type">string</span>)</span><br><span class="line">fmt.Println(a.<span class="type">int</span>)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="9、嵌套结构体（结构体套结构体）"><a href="#9、嵌套结构体（结构体套结构体）" class="headerlink" title="9、嵌套结构体（结构体套结构体）"></a>9、嵌套结构体（结构体套结构体）</h3><p><strong>不管是结构体名字还是字段名字，大写字母开头，表示导出字段，表示在外部包可以使用</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//面向对象封装（python __）</span></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="type">string</span></span><br><span class="line">	Age <span class="type">int</span></span><br><span class="line">	Sex <span class="type">string</span></span><br><span class="line">	hobby Hobby</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> Hobby <span class="keyword">struct</span> &#123;</span><br><span class="line">	HobbyId <span class="type">int</span></span><br><span class="line">	HobbyName <span class="type">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="10、-提升字段"><a href="#10、-提升字段" class="headerlink" title="10、 提升字段"></a>10、 提升字段</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="type">string</span></span><br><span class="line">	Age <span class="type">int</span></span><br><span class="line">	Sex <span class="type">string</span></span><br><span class="line">	Hobby</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> Hobby <span class="keyword">struct</span> &#123;</span><br><span class="line">	HobbyId <span class="type">int</span></span><br><span class="line">	HobbyName <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 此处就相当于是python中 类的继承， 求中 Hobby 是父类  Person 是子类</span></span><br><span class="line"><span class="comment">// 提升字段可以直接在Person 结构体的实例中以点的方式进行访问</span></span><br></pre></td></tr></table></figure>
+
+<p>11、字段冲突</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="type">string</span></span><br><span class="line">	Age <span class="type">int</span></span><br><span class="line">	Sex <span class="type">string</span></span><br><span class="line">	Hobby</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> Hobby <span class="keyword">struct</span> &#123;</span><br><span class="line">	HobbyId <span class="type">int</span></span><br><span class="line">	Name <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 当父结构体（父类）Hobby 中有Name  Person中也有Name  当进行实例化的时候， 优先访问的是子结构体Person中的name  这也是子类重写父类的属性。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>结构体+方法就是实现面向对象中的类</p>
+<h3 id="1、-什么是方法"><a href="#1、-什么是方法" class="headerlink" title="1、 什么是方法"></a>1、 什么是方法</h3><p>方法其实就是一个函数，在 func 这个关键字和方法名中间加入了一个特殊的接收器类型。接收器可以是结构体类型或者是非结构体类型。接收器是可以在方法的内部访问的</p>
+<ul>
+<li><p>python中什么是方法， 什么是函数？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">1、 方法是面向对象中的概念，对象绑定方法，类的绑定方法，可以自动传值，</span></span><br><span class="line"><span class="string">2、 类中不加任何装饰器定义的函数，是对象的绑定方法，对象来调用，可以自动传值，类也可以来掉，如果类来调用，他就是普通函数，有几个值就传几个值</span></span><br><span class="line"><span class="string">3、 类的绑定方法，类来调用，会把类自动传入</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2、方法的定义"><a href="#2、方法的定义" class="headerlink" title="2、方法的定义"></a>2、方法的定义</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个结构体</span></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="type">string</span></span><br><span class="line">	age <span class="type">int</span></span><br><span class="line">	sex <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//给结构体绑定方法(无参数)</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Person1)</span></span>PrintName()  &#123;</span><br><span class="line">	fmt.Println(p.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 绑定一个修改名字的方法(有参数)</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Person1)</span></span>ChangeName(name <span class="type">string</span>)  &#123;</span><br><span class="line">	p.name=name</span><br><span class="line">	fmt.Println(<span class="string">&quot;--------&quot;</span>,p)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//普通函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">PrintName</span><span class="params">(p Person1)</span></span>  &#123;</span><br><span class="line">	fmt.Println(p.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">p:=Person1&#123;<span class="string">&quot;zhang&quot;</span>,<span class="number">19</span>,<span class="string">&quot;男&quot;</span>&#125;</span><br><span class="line">p.PrintName() <span class="comment">// zhang</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、-为什么要有结构体的绑定方法"><a href="#3、-为什么要有结构体的绑定方法" class="headerlink" title="3、 为什么要有结构体的绑定方法"></a>3、 为什么要有结构体的绑定方法</h3><p><a target="_blank" rel="noopener" href="https://golang.org/doc/faq#Is_Go_an_object-oriented_language">Go 不是纯粹的面向对象编程语言</a>，而且Go不支持类。因此，基于类型的方法是一种实现和类相似行为的途径。</p>
+<p>相同的名字的方法可以定义在不同的类型上，而相同名字的函数是不被允许的。假设我们有一个 <code>Square</code> 和 <code>Circle</code> 结构体。可以在 <code>Square</code> 和 <code>Circle</code> 上分别定义一个 <code>Area</code> 方法。见下面的程序。</p>
+<h3 id="4、值接收器和指针接收器"><a href="#4、值接收器和指针接收器" class="headerlink" title="4、值接收器和指针接收器"></a>4、值接收器和指针接收器</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//指针类型接收器，修改age的方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *Person1)</span></span>ChangeAge(age <span class="type">int</span>)  &#123;</span><br><span class="line">	p.age=age</span><br><span class="line">	<span class="comment">//(*p).age=age   //正常操作</span></span><br><span class="line">	fmt.Println(<span class="string">&quot;--------&quot;</span>,p)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p:=Person1&#123;<span class="string">&quot;zhang&quot;</span>,<span class="number">19</span>,<span class="string">&quot;男&quot;</span>&#125;</span><br><span class="line">p.ChangeName(<span class="string">&quot;wang&quot;</span>)  <span class="comment">// 值接收器，改新的，不会影响原来的，不会影响当前的p对象</span></span><br><span class="line">fmt.Println(p)</span><br><span class="line"><span class="comment">// 调用指针类型接收器的方法</span></span><br><span class="line">p.ChangeAge(<span class="number">100</span>)  <span class="comment">//指针类型接收器，会影响原来的，会影响当前的p对象</span></span><br><span class="line">fmt.Println(p)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="5、值接收器和指针接收器的应用场景"><a href="#5、值接收器和指针接收器的应用场景" class="headerlink" title="5、值接收器和指针接收器的应用场景"></a>5、值接收器和指针接收器的应用场景</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用指针接收器的情况</span></span><br><span class="line">	<span class="comment">//1 方法内部的改变，影响调用者</span></span><br><span class="line">	<span class="comment">//2 当拷贝一个结构体的代价过于昂贵时 ,就用指针接收器</span></span><br><span class="line"><span class="comment">//其他情况，值接收器和指针接收器都可以</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="6、匿名字段的方法（重点）"><a href="#6、匿名字段的方法（重点）" class="headerlink" title="6、匿名字段的方法（重点）"></a>6、匿名字段的方法（重点）</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">p:=Person1&#123;<span class="string">&quot;wang&quot;</span>,<span class="number">19</span>,<span class="string">&quot;男&quot;</span>,Hobby1&#123;<span class="number">1</span>,<span class="string">&quot;篮球&quot;</span>&#125;&#125;</span><br><span class="line"><span class="comment">//匿名字段，属性可以提升</span></span><br><span class="line"><span class="comment">//匿名字段，方法也提升</span></span><br><span class="line">p.printName()  <span class="comment">// 也提升了  子类对象调用父类中的方法，子类中没有，就是调用父类的--》 对象.方法名</span></span><br><span class="line">p.Hobby1.printName() <span class="comment">// 正常操作 直接指名道姓的调用父类中的方法---》 super().方法名</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 子类中重写了父类的方法（嵌套结构体中有重名的方法）</span></span><br><span class="line">p.printName()</span><br></pre></td></tr></table></figure>
+
+<h3 id="7、在方法中使用值接收器-与-在函数中使用值参数"><a href="#7、在方法中使用值接收器-与-在函数中使用值参数" class="headerlink" title="7、在方法中使用值接收器 与 在函数中使用值参数"></a>7、在方法中使用值接收器 与 在函数中使用值参数</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Person1 <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="type">string</span></span><br><span class="line">	age <span class="type">int</span></span><br><span class="line">	sex <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法中使用值接收器</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Person1)</span></span>printName()  &#123;</span><br><span class="line">	fmt.Println(p.name)</span><br><span class="line">&#125;</span><br><span class="line">p:=Person1&#123;<span class="string">&quot;zhang&quot;</span>,<span class="number">19</span>,<span class="string">&quot;男&quot;</span>&#125;</span><br><span class="line">p.printName()    <span class="comment">// zhang</span></span><br><span class="line">printName(p)</span><br><span class="line"></span><br><span class="line"><span class="comment">//在函数中使用值参数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printName</span><span class="params">(p Person1)</span></span>  &#123;</span><br><span class="line">	fmt.Println(p.name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="8、在方法中使用指针接收器-与-在函数中使用指针参数"><a href="#8、在方法中使用指针接收器-与-在函数中使用指针参数" class="headerlink" title="8、在方法中使用指针接收器 与 在函数中使用指针参数"></a>8、在方法中使用指针接收器 与 在函数中使用指针参数</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Person1 <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="type">string</span></span><br><span class="line">	age <span class="type">int</span></span><br><span class="line">	sex <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//在方法中使用指针接收器</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *Person1)</span></span>printName()  &#123;</span><br><span class="line">	fmt.Println(p.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//在函数中使用指针参数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printName</span><span class="params">(p *Person1)</span></span>  &#123;</span><br><span class="line">  fmt.Println(p.name)  <span class="comment">// printName(&amp;a) </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="9、在非结构体上的方法"><a href="#9、在非结构体上的方法" class="headerlink" title="9、在非结构体上的方法"></a>9、在非结构体上的方法</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 给数据类型加方法</span></span><br><span class="line"><span class="comment">// 错误方式</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(i <span class="type">int</span>)</span></span>add()  &#123;</span><br><span class="line">	i=i+i</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 自己定义类型， 可以绑定方法</span></span><br><span class="line"><span class="keyword">type</span> myInt <span class="type">int</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(i *myInt)</span></span>add() &#123;</span><br><span class="line">  (*i)++</span><br><span class="line">	fmt.Println(*i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">i:=<span class="number">10</span></span><br><span class="line">i.add()</span><br></pre></td></tr></table></figure>
+
+<p>[toc]</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Qilitang</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2020/01/11/Go%2009%20%E6%8E%A5%E5%8F%A3/" class="pre-post btn btn-default" title='Go 接口 协程 信道 异常处理'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            Go 接口 协程 信道 异常处理</span>
+    </a>
+    
+    
+    <a href="/2020/01/07/Go%2007%20%E6%95%B0%E7%BB%84%E3%80%81%E5%88%87%E7%89%87/" class="next-post btn btn-default" title='Go 数组/切片/map'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Go 数组/切片/map</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            Table of Contents
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E9%92%88"><span class="toc-text">指针</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%AE%9A%E4%B9%89%E6%8C%87%E9%92%88"><span class="toc-text">1、定义指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E6%8C%87%E9%92%88%E7%9A%84%E9%9B%B6%E5%80%BC"><span class="toc-text">2、指针的零值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E4%BD%BF%E7%94%A8%E6%8C%87%E9%92%88"><span class="toc-text">3、使用指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E4%BA%86%E8%A7%A3%EF%BC%88%E9%AA%9A%E6%93%8D%E4%BD%9C%EF%BC%89"><span class="toc-text">4、了解（骚操作）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81-%E8%A7%A3%E5%BC%95%E7%94%A8-%EF%BC%88%E6%8A%8A%E6%8C%87%E9%92%88%E5%8F%8D%E8%A7%A3%E6%88%90%E5%80%BC%EF%BC%89%EF%BC%88%E5%9C%A8%E6%8C%87%E9%92%88%E5%8F%98%E9%87%8F%E5%89%8D%E5%8A%A0-%EF%BC%8C%E8%A1%A8%E7%A4%BA%E8%A7%A3%E5%BC%95%E7%94%A8%EF%BC%89"><span class="toc-text">5、 解引用 （把指针反解成值）（在指针变量前加*，表示解引用）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81-%E5%90%91%E5%87%BD%E6%95%B0%E4%BC%A0%E9%80%92%E6%8C%87%E9%92%88%E5%8F%82%E6%95%B0"><span class="toc-text">6、 向函数传递指针参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7%E3%80%81%E4%B8%8D%E8%A6%81%E5%90%91%E5%87%BD%E6%95%B0%E4%BC%A0%E9%80%92%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88%EF%BC%8C-%E8%80%8C%E5%BA%94%E8%AF%A5%E4%BD%BF%E7%94%A8%E5%88%87%E7%89%87"><span class="toc-text">7、不要向函数传递数组指针， 而应该使用切片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8%E3%80%81go-%E4%B8%8D%E6%94%AF%E6%8C%81%E6%8C%87%E9%92%88%E8%BF%90%E7%AE%97-%E5%9C%A8c%E4%B8%AD%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88%E7%9A%84%E8%BF%90%E7%AE%97%E8%BF%9B%E8%A1%8C%E5%8F%96%E5%80%BC"><span class="toc-text">8、go 不支持指针运算(在c中可以通过数组指针的运算进行取值)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9%E3%80%81-%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84%E5%92%8C%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88"><span class="toc-text">9、 指针数组和数组指针</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">结构体</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81-%E4%BB%80%E4%B9%88%E6%98%AF%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">1、 什么是结构体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">2、 定义一个结构体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">3、使用结构体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81-%E5%AE%9A%E4%B9%89%E5%B9%B6%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">4、 定义并初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81-%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">5、 使用结构体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81-%E5%8C%BF%E5%90%8D%E7%BB%93%E6%9E%84%E4%BD%93%EF%BC%88%E6%B2%A1%E6%9C%89%E5%90%8D%E5%AD%97-%E6%B2%A1%E6%9C%89type%E5%85%B3%E9%94%AE%E5%AD%97%EF%BC%8C%E5%AE%9A%E4%B9%89%E5%9C%A8%E5%87%BD%E6%95%B0%E5%86%85%E9%83%A8%EF%BC%89"><span class="toc-text">6、 匿名结构体（没有名字,没有type关键字，定义在函数内部）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7%E3%80%81%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E6%8C%87%E9%92%88%EF%BC%88%E7%BB%93%E6%9E%84%E4%BD%93%E6%98%AF%E5%80%BC%E7%B1%BB%E5%9E%8B%EF%BC%89"><span class="toc-text">7、结构体的指针（结构体是值类型）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8%E3%80%81-%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5%EF%BC%88%E5%AD%97%E6%AE%B5%E6%B2%A1%E6%9C%89%E5%90%8D%E5%AD%97-%E4%B8%8D%E5%85%81%E8%AE%B8%E6%9C%89%E5%A4%9A%E4%B8%AA%E5%90%8C%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%AD%97%E6%AE%B5%EF%BC%89"><span class="toc-text">8、 匿名字段（字段没有名字,不允许有多个同类型的字段）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9%E3%80%81%E5%B5%8C%E5%A5%97%E7%BB%93%E6%9E%84%E4%BD%93%EF%BC%88%E7%BB%93%E6%9E%84%E4%BD%93%E5%A5%97%E7%BB%93%E6%9E%84%E4%BD%93%EF%BC%89"><span class="toc-text">9、嵌套结构体（结构体套结构体）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10%E3%80%81-%E6%8F%90%E5%8D%87%E5%AD%97%E6%AE%B5"><span class="toc-text">10、 提升字段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81-%E4%BB%80%E4%B9%88%E6%98%AF%E6%96%B9%E6%B3%95"><span class="toc-text">1、 什么是方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E6%96%B9%E6%B3%95%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">2、方法的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E7%BB%91%E5%AE%9A%E6%96%B9%E6%B3%95"><span class="toc-text">3、 为什么要有结构体的绑定方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E5%80%BC%E6%8E%A5%E6%94%B6%E5%99%A8%E5%92%8C%E6%8C%87%E9%92%88%E6%8E%A5%E6%94%B6%E5%99%A8"><span class="toc-text">4、值接收器和指针接收器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E5%80%BC%E6%8E%A5%E6%94%B6%E5%99%A8%E5%92%8C%E6%8C%87%E9%92%88%E6%8E%A5%E6%94%B6%E5%99%A8%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">5、值接收器和指针接收器的应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%88%E9%87%8D%E7%82%B9%EF%BC%89"><span class="toc-text">6、匿名字段的方法（重点）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7%E3%80%81%E5%9C%A8%E6%96%B9%E6%B3%95%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%80%BC%E6%8E%A5%E6%94%B6%E5%99%A8-%E4%B8%8E-%E5%9C%A8%E5%87%BD%E6%95%B0%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%80%BC%E5%8F%82%E6%95%B0"><span class="toc-text">7、在方法中使用值接收器 与 在函数中使用值参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8%E3%80%81%E5%9C%A8%E6%96%B9%E6%B3%95%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%8C%87%E9%92%88%E6%8E%A5%E6%94%B6%E5%99%A8-%E4%B8%8E-%E5%9C%A8%E5%87%BD%E6%95%B0%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%8C%87%E9%92%88%E5%8F%82%E6%95%B0"><span class="toc-text">8、在方法中使用指针接收器 与 在函数中使用指针参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9%E3%80%81%E5%9C%A8%E9%9D%9E%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%8A%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">9、在非结构体上的方法</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="#" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+
+</body>
+</html>
