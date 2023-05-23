@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Scrapy框架 - </title><meta name="author" content="Qilitang">
+<meta name="author-link" content="https://github.com/qilitang">
+<meta name="description" content="爬虫 Scrapy框架 使用" /><meta name="keywords" content='爬虫, scrapy' /><meta itemprop="name" content="Scrapy框架">
+<meta itemprop="description" content="爬虫 Scrapy框架 使用"><meta itemprop="datePublished" content="2017-07-07T17:06:11+08:00" />
+<meta itemprop="dateModified" content="2023-05-22T16:28:20+08:00" />
+<meta itemprop="wordCount" content="2145">
+<meta itemprop="keywords" content="爬虫,scrapy," /><meta property="og:title" content="Scrapy框架" />
+<meta property="og:description" content="爬虫 Scrapy框架 使用" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://192.168.0.120:18088/posts/spider-5scrapy%E6%A1%86%E6%9E%B6/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2017-07-07T17:06:11+08:00" />
+<meta property="article:modified_time" content="2023-05-22T16:28:20+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Scrapy框架"/>
+<meta name="twitter:description" content="爬虫 Scrapy框架 使用"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://192.168.0.120:18088/posts/spider-5scrapy%E6%A1%86%E6%9E%B6/" /><link rel="prev" href="https://192.168.0.120:18088/posts/spider-4selenium/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Scrapy框架",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/192.168.0.120:18088\/posts\/spider-5scrapy%E6%A1%86%E6%9E%B6\/"
+    },"genre": "posts","keywords": "爬虫, scrapy","wordcount":  2145 ,
+    "url": "https:\/\/192.168.0.120:18088\/posts\/spider-5scrapy%E6%A1%86%E6%9E%B6\/","datePublished": "2017-07-07T17:06:11+08:00","dateModified": "2023-05-22T16:28:20+08:00","publisher": {
+      "@type": "Organization",
+      "name": "","logo": "https:\/\/192.168.0.120:18088\/favicon.ico"},"author": {
+        "@type": "Person",
+        "name": "Qilitang"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title=""><img
+    class="lazyload logo"
+    src="/svg/loading.min.svg"
+    data-src="/favicon.ico"
+    data-srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x"
+    data-sizes="auto"
+    alt="/favicon.ico"
+    title="/favicon.ico"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容 ..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title=""><img
+    class="lazyload logo"
+    src="/svg/loading.min.svg"
+    data-src="/favicon.ico"
+    data-srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x"
+    data-sizes="auto"
+    alt="/favicon.ico"
+    title="/favicon.ico"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容 ..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container" data-page-style="normal"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX">
+        <span>Scrapy框架</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img
+    class="lazyload avatar"
+    src="/svg/loading.min.svg"
+    data-src="/avatar.jpg"
+    data-srcset="/avatar.jpg, /avatar.jpg 1.5x, /avatar.jpg 2x"
+    data-sizes="auto"
+    alt="Qilitang"
+    title="Qilitang"/>&nbsp;Qilitang</a></span>
+          <span class="post-category">收录于 <a href="/categories/%E7%88%AC%E8%99%AB/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 爬虫</a></span></div>
+      <div class="post-meta-line"><span title=2017-07-07&#32;17:06:11><i class="fa-regular fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2017-07-07">2017-07-07</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i> 约 2145 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw" aria-hidden="true"></i> 预计阅读 5 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-scrapy-介绍架构">1 Scrapy 介绍/架构</a></li>
+    <li><a href="#2-scripy框架的安装和启动">2 Scripy框架的安装和启动</a></li>
+    <li><a href="#3-配置文件和目录介绍">3 配置文件和目录介绍</a></li>
+    <li><a href="#4-数据持久化">4 数据持久化</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>爬虫 Scrapy框架 使用</p>
+<h2 id="1-scrapy-介绍架构">1 Scrapy 介绍/架构</h2>
+<p>Scrapy一个开源和协作的框架，其最初是为了页面抓取 (更确切来说, 网络抓取 )所设计的，使用它可以以快速、简单、可扩展的方式从网站中提取所需的数据。但目前Scrapy的用途十分广泛，可用于如数据挖掘、监测和自动化测试等领域，也可以应用在获取API所返回的数据(例如 Amazon Associates Web Services ) 或者通用的网络爬虫。</p>
+<p>Scrapy 是基于twisted框架开发而来，twisted是一个流行的事件驱动的python网络框架。因此Scrapy使用了一种非阻塞（又名异步）的代码来实现并发。整体架构大致如下</p>
+<p><img
+    class="lazyload"
+    src="/svg/loading.min.svg"
+    data-src="/images/20200412083213.png"
+    data-srcset="/images/20200412083213.png, /images/20200412083213.png 1.5x, /images/20200412083213.png 2x"
+    data-sizes="auto"
+    alt="/images/20200412083213.png"
+    title="/images/20200412083213.png"/></p>
+<p><strong>Components：</strong></p>
+<ol>
+<li>
+<p>引擎(EGINE)</p>
+<p>引擎负责控制系统所有组件之间的数据流，并在某些动作发生时触发事件。有关详细信息，请参见上面的数据流部分。</p>
+</li>
+<li>
+<p><strong>调度器(SCHEDULER)</strong>
+用来接受引擎发过来的请求, 压入队列中, 并在引擎再次请求的时候返回. 可以想像成一个URL的优先级队列, 由它来决定下一个要抓取的网址是什么, 同时去除重复的网址</p>
+</li>
+<li>
+<p><strong>下载器(DOWLOADER)</strong>
+用于下载网页内容, 并将网页内容返回给EGINE，下载器是建立在twisted这个高效的异步模型上的</p>
+</li>
+<li>
+<p><strong>爬虫(SPIDERS)</strong>
+SPIDERS是开发人员自定义的类，用来解析responses，并且提取items，或者发送新的请求</p>
+</li>
+<li>
+<p><strong>项目管道(ITEM PIPLINES)</strong>
+在items被提取后负责处理它们，主要包括清理、验证、持久化（比如存到数据库）等操作</p>
+</li>
+<li>
+<p>下载器中间件(Downloader Middlewares)</p>
+<p>位于Scrapy引擎和下载器之间，主要用来处理从EGINE传到DOWLOADER的请求request，已经从DOWNLOADER传到EGINE的响应response，你可用该中间件做以下几件事</p>
+<ol>
+<li>process a request just before it is sent to the Downloader (i.e. right before Scrapy sends the request to the website);</li>
+<li>change received response before passing it to a spider;</li>
+<li>send a new Request instead of passing received response to a spider;</li>
+<li>pass response to a spider without fetching a web page;</li>
+<li>silently drop some requests.</li>
+</ol>
+</li>
+<li>
+<p><strong>爬虫中间件(Spider Middlewares)</strong>
+位于EGINE和SPIDERS之间，主要工作是处理SPIDERS的输入（即responses）和输出（即requests）</p>
+</li>
+</ol>
+<p><a href="https://docs.scrapy.org/en/latest/topics/architecture.html"target="_blank" rel="external nofollow noopener noreferrer">官网链接：https://docs.scrapy.org/en/latest/topics/architecture.html</a></p>
+<h2 id="2-scripy框架的安装和启动">2 Scripy框架的安装和启动</h2>
+<p>安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#Windows平台</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">1</span><span class="err">、</span><span class="n">pip3</span> <span class="n">install</span> <span class="n">wheel</span> <span class="c1">#安装后，便支持通过wheel文件安装软件，wheel文件官网：https://www.lfd.uci.edu/~gohlke/pythonlibs</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">3</span><span class="err">、</span><span class="n">pip3</span> <span class="n">install</span> <span class="n">lxml</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">4</span><span class="err">、</span><span class="n">pip3</span> <span class="n">install</span> <span class="n">pyopenssl</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">5</span><span class="err">、</span><span class="n">下载并安装pywin32</span><span class="err">：</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">sourceforge</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="n">pywin32</span><span class="o">/</span><span class="n">files</span><span class="o">/</span><span class="n">pywin32</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">6</span><span class="err">、</span><span class="n">下载twisted的wheel文件</span><span class="err">：</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">lfd</span><span class="o">.</span><span class="n">uci</span><span class="o">.</span><span class="n">edu</span><span class="o">/~</span><span class="n">gohlke</span><span class="o">/</span><span class="n">pythonlibs</span><span class="o">/</span><span class="c1">#twisted</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">7</span><span class="err">、</span><span class="n">执行pip3</span> <span class="n">install</span> <span class="n">下载目录</span>\<span class="n">Twisted</span><span class="o">-</span><span class="mf">17.9.0</span><span class="o">-</span><span class="n">cp36</span><span class="o">-</span><span class="n">cp36m</span><span class="o">-</span><span class="n">win_amd64</span><span class="o">.</span><span class="n">whl</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">8</span><span class="err">、</span><span class="n">pip3</span> <span class="n">install</span> <span class="n">scrapy</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Linux和 mac平台</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">1</span><span class="err">、</span><span class="n">pip3</span> <span class="n">install</span> <span class="n">scrapy</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">scrapy</span> <span class="n">startproject</span> <span class="c1">#创建项目</span>
+</span></span><span class="line"><span class="cl"><span class="n">scrapy</span> <span class="n">genspider</span>    <span class="c1">#创建爬虫程序</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">scrapy</span> <span class="n">crawl</span>  <span class="n">爬虫名字</span> <span class="c1"># 启动爬虫</span>
+</span></span><span class="line"><span class="cl"><span class="n">scrapy</span> <span class="n">crawl</span> <span class="n">爬虫名字</span> <span class="o">--</span><span class="n">nolog</span>   <span class="c1"># 不打印日志启动</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>从文件启动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">scrapy.cmdline</span> <span class="kn">import</span> <span class="n">execute</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># execute([&#39;scrapy&#39;,&#39;crawl&#39;,&#39;chouti&#39;,&#39;--nolog&#39;])</span>
+</span></span><span class="line"><span class="cl">  <span class="n">execute</span><span class="p">([</span><span class="s1">&#39;scrapy&#39;</span><span class="p">,</span><span class="s1">&#39;crawl&#39;</span><span class="p">,</span><span class="s1">&#39;chouti&#39;</span><span class="p">])</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="3-配置文件和目录介绍">3 配置文件和目录介绍</h2>
+<p>目录介绍</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">-</span><span class="n">crawl_chouti</span>   <span class="c1"># 项目名</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="n">crawl_chouti</span> <span class="c1"># 跟项目一个名，文件夹</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">spiders</span>    <span class="c1"># spiders：放着爬虫  genspider生成的爬虫，都放在这下面</span>
+</span></span><span class="line"><span class="cl">    	<span class="o">-</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+</span></span><span class="line"><span class="cl">      <span class="o">-</span><span class="n">chouti</span><span class="o">.</span><span class="n">py</span> <span class="c1"># 抽屉爬虫</span>
+</span></span><span class="line"><span class="cl">      <span class="o">-</span><span class="n">cnblogs</span><span class="o">.</span><span class="n">py</span> <span class="c1"># cnblogs 爬虫</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">items</span><span class="o">.</span><span class="n">py</span>     <span class="c1"># 对比django中的models.py文件 ,写一个个的模型类</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">middlewares</span><span class="o">.</span><span class="n">py</span>  <span class="c1"># 中间件（爬虫中间件，下载中间件），中间件写在这</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">pipelines</span><span class="o">.</span><span class="n">py</span>   <span class="c1"># 写持久化的地方（持久化到文件，mysql，redis，mongodb）</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">settings</span><span class="o">.</span><span class="n">py</span>    <span class="c1"># 配置文件</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="n">scrapy</span><span class="o">.</span><span class="n">cfg</span>       <span class="c1"># 不用关注，上线相关的</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 配置文件</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ROBOTSTXT_OBEY</span> <span class="o">=</span> <span class="kc">False</span>   <span class="c1"># 是否遵循爬虫协议，强行运行</span>
+</span></span><span class="line"><span class="cl"><span class="n">USER_AGENT</span> <span class="o">=</span> <span class="s1">&#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36&#39;</span>    <span class="c1"># 请求头中的ua</span>
+</span></span><span class="line"><span class="cl"><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">&#39;ERROR&#39;</span> <span class="c1"># 这样配置，程序错误信息才会打印，</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">#启动爬虫直接 scrapy crawl 爬虫名   就没有日志输出</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># scrapy crawl 爬虫名 --nolog</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>爬虫文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ChoutiSpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;chouti&#39;</span>   <span class="c1"># 爬虫名字</span>
+</span></span><span class="line"><span class="cl">    <span class="n">allowed_domains</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;https://dig.chouti.com/&#39;</span><span class="p">]</span>  <span class="c1"># 允许爬取的域</span>
+</span></span><span class="line"><span class="cl">    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;https://dig.chouti.com/&#39;</span><span class="p">]</span>   <span class="c1"># 起始爬取的位置，爬虫一启动，会先向它发请求</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>  <span class="c1"># 解析，请求回来，自动执行parser，在这个方法中做解析</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---------------------------&#39;</span><span class="p">,</span><span class="n">response</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>数据解析</p>
+<ul>
+<li>
+<p>使用bs4</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 1 解析，可以使用bs4解析</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+</span></span><span class="line"><span class="cl"><span class="n">soup</span><span class="o">=</span><span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span><span class="s1">&#39;lxml&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>使用内置解析器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">response</span><span class="o">.</span><span class="n">css</span>  
+</span></span><span class="line"><span class="cl"><span class="n">response</span><span class="o">.</span><span class="n">xpath</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 解析 </span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># 所有用css或者xpath选择出来的都放在列表中</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># 取第一个:extract_first()</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># 取出所有extract()</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># css选择器取文本和属性：</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">&#34;.link-title::text&#34;</span><span class="p">)</span>   
+</span></span><span class="line"><span class="cl">    <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s2">&#34;.link-title::attr(href)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># xpath选择器取文本和属性</span>
+</span></span><span class="line"><span class="cl">  	<span class="n">response</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;.//a[contains(@class,&#34;link-title&#34;)/text()]&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">response</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//a[contains(@class,&#34;link-title&#34;)/@href]&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="4-数据持久化">4 数据持久化</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 方式一</span>
+</span></span><span class="line"><span class="cl">	<span class="o">-</span><span class="mi">1</span> <span class="n">parser解析函数</span><span class="err">，</span><span class="k">return</span> <span class="n">列表</span><span class="err">，</span><span class="n">列表套字典</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="mi">2</span> <span class="n">scrapy</span> <span class="n">crawl</span> <span class="n">chouti</span> <span class="o">-</span><span class="n">o</span> <span class="n">aa</span><span class="o">.</span><span class="n">json</span>   <span class="p">(</span><span class="n">支持</span><span class="err">：</span><span class="p">(</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="s1">&#39;jsonlines&#39;</span><span class="p">,</span> <span class="s1">&#39;jl&#39;</span><span class="p">,</span> <span class="s1">&#39;csv&#39;</span><span class="p">,</span> <span class="s1">&#39;xml&#39;</span><span class="p">,</span> <span class="s1">&#39;marshal&#39;</span><span class="p">,</span> <span class="s1">&#39;pickle&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 方式二 pipline的方式（管道）</span>
+</span></span><span class="line"><span class="cl">   <span class="o">-</span><span class="mi">1</span> <span class="n">在items</span><span class="o">.</span><span class="n">py中创建模型类</span>
+</span></span><span class="line"><span class="cl">   <span class="o">-</span><span class="mi">2</span> <span class="n">在爬虫中chouti</span><span class="o">.</span><span class="n">py</span><span class="err">，</span><span class="n">引入</span><span class="err">，</span><span class="n">把解析的数据放到item对象中</span><span class="err">（</span><span class="n">要用中括号</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl">   <span class="o">-</span><span class="mi">3</span> <span class="k">yield</span> <span class="n">item对象</span>
+</span></span><span class="line"><span class="cl">   <span class="o">-</span><span class="mi">4</span> <span class="n">配置文件配置管道</span>
+</span></span><span class="line"><span class="cl">       <span class="n">ITEM_PIPELINES</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 数字表示优先级（数字越小，优先级越大）</span>
+</span></span><span class="line"><span class="cl">       <span class="s1">&#39;crawl_chouti.pipelines.CrawlChoutiPipeline&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="s1">&#39;crawl_chouti.pipelines.CrawlChoutiRedisPipeline&#39;</span><span class="p">:</span> <span class="mi">301</span><span class="err">，</span>
+</span></span><span class="line"><span class="cl">    	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="mi">5</span> <span class="n">pipline</span><span class="o">.</span><span class="n">py中写持久化的类</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   				<span class="c1">#  在保存数据之前执行的函数</span>
+</span></span><span class="line"><span class="cl">          <span class="o">-</span><span class="n">spider_open</span>
+</span></span><span class="line"><span class="cl">      	  <span class="c1"># 在执行数据持久化之后执行的函数</span>
+</span></span><span class="line"><span class="cl">          <span class="o">-</span><span class="n">spider_close</span>
+</span></span><span class="line"><span class="cl">          <span class="o">-</span><span class="n">process_item</span><span class="err">（</span><span class="n">在这写保存到哪</span><span class="err">）</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>[toc]</p></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title=2023-05-22&#32;16:28:20>更新于 2023-05-22&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/posts/spider-5scrapy%E6%A1%86%E6%9E%B6/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://192.168.0.120:18088/posts/spider-5scrapy%E6%A1%86%E6%9E%B6/" data-title="Scrapy框架" data-hashtags="爬虫,scrapy"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://192.168.0.120:18088/posts/spider-5scrapy%E6%A1%86%E6%9E%B6/" data-hashtag="爬虫"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://192.168.0.120:18088/posts/spider-5scrapy%E6%A1%86%E6%9E%B6/" data-title="Scrapy框架"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E7%88%AC%E8%99%AB/' class="post-tag">爬虫</a><a href='/tags/scrapy/' class="post-tag">scrapy</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/spider-4selenium/" class="post-nav-item" rel="prev" title="selenium"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>selenium</a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.17"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/qilitang"target="_blank" rel="external nofollow noopener noreferrer">Qilitang</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/lazysizes/lazysizes.min.js" async defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":15},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>
