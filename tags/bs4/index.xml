@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
   <channel>
     <title>bs4 - 标签 - </title>
-    <link>https://192.168.0.120:18088/tags/bs4/</link>
+    <link>https://www.qilitang.top/tags/bs4/</link>
     <description>bs4 - 标签 - </description>
     <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
-      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Tue, 04 Jul 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://192.168.0.120:18088/tags/bs4/" rel="self" type="application/rss+xml" /><item>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Tue, 04 Jul 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/bs4/" rel="self" type="application/rss+xml" /><item>
   <title>爬虫入门/bs4</title>
-  <link>https://192.168.0.120:18088/posts/spider-2%E7%88%AC%E8%99%AB%E9%AB%98%E7%BA%A7/</link>
+  <link>https://www.qilitang.top/posts/spider-2%E7%88%AC%E8%99%AB%E9%AB%98%E7%BA%A7/</link>
   <pubDate>Tue, 04 Jul 2017 17:06:11 &#43;0800</pubDate>
   <author>Qilitang</author>
-  <guid>https://192.168.0.120:18088/posts/spider-2%E7%88%AC%E8%99%AB%E9%AB%98%E7%BA%A7/</guid>
+  <guid>https://www.qilitang.top/posts/spider-2%E7%88%AC%E8%99%AB%E9%AB%98%E7%BA%A7/</guid>
   <description><![CDATA[<p>爬虫 bs4 模块使用</p>]]></description>
 </item>
 </channel>

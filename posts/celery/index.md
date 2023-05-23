@@ -369,5 +369,5 @@ def update_banner_list():
 ---
 
 > 作者: [Qilitang](https://github.com/qilitang)  
-> URL: https://192.168.0.120:18088/posts/celery/  
+> URL: https://www.qilitang.top/posts/celery/  
 

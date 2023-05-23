@@ -65,4 +65,4 @@ Disallow: /
 User-agent: ZoominfoBot
 Disallow: /
 
-Sitemap: https://192.168.0.120:18088/sitemap.xml
+Sitemap: https://www.qilitang.top/sitemap.xml

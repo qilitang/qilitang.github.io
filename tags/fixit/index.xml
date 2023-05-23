@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
   <channel>
     <title>FixIt - 标签 - </title>
-    <link>https://192.168.0.120:18088/tags/fixit/</link>
+    <link>https://www.qilitang.top/tags/fixit/</link>
     <description>FixIt - 标签 - </description>
     <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
-      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Sat, 03 Jun 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://192.168.0.120:18088/tags/fixit/" rel="self" type="application/rss+xml" /><item>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Sat, 03 Jun 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/fixit/" rel="self" type="application/rss+xml" /><item>
   <title>Celery</title>
-  <link>https://192.168.0.120:18088/posts/celery/</link>
+  <link>https://www.qilitang.top/posts/celery/</link>
   <pubDate>Sat, 03 Jun 2017 17:06:11 &#43;0800</pubDate>
   <author>Qilitang</author>
-  <guid>https://192.168.0.120:18088/posts/celery/</guid>
+  <guid>https://www.qilitang.top/posts/celery/</guid>
   <description><![CDATA[<p>celery 的简单使用</p>]]></description>
 </item>
 </channel>

@@ -204,5 +204,5 @@ class ChoutiSpider(scrapy.Spider):
 ---
 
 > 作者: [Qilitang](https://github.com/qilitang)  
-> URL: https://192.168.0.120:18088/posts/spider-5scrapy%E6%A1%86%E6%9E%B6/  
+> URL: https://www.qilitang.top/posts/spider-5scrapy%E6%A1%86%E6%9E%B6/  
 

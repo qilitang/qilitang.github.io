@@ -14,14 +14,15 @@
 <meta itemprop="keywords" content="爬虫,代理池," /><meta property="og:title" content="代理池" />
 <meta property="og:description" content="爬虫 代理池 模块使用" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://192.168.0.120:18088/posts/spider-3%E4%BB%A3%E7%90%86%E6%B1%A0/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://www.qilitang.top/posts/spider-3%E4%BB%A3%E7%90%86%E6%B1%A0/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2017-07-06T17:06:11+08:00" />
 <meta property="article:modified_time" content="2023-05-21T02:11:59+08:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="代理池"/>
 <meta name="twitter:description" content="爬虫 代理池 模块使用"/>
 <meta name="application-name" content="">
-<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://192.168.0.120:18088/posts/spider-3%E4%BB%A3%E7%90%86%E6%B1%A0/" /><link rel="prev" href="https://192.168.0.120:18088/posts/spider-2%E7%88%AC%E8%99%AB%E9%AB%98%E7%BA%A7/" /><link rel="next" href="https://192.168.0.120:18088/posts/spider-4selenium/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://www.qilitang.top/posts/spider-3%E4%BB%A3%E7%90%86%E6%B1%A0/" /><link rel="prev" href="https://www.qilitang.top/posts/spider-2%E7%88%AC%E8%99%AB%E9%AB%98%E7%BA%A7/" /><link rel="next" href="https://www.qilitang.top/posts/spider-4selenium/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
   {
     "@context": "http://schema.org",
     "@type": "BlogPosting",
@@ -29,11 +30,11 @@
     "inLanguage": "zh-cn",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https:\/\/192.168.0.120:18088\/posts\/spider-3%E4%BB%A3%E7%90%86%E6%B1%A0\/"
+      "@id": "https:\/\/www.qilitang.top\/posts\/spider-3%E4%BB%A3%E7%90%86%E6%B1%A0\/"
     },"genre": "posts","keywords": "爬虫, 代理池","wordcount":  682 ,
-    "url": "https:\/\/192.168.0.120:18088\/posts\/spider-3%E4%BB%A3%E7%90%86%E6%B1%A0\/","datePublished": "2017-07-06T17:06:11+08:00","dateModified": "2023-05-21T02:11:59+08:00","publisher": {
+    "url": "https:\/\/www.qilitang.top\/posts\/spider-3%E4%BB%A3%E7%90%86%E6%B1%A0\/","datePublished": "2017-07-06T17:06:11+08:00","dateModified": "2023-05-21T02:11:59+08:00","publisher": {
       "@type": "Organization",
-      "name": "","logo": "https:\/\/192.168.0.120:18088\/favicon.ico"},"author": {
+      "name": "","logo": "https:\/\/www.qilitang.top\/favicon.ico"},"author": {
         "@type": "Person",
         "name": "Qilitang"
       },"description": ""
@@ -163,8 +164,8 @@
       <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img
     class="lazyload avatar"
     src="/svg/loading.min.svg"
-    data-src="/avatar.jpg"
-    data-srcset="/avatar.jpg, /avatar.jpg 1.5x, /avatar.jpg 2x"
+    data-src="/avatar/avatar.jpg"
+    data-srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x"
     data-sizes="auto"
     alt="Qilitang"
     title="Qilitang"/>&nbsp;Qilitang</a></span>
@@ -206,25 +207,25 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># https://github.com/jhao104/proxy_pool</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 收费的：提供给你一个接口，每掉一次这个接口，获得一个代理</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 免费：用爬虫爬取，免费代理，放到我的库中，flask，django搭一个服务（删除代理，自动测试代理可用性），每次发一个请求，获取一个代理</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 带你配置</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 1 下载，解压，用pycharm打开</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 2 安装依赖 pip install -r requirements.txt</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 3 配置Config/setting.py:</span>
-</span></span><span class="line"><span class="cl">	<span class="n">DB_TYPE</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;db_type&#39;</span><span class="p">,</span> <span class="s1">&#39;redis&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="n">DB_HOST</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;db_host&#39;</span><span class="p">,</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="n">DB_PORT</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;db_port&#39;</span><span class="p">,</span> <span class="mi">6379</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="n">DB_PASSWORD</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;db_password&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 4 本地启动redis-server</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 5 可以在cli目录下通过ProxyPool.py</span>
-</span></span><span class="line"><span class="cl">	<span class="o">-</span><span class="n">python</span> <span class="n">proxyPool</span><span class="o">.</span><span class="n">py</span> <span class="n">schedule</span> <span class="p">:</span><span class="n">调度程序</span><span class="err">，</span><span class="n">他会取自动爬取免费代理</span>
-</span></span><span class="line"><span class="cl">  <span class="o">-</span><span class="n">python</span> <span class="n">proxyPool</span><span class="o">.</span><span class="n">py</span> <span class="n">webserver</span><span class="p">:</span><span class="n">启动api服务</span><span class="err">，</span><span class="n">把flask启动起来</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># https://github.com/jhao104/proxy_pool</span>
+<span class="c1"># 收费的：提供给你一个接口，每掉一次这个接口，获得一个代理</span>
+<span class="c1"># 免费：用爬虫爬取，免费代理，放到我的库中，flask，django搭一个服务（删除代理，自动测试代理可用性），每次发一个请求，获取一个代理</span>
+
+<span class="c1"># 带你配置</span>
+
+<span class="c1"># 1 下载，解压，用pycharm打开</span>
+<span class="c1"># 2 安装依赖 pip install -r requirements.txt</span>
+<span class="c1"># 3 配置Config/setting.py:</span>
+	<span class="n">DB_TYPE</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;db_type&#39;</span><span class="p">,</span> <span class="s1">&#39;redis&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+	<span class="n">DB_HOST</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;db_host&#39;</span><span class="p">,</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">)</span>
+	<span class="n">DB_PORT</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;db_port&#39;</span><span class="p">,</span> <span class="mi">6379</span><span class="p">)</span>
+	<span class="n">DB_PASSWORD</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;db_password&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="c1"># 4 本地启动redis-server</span>
+
+<span class="c1"># 5 可以在cli目录下通过ProxyPool.py</span>
+	<span class="o">-</span><span class="n">python</span> <span class="n">proxyPool</span><span class="o">.</span><span class="n">py</span> <span class="n">schedule</span> <span class="p">:</span><span class="n">调度程序</span><span class="err">，</span><span class="n">他会取自动爬取免费代理</span>
+  <span class="o">-</span><span class="n">python</span> <span class="n">proxyPool</span><span class="o">.</span><span class="n">py</span> <span class="n">webserver</span><span class="p">:</span><span class="n">启动api服务</span><span class="err">，</span><span class="n">把flask启动起来</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="验证码破解">验证码破解</h2>
 <div class="highlight"><div class="chroma">
@@ -239,15 +240,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 1 简单验证码，字母，数字</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 2 高级的，选择，你好，12306选择乒乓球，滑动验证（极验）</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 打码平台（自动破解验证码，需要花钱）云打码，超级鹰（12306）</span>
-</span></span><span class="line"><span class="cl"><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">yundama</span><span class="o">.</span><span class="n">com</span><span class="o">/</span>
-</span></span><span class="line"><span class="cl"><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">chaojiying</span><span class="o">.</span><span class="n">com</span><span class="o">/</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 注册账号，（充钱）把demo下载下来，运行即可</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 1 简单验证码，字母，数字</span>
+<span class="c1"># 2 高级的，选择，你好，12306选择乒乓球，滑动验证（极验）</span>
+
+<span class="c1"># 打码平台（自动破解验证码，需要花钱）云打码，超级鹰（12306）</span>
+<span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">yundama</span><span class="o">.</span><span class="n">com</span><span class="o">/</span>
+<span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">chaojiying</span><span class="o">.</span><span class="n">com</span><span class="o">/</span>
+
+<span class="c1"># 注册账号，（充钱）把demo下载下来，运行即可</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="爬取段子发送给女朋友">爬取段子发送给女朋友</h2>
 <div class="highlight"><div class="chroma">
@@ -292,45 +293,45 @@
 </span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#####</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 1 爬取糗事百科，微信自动发送</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#####</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># https://www.qiushibaike.com/text/</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># https://www.qiushibaike.com/text/page/1/</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
-</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
-</span></span><span class="line"><span class="cl"><span class="n">ret</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://www.qiushibaike.com/text/page/1/&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># print(ret.text)</span>
-</span></span><span class="line"><span class="cl"><span class="n">ll</span><span class="o">=</span><span class="p">[]</span>
-</span></span><span class="line"><span class="cl"><span class="n">soup</span><span class="o">=</span><span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">ret</span><span class="o">.</span><span class="n">text</span><span class="p">,</span><span class="s2">&#34;lxml&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">article_list</span><span class="o">=</span><span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;div&#39;</span><span class="p">,</span><span class="nb">id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">&#39;article&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">article</span> <span class="ow">in</span> <span class="n">article_list</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">content</span><span class="o">=</span><span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;div&#39;</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">&#39;content&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">text</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># content=article.find(name=&#39;div&#39;,class_=&#39;content&#39;).text</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># content=article.find(class_=&#39;content&#39;).text</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># print(content)</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 入库</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">#我们放到列表中</span>
-</span></span><span class="line"><span class="cl">    <span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 微信自动发消息</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># wxpy：实现了web微信的接口</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># pip3 install wxpy</span>
-</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">wxpy</span> <span class="kn">import</span> <span class="o">*</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 实例化得到一个对象，微信机器人对象</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">random</span>
-</span></span><span class="line"><span class="cl"><span class="n">bot</span><span class="o">=</span><span class="n">Bot</span><span class="p">(</span><span class="n">cache_path</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nd">@bot.register</span><span class="p">()</span> <span class="c1"># 接收从指定好友发来的消息，发送者即recv_msg.sender为指定好友girl_friend</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">recv_send_msg</span><span class="p">(</span><span class="n">recv_msg</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;收到的消息：&#39;</span><span class="p">,</span><span class="n">recv_msg</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="c1"># recv_msg.text取得文本</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">embed</span><span class="p">()</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python">
+<span class="c1">#####</span>
+<span class="c1"># 1 爬取糗事百科，微信自动发送</span>
+<span class="c1">#####</span>
+<span class="c1"># https://www.qiushibaike.com/text/</span>
+<span class="c1"># https://www.qiushibaike.com/text/page/1/</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="n">ret</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://www.qiushibaike.com/text/page/1/&#39;</span><span class="p">)</span>
+<span class="c1"># print(ret.text)</span>
+<span class="n">ll</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">soup</span><span class="o">=</span><span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">ret</span><span class="o">.</span><span class="n">text</span><span class="p">,</span><span class="s2">&#34;lxml&#34;</span><span class="p">)</span>
+<span class="n">article_list</span><span class="o">=</span><span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;div&#39;</span><span class="p">,</span><span class="nb">id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">&#39;article&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">article</span> <span class="ow">in</span> <span class="n">article_list</span><span class="p">:</span>
+    <span class="n">content</span><span class="o">=</span><span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;div&#39;</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">&#39;content&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">span</span><span class="o">.</span><span class="n">text</span>
+    <span class="c1"># content=article.find(name=&#39;div&#39;,class_=&#39;content&#39;).text</span>
+    <span class="c1"># content=article.find(class_=&#39;content&#39;).text</span>
+    <span class="c1"># print(content)</span>
+    <span class="c1"># 入库</span>
+    <span class="c1">#我们放到列表中</span>
+    <span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
+
+<span class="c1"># 微信自动发消息</span>
+<span class="c1"># wxpy：实现了web微信的接口</span>
+<span class="c1"># pip3 install wxpy</span>
+<span class="kn">from</span> <span class="nn">wxpy</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># 实例化得到一个对象，微信机器人对象</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="n">bot</span><span class="o">=</span><span class="n">Bot</span><span class="p">(</span><span class="n">cache_path</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nd">@bot</span><span class="o">.</span><span class="n">register</span><span class="p">()</span> <span class="c1"># 接收从指定好友发来的消息，发送者即recv_msg.sender为指定好友girl_friend</span>
+<span class="k">def</span> <span class="nf">recv_send_msg</span><span class="p">(</span><span class="n">recv_msg</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;收到的消息：&#39;</span><span class="p">,</span><span class="n">recv_msg</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="c1"># recv_msg.text取得文本</span>
+    <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
+
+<span class="n">embed</span><span class="p">()</span>
+</code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
   <div class="post-info">
@@ -343,9 +344,9 @@
     <div class="post-info-line">
       <div class="post-info-md"><span><a href="/posts/spider-3%E4%BB%A3%E7%90%86%E6%B1%A0/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
       <div class="post-info-share">
-        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://192.168.0.120:18088/posts/spider-3%E4%BB%A3%E7%90%86%E6%B1%A0/" data-title="代理池" data-hashtags="爬虫,代理池"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://192.168.0.120:18088/posts/spider-3%E4%BB%A3%E7%90%86%E6%B1%A0/" data-hashtag="爬虫"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://192.168.0.120:18088/posts/spider-3%E4%BB%A3%E7%90%86%E6%B1%A0/" data-title="代理池"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.qilitang.top/posts/spider-3%E4%BB%A3%E7%90%86%E6%B1%A0/" data-title="代理池" data-hashtags="爬虫,代理池"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.qilitang.top/posts/spider-3%E4%BB%A3%E7%90%86%E6%B1%A0/" data-hashtag="爬虫"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.qilitang.top/posts/spider-3%E4%BB%A3%E7%90%86%E6%B1%A0/" data-title="代理池"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
   </span>
       </div>
     </div>
@@ -362,7 +363,7 @@
       <a href="/posts/spider-4selenium/" class="post-nav-item" rel="next" title="selenium">selenium<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></main><footer class="footer">
-    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.17"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.91.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.17"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
         </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
             <span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">
               <a href="https://github.com/qilitang"target="_blank" rel="external nofollow noopener noreferrer">Qilitang</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
