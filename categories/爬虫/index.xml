@@ -4,7 +4,23 @@
     <link>https://www.qilitang.top/categories/%E7%88%AC%E8%99%AB/</link>
     <description>爬虫 - 分类 - </description>
     <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
-      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Fri, 07 Jul 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/categories/%E7%88%AC%E8%99%AB/" rel="self" type="application/rss+xml" /><item>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Sun, 09 Jul 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/categories/%E7%88%AC%E8%99%AB/" rel="self" type="application/rss+xml" /><item>
+  <title>动作链</title>
+  <link>https://www.qilitang.top/posts/spider-7%E5%8A%A8%E4%BD%9C%E9%93%BE%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%9512306/</link>
+  <pubDate>Sun, 09 Jul 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/spider-7%E5%8A%A8%E4%BD%9C%E9%93%BE%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%9512306/</guid>
+  <description><![CDATA[<p>爬虫 Scrapy高级 使用</p>]]></description>
+</item>
+<item>
+  <title>Scrapy高级</title>
+  <link>https://www.qilitang.top/posts/spider-6scrapy%E9%AB%98%E7%BA%A7/</link>
+  <pubDate>Sat, 08 Jul 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/spider-6scrapy%E9%AB%98%E7%BA%A7/</guid>
+  <description><![CDATA[<p>爬虫 Scrapy高级 使用</p>]]></description>
+</item>
+<item>
   <title>Scrapy框架</title>
   <link>https://www.qilitang.top/posts/spider-5scrapy%E6%A1%86%E6%9E%B6/</link>
   <pubDate>Fri, 07 Jul 2017 17:06:11 &#43;0800</pubDate>
