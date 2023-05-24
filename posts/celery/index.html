@@ -17,7 +17,6 @@
 <meta property="og:url" content="https://www.qilitang.top/posts/celery/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2017-06-03T17:06:11+08:00" />
 <meta property="article:modified_time" content="2023-05-22T16:28:33+08:00" />
-
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Celery"/>
 <meta name="twitter:description" content="celery 的简单使用"/>
@@ -40,17 +39,10 @@
       },"description": ""
   }
   </script></head>
-  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper"><header class="desktop animate__faster" id="header-desktop">
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
   <div class="header-wrapper">
     <div class="header-title">
-      <a href="/" title=""><img
-    class="lazyload logo"
-    src="/svg/loading.min.svg"
-    data-src="/favicon.ico"
-    data-srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x"
-    data-sizes="auto"
-    alt="/favicon.ico"
-    title="/favicon.ico"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+      <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
     <nav>
       <ul class="menu"><li class="menu-item">
               <a
@@ -71,7 +63,7 @@
                 
                 
               ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
-            <input type="text" placeholder="搜索文章标题或内容 ..." id="search-input-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
             <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
               <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
             </a>
@@ -83,22 +75,14 @@
             </span>
           </li><li class="menu-item theme-switch" title="切换主题">
           <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
-        </li>
-      </ul>
+        </li></ul>
     </nav>
   </div>
 </header><header class="mobile animate__faster" id="header-mobile">
   <div class="header-container">
     <div class="header-wrapper">
       <div class="header-title">
-        <a href="/" title=""><img
-    class="lazyload logo"
-    src="/svg/loading.min.svg"
-    data-src="/favicon.ico"
-    data-srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x"
-    data-sizes="auto"
-    alt="/favicon.ico"
-    title="/favicon.ico"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+        <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
       <div class="menu-toggle" id="menu-toggle-mobile">
         <span></span><span></span><span></span>
       </div>
@@ -106,7 +90,7 @@
     <nav>
       <ul class="menu" id="menu-mobile"><li class="search-wrapper">
             <div class="search mobile" id="search-mobile">
-              <input type="text" placeholder="搜索文章标题或内容 ..." id="search-input-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
               <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
                 <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
               </a>
@@ -141,9 +125,9 @@
                   href="/tags/"
                   
                   
-                ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item theme-switch" title="切换主题">
-          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
-        </li></ul>
+                ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
     </nav>
   </div>
 </header><div class="search-dropdown desktop">
@@ -151,26 +135,18 @@
   </div>
   <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-  </div><main class="container" data-page-style="normal"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+  </div><main class="container"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
       <div class="toc-content" id="toc-content-auto"></div></aside>
 
   <aside class="aside-custom">
     </aside>
 
   <article class="page single">
-    <div class="header"><h1 class="single-title animate__animated animate__flipInX">
-        <span>Celery</span>
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Celery</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img
-    class="lazyload avatar"
-    src="/svg/loading.min.svg"
-    data-src="/avatar/avatar.jpg"
-    data-srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x"
-    data-sizes="auto"
-    alt="Qilitang"
-    title="Qilitang"/>&nbsp;Qilitang</a></span>
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img loading="lazy" src="/avatar/avatar.jpg" srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x" sizes="auto" data-title="Qilitang" data-alt="Qilitang" class="avatar" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>&nbsp;Qilitang</a></span>
           <span class="post-category">收录于 <a href="/categories/%E5%BC%82%E6%AD%A5/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 异步</a></span></div>
-      <div class="post-meta-line"><span title=2017-06-03&#32;17:06:11><i class="fa-regular fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2017-06-03">2017-06-03</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i> 约 2788 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw" aria-hidden="true"></i> 预计阅读 6 分钟</span>&nbsp;</div>
+      <div class="post-meta-line"><span title="发布于 2017-06-03 17:06:11"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2017-06-03">2017-06-03</time></span>&nbsp;<span title="更新于 2023-05-22 16:28:33"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2023-05-22">2023-05-22</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 2788 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 6 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -240,27 +216,20 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
-</span><span class="s2">1）可以不依赖任何服务器，通过自身命令，启动服务(内部支持socket)
-</span><span class="s2">2）celery服务为为其他项目服务提供异步解决任务需求的
-</span><span class="s2">注：会有两个服务同时运行，一个是项目服务，一个是celery服务，项目服务将需要异步处理的任务交给celery服务，celery就会在需要时异步完成项目的需求
-</span><span class="s2">
-</span><span class="s2">人是一个独立运行的服务 | 医院也是一个独立运行的服务
-</span><span class="s2">	正常情况下，人可以完成所有健康情况的动作，不需要医院的参与；但当人生病时，就会被医院接收，解决人生病问题
-</span><span class="s2">	人生病的处理方案交给医院来解决，所有人不生病时，医院独立运行，人生病时，医院就来解决人生病的需求
-</span><span class="s2">&#34;&#34;&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">1）可以不依赖任何服务器，通过自身命令，启动服务(内部支持socket)
+</span></span></span><span class="line"><span class="cl"><span class="s2">2）celery服务为为其他项目服务提供异步解决任务需求的
+</span></span></span><span class="line"><span class="cl"><span class="s2">注：会有两个服务同时运行，一个是项目服务，一个是celery服务，项目服务将需要异步处理的任务交给celery服务，celery就会在需要时异步完成项目的需求
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">人是一个独立运行的服务 | 医院也是一个独立运行的服务
+</span></span></span><span class="line"><span class="cl"><span class="s2">	正常情况下，人可以完成所有健康情况的动作，不需要医院的参与；但当人生病时，就会被医院接收，解决人生病问题
+</span></span></span><span class="line"><span class="cl"><span class="s2">	人生病的处理方案交给医院来解决，所有人不生病时，医院独立运行，人生病时，医院就来解决人生病的需求
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="celery架构">Celery架构</h2>
 <p>Celery的架构由三部分组成，消息中间件（message broker）、任务执行单元（worker）和 任务执行结果存储（task result store）组成。</p>
-<p><img
-    class="lazyload"
-    src="/svg/loading.min.svg"
-    data-src="/images/image-20200505214835683111.png"
-    data-srcset="/images/image-20200505214835683111.png, /images/image-20200505214835683111.png 1.5x, /images/image-20200505214835683111.png 2x"
-    data-sizes="auto"
-    alt="/images/image-20200505214835683111.png"
-    title="/images/image-20200505214835683111.png"/></p>
+<p><img loading="lazy" src="/images/image-20200505214835683111.png" srcset="/images/image-20200505214835683111.png, /images/image-20200505214835683111.png 1.5x, /images/image-20200505214835683111.png 2x" sizes="auto" data-title="/images/image-20200505214835683111.png" data-alt="/images/image-20200505214835683111.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h3 id="消息中间件">消息中间件</h3>
 <p>Celery本身不提供消息服务，但是可以方便的和第三方提供的消息中间件集成。包括，RabbitMQ, Redis等等</p>
 <h3 id="任务执行单元">任务执行单元</h3>
@@ -292,19 +261,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 如果 Celery对象:Celery(...) 是放在一个模块下的</span>
-<span class="c1"># 1）终端切换到该模块所在文件夹位置：scripts</span>
-<span class="c1"># 2）执行启动worker的命令：celery worker -A 模块名 -l info -P eventlet</span>
-<span class="c1"># 注：windows系统需要eventlet支持，Linux与MacOS直接执行：celery worker -A 模块名 -l info</span>
-<span class="c1"># 注：模块名随意</span>
-
-
-<span class="c1"># 如果 Celery对象:Celery(...) 是放在一个包下的</span>
-<span class="c1"># 1）必须在这个包下建一个celery.py的文件，将Celery(...)产生对象的语句放在该文件中</span>
-<span class="c1"># 2）执行启动worker的命令：celery worker -A 包名 -l info -P eventlet</span>
-<span class="c1"># 注：windows系统需要eventlet支持，Linux与MacOS直接执行：celery worker -A 模块名 -l info</span>
-<span class="c1"># 注：包名随意</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 如果 Celery对象:Celery(...) 是放在一个模块下的</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1）终端切换到该模块所在文件夹位置：scripts</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2）执行启动worker的命令：celery worker -A 模块名 -l info -P eventlet</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 注：windows系统需要eventlet支持，Linux与MacOS直接执行：celery worker -A 模块名 -l info</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 注：模块名随意</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果 Celery对象:Celery(...) 是放在一个包下的</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1）必须在这个包下建一个celery.py的文件，将Celery(...)产生对象的语句放在该文件中</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2）执行启动worker的命令：celery worker -A 包名 -l info -P eventlet</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 注：windows系统需要eventlet支持，Linux与MacOS直接执行：celery worker -A 模块名 -l info</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 注：包名随意</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="celery执行异步任务">Celery执行异步任务</h2>
 <h3 id="包架构封装">包架构封装</h3>
@@ -319,14 +288,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">project</span>
-    <span class="err">├──</span> <span class="n">celery_task</span>  	<span class="c1"># celery包</span>
-    <span class="err">│</span>   <span class="err">├──</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="c1"># 包文件</span>
-    <span class="err">│</span>   <span class="err">├──</span> <span class="n">celery</span><span class="o">.</span><span class="n">py</span>   <span class="c1"># celery连接和配置相关文件，且名字必须交celery.py</span>
-    <span class="err">│</span>   <span class="err">└──</span> <span class="n">tasks</span><span class="o">.</span><span class="n">py</span>    <span class="c1"># 所有任务函数</span>
-    <span class="err">├──</span> <span class="n">add_task</span><span class="o">.</span><span class="n">py</span>  	<span class="c1"># 添加任务</span>
-    <span class="err">└──</span> <span class="n">get_result</span><span class="o">.</span><span class="n">py</span>   <span class="c1"># 获取结果</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">project</span>
+</span></span><span class="line"><span class="cl">    <span class="err">├──</span> <span class="n">celery_task</span>  	<span class="c1"># celery包</span>
+</span></span><span class="line"><span class="cl">    <span class="err">│</span>   <span class="err">├──</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="c1"># 包文件</span>
+</span></span><span class="line"><span class="cl">    <span class="err">│</span>   <span class="err">├──</span> <span class="n">celery</span><span class="o">.</span><span class="n">py</span>   <span class="c1"># celery连接和配置相关文件，且名字必须交celery.py</span>
+</span></span><span class="line"><span class="cl">    <span class="err">│</span>   <span class="err">└──</span> <span class="n">tasks</span><span class="o">.</span><span class="n">py</span>    <span class="c1"># 所有任务函数</span>
+</span></span><span class="line"><span class="cl">    <span class="err">├──</span> <span class="n">add_task</span><span class="o">.</span><span class="n">py</span>  	<span class="c1"># 添加任务</span>
+</span></span><span class="line"><span class="cl">    <span class="err">└──</span> <span class="n">get_result</span><span class="o">.</span><span class="n">py</span>   <span class="c1"># 获取结果</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="基本使用">基本使用</h3>
 <h4 id="celerypy">celery.py</h4>
@@ -352,25 +321,25 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 1）创建app + 任务</span>
-
-<span class="c1"># 2）启动celery(app)服务：</span>
-<span class="c1"># 非windows</span>
-<span class="c1"># 命令：celery worker -A celery_task -l info</span>
-<span class="c1"># windows：</span>
-<span class="c1"># pip3 install eventlet</span>
-<span class="c1"># celery worker -A celery_task -l info -P eventlet</span>
-
-<span class="c1"># 3）添加任务：手动添加，要自定义添加任务的脚本，右键执行脚本</span>
-
-<span class="c1"># 4）获取结果：手动获取，要自定义获取任务的脚本，右键执行脚本</span>
-
-
-<span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">Celery</span>
-<span class="n">broker</span> <span class="o">=</span> <span class="s1">&#39;redis://127.0.0.1:6379/1&#39;</span>
-<span class="n">backend</span> <span class="o">=</span> <span class="s1">&#39;redis://127.0.0.1:6379/2&#39;</span>
-<span class="n">app</span> <span class="o">=</span> <span class="n">Celery</span><span class="p">(</span><span class="n">broker</span><span class="o">=</span><span class="n">broker</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;celery_task.tasks&#39;</span><span class="p">])</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 1）创建app + 任务</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2）启动celery(app)服务：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 非windows</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 命令：celery worker -A celery_task -l info</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># windows：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># pip3 install eventlet</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># celery worker -A celery_task -l info -P eventlet</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3）添加任务：手动添加，要自定义添加任务的脚本，右键执行脚本</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4）获取结果：手动获取，要自定义获取任务的脚本，右键执行脚本</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">Celery</span>
+</span></span><span class="line"><span class="cl"><span class="n">broker</span> <span class="o">=</span> <span class="s1">&#39;redis://127.0.0.1:6379/1&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">backend</span> <span class="o">=</span> <span class="s1">&#39;redis://127.0.0.1:6379/2&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Celery</span><span class="p">(</span><span class="n">broker</span><span class="o">=</span><span class="n">broker</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;celery_task.tasks&#39;</span><span class="p">])</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="taskspy">tasks.py</h4>
 <div class="highlight"><div class="chroma">
@@ -393,23 +362,23 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">.celery</span> <span class="kn">import</span> <span class="n">app</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="nd">@app</span><span class="o">.</span><span class="n">task</span>
-<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;n+m的结果：</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">m</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">n</span> <span class="o">+</span> <span class="n">m</span>
-
-<span class="nd">@app</span><span class="o">.</span><span class="n">task</span>
-<span class="k">def</span> <span class="nf">low</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;n-m的结果：</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">n</span> <span class="o">-</span> <span class="n">m</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">.celery</span> <span class="kn">import</span> <span class="n">app</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@app.task</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;n+m的结果：</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">m</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">n</span> <span class="o">+</span> <span class="n">m</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.task</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">low</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;n-m的结果：</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">n</span> <span class="o">-</span> <span class="n">m</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="add_taskpy">add_task.py</h4>
 <div class="highlight"><div class="chroma">
@@ -428,19 +397,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">celery_task</span> <span class="kn">import</span> <span class="n">tasks</span>
-
-<span class="c1"># 添加立即执行任务</span>
-<span class="n">t1</span> <span class="o">=</span> <span class="n">tasks</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
-<span class="n">t2</span> <span class="o">=</span> <span class="n">tasks</span><span class="o">.</span><span class="n">low</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-
-
-<span class="c1"># 添加延迟任务</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
-<span class="n">eta</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">tasks</span><span class="o">.</span><span class="n">low</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">eta</span><span class="o">=</span><span class="n">eta</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">celery_task</span> <span class="kn">import</span> <span class="n">tasks</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加立即执行任务</span>
+</span></span><span class="line"><span class="cl"><span class="n">t1</span> <span class="o">=</span> <span class="n">tasks</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">t2</span> <span class="o">=</span> <span class="n">tasks</span><span class="o">.</span><span class="n">low</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加延迟任务</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+</span></span><span class="line"><span class="cl"><span class="n">eta</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">tasks</span><span class="o">.</span><span class="n">low</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">eta</span><span class="o">=</span><span class="n">eta</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="get_resultpy">get_result.py</h4>
 <div class="highlight"><div class="chroma">
@@ -465,25 +434,25 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">celery_task.celery</span> <span class="kn">import</span> <span class="n">app</span>
-
-<span class="kn">from</span> <span class="nn">celery.result</span> <span class="kn">import</span> <span class="n">AsyncResult</span>
-
-<span class="nb">id</span> <span class="o">=</span> <span class="s1">&#39;21325a40-9d32-44b5-a701-9a31cc3c74b5&#39;</span>
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="k">async</span> <span class="o">=</span> <span class="n">AsyncResult</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">)</span>
-    <span class="k">if</span> <span class="k">async</span><span class="o">.</span><span class="n">successful</span><span class="p">():</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="k">async</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="k">async</span><span class="o">.</span><span class="n">failed</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;任务失败&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="k">async</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;PENDING&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;任务等待中被执行&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="k">async</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;RETRY&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;任务异常后正在重试&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="k">async</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;STARTED&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;任务已经开始被执行&#39;</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">celery_task.celery</span> <span class="kn">import</span> <span class="n">app</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">celery.result</span> <span class="kn">import</span> <span class="n">AsyncResult</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">id</span> <span class="o">=</span> <span class="s1">&#39;21325a40-9d32-44b5-a701-9a31cc3c74b5&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">async</span> <span class="o">=</span> <span class="n">AsyncResult</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="k">async</span><span class="o">.</span><span class="n">successful</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">=</span> <span class="k">async</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="k">async</span><span class="o">.</span><span class="n">failed</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;任务失败&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="k">async</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;PENDING&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;任务等待中被执行&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="k">async</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;RETRY&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;任务异常后正在重试&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="k">async</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;STARTED&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;任务已经开始被执行&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="高级使用">高级使用</h3>
 <h4 id="celerypy-1">celery.py</h4>
@@ -529,45 +498,45 @@
 </span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 1）创建app + 任务</span>
-
-<span class="c1"># 2）启动celery(app)服务：</span>
-<span class="c1"># 非windows</span>
-<span class="c1"># 命令：celery worker -A celery_task -l info</span>
-<span class="c1"># windows：</span>
-<span class="c1"># pip3 install eventlet</span>
-<span class="c1"># celery worker -A celery_task -l info -P eventlet</span>
-
-<span class="c1"># 3）添加任务：自动添加任务，所以要启动一个添加任务的服务</span>
-<span class="c1"># 命令：celery beat -A celery_task -l info</span>
-
-<span class="c1"># 4）获取结果</span>
-
-
-<span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">Celery</span>
-
-<span class="n">broker</span> <span class="o">=</span> <span class="s1">&#39;redis://127.0.0.1:6379/1&#39;</span>
-<span class="n">backend</span> <span class="o">=</span> <span class="s1">&#39;redis://127.0.0.1:6379/2&#39;</span>
-<span class="n">app</span> <span class="o">=</span> <span class="n">Celery</span><span class="p">(</span><span class="n">broker</span><span class="o">=</span><span class="n">broker</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;celery_task.tasks&#39;</span><span class="p">])</span>
-
-
-<span class="c1"># 时区</span>
-<span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">timezone</span> <span class="o">=</span> <span class="s1">&#39;Asia/Shanghai&#39;</span>
-<span class="c1"># 是否使用UTC</span>
-<span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">enable_utc</span> <span class="o">=</span> <span class="kc">False</span>
-
-<span class="c1"># 任务的定时配置</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
-<span class="kn">from</span> <span class="nn">celery.schedules</span> <span class="kn">import</span> <span class="n">crontab</span>
-<span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">beat_schedule</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;low-task&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="s1">&#39;celery_task.tasks.low&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;schedule&#39;</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
-        <span class="c1"># &#39;schedule&#39;: crontab(hour=8, day_of_week=1),  # 每周一早八点</span>
-        <span class="s1">&#39;args&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 1）创建app + 任务</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2）启动celery(app)服务：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 非windows</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 命令：celery worker -A celery_task -l info</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># windows：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># pip3 install eventlet</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># celery worker -A celery_task -l info -P eventlet</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3）添加任务：自动添加任务，所以要启动一个添加任务的服务</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 命令：celery beat -A celery_task -l info</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4）获取结果</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">Celery</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">broker</span> <span class="o">=</span> <span class="s1">&#39;redis://127.0.0.1:6379/1&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">backend</span> <span class="o">=</span> <span class="s1">&#39;redis://127.0.0.1:6379/2&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Celery</span><span class="p">(</span><span class="n">broker</span><span class="o">=</span><span class="n">broker</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;celery_task.tasks&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 时区</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">timezone</span> <span class="o">=</span> <span class="s1">&#39;Asia/Shanghai&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 是否使用UTC</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">enable_utc</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 任务的定时配置</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">celery.schedules</span> <span class="kn">import</span> <span class="n">crontab</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">beat_schedule</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;low-task&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="s1">&#39;celery_task.tasks.low&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;schedule&#39;</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># &#39;schedule&#39;: crontab(hour=8, day_of_week=1),  # 每周一早八点</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;args&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="taskspy-1">tasks.py</h4>
 <div class="highlight"><div class="chroma">
@@ -592,25 +561,25 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">.celery</span> <span class="kn">import</span> <span class="n">app</span>
-
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="nd">@app</span><span class="o">.</span><span class="n">task</span>
-<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;n+m的结果：</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">m</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">n</span> <span class="o">+</span> <span class="n">m</span>
-
-
-<span class="nd">@app</span><span class="o">.</span><span class="n">task</span>
-<span class="k">def</span> <span class="nf">low</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;n-m的结果：</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">n</span> <span class="o">-</span> <span class="n">m</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">.celery</span> <span class="kn">import</span> <span class="n">app</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@app.task</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;n+m的结果：</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">m</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">n</span> <span class="o">+</span> <span class="n">m</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.task</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">low</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;n-m的结果：</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">n</span> <span class="o">-</span> <span class="n">m</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="get_resultpy-1">get_result.py</h4>
 <div class="highlight"><div class="chroma">
@@ -635,25 +604,25 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">celery_task.celery</span> <span class="kn">import</span> <span class="n">app</span>
-
-<span class="kn">from</span> <span class="nn">celery.result</span> <span class="kn">import</span> <span class="n">AsyncResult</span>
-
-<span class="nb">id</span> <span class="o">=</span> <span class="s1">&#39;21325a40-9d32-44b5-a701-9a31cc3c74b5&#39;</span>
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="k">async</span> <span class="o">=</span> <span class="n">AsyncResult</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">)</span>
-    <span class="k">if</span> <span class="k">async</span><span class="o">.</span><span class="n">successful</span><span class="p">():</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="k">async</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="k">async</span><span class="o">.</span><span class="n">failed</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;任务失败&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="k">async</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;PENDING&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;任务等待中被执行&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="k">async</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;RETRY&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;任务异常后正在重试&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="k">async</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;STARTED&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;任务已经开始被执行&#39;</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">celery_task.celery</span> <span class="kn">import</span> <span class="n">app</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">celery.result</span> <span class="kn">import</span> <span class="n">AsyncResult</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">id</span> <span class="o">=</span> <span class="s1">&#39;21325a40-9d32-44b5-a701-9a31cc3c74b5&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">async</span> <span class="o">=</span> <span class="n">AsyncResult</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="k">async</span><span class="o">.</span><span class="n">successful</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">=</span> <span class="k">async</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="k">async</span><span class="o">.</span><span class="n">failed</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;任务失败&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="k">async</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;PENDING&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;任务等待中被执行&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="k">async</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;RETRY&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;任务异常后正在重试&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="k">async</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;STARTED&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;任务已经开始被执行&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="django中使用">django中使用</h3>
 <h4 id="celerypy-2">celery.py</h4>
@@ -702,48 +671,48 @@
 </span><span class="lnt">41
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
-</span><span class="s2">celery框架django项目工作流程
-</span><span class="s2">1）加载django配置环境
-</span><span class="s2">2）创建Celery框架对象app，配置broker和backend，得到的app就是worker
-</span><span class="s2">3）给worker对应的app添加可处理的任务函数，用include配置给worker的app
-</span><span class="s2">4）完成提供的任务的定时配置app.conf.beat_schedule
-</span><span class="s2">5）启动celery服务，运行worker，执行任务
-</span><span class="s2">6）启动beat服务，运行beat，添加任务
-</span><span class="s2">
-</span><span class="s2">重点：由于采用了django的反射机制，使用celery.py所在的celery_task包必须放置项目的根目录下
-</span><span class="s2">&#34;&#34;&#34;</span>
-
-<span class="c1"># 一、加载django配置环境</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&#34;DJANGO_SETTINGS_MODULE&#34;</span><span class="p">,</span> <span class="s2">&#34;luffyapi.settings.dev&#34;</span><span class="p">)</span>
-
-<span class="c1"># 二、加载celery配置环境</span>
-<span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">Celery</span>
-<span class="c1"># broker</span>
-<span class="n">broker</span> <span class="o">=</span> <span class="s1">&#39;redis://127.0.0.1:6379/0&#39;</span>
-<span class="c1"># backend</span>
-<span class="n">backend</span> <span class="o">=</span> <span class="s1">&#39;redis://127.0.0.1:6379/1&#39;</span>
-<span class="c1"># worker</span>
-<span class="n">app</span> <span class="o">=</span> <span class="n">Celery</span><span class="p">(</span><span class="n">broker</span><span class="o">=</span><span class="n">broker</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;celery_task.tasks&#39;</span><span class="p">])</span>
-
-
-<span class="c1"># 时区</span>
-<span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">timezone</span> <span class="o">=</span> <span class="s1">&#39;Asia/Shanghai&#39;</span>
-<span class="c1"># 是否使用UTC</span>
-<span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">enable_utc</span> <span class="o">=</span> <span class="kc">False</span>
-
-<span class="c1"># 任务的定时配置</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
-<span class="kn">from</span> <span class="nn">celery.schedules</span> <span class="kn">import</span> <span class="n">crontab</span>
-<span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">beat_schedule</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;update-banner-list&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="s1">&#39;celery_task.tasks.update_banner_list&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;schedule&#39;</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
-        <span class="s1">&#39;args&#39;</span><span class="p">:</span> <span class="p">(),</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">celery框架django项目工作流程
+</span></span></span><span class="line"><span class="cl"><span class="s2">1）加载django配置环境
+</span></span></span><span class="line"><span class="cl"><span class="s2">2）创建Celery框架对象app，配置broker和backend，得到的app就是worker
+</span></span></span><span class="line"><span class="cl"><span class="s2">3）给worker对应的app添加可处理的任务函数，用include配置给worker的app
+</span></span></span><span class="line"><span class="cl"><span class="s2">4）完成提供的任务的定时配置app.conf.beat_schedule
+</span></span></span><span class="line"><span class="cl"><span class="s2">5）启动celery服务，运行worker，执行任务
+</span></span></span><span class="line"><span class="cl"><span class="s2">6）启动beat服务，运行beat，添加任务
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">重点：由于采用了django的反射机制，使用celery.py所在的celery_task包必须放置项目的根目录下
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 一、加载django配置环境</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&#34;DJANGO_SETTINGS_MODULE&#34;</span><span class="p">,</span> <span class="s2">&#34;luffyapi.settings.dev&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 二、加载celery配置环境</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">Celery</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># broker</span>
+</span></span><span class="line"><span class="cl"><span class="n">broker</span> <span class="o">=</span> <span class="s1">&#39;redis://127.0.0.1:6379/0&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># backend</span>
+</span></span><span class="line"><span class="cl"><span class="n">backend</span> <span class="o">=</span> <span class="s1">&#39;redis://127.0.0.1:6379/1&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># worker</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Celery</span><span class="p">(</span><span class="n">broker</span><span class="o">=</span><span class="n">broker</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;celery_task.tasks&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 时区</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">timezone</span> <span class="o">=</span> <span class="s1">&#39;Asia/Shanghai&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 是否使用UTC</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">enable_utc</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 任务的定时配置</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">celery.schedules</span> <span class="kn">import</span> <span class="n">crontab</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">beat_schedule</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;update-banner-list&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="s1">&#39;celery_task.tasks.update_banner_list&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;schedule&#39;</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;args&#39;</span><span class="p">:</span> <span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="taskspy-2">tasks.py</h4>
 <div class="highlight"><div class="chroma">
@@ -765,28 +734,28 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">.celery</span> <span class="kn">import</span> <span class="n">app</span>
-
-<span class="kn">from</span> <span class="nn">django.core.cache</span> <span class="kn">import</span> <span class="n">cache</span>
-<span class="kn">from</span> <span class="nn">home</span> <span class="kn">import</span> <span class="n">models</span><span class="p">,</span> <span class="n">serializers</span>
-<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
-<span class="nd">@app</span><span class="o">.</span><span class="n">task</span>
-<span class="k">def</span> <span class="nf">update_banner_list</span><span class="p">():</span>
-    <span class="n">queryset</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Banner</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_delete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-orders&#39;</span><span class="p">)[:</span><span class="n">settings</span><span class="o">.</span><span class="n">BANNER_COUNT</span><span class="p">]</span>
-    <span class="n">banner_list</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">BannerSerializer</span><span class="p">(</span><span class="n">queryset</span><span class="p">,</span> <span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
-    <span class="c1"># 拿不到request对象，所以头像的连接base_url要自己组装</span>
-    <span class="k">for</span> <span class="n">banner</span> <span class="ow">in</span> <span class="n">banner_list</span><span class="p">:</span>
-        <span class="n">banner</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;http://127.0.0.1:8000</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">banner</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">]</span>
-
-    <span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;banner_list&#39;</span><span class="p">,</span> <span class="n">banner_list</span><span class="p">,</span> <span class="mi">86400</span><span class="p">)</span>
-    <span class="k">return</span> <span class="kc">True</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">.celery</span> <span class="kn">import</span> <span class="n">app</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.core.cache</span> <span class="kn">import</span> <span class="n">cache</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">home</span> <span class="kn">import</span> <span class="n">models</span><span class="p">,</span> <span class="n">serializers</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@app.task</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">update_banner_list</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">queryset</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Banner</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_delete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-orders&#39;</span><span class="p">)[:</span><span class="n">settings</span><span class="o">.</span><span class="n">BANNER_COUNT</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">banner_list</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">BannerSerializer</span><span class="p">(</span><span class="n">queryset</span><span class="p">,</span> <span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 拿不到request对象，所以头像的连接base_url要自己组装</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">banner</span> <span class="ow">in</span> <span class="n">banner_list</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">banner</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;http://127.0.0.1:8000</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">banner</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;banner_list&#39;</span><span class="p">,</span> <span class="n">banner_list</span><span class="p">,</span> <span class="mi">86400</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">True</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">
       <div class="post-info-mod">
-        <span title=2023-05-22&#32;16:28:33>更新于 2023-05-22&nbsp;</span>
+        <span title="更新于 2023-05-22 16:28:33">更新于 2023-05-22&nbsp;</span>
       </div><div class="post-info-license">
           <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
         </div></div>
@@ -812,7 +781,7 @@
       <a href="/posts/spider-1%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8/" class="post-nav-item" rel="next" title="Request模块">Request模块<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></main><footer class="footer">
-    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.91.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.17"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
         </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
             <span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">
               <a href="https://github.com/qilitang"target="_blank" rel="external nofollow noopener noreferrer">Qilitang</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
@@ -820,5 +789,5 @@
         </div></div><div id="mask"></div><noscript>
     <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
   </noscript>
-</div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/lazysizes/lazysizes.min.js" async defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":15},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js" defer></script></body>
+</div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":15},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js" defer></script></body>
 </html>
