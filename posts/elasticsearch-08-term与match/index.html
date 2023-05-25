@@ -5,33 +5,33 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
-    <title>动作链 - </title><meta name="author" content="Qilitang">
+    <title>Elasticsearch term 与 match - </title><meta name="author" content="Qilitang">
 <meta name="author-link" content="https://github.com/qilitang">
-<meta name="description" content="爬虫 Scrapy高级 使用" /><meta name="keywords" content='爬虫, scrapy' /><meta itemprop="name" content="动作链">
-<meta itemprop="description" content="爬虫 Scrapy高级 使用"><meta itemprop="datePublished" content="2017-07-09T17:06:11+08:00" />
-<meta itemprop="dateModified" content="2023-05-25T10:15:46+08:00" />
-<meta itemprop="wordCount" content="264">
-<meta itemprop="keywords" content="爬虫,scrapy," /><meta property="og:title" content="动作链" />
-<meta property="og:description" content="爬虫 Scrapy高级 使用" />
+<meta name="description" content="Elasticsearch 常用的es 查询" /><meta name="keywords" content='配置' /><meta itemprop="name" content="Elasticsearch term 与 match">
+<meta itemprop="description" content="Elasticsearch 常用的es 查询"><meta itemprop="datePublished" content="2020-09-05T17:06:11+08:00" />
+<meta itemprop="dateModified" content="2023-05-25T15:36:24+08:00" />
+<meta itemprop="wordCount" content="696">
+<meta itemprop="keywords" content="配置," /><meta property="og:title" content="Elasticsearch term 与 match" />
+<meta property="og:description" content="Elasticsearch 常用的es 查询" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.qilitang.top/posts/spider-7%E5%8A%A8%E4%BD%9C%E9%93%BE%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%9512306/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2017-07-09T17:06:11+08:00" />
-<meta property="article:modified_time" content="2023-05-25T10:15:46+08:00" />
+<meta property="og:url" content="https://www.qilitang.top/posts/elasticsearch-08-term%E4%B8%8Ematch/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-09-05T17:06:11+08:00" />
+<meta property="article:modified_time" content="2023-05-25T15:36:24+08:00" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="动作链"/>
-<meta name="twitter:description" content="爬虫 Scrapy高级 使用"/>
+<meta name="twitter:title" content="Elasticsearch term 与 match"/>
+<meta name="twitter:description" content="Elasticsearch 常用的es 查询"/>
 <meta name="application-name" content="">
-<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://www.qilitang.top/posts/spider-7%E5%8A%A8%E4%BD%9C%E9%93%BE%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%9512306/" /><link rel="prev" href="https://www.qilitang.top/posts/spider-6scrapy%E9%AB%98%E7%BA%A7/" /><link rel="next" href="https://www.qilitang.top/posts/elasticsearch-01-%E5%85%A5%E9%97%A8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://www.qilitang.top/posts/elasticsearch-08-term%E4%B8%8Ematch/" /><link rel="prev" href="https://www.qilitang.top/posts/elasticsearch-08-es%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
   {
     "@context": "http://schema.org",
     "@type": "BlogPosting",
-    "headline": "动作链",
+    "headline": "Elasticsearch term 与 match",
     "inLanguage": "zh-cn",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https:\/\/www.qilitang.top\/posts\/spider-7%E5%8A%A8%E4%BD%9C%E9%93%BE%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%9512306\/"
-    },"genre": "posts","keywords": "爬虫, scrapy","wordcount":  264 ,
-    "url": "https:\/\/www.qilitang.top\/posts\/spider-7%E5%8A%A8%E4%BD%9C%E9%93%BE%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%9512306\/","datePublished": "2017-07-09T17:06:11+08:00","dateModified": "2023-05-25T10:15:46+08:00","publisher": {
+      "@id": "https:\/\/www.qilitang.top\/posts\/elasticsearch-08-term%E4%B8%8Ematch\/"
+    },"genre": "posts","keywords": "配置","wordcount":  696 ,
+    "url": "https:\/\/www.qilitang.top\/posts\/elasticsearch-08-term%E4%B8%8Ematch\/","datePublished": "2020-09-05T17:06:11+08:00","dateModified": "2023-05-25T15:36:24+08:00","publisher": {
       "@type": "Organization",
       "name": "","logo": "https:\/\/www.qilitang.top\/favicon.ico"},"author": {
         "@type": "Person",
@@ -142,11 +142,11 @@
     </aside>
 
   <article class="page single">
-    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>动作链</span>
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Elasticsearch term 与 match</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img loading="lazy" src="/avatar/avatar.jpg" srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x" sizes="auto" data-title="Qilitang" data-alt="Qilitang" class="avatar" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>&nbsp;Qilitang</a></span>
-          <span class="post-category">收录于 <a href="/categories/%E7%88%AC%E8%99%AB/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 爬虫</a></span></div>
-      <div class="post-meta-line"><span title="发布于 2017-07-09 17:06:11"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2017-07-09">2017-07-09</time></span>&nbsp;<span title="更新于 2023-05-25 10:15:46"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2023-05-25">2023-05-25</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 264 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 1 分钟</span>&nbsp;</div>
+          <span class="post-category">收录于 <a href="/categories/elasticsearch/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> ElasticSearch</a></span></div>
+      <div class="post-meta-line"><span title="发布于 2020-09-05 17:06:11"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2020-09-05">2020-09-05</time></span>&nbsp;<span title="更新于 2023-05-25 15:36:24"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2023-05-25">2023-05-25</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 696 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 2 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -154,12 +154,16 @@
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#动作链">动作链</a></li>
+    <li>
+      <ul>
+        <li><a href="#准备数据">准备数据</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
-      </div><div class="content" id="content"><p>爬虫 Scrapy高级 使用</p>
+      </div><div class="content" id="content"><p>Elasticsearch 常用的es 查询</p>
 <hr>
-<h2 id="动作链">动作链</h2>
+<h3 id="准备数据">准备数据</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -209,81 +213,80 @@
 </span><span class="lnt">45
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
-</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">selenium.webdriver</span> <span class="kn">import</span> <span class="n">ActionChains</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
-</span></span><span class="line"><span class="cl"><span class="n">bro</span><span class="o">=</span><span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">(</span><span class="n">executable_path</span><span class="o">=</span><span class="s1">&#39;./chromedriver&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">bro</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://www.runoob.com/try/try.php?filename=jqueryui-api-droppable&#39;</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">zhifou/doc/</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;顾老二&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;age&#34;</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;from&#34;</span><span class="p">:</span> <span class="s2">&#34;gu&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;desc&#34;</span><span class="p">:</span> <span class="s2">&#34;皮肤黑、武器长、性格直&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tags&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;黑&#34;</span><span class="p">,</span> <span class="s2">&#34;长&#34;</span><span class="p">,</span> <span class="s2">&#34;直&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">bro</span><span class="o">.</span><span class="n">implicitly_wait</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">zhifou/doc/</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;大娘子&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;age&#34;</span><span class="p">:</span><span class="mi">18</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;from&#34;</span><span class="p">:</span><span class="s2">&#34;sheng&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;desc&#34;</span><span class="p">:</span><span class="s2">&#34;肤白貌美，娇憨可爱&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tags&#34;</span><span class="p">:[</span><span class="s2">&#34;白&#34;</span><span class="p">,</span> <span class="s2">&#34;富&#34;</span><span class="p">,</span><span class="s2">&#34;美&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#切换frame（很少）</span>
-</span></span><span class="line"><span class="cl"><span class="n">bro</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="s1">&#39;iframeResult&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">zhifou/doc/</span><span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;龙套偏房&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;age&#34;</span><span class="p">:</span><span class="mi">22</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;from&#34;</span><span class="p">:</span><span class="s2">&#34;gu&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;desc&#34;</span><span class="p">:</span><span class="s2">&#34;mmp，没怎么看，不知道怎么形容&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tags&#34;</span><span class="p">:[</span><span class="s2">&#34;造数据&#34;</span><span class="p">,</span> <span class="s2">&#34;真&#34;</span><span class="p">,</span><span class="s2">&#34;难&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">div</span><span class="o">=</span><span class="n">bro</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s1">&#39;//*[@id=&#34;draggable&#34;]&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 使用动作链</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#得到一个动作练对象</span>
-</span></span><span class="line"><span class="cl"><span class="n">action</span><span class="o">=</span><span class="n">ActionChains</span><span class="p">(</span><span class="n">bro</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">zhifou/doc/</span><span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;石头&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;age&#34;</span><span class="p">:</span><span class="mi">29</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;from&#34;</span><span class="p">:</span><span class="s2">&#34;gu&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;desc&#34;</span><span class="p">:</span><span class="s2">&#34;粗中有细，狐假虎威&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tags&#34;</span><span class="p">:[</span><span class="s2">&#34;粗&#34;</span><span class="p">,</span> <span class="s2">&#34;大&#34;</span><span class="p">,</span><span class="s2">&#34;猛&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 使用动作链</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#点击并且夯住</span>
-</span></span><span class="line"><span class="cl"><span class="n">action</span><span class="o">.</span><span class="n">click_and_hold</span><span class="p">(</span><span class="n">div</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 直接把上面的div移动到某个元素上</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># action.move_to_element(元素控件)</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 移动x坐标，y坐标</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 三种移动方式</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># action.move_by_offset() # 通过坐标</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># action.move_to_element() # 到另一个标签</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># action.move_to_element_with_offset() # 到另一个标签，再偏移一部分</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">action</span><span class="o">.</span><span class="n">move_by_offset</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 直接把上面的div移动到某个元素上的某个位置</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># action.move_to_element_with_offset()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 调用它，会动起来</span>
-</span></span><span class="line"><span class="cl"><span class="n">action</span><span class="o">.</span><span class="n">perform</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#释放动作链</span>
-</span></span><span class="line"><span class="cl"><span class="n">action</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">bro</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">zhifou/doc/</span><span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;魏行首&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;age&#34;</span><span class="p">:</span><span class="mi">25</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;from&#34;</span><span class="p">:</span><span class="s2">&#34;广云台&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;desc&#34;</span><span class="p">:</span><span class="s2">&#34;仿佛兮若轻云之蔽月,飘飘兮若流风之回雪,mmp，最后竟然没有嫁给顾老二！&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tags&#34;</span><span class="p">:[</span><span class="s2">&#34;闭月&#34;</span><span class="p">,</span><span class="s2">&#34;羞花&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">
       <div class="post-info-mod">
-        <span title="更新于 2023-05-25 10:15:46">更新于 2023-05-25&nbsp;</span>
+        <span title="更新于 2023-05-25 15:36:24">更新于 2023-05-25&nbsp;</span>
       </div><div class="post-info-license">
           <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
         </div></div>
     <div class="post-info-line">
-      <div class="post-info-md"><span><a href="/posts/spider-7%E5%8A%A8%E4%BD%9C%E9%93%BE%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%9512306/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-md"><span><a href="/posts/elasticsearch-08-term%E4%B8%8Ematch/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
       <div class="post-info-share">
-        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.qilitang.top/posts/spider-7%E5%8A%A8%E4%BD%9C%E9%93%BE%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%9512306/" data-title="动作链" data-hashtags="爬虫,scrapy"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.qilitang.top/posts/spider-7%E5%8A%A8%E4%BD%9C%E9%93%BE%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%9512306/" data-hashtag="爬虫"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.qilitang.top/posts/spider-7%E5%8A%A8%E4%BD%9C%E9%93%BE%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%9512306/" data-title="动作链"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.qilitang.top/posts/elasticsearch-08-term%E4%B8%8Ematch/" data-title="Elasticsearch term 与 match" data-hashtags="配置"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.qilitang.top/posts/elasticsearch-08-term%E4%B8%8Ematch/" data-hashtag="配置"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.qilitang.top/posts/elasticsearch-08-term%E4%B8%8Ematch/" data-title="Elasticsearch term 与 match"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
   </span>
       </div>
     </div>
   </div>
 
   <div class="post-info-more">
-    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E7%88%AC%E8%99%AB/' class="post-tag">爬虫</a><a href='/tags/scrapy/' class="post-tag">scrapy</a></section>
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E9%85%8D%E7%BD%AE/' class="post-tag">配置</a></section>
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
   </div>
 
-  <div class="post-nav"><a href="/posts/spider-6scrapy%E9%AB%98%E7%BA%A7/" class="post-nav-item" rel="prev" title="Scrapy高级"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Scrapy高级</a>
-      <a href="/posts/elasticsearch-01-%E5%85%A5%E9%97%A8/" class="post-nav-item" rel="next" title="什么是ElasticSearch">什么是ElasticSearch<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-nav"><a href="/posts/elasticsearch-08-es%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C/" class="post-nav-item" rel="prev" title="Elasticsearch 简单操作"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Elasticsearch 简单操作</a></div>
 </div>
 </article></main><footer class="footer">
     <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>

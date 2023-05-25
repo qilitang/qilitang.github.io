@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Elasticsearch 简单操作 - </title><meta name="author" content="Qilitang">
+<meta name="author-link" content="https://github.com/qilitang">
+<meta name="description" content="Elasticsearch 简单操作" /><meta name="keywords" content='配置' /><meta itemprop="name" content="Elasticsearch 简单操作">
+<meta itemprop="description" content="Elasticsearch 简单操作"><meta itemprop="datePublished" content="2020-09-05T17:06:11+08:00" />
+<meta itemprop="dateModified" content="2023-05-25T15:35:27+08:00" />
+<meta itemprop="wordCount" content="1172">
+<meta itemprop="keywords" content="配置," /><meta property="og:title" content="Elasticsearch 简单操作" />
+<meta property="og:description" content="Elasticsearch 简单操作" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.qilitang.top/posts/elasticsearch-08-es%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-09-05T17:06:11+08:00" />
+<meta property="article:modified_time" content="2023-05-25T15:35:27+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Elasticsearch 简单操作"/>
+<meta name="twitter:description" content="Elasticsearch 简单操作"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://www.qilitang.top/posts/elasticsearch-08-es%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C/" /><link rel="prev" href="https://www.qilitang.top/posts/elasticsearch-07-kibana-%E4%B8%8E-es-%E8%BF%9E%E6%8E%A5/" /><link rel="next" href="https://www.qilitang.top/posts/elasticsearch-08-term%E4%B8%8Ematch/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Elasticsearch 简单操作",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/www.qilitang.top\/posts\/elasticsearch-08-es%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C\/"
+    },"genre": "posts","keywords": "配置","wordcount":  1172 ,
+    "url": "https:\/\/www.qilitang.top\/posts\/elasticsearch-08-es%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C\/","datePublished": "2020-09-05T17:06:11+08:00","dateModified": "2023-05-25T15:35:27+08:00","publisher": {
+      "@type": "Organization",
+      "name": "","logo": "https:\/\/www.qilitang.top\/favicon.ico"},"author": {
+        "@type": "Person",
+        "name": "Qilitang"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Elasticsearch 简单操作</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img loading="lazy" src="/avatar/avatar.jpg" srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x" sizes="auto" data-title="Qilitang" data-alt="Qilitang" class="avatar" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>&nbsp;Qilitang</a></span>
+          <span class="post-category">收录于 <a href="/categories/elasticsearch/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> ElasticSearch</a></span></div>
+      <div class="post-meta-line"><span title="发布于 2020-09-05 17:06:11"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2020-09-05">2020-09-05</time></span>&nbsp;<span title="更新于 2023-05-25 15:35:27"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2023-05-25">2023-05-25</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 1172 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 3 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a>
+      <ul>
+        <li><a href="#创建一篇文档">创建一篇文档</a></li>
+        <li><a href="#查询所有索引">查询所有索引</a></li>
+        <li><a href="#查询指定的索引信息">查询指定的索引信息</a></li>
+        <li><a href="#查询文档信息">查询文档信息</a></li>
+        <li><a href="#删除指定索引">删除指定索引</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>Elasticsearch 简单操作</p>
+<hr>
+<h2 id="前言">前言</h2>
+<p>现在，让我们启动一个节点和kibana。
+接下来的一切操作都在<code>kibana</code>中<code>Dev Tools</code>下的<code>Console</code>里完成。</p>
+<h3 id="创建一篇文档">创建一篇文档</h3>
+<p>现在，我们试图将小黑的小姨妈的个人信息录入elasticsearch。我们只要输入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PUT t1/doc/1
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl"> &#34;name&#34;: &#34;小黑的小姨妈&#34;,
+</span></span><span class="line"><span class="cl"> &#34;age&#34;: 18
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>PUT表示创建命令。虽然命令可以小写，但是我们推荐大写。在以<code>REST ful</code>风格返回的结果中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;_index&#34; : &#34;t1&#34;,
+</span></span><span class="line"><span class="cl">  &#34;_type&#34; : &#34;type1&#34;,
+</span></span><span class="line"><span class="cl">  &#34;_id&#34; : &#34;1&#34;,
+</span></span><span class="line"><span class="cl">  &#34;_version&#34; : 1,
+</span></span><span class="line"><span class="cl">  &#34;result&#34; : &#34;created&#34;,
+</span></span><span class="line"><span class="cl">  &#34;_shards&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;total&#34; : 2,
+</span></span><span class="line"><span class="cl">    &#34;successful&#34; : 1,
+</span></span><span class="line"><span class="cl">    &#34;failed&#34; : 0
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;_seq_no&#34; : 0,
+</span></span><span class="line"><span class="cl">  &#34;_primary_term&#34; : 1
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果中的<code>result</code>则是操作类型，现在是<code>created</code>，表示第一次创建。如果我们再次点击执行该命令，那么<code>result</code>则会是<code>updated</code>。我们细心则会发现<code>_version</code>开始是1，现在你每点击一次就会增加一次。表示第几次更改。</p>
+<h3 id="查询所有索引">查询所有索引</h3>
+<p>现在，我们再来学习一条命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET _cat/indices?v
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回的结果如下图：</p>
+<p><a href="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190321193235561-808372096.png"target="_blank" rel="external nofollow noopener noreferrer"><img loading="lazy" src="/home/zhang/Desktop/hexo-blog/public/img/1168165-20190321193235561-808372096.png" srcset="/home/zhang/Desktop/hexo-blog/public/img/1168165-20190321193235561-808372096.png, /home/zhang/Desktop/hexo-blog/public/img/1168165-20190321193235561-808372096.png 1.5x, /home/zhang/Desktop/hexo-blog/public/img/1168165-20190321193235561-808372096.png 2x" sizes="auto" data-title="img" data-alt="img" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></a></p>
+<p>上图中，展示当前集群中索引情况，包括，索引的健康状况、UUID、主副分片个数、大小等信息。你发现我们创建的<code>t1</code>索引了吗？</p>
+<h3 id="查询指定的索引信息">查询指定的索引信息</h3>
+<p>我们来单独看看<code>t1</code>索引：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET t1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回的结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;t1&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;aliases&#34; : { },
+</span></span><span class="line"><span class="cl">    &#34;mappings&#34; : {
+</span></span><span class="line"><span class="cl">      &#34;doc&#34; : {
+</span></span><span class="line"><span class="cl">        &#34;properties&#34; : {
+</span></span><span class="line"><span class="cl">          &#34;age&#34; : {
+</span></span><span class="line"><span class="cl">            &#34;type&#34; : &#34;long&#34;
+</span></span><span class="line"><span class="cl">          },
+</span></span><span class="line"><span class="cl">          &#34;name&#34; : {
+</span></span><span class="line"><span class="cl">            &#34;type&#34; : &#34;text&#34;,
+</span></span><span class="line"><span class="cl">            &#34;fields&#34; : {
+</span></span><span class="line"><span class="cl">              &#34;keyword&#34; : {
+</span></span><span class="line"><span class="cl">                &#34;type&#34; : &#34;keyword&#34;,
+</span></span><span class="line"><span class="cl">                &#34;ignore_above&#34; : 256
+</span></span><span class="line"><span class="cl">              }
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">          }
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    &#34;settings&#34; : {
+</span></span><span class="line"><span class="cl">      &#34;index&#34; : {
+</span></span><span class="line"><span class="cl">        &#34;creation_date&#34; : &#34;1553163739688&#34;,
+</span></span><span class="line"><span class="cl">        &#34;number_of_shards&#34; : &#34;5&#34;,
+</span></span><span class="line"><span class="cl">        &#34;number_of_replicas&#34; : &#34;1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;uuid&#34; : &#34;_7jNW5XATheeK84zKkPwlw&#34;,
+</span></span><span class="line"><span class="cl">        &#34;version&#34; : {
+</span></span><span class="line"><span class="cl">          &#34;created&#34; : &#34;6050499&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;provided_name&#34; : &#34;t1&#34;
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回了<code>t1</code>索引的创建信息。</p>
+<h3 id="查询文档信息">查询文档信息</h3>
+<p>那我们来查看我们刚才创建的那篇文档：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET t1/doc/1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回的结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Copy{
+</span></span><span class="line"><span class="cl">  &#34;_index&#34; : &#34;t1&#34;,
+</span></span><span class="line"><span class="cl">  &#34;_type&#34; : &#34;doc&#34;,
+</span></span><span class="line"><span class="cl">  &#34;_id&#34; : &#34;1&#34;,
+</span></span><span class="line"><span class="cl">  &#34;_version&#34; : 2,
+</span></span><span class="line"><span class="cl">  &#34;found&#34; : true,
+</span></span><span class="line"><span class="cl">  &#34;_source&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;name&#34; : &#34;小黑的小姨妈&#34;,
+</span></span><span class="line"><span class="cl">    &#34;age&#34; : 18
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回了我们刚才创建的文档信息。
+我们再来为小黑添加两个姨妈：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CopyPUT t1/doc/2
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl"> &#34;name&#34;: &#34;小黑的二姨妈&#34;,
+</span></span><span class="line"><span class="cl"> &#34;age&#34;: 16
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">PUT t1/doc/3
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl"> &#34;name&#34;: &#34;小黑的三姨妈&#34;,
+</span></span><span class="line"><span class="cl"> &#34;age&#34;: 19
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>刚才，我们学会了查询小黑的一个姨妈，那么该如何查询所有姨妈呢？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET t1/doc/_search
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Copy{
+</span></span><span class="line"><span class="cl">  &#34;took&#34; : 7,
+</span></span><span class="line"><span class="cl">  &#34;timed_out&#34; : false,
+</span></span><span class="line"><span class="cl">  &#34;_shards&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;total&#34; : 5,
+</span></span><span class="line"><span class="cl">    &#34;successful&#34; : 5,
+</span></span><span class="line"><span class="cl">    &#34;skipped&#34; : 0,
+</span></span><span class="line"><span class="cl">    &#34;failed&#34; : 0
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;hits&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;total&#34; : 3,
+</span></span><span class="line"><span class="cl">    &#34;max_score&#34; : 1.0,
+</span></span><span class="line"><span class="cl">    &#34;hits&#34; : [
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;_index&#34; : &#34;t1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_type&#34; : &#34;doc&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_id&#34; : &#34;2&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_score&#34; : 1.0,
+</span></span><span class="line"><span class="cl">        &#34;_source&#34; : {
+</span></span><span class="line"><span class="cl">          &#34;name&#34; : &#34;小黑的二姨妈&#34;,
+</span></span><span class="line"><span class="cl">          &#34;age&#34; : 16
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      },
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;_index&#34; : &#34;t1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_type&#34; : &#34;doc&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_id&#34; : &#34;1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_score&#34; : 1.0,
+</span></span><span class="line"><span class="cl">        &#34;_source&#34; : {
+</span></span><span class="line"><span class="cl">          &#34;name&#34; : &#34;小黑的小姨妈&#34;,
+</span></span><span class="line"><span class="cl">          &#34;age&#34; : 18
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      },
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;_index&#34; : &#34;t1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_type&#34; : &#34;doc&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_id&#34; : &#34;3&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_score&#34; : 1.0,
+</span></span><span class="line"><span class="cl">        &#34;_source&#34; : {
+</span></span><span class="line"><span class="cl">          &#34;name&#34; : &#34;小黑的三姨妈&#34;,
+</span></span><span class="line"><span class="cl">          &#34;age&#34; : 19
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    ]
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>现在小黑跟他的姨妈们闹了别扭，就想删除这个姨妈，该怎么办呢？</p>
+<h3 id="删除指定索引">删除指定索引</h3>
+<p>我们其实直接删除这个<code>t1</code>索引就可以了：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">DELETE /t1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>DELETE 是删除命令，返回结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;acknowledged&#34; : true
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回结果提示删除确认成功。</p>
+<p>如果此时再查询索引情况，则会发现<code>t1</code>已经不存在了，所有的文档也就不存在了。</p>
+<hr>
+<p>欢迎斧正，that&rsquo;s all</p></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2023-05-25 15:35:27">更新于 2023-05-25&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/posts/elasticsearch-08-es%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.qilitang.top/posts/elasticsearch-08-es%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C/" data-title="Elasticsearch 简单操作" data-hashtags="配置"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.qilitang.top/posts/elasticsearch-08-es%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C/" data-hashtag="配置"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.qilitang.top/posts/elasticsearch-08-es%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C/" data-title="Elasticsearch 简单操作"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E9%85%8D%E7%BD%AE/' class="post-tag">配置</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/elasticsearch-07-kibana-%E4%B8%8E-es-%E8%BF%9E%E6%8E%A5/" class="post-nav-item" rel="prev" title="Elasticsearch 与Kibana通讯及 es-head 开源管理项目"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Elasticsearch 与Kibana通讯及 es-head 开源管理项目</a>
+      <a href="/posts/elasticsearch-08-term%E4%B8%8Ematch/" class="post-nav-item" rel="next" title="Elasticsearch term 与 match">Elasticsearch term 与 match<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/qilitang"target="_blank" rel="external nofollow noopener noreferrer">Qilitang</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":15},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>
