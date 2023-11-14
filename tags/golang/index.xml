@@ -14,10 +14,10 @@
 </item>
 <item>
   <title>Go 指针/结构体/方法</title>
-  <link>https://www.qilitang.top/posts/go-08-%E6%8C%87%E9%92%88-%E7%BB%93%E6%9E%84%E4%BD%93/</link>
+  <link>https://www.qilitang.top/posts/go-08-%E6%8C%87%E9%92%88%E7%BB%93%E6%9E%84%E4%BD%93/</link>
   <pubDate>Wed, 08 Jan 2020 17:06:11 &#43;0800</pubDate>
   <author>Qilitang</author>
-  <guid>https://www.qilitang.top/posts/go-08-%E6%8C%87%E9%92%88-%E7%BB%93%E6%9E%84%E4%BD%93/</guid>
+  <guid>https://www.qilitang.top/posts/go-08-%E6%8C%87%E9%92%88%E7%BB%93%E6%9E%84%E4%BD%93/</guid>
   <description><![CDATA[指针 1、定义指针 1 2 // 指向int类型的指针（指向什么类型指针，就是在什么类型前加星号） var a *int 2、指针的零值 1 fmt.Println(a) //nil 3、使用指针 1 2 3 4 5 var a *int var b int=100 // a指针指向b （取谁的地址，就是在谁前面加一个&amp;） a=&amp;b fmt.Println(a) // 0xc0000b4008 4、了解（骚操作） 1 2 3 4 5 var a *int var b **int= &amp;a var c ***int= &amp;b var d ****int =&amp;c fmt.Println(d) 5、 解引用 （把指针反解成值）]]></description>
 </item>
 <item>
