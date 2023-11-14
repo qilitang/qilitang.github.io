@@ -1,0 +1,32 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>Docker - 分类 - </title>
+    <link>https://www.qilitang.top/categories/docker/</link>
+    <description>Docker - 分类 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Sun, 02 Dec 2018 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/categories/docker/" rel="self" type="application/rss+xml" /><item>
+  <title>Docker 详解</title>
+  <link>https://www.qilitang.top/posts/docker/</link>
+  <pubDate>Sun, 02 Dec 2018 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/docker/</guid>
+  <description><![CDATA[1 Docker的安装 1 2 3 4 5 6 7 8 9 10 # 1 yum 包更新到最新 yum update # 2 安装所需要的软件包, yum-util 提供yum-config-manager 功能, 另外两个是 devicemapper驱动以来的 yum install -y yum-utils device-mapper-persistent-data lvm2 # 3 设置yum 源 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo # 4 安装docker 出现输入的界面都按y yum install -y docker-ce # 5 查看docker的版本, 验证是否安装]]></description>
+</item>
+<item>
+  <title>Docker 容器间通讯</title>
+  <link>https://www.qilitang.top/posts/docker-%E5%AE%B9%E5%99%A8%E9%97%B4%E9%80%9A%E8%AE%AF/</link>
+  <pubDate>Mon, 03 Sep 2018 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/docker-%E5%AE%B9%E5%99%A8%E9%97%B4%E9%80%9A%E8%AE%AF/</guid>
+  <description><![CDATA[Docker容器间通信 Docker会为每个创建的容器自动分配一个虚拟IP，这个虚拟IP无法从容器外侧进行访问，只是Docker环境内部容器间彼此通信的标识，容器间的网络是互通互联的。 但是通过这种虚拟IP方式，进行容器间的通信，有一些局限性。因为在Docker中创建一个容器非常容易，比如说新创建的My]]></description>
+</item>
+<item>
+  <title>Docker-compose</title>
+  <link>https://www.qilitang.top/posts/docker-compose/</link>
+  <pubDate>Mon, 03 Sep 2018 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/docker-compose/</guid>
+  <description><![CDATA[安装 docker-compose 切换到root 用户 下载 1 curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.4/docker-compose-`uname -s`-`uname -m` &gt; /usr/local/bin/docker-compose 修改权限 1 chmod +x /usr/local/bin/docker-compose 检查是否成功 1 docker-compose -version 此外，因为 docker-compose 使用 Python 编写，所以可以使用 pip 直接安装： 1 2 $ pip install -U docker-compose 1 第一个 Compose file 1 2 3 4 5 6 7 8 9 10 11 version: &#39;3&#39; services: spider: build: context: . dockerfile: Dockerfile volumes: - $PWD:/code - /data1/datascience/scrapy-data:/data command: scrapy crawl comment 12345678910 说明： version 指定了 compose file 的版本，最新的版本为 3.4 services 下定义服务，这里定义了一个爬虫服务 spider build 指定构建]]></description>
+</item>
+</channel>
+</rss>

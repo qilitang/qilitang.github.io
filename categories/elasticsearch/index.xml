@@ -6,10 +6,10 @@
     <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
       <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Sat, 05 Sep 2020 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/categories/elasticsearch/" rel="self" type="application/rss+xml" /><item>
   <title>Elasticsearch term 与 match</title>
-  <link>https://www.qilitang.top/posts/elasticsearch-08-term%E4%B8%8Ematch/</link>
+  <link>https://www.qilitang.top/posts/elasticsearch-09-term%E4%B8%8Ematch/</link>
   <pubDate>Sat, 05 Sep 2020 17:06:11 &#43;0800</pubDate>
   <author>Qilitang</author>
-  <guid>https://www.qilitang.top/posts/elasticsearch-08-term%E4%B8%8Ematch/</guid>
+  <guid>https://www.qilitang.top/posts/elasticsearch-09-term%E4%B8%8Ematch/</guid>
   <description><![CDATA[<p>Elasticsearch 常用的es 查询</p>]]></description>
 </item>
 <item>

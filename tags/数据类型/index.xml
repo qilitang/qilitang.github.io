@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>数据类型 - 标签 - </title>
+    <link>https://www.qilitang.top/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+    <description>数据类型 - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Mon, 06 Feb 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="self" type="application/rss+xml" /><item>
+  <title>python 数据类型及内置方法详解</title>
+  <link>https://www.qilitang.top/posts/python-08-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%8F%8A%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3/</link>
+  <pubDate>Mon, 06 Feb 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-08-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%8F%8A%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3/</guid>
+  <description><![CDATA[一 数字类型 int 与 float 记录数字类型的事物状态 1.1 定义 1 2 3 4 age = 18 # 定义整型 weight = 63.8 # 定义浮点型 1.2 类型转换 整型和浮点型之间可以相互转换. 整型转换成浮点型 整型转换为浮点型后,会默认精确到小数点后一位, 以0 补足 1 2 3 4 5 6 a = 18 b = float(a) print (a,type(a),b,type(b)) # 输出结果 18 &lt;class &#39;int&#39;&gt; 18.0 &lt;class &#39;float&#39;&gt; 浮点型转换为整型 1 2 3 4 5 6 a = 18.333 b = int(a) print (a,type(a),b,type(b)) # 输出结果]]></description>
+</item>
+<item>
+  <title>python 数据类型</title>
+  <link>https://www.qilitang.top/posts/python-05-%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+  <pubDate>Sat, 04 Feb 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-05-%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
+  <description><![CDATA[数据类型 一. 什么是数据类型? 数据类型就是用来描述事物某个特征最恰当的方式, 例如: 用整数描述年龄 用浮点数描述小数 用字符串(文字类型)描述一些事物的信息. 等等等等 二. 类型有哪些? 怎么用? 2.1. 整型: int 类型 作用:记录 年龄,电话号, QQ号, 等数字 定义 1 2 3 4 age = 18 # age = int(18) print(age,type(age) # 输出结果 18 &lt;class &#39;int&#39;&gt; 定义int 类型, 是由i]]></description>
+</item>
+</channel>
+</rss>

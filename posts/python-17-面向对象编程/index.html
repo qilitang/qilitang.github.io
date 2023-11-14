@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>python 面向对象 - </title><meta name="author" content="Qilitang">
+<meta name="author-link" content="https://github.com/qilitang">
+<meta name="description" content="面向对象编程 我们以前已经学了面向过程编程思想. 那什么是面向对象编程呢? 首先我们要搞明白 什么是对象, 然后才能去了解什么是面向对象编程. 对象的概念 面向对象的核心是 &ldquo;对象&rdquo; 二字, 而对象的精髓在于 &ldquo;整合&rdquo;, 即 对象是 &ldquo;特征与技能&quot;的结合体." /><meta name="keywords" content='面向对象' /><meta itemprop="name" content="python 面向对象">
+<meta itemprop="description" content="面向对象编程 我们以前已经学了面向过程编程思想. 那什么是面向对象编程呢? 首先我们要搞明白 什么是对象, 然后才能去了解什么是面向对象编程. 对象的概念 面向对象的核心是 &ldquo;对象&rdquo; 二字, 而对象的精髓在于 &ldquo;整合&rdquo;, 即 对象是 &ldquo;特征与技能&quot;的结合体."><meta itemprop="datePublished" content="2017-02-23T17:06:11+08:00" />
+<meta itemprop="dateModified" content="2023-11-14T16:30:25+08:00" />
+<meta itemprop="wordCount" content="3510">
+<meta itemprop="keywords" content="面向对象," /><meta property="og:title" content="python 面向对象" />
+<meta property="og:description" content="面向对象编程 我们以前已经学了面向过程编程思想. 那什么是面向对象编程呢? 首先我们要搞明白 什么是对象, 然后才能去了解什么是面向对象编程. 对象的概念 面向对象的核心是 &ldquo;对象&rdquo; 二字, 而对象的精髓在于 &ldquo;整合&rdquo;, 即 对象是 &ldquo;特征与技能&quot;的结合体." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.qilitang.top/posts/python-17-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2017-02-23T17:06:11+08:00" />
+<meta property="article:modified_time" content="2023-11-14T16:30:25+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="python 面向对象"/>
+<meta name="twitter:description" content="面向对象编程 我们以前已经学了面向过程编程思想. 那什么是面向对象编程呢? 首先我们要搞明白 什么是对象, 然后才能去了解什么是面向对象编程. 对象的概念 面向对象的核心是 &ldquo;对象&rdquo; 二字, 而对象的精髓在于 &ldquo;整合&rdquo;, 即 对象是 &ldquo;特征与技能&quot;的结合体."/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://www.qilitang.top/posts/python-17-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" /><link rel="prev" href="https://www.qilitang.top/posts/python-16-%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/" /><link rel="next" href="https://www.qilitang.top/posts/python-18-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B-%E5%B0%81%E8%A3%85/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "python 面向对象",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/www.qilitang.top\/posts\/python-17-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B\/"
+    },"genre": "posts","keywords": "面向对象","wordcount":  3510 ,
+    "url": "https:\/\/www.qilitang.top\/posts\/python-17-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B\/","datePublished": "2017-02-23T17:06:11+08:00","dateModified": "2023-11-14T16:30:25+08:00","publisher": {
+      "@type": "Organization",
+      "name": "","logo": "https:\/\/www.qilitang.top\/favicon.ico"},"author": {
+        "@type": "Person",
+        "name": "Qilitang"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>python 面向对象</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img loading="lazy" src="/avatar/avatar.jpg" srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x" sizes="auto" data-title="Qilitang" data-alt="Qilitang" class="avatar" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>&nbsp;Qilitang</a></span>
+          <span class="post-category">收录于 <a href="/categories/python%E5%9F%BA%E7%A1%80/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Python基础</a></span></div>
+      <div class="post-meta-line"><span title="发布于 2017-02-23 17:06:11"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2017-02-23">2017-02-23</time></span>&nbsp;<span title="更新于 2023-11-14 16:30:25"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2023-11-14">2023-11-14</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 3510 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 8 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#对象的概念">对象的概念</a></li>
+    <li><a href="#类与对象">类与对象</a></li>
+    <li><a href="#细说__init__方法"><strong>！！！细说__init__方法！！！</strong></a>
+      <ul>
+        <li><a href="#类的特殊属性了解即可">类的特殊属性(了解即可)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h1 id="面向对象编程">面向对象编程</h1>
+<p>我们以前已经学了面向过程编程思想.  那什么是面向对象编程呢? 首先我们要搞明白 什么是对象, 然后才能去了解什么是面向对象编程.</p>
+<h2 id="对象的概念">对象的概念</h2>
+<p>面向对象的核心是 &ldquo;对象&rdquo; 二字, 而对象的精髓在于 &ldquo;整合&rdquo;,<br>
+即 对象是 &ldquo;特征与技能&quot;的结合体.<br>
+<strong>要了解对象为何物，必须把自己当成上帝，上帝眼里世间存在的万物皆为对象，不存在的也可以创造出来。</strong>
+面向对象的程序设计好比如来设计西游记，如来要解决的问题是把经书传给东土大唐，如来想了想解决这个问题需要四个人：唐僧，沙和尚，猪八戒，孙悟空，每个人都有各自的特征和技能（这就是对象的概念，特征和技能分别对应对象的数据属性和方法属性），然而这并不好玩，于是如来又安排了一群妖魔鬼怪，为了防止师徒四人在取经路上被搞死，又安排了一群神仙保驾护航，这些都是对象。然后取经开始，师徒四人与妖魔鬼怪神仙交互着直到最后取得真经。如来根本不会管师徒四人按照什么流程去取),对象是特征与技能的结合体，基于面向对象设计程序就好比在创造一个世界，你就是这个世界的上帝，存在的皆为对象，不存在的也可以创造出来，与面向过程机械式的思维方式形成鲜明对比，面向对象更加注重对现实世界的模拟，是一种“上帝式”的思维方式。</p>
+<ul>
+<li>
+<p>优点:<br>
+<strong>解决了程序的扩展性。对某一个对象单独修改，会立刻反映到整个体系中，如对游戏中一个人物参数的特征和技能修改都很容易。</strong></p>
+</li>
+<li>
+<p>缺点:</p>
+<ul>
+<li>
+<ol>
+<li>编程的复杂度远高于面向过程，不了解面向对象而立即上手基于它设计程序，极容易出现过度设计的问题。一些扩展性要求低的场景使用面向对象会徒增编程难度，比如管理linux系统的shell脚本就不适合用面向对象去设计，面向过程反而更加适合。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>无法向面向过程的程序设计流水线式的可以很精准的预测问题的处理流程与结果，面向对象的程序一旦开始就由对象之间的交互解决问题，即便是上帝也无法准确地预测最终结果。于是我们经常看到对战类游戏，新增一个游戏人物，在对战的过程中极容易出现阴霸的技能，一刀砍死3个人，这种情况是无法准确预知的，只有对象之间交互才能准确地知道最终的结果。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>应用场景:<br>
+<strong>需求经常变化的软件，一般需求的变化都集中在用户层，互联网应用，企业内部软件，游戏等都是面向对象的程序设计大显身手的好地方</strong>
+面向对象的程序设计并不是全部。对于一个软件质量来说，面向对象的程序设计只是用来解决扩展性<br>
+<img loading="lazy" src="https://gitee.com/qilitang/Img/raw/master/img/1036857-20170301105507938-1164072796.png" srcset="https://gitee.com/qilitang/Img/raw/master/img/1036857-20170301105507938-1164072796.png, https://gitee.com/qilitang/Img/raw/master/img/1036857-20170301105507938-1164072796.png 1.5x, https://gitee.com/qilitang/Img/raw/master/img/1036857-20170301105507938-1164072796.png 2x" sizes="auto" data-title="https://gitee.com/qilitang/Img/raw/master/img/1036857-20170301105507938-1164072796.png" data-alt="https://gitee.com/qilitang/Img/raw/master/img/1036857-20170301105507938-1164072796.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+</li>
+</ul>
+<h2 id="类与对象">类与对象</h2>
+<p>类即类别、种类，是面向对象设计最重要的概念，对象是特征与技能的结合体，而类则是一系列对象相似的特征与技能的结合体</p>
+<ul>
+<li><strong>在现实世界中：先有对象，再有类</strong></li>
+</ul>
+<p>世界上肯定是先出现各种各样的实际存在的物体，然后随着人类文明的发展，人类站在不同的角度总结出了不同的种类，如人类、动物类、植物类等概念</p>
+<p>也就说，<strong>对象是具体的存在，而类仅仅只是一个概念，并不真实存在</strong></p>
+<ul>
+<li><strong>在程序中：务必保证先定义类，后产生对象</strong></li>
+</ul>
+<p>这与函数的使用是类似的，先定义函数，后调用函数，类也是一样的，在程序中需要先定义类，后调用类</p>
+<p>不一样的是，调用函数会执行函数体代码返回的是函数体执行的结果，而调用类会产生对象，返回的是对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#在现实世界中，站在老男孩学校的角度：先有对象，再有类</span>
+</span></span><span class="line"><span class="cl"><span class="n">对象1</span><span class="err">：</span><span class="n">李坦克</span>
+</span></span><span class="line"><span class="cl">    <span class="n">特征</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">学校</span><span class="o">=</span><span class="n">oldboy</span>
+</span></span><span class="line"><span class="cl">        <span class="n">姓名</span><span class="o">=</span><span class="n">李坦克</span>
+</span></span><span class="line"><span class="cl">        <span class="n">性别</span><span class="o">=</span><span class="n">男</span>
+</span></span><span class="line"><span class="cl">        <span class="n">年龄</span><span class="o">=</span><span class="mi">18</span>
+</span></span><span class="line"><span class="cl">    <span class="n">技能</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">        <span class="n">学习</span>
+</span></span><span class="line"><span class="cl">        <span class="n">吃饭</span>
+</span></span><span class="line"><span class="cl">        <span class="n">睡觉</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">对象2</span><span class="err">：</span><span class="n">王大炮</span>
+</span></span><span class="line"><span class="cl">    <span class="n">特征</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">学校</span><span class="o">=</span><span class="n">oldboy</span>
+</span></span><span class="line"><span class="cl">        <span class="n">姓名</span><span class="o">=</span><span class="n">王大炮</span>
+</span></span><span class="line"><span class="cl">        <span class="n">性别</span><span class="o">=</span><span class="n">女</span>
+</span></span><span class="line"><span class="cl">        <span class="n">年龄</span><span class="o">=</span><span class="mi">38</span>
+</span></span><span class="line"><span class="cl">    <span class="n">技能</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">        <span class="n">学习</span>
+</span></span><span class="line"><span class="cl">        <span class="n">吃饭</span>
+</span></span><span class="line"><span class="cl">        <span class="n">睡觉</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">对象3</span><span class="err">：</span><span class="n">牛榴弹</span>
+</span></span><span class="line"><span class="cl">    <span class="n">特征</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">学校</span><span class="o">=</span><span class="n">oldboy</span>
+</span></span><span class="line"><span class="cl">        <span class="n">姓名</span><span class="o">=</span><span class="n">牛榴弹</span>
+</span></span><span class="line"><span class="cl">        <span class="n">性别</span><span class="o">=</span><span class="n">男</span>
+</span></span><span class="line"><span class="cl">        <span class="n">年龄</span><span class="o">=</span><span class="mi">78</span>
+</span></span><span class="line"><span class="cl">    <span class="n">技能</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">        <span class="n">学习</span>
+</span></span><span class="line"><span class="cl">        <span class="n">吃饭</span>
+</span></span><span class="line"><span class="cl">        <span class="n">睡觉</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">现实中的老男孩学生类</span>
+</span></span><span class="line"><span class="cl">    <span class="n">相似的特征</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">学校</span><span class="o">=</span><span class="n">oldboy</span>
+</span></span><span class="line"><span class="cl">    <span class="n">相似的技能</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl">        <span class="n">学习</span>
+</span></span><span class="line"><span class="cl">        <span class="n">吃饭</span>
+</span></span><span class="line"><span class="cl">        <span class="n">睡觉</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">在现实世界中</span><span class="err">：</span><span class="n">先有对象</span><span class="err">，</span><span class="n">再有类</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在程序中，务必保证：先定义（类），后使用（产生对象）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">PS</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="mf">1.</span> <span class="n">在程序中特征用变量标识</span><span class="err">，</span><span class="n">技能用函数标识</span>
+</span></span><span class="line"><span class="cl">  <span class="mf">2.</span> <span class="n">因而类中最常见的无非是</span><span class="err">：</span><span class="n">变量和函数的定义</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#程序中的类</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">OldboyStudent</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">school</span><span class="o">=</span><span class="s1">&#39;oldboy&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">learn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;is learning&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">eat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;is eating&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">sleep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;is sleeping&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#注意：</span>
+</span></span><span class="line"><span class="cl">  <span class="mf">1.</span><span class="n">类中可以有任意python代码</span><span class="err">，</span><span class="n">这些代码在类定义阶段便会执行</span>
+</span></span><span class="line"><span class="cl">  <span class="mf">2.</span><span class="n">因而会产生新的名称空间</span><span class="err">，</span><span class="n">用来存放类的变量名与函数名</span><span class="err">，</span><span class="n">可以通过OldboyStudent</span><span class="o">.</span><span class="n">__dict__查看</span>
+</span></span><span class="line"><span class="cl">  <span class="mf">3.</span><span class="n">对于经典类来说我们可以通过该字典操作类名称空间的名字</span><span class="err">（</span><span class="n">新式类有限制</span><span class="err">），</span><span class="n">但python为我们提供专门的</span><span class="o">.</span><span class="n">语法</span>
+</span></span><span class="line"><span class="cl">  <span class="mf">4.</span><span class="n">点是访问属性的语法</span><span class="err">，</span><span class="n">类中定义的名字</span><span class="err">，</span><span class="n">都是类的属性</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#程序中类的用法</span>
+</span></span><span class="line"><span class="cl"><span class="o">.</span><span class="p">:</span><span class="n">专门用来访问属性</span><span class="err">，</span><span class="n">本质操作的就是__dict__</span>
+</span></span><span class="line"><span class="cl"><span class="n">OldboyStudent</span><span class="o">.</span><span class="n">school</span> <span class="c1">#等于经典类的操作OldboyStudent.__dict__[&#39;school&#39;]</span>
+</span></span><span class="line"><span class="cl"><span class="n">OldboyStudent</span><span class="o">.</span><span class="n">school</span><span class="o">=</span><span class="s1">&#39;Oldboy&#39;</span> <span class="c1">#等于经典类的操作OldboyStudent.__dict__[&#39;school&#39;]=&#39;Oldboy&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">OldboyStudent</span><span class="o">.</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span> <span class="c1">#等于经典类的操作OldboyStudent.__dict__[&#39;x&#39;]=1</span>
+</span></span><span class="line"><span class="cl"><span class="k">del</span> <span class="n">OldboyStudent</span><span class="o">.</span><span class="n">x</span> <span class="c1">#等于经典类的操作OldboyStudent.__dict__.pop(&#39;x&#39;)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#程序中的对象</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#调用类，或称为实例化，得到对象</span>
+</span></span><span class="line"><span class="cl"><span class="n">s1</span><span class="o">=</span><span class="n">OldboyStudent</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">s2</span><span class="o">=</span><span class="n">OldboyStudent</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">s3</span><span class="o">=</span><span class="n">OldboyStudent</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#如此，s1、s2、s3都一样了，而这三者除了相似的属性之外还各种不同的属性，这就用到了__init__</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#注意：该方法是在对象产生之后才会执行，只用来为对象进行初始化操作，可以有任意代码，但一定不能有返回值</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">OldboyStudent</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="o">......</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">age</span><span class="p">,</span><span class="n">sex</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="n">name</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="o">=</span><span class="n">age</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">sex</span><span class="o">=</span><span class="n">sex</span>
+</span></span><span class="line"><span class="cl">    <span class="o">......</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">s1</span><span class="o">=</span><span class="n">OldboyStudent</span><span class="p">(</span><span class="s1">&#39;李坦克&#39;</span><span class="p">,</span><span class="s1">&#39;男&#39;</span><span class="p">,</span><span class="mi">18</span><span class="p">)</span> <span class="c1">#先调用类产生空对象s1，然后调用OldboyStudent.__init__(s1,&#39;李坦克&#39;,&#39;男&#39;,18)</span>
+</span></span><span class="line"><span class="cl"><span class="n">s2</span><span class="o">=</span><span class="n">OldboyStudent</span><span class="p">(</span><span class="s1">&#39;王大炮&#39;</span><span class="p">,</span><span class="s1">&#39;女&#39;</span><span class="p">,</span><span class="mi">38</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">s3</span><span class="o">=</span><span class="n">OldboyStudent</span><span class="p">(</span><span class="s1">&#39;牛榴弹&#39;</span><span class="p">,</span><span class="s1">&#39;男&#39;</span><span class="p">,</span><span class="mi">78</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#程序中对象的用法</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#执行__init__,s1.name=&#39;牛榴弹&#39;，很明显也会产生对象的名称空间</span>
+</span></span><span class="line"><span class="cl"><span class="n">s2</span><span class="o">.</span><span class="vm">__dict__</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;王大炮&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="s1">&#39;女&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">:</span> <span class="mi">38</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">s2</span><span class="o">.</span><span class="n">name</span> <span class="c1">#s2.__dict__[&#39;name&#39;]</span>
+</span></span><span class="line"><span class="cl"><span class="n">s2</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;王三炮&#39;</span> <span class="c1">#s2.__dict__[&#39;name&#39;]=&#39;王三炮&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">s2</span><span class="o">.</span><span class="n">course</span><span class="o">=</span><span class="s1">&#39;python&#39;</span> <span class="c1">#s2.__dict__[&#39;course&#39;]=&#39;python&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">del</span> <span class="n">s2</span><span class="o">.</span><span class="n">course</span> <span class="c1">#s2.__dict__.pop(&#39;course&#39;)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">在程序中</span><span class="err">：</span><span class="n">先定义类</span><span class="err">，</span><span class="n">后产生对象</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="细说__init__方法"><strong>！！！细说__init__方法！！！</strong></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#方式一、为对象初始化自己独有的特征
+</span></span><span class="line"><span class="cl">class People:
+</span></span><span class="line"><span class="cl">    country=&#39;China&#39;
+</span></span><span class="line"><span class="cl">    x=1
+</span></span><span class="line"><span class="cl">    def run(self):
+</span></span><span class="line"><span class="cl">        print(&#39;-----&gt;&#39;, self)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 实例化出三个空对象
+</span></span><span class="line"><span class="cl">obj1=People()
+</span></span><span class="line"><span class="cl">obj2=People()
+</span></span><span class="line"><span class="cl">obj3=People()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 为对象定制自己独有的特征
+</span></span><span class="line"><span class="cl">obj1.name=&#39;egon&#39;
+</span></span><span class="line"><span class="cl">obj1.age=18
+</span></span><span class="line"><span class="cl">obj1.sex=&#39;male&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">obj2.name=&#39;lxx&#39;
+</span></span><span class="line"><span class="cl">obj2.age=38
+</span></span><span class="line"><span class="cl">obj2.sex=&#39;female&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">obj3.name=&#39;alex&#39;
+</span></span><span class="line"><span class="cl">obj3.age=38
+</span></span><span class="line"><span class="cl">obj3.sex=&#39;female&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># print(obj1.__dict__)
+</span></span><span class="line"><span class="cl"># print(obj2.__dict__)
+</span></span><span class="line"><span class="cl"># print(obj3.__dict__)
+</span></span><span class="line"><span class="cl"># print(People.__dict__)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#方式二、为对象初始化自己独有的特征
+</span></span><span class="line"><span class="cl">class People:
+</span></span><span class="line"><span class="cl">    country=&#39;China&#39;
+</span></span><span class="line"><span class="cl">    x=1
+</span></span><span class="line"><span class="cl">    def run(self):
+</span></span><span class="line"><span class="cl">        print(&#39;-----&gt;&#39;, self)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 实例化出三个空对象
+</span></span><span class="line"><span class="cl">obj1=People()
+</span></span><span class="line"><span class="cl">obj2=People()
+</span></span><span class="line"><span class="cl">obj3=People()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 为对象定制自己独有的特征
+</span></span><span class="line"><span class="cl">def chu_shi_hua(obj, x, y, z): #obj=obj1,x=&#39;egon&#39;,y=18,z=&#39;male&#39;
+</span></span><span class="line"><span class="cl">    obj.name = x
+</span></span><span class="line"><span class="cl">    obj.age = y
+</span></span><span class="line"><span class="cl">    obj.sex = z
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">chu_shi_hua(obj1,&#39;egon&#39;,18,&#39;male&#39;)
+</span></span><span class="line"><span class="cl">chu_shi_hua(obj2,&#39;lxx&#39;,38,&#39;female&#39;)
+</span></span><span class="line"><span class="cl">chu_shi_hua(obj3,&#39;alex&#39;,38,&#39;female&#39;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#方式三、为对象初始化自己独有的特征
+</span></span><span class="line"><span class="cl">class People:
+</span></span><span class="line"><span class="cl">    country=&#39;China&#39;
+</span></span><span class="line"><span class="cl">    x=1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    def chu_shi_hua(obj, x, y, z): #obj=obj1,x=&#39;egon&#39;,y=18,z=&#39;male&#39;
+</span></span><span class="line"><span class="cl">        obj.name = x
+</span></span><span class="line"><span class="cl">        obj.age = y
+</span></span><span class="line"><span class="cl">        obj.sex = z
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    def run(self):
+</span></span><span class="line"><span class="cl">        print(&#39;-----&gt;&#39;, self)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">obj1=People()
+</span></span><span class="line"><span class="cl"># print(People.chu_shi_hua)
+</span></span><span class="line"><span class="cl">People.chu_shi_hua(obj1,&#39;egon&#39;,18,&#39;male&#39;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">obj2=People()
+</span></span><span class="line"><span class="cl">People.chu_shi_hua(obj2,&#39;lxx&#39;,38,&#39;female&#39;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">obj3=People()
+</span></span><span class="line"><span class="cl">People.chu_shi_hua(obj3,&#39;alex&#39;,38,&#39;female&#39;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 方式四、为对象初始化自己独有的特征
+</span></span><span class="line"><span class="cl">class People:
+</span></span><span class="line"><span class="cl">    country=&#39;China&#39;
+</span></span><span class="line"><span class="cl">    x=1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    def __init__(obj, x, y, z): #obj=obj1,x=&#39;egon&#39;,y=18,z=&#39;male&#39;
+</span></span><span class="line"><span class="cl">        obj.name = x
+</span></span><span class="line"><span class="cl">        obj.age = y
+</span></span><span class="line"><span class="cl">        obj.sex = z
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    def run(self):
+</span></span><span class="line"><span class="cl">        print(&#39;-----&gt;&#39;, self)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">obj1=People(&#39;egon&#39;,18,&#39;male&#39;) #People.__init__(obj1,&#39;egon&#39;,18,&#39;male&#39;)
+</span></span><span class="line"><span class="cl">obj2=People(&#39;lxx&#39;,38,&#39;female&#39;) #People.__init__(obj2,&#39;lxx&#39;,38,&#39;female&#39;)
+</span></span><span class="line"><span class="cl">obj3=People(&#39;alex&#39;,38,&#39;female&#39;) #People.__init__(obj3,&#39;alex&#39;,38,&#39;female&#39;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># __init__方法
+</span></span><span class="line"><span class="cl"># 强调：
+</span></span><span class="line"><span class="cl">#   1、该方法内可以有任意的python代码
+</span></span><span class="line"><span class="cl">#   2、一定不能有返回值
+</span></span><span class="line"><span class="cl">class People:
+</span></span><span class="line"><span class="cl">    country=&#39;China&#39;
+</span></span><span class="line"><span class="cl">    x=1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    def __init__(obj, name, age, sex): #obj=obj1,x=&#39;egon&#39;,y=18,z=&#39;male&#39;
+</span></span><span class="line"><span class="cl">        # if type(name) is not str:
+</span></span><span class="line"><span class="cl">        #     raise TypeError(&#39;名字必须是字符串类型&#39;)
+</span></span><span class="line"><span class="cl">        obj.name = name
+</span></span><span class="line"><span class="cl">        obj.age = age
+</span></span><span class="line"><span class="cl">        obj.sex = sex
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    def run(self):
+</span></span><span class="line"><span class="cl">        print(&#39;-----&gt;&#39;, self)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># obj1=People(&#39;egon&#39;,18,&#39;male&#39;)
+</span></span><span class="line"><span class="cl">obj1=People(3537,18,&#39;male&#39;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># print(obj1.run)
+</span></span><span class="line"><span class="cl"># obj1.run() #People.run(obj1)
+</span></span><span class="line"><span class="cl"># print(People.run)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">！！！__init__方法之为对象定制自己独有的特征
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>PS~~</strong></p>
+<p><strong>1. 站的角度不同，定义出的类是截然不同的，详见面向对象实战之需求分析</strong></p>
+<p><strong>2. 现实中的类并不完全等于程序中的类，比如现实中的公司类，在程序中有时需要拆分成部门类，业务类&hellip;&hellip;</strong></p>
+<p><strong>3. 有时为了编程需求，程序中也可能会定义现实中不存在的类，比如策略类，现实中并不存在，但是在程序中却是一个很常见的类</strong></p>
+<h3 id="类的特殊属性了解即可">类的特殊属性(了解即可)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#python为类内置的特殊属性
+</span></span><span class="line"><span class="cl">类名.__name__# 类的名字(字符串)
+</span></span><span class="line"><span class="cl">类名.__doc__# 类的文档字符串
+</span></span><span class="line"><span class="cl">类名.__base__# 类的第一个父类(在讲继承时会讲)
+</span></span><span class="line"><span class="cl">类名.__bases__# 类所有父类构成的元组(在讲继承时会讲)
+</span></span><span class="line"><span class="cl">类名.__dict__# 类的字典属性
+</span></span><span class="line"><span class="cl">类名.__module__# 类定义所在的模块
+</span></span><span class="line"><span class="cl">类名.__class__# 实例对应的类(仅新式类中)
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2023-11-14 16:30:25">更新于 2023-11-14&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/posts/python-17-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.qilitang.top/posts/python-17-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" data-title="python 面向对象" data-hashtags="面向对象"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.qilitang.top/posts/python-17-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" data-hashtag="面向对象"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.qilitang.top/posts/python-17-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" data-title="python 面向对象"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/' class="post-tag">面向对象</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/python-16-%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/" class="post-nav-item" rel="prev" title="python 常用模块"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>python 常用模块</a>
+      <a href="/posts/python-18-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B-%E5%B0%81%E8%A3%85/" class="post-nav-item" rel="next" title="python 面向对象之 封装">python 面向对象之 封装<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/qilitang"target="_blank" rel="external nofollow noopener noreferrer">Qilitang</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":15},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>

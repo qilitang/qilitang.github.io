@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>python 常用模块 - </title><meta name="author" content="Qilitang">
+<meta name="author-link" content="https://github.com/qilitang">
+<meta name="description" content="time 模块 1 2 time 模块是内置时间模块 time.time() 是当前时间戳 返回的是float 类型的时间 是从1970 年一月一号到现在的秒数 格式化时间输出 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 time.strftime() 格式化时间输出 传入格式 %Y Year with century as a decimal number. %m Month as a decimal number [01,12]. %d Day of the month as a decimal number [01,31]. %H Hour (24-hour clock) as a decimal number [00,23]. %M Minute as a decimal number [00,59]. %S Second as a decimal number [00,61]. %z Time zone offset from UTC. %a Locale&#39;s abbreviated weekday name. %A Locale&#39;s full" /><meta name="keywords" content='常用模块, 爬虫' /><meta itemprop="name" content="python 常用模块">
+<meta itemprop="description" content="time 模块 1 2 time 模块是内置时间模块 time.time() 是当前时间戳 返回的是float 类型的时间 是从1970 年一月一号到现在的秒数 格式化时间输出 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 time.strftime() 格式化时间输出 传入格式 %Y Year with century as a decimal number. %m Month as a decimal number [01,12]. %d Day of the month as a decimal number [01,31]. %H Hour (24-hour clock) as a decimal number [00,23]. %M Minute as a decimal number [00,59]. %S Second as a decimal number [00,61]. %z Time zone offset from UTC. %a Locale&#39;s abbreviated weekday name. %A Locale&#39;s full"><meta itemprop="datePublished" content="2017-02-20T17:06:11+08:00" />
+<meta itemprop="dateModified" content="2023-11-14T16:29:52+08:00" />
+<meta itemprop="wordCount" content="5283">
+<meta itemprop="keywords" content="常用模块,爬虫," /><meta property="og:title" content="python 常用模块" />
+<meta property="og:description" content="time 模块 1 2 time 模块是内置时间模块 time.time() 是当前时间戳 返回的是float 类型的时间 是从1970 年一月一号到现在的秒数 格式化时间输出 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 time.strftime() 格式化时间输出 传入格式 %Y Year with century as a decimal number. %m Month as a decimal number [01,12]. %d Day of the month as a decimal number [01,31]. %H Hour (24-hour clock) as a decimal number [00,23]. %M Minute as a decimal number [00,59]. %S Second as a decimal number [00,61]. %z Time zone offset from UTC. %a Locale&#39;s abbreviated weekday name. %A Locale&#39;s full" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.qilitang.top/posts/python-16-%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2017-02-20T17:06:11+08:00" />
+<meta property="article:modified_time" content="2023-11-14T16:29:52+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="python 常用模块"/>
+<meta name="twitter:description" content="time 模块 1 2 time 模块是内置时间模块 time.time() 是当前时间戳 返回的是float 类型的时间 是从1970 年一月一号到现在的秒数 格式化时间输出 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 time.strftime() 格式化时间输出 传入格式 %Y Year with century as a decimal number. %m Month as a decimal number [01,12]. %d Day of the month as a decimal number [01,31]. %H Hour (24-hour clock) as a decimal number [00,23]. %M Minute as a decimal number [00,59]. %S Second as a decimal number [00,61]. %z Time zone offset from UTC. %a Locale&#39;s abbreviated weekday name. %A Locale&#39;s full"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://www.qilitang.top/posts/python-16-%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/" /><link rel="prev" href="https://www.qilitang.top/posts/python-15-%E5%8C%85%E4%B8%8E%E6%A8%A1%E5%9D%97/" /><link rel="next" href="https://www.qilitang.top/posts/python-17-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "python 常用模块",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/www.qilitang.top\/posts\/python-16-%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97\/"
+    },"genre": "posts","keywords": "常用模块, 爬虫","wordcount":  5283 ,
+    "url": "https:\/\/www.qilitang.top\/posts\/python-16-%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97\/","datePublished": "2017-02-20T17:06:11+08:00","dateModified": "2023-11-14T16:29:52+08:00","publisher": {
+      "@type": "Organization",
+      "name": "","logo": "https:\/\/www.qilitang.top\/favicon.ico"},"author": {
+        "@type": "Person",
+        "name": "Qilitang"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>python 常用模块</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img loading="lazy" src="/avatar/avatar.jpg" srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x" sizes="auto" data-title="Qilitang" data-alt="Qilitang" class="avatar" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>&nbsp;Qilitang</a></span>
+          <span class="post-category">收录于 <a href="/categories/python%E5%9F%BA%E7%A1%80/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Python基础</a></span></div>
+      <div class="post-meta-line"><span title="发布于 2017-02-20 17:06:11"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2017-02-20">2017-02-20</time></span>&nbsp;<span title="更新于 2023-11-14 16:29:52"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2023-11-14">2023-11-14</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 5283 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 11 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#time-模块">time 模块</a></li>
+    <li><a href="#datatime-模块">datatime 模块</a></li>
+    <li><a href="#random-随机模块">random 随机模块</a></li>
+    <li><a href="#os-模块-和操作系统交互">os 模块 和操作系统交互</a></li>
+    <li><a href="#sys-模块">sys 模块</a></li>
+    <li><a href="#hashlib">hashlib</a></li>
+    <li><a href="#序列化">序列化</a>
+      <ul>
+        <li><a href="#为什么要序列化">为什么要序列化?</a></li>
+        <li><a href="#json--pickle-序列化">json &amp; pickle 序列化</a>
+          <ul>
+            <li><a href="#json">json</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#collections-模块">collections 模块</a>
+      <ul>
+        <li><a href="#openpyxl-模块">openpyxl 模块</a></li>
+      </ul>
+    </li>
+    <li><a href="#subprocess-模块">subprocess 模块</a></li>
+    <li><a href="#re模块">re模块.</a></li>
+    <li><a href="#爬虫四步原理">爬虫四步原理</a></li>
+    <li><a href="#爬蟲三部曲">爬蟲三部曲:</a></li>
+    <li><a href="#loging-模块的使用">loging 模块的使用</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h2 id="time-模块">time 模块</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">time</span> <span class="n">模块是内置时间模块</span>
+</span></span><span class="line"><span class="cl"><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="n">是当前时间戳</span> <span class="n">返回的是float</span> <span class="n">类型的时间</span> <span class="n">是从1970</span> <span class="n">年一月一号到现在的秒数</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>格式化时间输出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">()</span>  <span class="n">格式化时间输出</span> <span class="n">传入格式</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">%</span><span class="n">Y</span>  <span class="n">Year</span> <span class="k">with</span> <span class="n">century</span> <span class="k">as</span> <span class="n">a</span> <span class="n">decimal</span> <span class="n">number</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="o">%</span><span class="n">m</span>  <span class="n">Month</span> <span class="k">as</span> <span class="n">a</span> <span class="n">decimal</span> <span class="n">number</span> <span class="p">[</span><span class="mi">01</span><span class="p">,</span><span class="mi">12</span><span class="p">]</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="o">%</span><span class="n">d</span>  <span class="n">Day</span> <span class="n">of</span> <span class="n">the</span> <span class="n">month</span> <span class="k">as</span> <span class="n">a</span> <span class="n">decimal</span> <span class="n">number</span> <span class="p">[</span><span class="mi">01</span><span class="p">,</span><span class="mi">31</span><span class="p">]</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="o">%</span><span class="n">H</span>  <span class="n">Hour</span> <span class="p">(</span><span class="mi">24</span><span class="o">-</span><span class="n">hour</span> <span class="n">clock</span><span class="p">)</span> <span class="k">as</span> <span class="n">a</span> <span class="n">decimal</span> <span class="n">number</span> <span class="p">[</span><span class="mi">00</span><span class="p">,</span><span class="mi">23</span><span class="p">]</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="o">%</span><span class="n">M</span>  <span class="n">Minute</span> <span class="k">as</span> <span class="n">a</span> <span class="n">decimal</span> <span class="n">number</span> <span class="p">[</span><span class="mi">00</span><span class="p">,</span><span class="mi">59</span><span class="p">]</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="o">%</span><span class="n">S</span>  <span class="n">Second</span> <span class="k">as</span> <span class="n">a</span> <span class="n">decimal</span> <span class="n">number</span> <span class="p">[</span><span class="mi">00</span><span class="p">,</span><span class="mi">61</span><span class="p">]</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="o">%</span><span class="n">z</span>  <span class="n">Time</span> <span class="n">zone</span> <span class="n">offset</span> <span class="kn">from</span> <span class="nn">UTC.</span>
+</span></span><span class="line"><span class="cl">    <span class="o">%</span><span class="n">a</span>  <span class="n">Locale</span><span class="s1">&#39;s abbreviated weekday name.</span>
+</span></span><span class="line"><span class="cl">    <span class="o">%</span><span class="n">A</span>  <span class="n">Locale</span><span class="s1">&#39;s full weekday name.</span>
+</span></span><span class="line"><span class="cl">    <span class="o">%</span><span class="n">b</span>  <span class="n">Locale</span><span class="s1">&#39;s abbreviated month name.</span>
+</span></span><span class="line"><span class="cl">    <span class="o">%</span><span class="n">B</span>  <span class="n">Locale</span><span class="s1">&#39;s full month name.</span>
+</span></span><span class="line"><span class="cl">    <span class="o">%</span><span class="n">c</span>  <span class="n">Locale</span><span class="s1">&#39;s appropriate date and time representation.</span>
+</span></span><span class="line"><span class="cl">    <span class="o">%</span><span class="n">I</span>  <span class="n">Hour</span> <span class="p">(</span><span class="mi">12</span><span class="o">-</span><span class="n">hour</span> <span class="n">clock</span><span class="p">)</span> <span class="k">as</span> <span class="n">a</span> <span class="n">decimal</span> <span class="n">number</span> <span class="p">[</span><span class="mi">01</span><span class="p">,</span><span class="mi">12</span><span class="p">]</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">    <span class="o">%</span><span class="n">p</span>  <span class="n">Locale</span><span class="s1">&#39;s equivalent of either AM or PM.</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>时间对象获取</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">obj</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">()</span>  <span class="n">获取时间对象</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  得到结果</span>
+</span></span><span class="line"><span class="cl"><span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">(</span><span class="n">tm_year</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">tm_mon</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">tm_mday</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">tm_hour</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span> <span class="n">tm_min</span><span class="o">=</span><span class="mi">39</span><span class="p">,</span> <span class="n">tm_sec</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">tm_wday</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">tm_yday</span><span class="o">=</span><span class="mi">321</span><span class="p">,</span> <span class="n">tm_isdst</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">可以从时间对象中</span> <span class="n">获取指定的数据</span><span class="o">.</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>获取时间对象的格式化时间, 可以是未来/过去的时间对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">获取当前格式化时间
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">print(time.strftime(&#39;%Y-%m-%d %H:%M:%S&#39;, time.localtime())
+</span></span><span class="line"><span class="cl"># 个人感觉这是脱了裤子放屁, 多此一举
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">在strftime内第二个参数, 可以传入之前的时间对象, 把此过去/未来的时间对象格式化
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>字符串格式时间转换为时间对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">res</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s1">&#39;2018-12-13&#39;</span><span class="p">,</span> <span class="s1">&#39;%Y:%m:</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">这个返回值就是时间对象</span><span class="p">,</span> <span class="n">两个参数</span><span class="p">,</span> <span class="n">第一个是字符串时间格式</span><span class="p">,</span> <span class="n">第二个是格式化时间样式</span><span class="p">,</span> <span class="n">返回值是此格式化时间的对象</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="datatime-模块">datatime 模块</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 获取当前年月日
+</span></span><span class="line"><span class="cl">obj_data = datetime.date.today()
+</span></span><span class="line"><span class="cl"># 获取当前年月日,时分秒
+</span></span><span class="line"><span class="cl">obj_datatime = datatime.datatime()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 两者得到的都是时间对象, 可以分别取出 年, 月, 日, 时, 分, 秒
+</span></span><span class="line"><span class="cl">obj_datatime.weekday()  计算今天是周几
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>时区</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 获取当前时区的时间</span>
+</span></span><span class="line"><span class="cl"><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 获取UTC时间(格林尼治)</span>
+</span></span><span class="line"><span class="cl"><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>日期/时间计算</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 首先获取时间对象. 
+</span></span><span class="line"><span class="cl">obj_time = datatime.timedelta(7)
+</span></span><span class="line"><span class="cl"># 默认 是天
+</span></span><span class="line"><span class="cl"># 可以指定 week, mount等
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 获取日期时间
+</span></span><span class="line"><span class="cl">current_date = datetime.datetime.now()
+</span></span><span class="line"><span class="cl">日期时间 = 日期时间 +/- 时间对象
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">时间对象 = 日期时间 +/- 日期时间
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">获取七天后时间
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">later_time = current_time + time_obj
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="random-随机模块">random 随机模块</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">随机0</span><span class="o">-</span><span class="mi">1</span><span class="n">之间的浮点数</span>
+</span></span><span class="line"><span class="cl"><span class="n">random</span><span class="o">.</span><span class="n">randomint</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span><span class="p">,</span><span class="n">m</span> <span class="n">之间的整数</span>
+</span></span><span class="line"><span class="cl"><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">可迭代对象</span><span class="p">)</span> <span class="n">随机取出可迭代对象的一个元素</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">可迭代对象</span><span class="p">),</span> <span class="n">对可迭代对象中的元素乱序</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="os-模块-和操作系统交互">os 模块 和操作系统交互</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 获取当前执行文件的目录</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 路径要用常量</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 进行路径拼接</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">路径</span><span class="p">,</span><span class="n">字符串</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 判断“文件/文件夹”是否存在：若文件存在返回True，若不存在返回False</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">路径</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 判断是否是文件夹 True/False</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">路径</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建文件夹</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">路径</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除空文件夹</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">rmdir</span><span class="p">(</span><span class="n">路径</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 获取某个文件夹类所有文件的名字</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">路径</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 获取可迭代对象的索引即元素的对应关系, 对象有一个个的元组(索引, 元素)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">enumerate</span><span class="p">(</span><span class="n">可迭代对象</span><span class="p">)</span>  
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="sys-模块">sys 模块</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 获取当前python解释器的环境变量路径</span>
+</span></span><span class="line"><span class="cl"><span class="n">sys</span><span class="o">.</span><span class="n">path</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 将当前项目添加到环境变量中</span>
+</span></span><span class="line"><span class="cl"><span class="n">BASE_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">BASE_PATH</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 获取cmd终端的命令行  python3 py文件 用户名 密码</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>  <span class="c1"># 返回的是列表[&#39;&#39;]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="hashlib">hashlib</h2>
+<p>加密模块
+内置很多算法, 常用的是MD5</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 首先实例化 一个对象</span>
+</span></span><span class="line"><span class="cl"><span class="n">m</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">m</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">bytes</span> <span class="n">类型的字符串</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">res</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># res 是经过加密算法得到的32位的位字符串.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">可以对密码进行加盐处理</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">略过</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="序列化">序列化</h2>
+<ul>
+<li>序列化<br>
+我们把对象(变量)从内存中变成可存储或传输的过程称之为序列化，在Python中叫pickling，在其他语言中也被称之为serialization，marshalling，flattening等等，都是一个意思。</li>
+</ul>
+<h3 id="为什么要序列化">为什么要序列化?</h3>
+<ul>
+<li>1：持久保存状态</li>
+</ul>
+<p>需知一个软件/程序的执行就在处理一系列状态的变化，在编程语言中，&lsquo;状态&rsquo;会以各种各样有结构的数据类型(也可简单的理解为变量)的形式被保存在内存中。</p>
+<p>内存是无法永久保存数据的，当程序运行了一段时间，我们断电或者重启程序，内存中关于这个程序的之前一段时间的数据（有结构）都被清空了。</p>
+<p>在断电或重启程序之前将程序当前内存中所有的数据都保存下来（保存到文件中），以便于下次程序执行能够从文件中载入之前的数据，然后继续执行，这就是序列化。</p>
+<p>具体的来说，你玩使命召唤闯到了第13关，你保存游戏状态，关机走人，下次再玩，还能从上次的位置开始继续闯关。或如，虚拟机状态的挂起等。</p>
+<ul>
+<li>2：跨平台数据交互</li>
+</ul>
+<p>序列化之后，不仅可以把序列化后的内容写入磁盘，还可以通过网络传输到别的机器上，如果收发的双方约定好实用一种序列化的格式，那么便打破了平台/语言差异化带来的限制，实现了跨平台数据交互。</p>
+<p>反过来，把变量内容从序列化的对象重新读到内存里称之为反序列化，即unpickling。</p>
+<h3 id="json--pickle-序列化">json &amp; pickle 序列化</h3>
+<h4 id="json">json</h4>
+<p>如果我们要在不同的编程语言之间传递对象，就必须把对象序列化为标准格式，比如XML，但更好的方法是序列化为JSON，因为JSON表示出来就是一个字符串，可以被所有语言读取，也可以方便地存储到磁盘或者通过网络传输。JSON不仅是标准格式，并且比XML更快，而且可以直接在Web页面中读取，非常方便。</p>
+<p>JSON表示的对象就是标准的JavaScript语言的对象，JSON和Python内置的数据类型对应如下：
+<img loading="lazy" src="https://gitee.com/qilitang/Img/raw/master/img/877318-20160911105642628-530508765.png" srcset="https://gitee.com/qilitang/Img/raw/master/img/877318-20160911105642628-530508765.png, https://gitee.com/qilitang/Img/raw/master/img/877318-20160911105642628-530508765.png 1.5x, https://gitee.com/qilitang/Img/raw/master/img/877318-20160911105642628-530508765.png 2x" sizes="auto" data-title="https://gitee.com/qilitang/Img/raw/master/img/877318-20160911105642628-530508765.png" data-alt="https://gitee.com/qilitang/Img/raw/master/img/877318-20160911105642628-530508765.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>
+<img loading="lazy" src="https://gitee.com/qilitang/Img/raw/master/img/1036857-20170215164644722-1590025858.png" srcset="https://gitee.com/qilitang/Img/raw/master/img/1036857-20170215164644722-1590025858.png, https://gitee.com/qilitang/Img/raw/master/img/1036857-20170215164644722-1590025858.png 1.5x, https://gitee.com/qilitang/Img/raw/master/img/1036857-20170215164644722-1590025858.png 2x" sizes="auto" data-title="https://gitee.com/qilitang/Img/raw/master/img/1036857-20170215164644722-1590025858.png" data-alt="https://gitee.com/qilitang/Img/raw/master/img/1036857-20170215164644722-1590025858.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="n">dic</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;alvin&#39;</span><span class="p">,</span><span class="s1">&#39;age&#39;</span><span class="p">:</span><span class="mi">23</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">:</span><span class="s1">&#39;male&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">dic</span><span class="p">))</span><span class="c1">#&lt;class &#39;dict&#39;&gt;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="n">j</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dic</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">j</span><span class="p">))</span><span class="c1">#&lt;class &#39;str&#39;&gt;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;序列化对象&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>  <span class="c1">#-------------------等价于json.dump(dic,f)</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#-----------------------------反序列化&lt;br&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;序列化对象&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="c1">#  等价于data=json.load(f)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#dct=&#34;{&#39;1&#39;:111}&#34;#json 不认单引号</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#dct=str({&#34;1&#34;:111})#报错,因为生成的数据还是单引号:{&#39;one&#39;: 1}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">dct</span><span class="o">=</span><span class="s1">&#39;{&#34;1&#34;:&#34;111&#34;}&#39;</span> 
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">dct</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#conclusion:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        无论数据是怎样创建的，只要满足json格式，就可以json.loads出来,不一定非要dumps的数据才能loads</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="n">注意点</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img loading="lazy" src="https://gitee.com/qilitang/Img/raw/master/img/1036857-20170215164644722-1590025858.png" srcset="https://gitee.com/qilitang/Img/raw/master/img/1036857-20170215164644722-1590025858.png, https://gitee.com/qilitang/Img/raw/master/img/1036857-20170215164644722-1590025858.png 1.5x, https://gitee.com/qilitang/Img/raw/master/img/1036857-20170215164644722-1590025858.png 2x" sizes="auto" data-title="https://gitee.com/qilitang/Img/raw/master/img/1036857-20170215164644722-1590025858.png" data-alt="https://gitee.com/qilitang/Img/raw/master/img/1036857-20170215164644722-1590025858.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">import pickle
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">dic={&#39;name&#39;:&#39;alvin&#39;,&#39;age&#39;:23,&#39;sex&#39;:&#39;male&#39;}
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">print(type(dic))#&lt;class &#39;dict&#39;&gt;
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">j=pickle.dumps(dic)
+</span></span><span class="line"><span class="cl">print(type(j))#&lt;class &#39;bytes&#39;&gt;
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">f=open(&#39;序列化对象_pickle&#39;,&#39;wb&#39;)#注意是w是写入str,wb是写入bytes,j是&#39;bytes&#39;
+</span></span><span class="line"><span class="cl">f.write(j)  #-------------------等价于pickle.dump(dic,f)
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">f.close()
+</span></span><span class="line"><span class="cl">#-------------------------反序列化
+</span></span><span class="line"><span class="cl">import pickle
+</span></span><span class="line"><span class="cl">f=open(&#39;序列化对象_pickle&#39;,&#39;rb&#39;)
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">data=pickle.loads(f.read())#  等价于data=pickle.load(f)
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">print(data[&#39;age&#39;])
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Pickle的问题和所有其他编程语言特有的序列化问题一样，就是它只能用于Python，并且可能不同版本的Python彼此都不兼容，因此，只能用Pickle保存那些不重要的数据，不能成功地反序列化也没关系。</p>
+<h2 id="collections-模块">collections 模块</h2>
+<ul>
+<li>python默认八大数据:
+- 整型
+- 浮点型
+- 字符串
+- 字典
+- 元组
+- 列表
+- 集合
+- 布尔
+collections模块:</li>
+<li>提供一些python八大数据类型 “以外的数据类型” 。</li>
+</ul>
+<p>具名元组:
+具名元组 只是一个名字。
+应用场景:
+- 坐标
+-</p>
+<pre><code>    ``` from collections import namedtuple```
+</code></pre>
+<ul>
+<li>
+<p>有序字典:</p>
+<ul>
+<li>
+<p>python中字典默认是无序</p>
+</li>
+<li>
+<p>collections中提供了有序的字典</p>
+</li>
+</ul>
+<p><code>from collections import OrderedDict</code></p>
+</li>
+</ul>
+<p>示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 具名元组
+</span></span><span class="line"><span class="cl">from collections import namedtuple
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 传入可迭代对象是有序的
+</span></span><span class="line"><span class="cl"># 应用:坐标
+</span></span><span class="line"><span class="cl"># 将&#39;坐标&#39;变成 “对象” 的名字
+</span></span><span class="line"><span class="cl">point = namedtuple(&#39;坐标&#39;, [&#39;x&#39;, &#39;y&#39;])  # 第二个参数既可以传可迭代对象
+</span></span><span class="line"><span class="cl">point = namedtuple(&#39;坐标&#39;, (&#39;x&#39;, &#39;y&#39;))  # 第二个参数既可以传可迭代对象
+</span></span><span class="line"><span class="cl">point = namedtuple(&#39;坐标&#39;, &#39;x y&#39;)  # 第二个参数既可以传可迭代对象
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 会将 1 ---&gt; x,   2 ---&gt; y
+</span></span><span class="line"><span class="cl"># 传参的个数，要与namedtuple第二个参数的个数一一对应
+</span></span><span class="line"><span class="cl">p = point(1, 3)  # 本质上传了4个，面向对象讲解
+</span></span><span class="line"><span class="cl">print(p)
+</span></span><span class="line"><span class="cl">print(type(p))
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="openpyxl-模块">openpyxl 模块</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">openpyxl模块：第三方模块
+</span></span><span class="line"><span class="cl">    - 可以对Excle表格进行操作的模块
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    - 下载:
+</span></span><span class="line"><span class="cl">        pip3 install openpyxl
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    - Excel版本:
+</span></span><span class="line"><span class="cl">        2003之前:
+</span></span><span class="line"><span class="cl">            excle名字.xls
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        2003以后:
+</span></span><span class="line"><span class="cl">            excle名字.xlsx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    - 清华源: https://pypi.tuna.tsinghua.edu.cn/simple
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    - 配置永久第三方源:
+</span></span><span class="line"><span class="cl">        D:\Python36\Lib\site-packages\pip\_internal\models\index.py
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 写入数据
+</span></span><span class="line"><span class="cl">from openpyxl import Workbook
+</span></span><span class="line"><span class="cl"># 获取Excel文件对象
+</span></span><span class="line"><span class="cl">wb_obj = Workbook()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">wb1 = wb_obj.create_sheet(&#39;python13期工作表1&#39;, 1)
+</span></span><span class="line"><span class="cl">wb2 = wb_obj.create_sheet(&#39;python13期工作表2&#39;, 2)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 修改工作表名字: 为python13期工作表1标题修改名字 ---》 tank大宝贝
+</span></span><span class="line"><span class="cl">print(wb1.title)
+</span></span><span class="line"><span class="cl">wb1.title = &#39;tank大宝贝&#39;
+</span></span><span class="line"><span class="cl">print(wb1.title)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 为第一张工作表添加值
+</span></span><span class="line"><span class="cl"># wb1[&#39;工作簿中的表格位置&#39;]
+</span></span><span class="line"><span class="cl">wb1[&#39;A10&#39;] = 200
+</span></span><span class="line"><span class="cl">wb1[&#39;B10&#39;] = 1000
+</span></span><span class="line"><span class="cl">wb1[&#39;C10&#39;] = &#39;=SUM(A10:B10)&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">wb2[&#39;A1&#39;] = 100
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 生成Excel表格
+</span></span><span class="line"><span class="cl">wb_obj.save(&#39;python13期.xlsx&#39;)
+</span></span><span class="line"><span class="cl">print(&#39;excel表格生成成功&#39;)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>读取数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> # 读取数据
+</span></span><span class="line"><span class="cl">from openpyxl import load_workbook
+</span></span><span class="line"><span class="cl">wb_obj = load_workbook(&#39;python13期.xlsx&#39;)
+</span></span><span class="line"><span class="cl">print(wb_obj)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># # wb_obj[&#39;表名&#39;]
+</span></span><span class="line"><span class="cl">wb1 = wb_obj[&#39;tank大宝贝&#39;]
+</span></span><span class="line"><span class="cl">print(wb1[&#39;A10&#39;].value)
+</span></span><span class="line"><span class="cl">wb1[&#39;A10&#39;] = 20
+</span></span><span class="line"><span class="cl">print(wb1[&#39;A10&#39;].value)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>[toc]</p>
+<h2 id="subprocess-模块">subprocess 模块</h2>
+<p>用于和系统的cmd 终端进行交互. 方法比较简单</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">subprocess</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cmd</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&#34;&gt;&gt;:&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 输入终端命令字符串</span>
+</span></span><span class="line"><span class="cl">    <span class="n">res</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                        <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                           <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                           <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                           <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#  参数介绍.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">传入命令字符串</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">shell</span> <span class="o">=</span> <span class="kc">True</span> <span class="p">,</span> <span class="n">打开</span> <span class="n">cmd</span> <span class="n">终端功能</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stderr</span> <span class="n">接收命令错误的信息</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stdout</span>  <span class="n">接收命令正确的返回信息</span>
+</span></span><span class="line"><span class="cl">    <span class="n">实例化对象用stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="n">方法接收信息</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;gbk&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">res</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="re模块">re模块.</h2>
+<ul>
+<li>一：什么是正则？</li>
+</ul>
+<p>　正则就是用一些具有特殊含义的符号组合到一起（称为正则表达式）来描述字符或者字符串的方法。或者说：正则就是用来描述一类事物的规则。</p>
+<p><img loading="lazy" src="https://gitee.com/qilitang/Img/raw/master/img/1036857-20170529203214461-666088398.png" srcset="https://gitee.com/qilitang/Img/raw/master/img/1036857-20170529203214461-666088398.png, https://gitee.com/qilitang/Img/raw/master/img/1036857-20170529203214461-666088398.png 1.5x, https://gitee.com/qilitang/Img/raw/master/img/1036857-20170529203214461-666088398.png 2x" sizes="auto" data-title="https://gitee.com/qilitang/Img/raw/master/img/1036857-20170529203214461-666088398.png" data-alt="https://gitee.com/qilitang/Img/raw/master/img/1036857-20170529203214461-666088398.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<ul>
+<li>字符组:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    - [0-9] 可以匹配到一个0-9的字符  
+</span></span><span class="line"><span class="cl">    - [9-0]: 报错, 必须从小到大  
+</span></span><span class="line"><span class="cl">    - [a-z]: 从小写的a-z  
+</span></span><span class="line"><span class="cl">    - [A-Z]: 从大写A-Z  
+</span></span><span class="line"><span class="cl">    - [z-A]: 错误,   只能从小到大，根据ascii表来匹配大小。
+</span></span><span class="line"><span class="cl">    - [A-z]: 总大写的A到小写的z。
+</span></span><span class="line"><span class="cl">注意: 顺序必须要按照ASCII码数值的顺序编写。
+</span></span><span class="line"><span class="cl">    - [^...]: 表示取反的意思。
+</span></span><span class="line"><span class="cl">    - [^ab]: 代表只去ab以外的字符。
+</span></span><span class="line"><span class="cl">    - [^a-z]: 取a-z以外的字符。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>re 模块较重要的方法:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">re模块三种比较重要的方法:
+</span></span><span class="line"><span class="cl">    - findall()： ----&gt; []
+</span></span><span class="line"><span class="cl">        可以匹配 &#34;所有字符&#34; ，拿到返回的结果，返回的结果是一个列表。
+</span></span><span class="line"><span class="cl">        &#39;awfwaghowiahioawhio&#39;  # a
+</span></span><span class="line"><span class="cl">        [&#39;a&#39;, &#39;a&#39;, &#39;a&#39;, &#39;a&#39;]
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    - search()：----&gt; obj ----&gt; obj.group()
+</span></span><span class="line"><span class="cl">        &#39;awfwaghowiahioawhio&#39;  # a
+</span></span><span class="line"><span class="cl">        在匹配一个字符成功后，拿到结果后结束，不往后匹配。
+</span></span><span class="line"><span class="cl">        &#39;a&#39;
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    - match()：----&gt; obj ----&gt; obj.group()
+</span></span><span class="line"><span class="cl">        &#39;awfwaghowiahioawhio&#39;  # a
+</span></span><span class="line"><span class="cl">        &#39;a&#39;
+</span></span><span class="line"><span class="cl">        &#39;wfwaghowiahioawhio&#39;  # a
+</span></span><span class="line"><span class="cl">         None
+</span></span><span class="line"><span class="cl">        从匹配字符的开头匹配,若开头不是想要的内容，则返回None。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="爬虫四步原理">爬虫四步原理</h2>
+<ul>
+<li>1.发送请求: requests</li>
+<li>2.获取响应数据: 对方机器直接返回的</li>
+<li>3.解析并提取想要的数据: re</li>
+<li>4.保存提取后的数据: with open()</li>
+</ul>
+<h2 id="爬蟲三部曲">爬蟲三部曲:</h2>
+<ul>
+<li>1.发送请求</li>
+<li>2.解析数据</li>
+<li>3.保存数据</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">import requests
+</span></span><span class="line"><span class="cl">import re
+</span></span><span class="line"><span class="cl">import os
+</span></span><span class="line"><span class="cl">my_path = os.path.join(os.path.dirname(__file__),&#34;妹子图&#34;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">if not os.path.exists(my_path):
+</span></span><span class="line"><span class="cl">    os.mkdir(my_path)
+</span></span><span class="line"><span class="cl"># 爬虫的四大步骤
+</span></span><span class="line"><span class="cl">&#34;&#34;&#34;
+</span></span><span class="line"><span class="cl">1 . 发送请求,
+</span></span><span class="line"><span class="cl">2 . 接收返回数据
+</span></span><span class="line"><span class="cl">3 . 数据处理
+</span></span><span class="line"><span class="cl">4 . 数据保存
+</span></span><span class="line"><span class="cl">&#34;&#34;&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#  返回每个类所有的URL
+</span></span><span class="line"><span class="cl">def send_request(url):
+</span></span><span class="line"><span class="cl">    response = requests.get(url)
+</span></span><span class="line"><span class="cl">    data = response.text
+</span></span><span class="line"><span class="cl">    url_data = re.findall(&#39;&lt;div class=&#34;boxa&#34;&gt; &lt;a href=&#34;//(.*?)&#34;&#39;, data, re.S)
+</span></span><span class="line"><span class="cl">    data_url = []
+</span></span><span class="line"><span class="cl">    for i in url_data:
+</span></span><span class="line"><span class="cl">        data_url.append(f&#34;https://{i}&#34;)
+</span></span><span class="line"><span class="cl">    return data_url
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">def send_url(img_url):
+</span></span><span class="line"><span class="cl">    response = requests.get(img_url)
+</span></span><span class="line"><span class="cl">    if response.status_code == 200:
+</span></span><span class="line"><span class="cl">        data = response.text
+</span></span><span class="line"><span class="cl">        url_data = re.findall(&#39;&lt;a href=&#34;//(.*?)@!w1200&#34;.*?data-med=&#39;, data, re.S)
+</span></span><span class="line"><span class="cl">        url_data.pop(0)
+</span></span><span class="line"><span class="cl">    return url_data
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">def save(res, num, url):
+</span></span><span class="line"><span class="cl">    data_img = requests.get(f&#34;http://{url}&#34;)
+</span></span><span class="line"><span class="cl">    with open(f&#39;{my_path}\{res}{num}.jpg&#39;, &#34;wb&#34;)as f:
+</span></span><span class="line"><span class="cl">        f.write(data_img.content)
+</span></span><span class="line"><span class="cl">list1 = [&#34;xinggan&#34;,&#34;qingchun&#34;,&#34;xiaohua&#34;,&#34;chemo&#34;,&#34;qipao&#34;]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">if __name__ == &#39;__main__&#39;:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    while True:
+</span></span><span class="line"><span class="cl">        for num, s in enumerate(list1):
+</span></span><span class="line"><span class="cl">            print(num,s)
+</span></span><span class="line"><span class="cl">        res = input(&#34;请输入要爬取类别序号&gt;&gt;:&#34;).strip()
+</span></span><span class="line"><span class="cl">        res1 = int(res)
+</span></span><span class="line"><span class="cl">        res2 = list1[res1]
+</span></span><span class="line"><span class="cl">        print(&#34;开始爬取&#34;)
+</span></span><span class="line"><span class="cl">        url = f&#34;https://www.plmm.com.cn/{res2}/flow/&#34;
+</span></span><span class="line"><span class="cl">        url_data = send_request(url)
+</span></span><span class="line"><span class="cl">        q = 0
+</span></span><span class="line"><span class="cl">        for i in url_data:
+</span></span><span class="line"><span class="cl">            s = send_url(i)
+</span></span><span class="line"><span class="cl">            for m in s:
+</span></span><span class="line"><span class="cl">                save(res,q, m)
+</span></span><span class="line"><span class="cl">                q +=1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="loging-模块的使用">loging 模块的使用</h2>
+<p>loging 配置模板</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">logging配置</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">import os
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">import logging.config
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"># 定义三种日志输出格式 开始
+</span></span></span><span class="line"><span class="cl"><span class="s2">standard_format = &#39;[</span><span class="si">%(asctime)s</span><span class="s2">][</span><span class="si">%(threadName)s</span><span class="s2">:</span><span class="si">%(thread)d</span><span class="s2">][task_id:</span><span class="si">%(name)s</span><span class="s2">][</span><span class="si">%(filename)s</span><span class="s2">:</span><span class="si">%(lineno)d</span><span class="s2">]&#39; </span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">                  &#39;[</span><span class="si">%(levelname)s</span><span class="s2">][</span><span class="si">%(message)s</span><span class="s2">]&#39; #其中name为getlogger指定的名字
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">simple_format = &#39;[</span><span class="si">%(levelname)s</span><span class="s2">][</span><span class="si">%(asctime)s</span><span class="s2">][</span><span class="si">%(filename)s</span><span class="s2">:</span><span class="si">%(lineno)d</span><span class="s2">]</span><span class="si">%(message)s</span><span class="s2">&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">id_simple_format = &#39;[</span><span class="si">%(levelname)s</span><span class="s2">][</span><span class="si">%(asctime)s</span><span class="s2">] </span><span class="si">%(message)s</span><span class="s2">&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"># 定义日志输出格式 结束
+</span></span></span><span class="line"><span class="cl"><span class="s2"># ****************注意1: log文件的目录
+</span></span></span><span class="line"><span class="cl"><span class="s2">BASE_PATH = os.path.dirname(os.path.dirname(__file__))
+</span></span></span><span class="line"><span class="cl"><span class="s2">logfile_dir = os.path.join(BASE_PATH, &#39;log_dir&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="s2"># print(logfile_dir)
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"># ****************注意2: log文件名
+</span></span></span><span class="line"><span class="cl"><span class="s2">logfile_name = &#39;user.log&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"># 如果不存在定义的日志目录就创建一个
+</span></span></span><span class="line"><span class="cl"><span class="s2">if not os.path.isdir(logfile_dir):
+</span></span></span><span class="line"><span class="cl"><span class="s2">    os.mkdir(logfile_dir)
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"># log文件的全路径
+</span></span></span><span class="line"><span class="cl"><span class="s2">logfile_path = os.path.join(logfile_dir, logfile_name)
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"># ****************注意3: log配置字典
+</span></span></span><span class="line"><span class="cl"><span class="s2">LOGGING_DIC = {
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#39;version&#39;: 1,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#39;disable_existing_loggers&#39;: False,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#39;formatters&#39;: {
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#39;standard&#39;: {
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &#39;format&#39;: standard_format
+</span></span></span><span class="line"><span class="cl"><span class="s2">        },
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#39;simple&#39;: {
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &#39;format&#39;: simple_format
+</span></span></span><span class="line"><span class="cl"><span class="s2">        },
+</span></span></span><span class="line"><span class="cl"><span class="s2">    },
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#39;filters&#39;: </span><span class="si">{}</span><span class="s2">,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#39;handlers&#39;: {
+</span></span></span><span class="line"><span class="cl"><span class="s2">        #打印到终端的日志
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#39;console&#39;: {
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &#39;level&#39;: &#39;DEBUG&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &#39;class&#39;: &#39;logging.StreamHandler&#39;,  # 打印到屏幕
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &#39;formatter&#39;: &#39;simple&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        },
+</span></span></span><span class="line"><span class="cl"><span class="s2">        # 打印到文件的日志,收集info及以上的日志
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#39;default&#39;: {
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &#39;level&#39;: &#39;DEBUG&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &#39;class&#39;: &#39;logging.handlers.RotatingFileHandler&#39;,  # 保存到文件
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &#39;formatter&#39;: &#39;standard&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &#39;filename&#39;: logfile_path,  # 日志文件
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &#39;maxBytes&#39;: 1024*1024*5,  # 日志大小 5M
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &#39;backupCount&#39;: 5,
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &#39;encoding&#39;: &#39;utf-8&#39;,  # 日志文件的编码，再也不用担心中文log乱码了
+</span></span></span><span class="line"><span class="cl"><span class="s2">        },
+</span></span></span><span class="line"><span class="cl"><span class="s2">    },
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#39;loggers&#39;: {
+</span></span></span><span class="line"><span class="cl"><span class="s2">        #logging.getLogger(__name__)拿到的logger配置
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#39;&#39;: {
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &#39;handlers&#39;: [&#39;default&#39;, &#39;console&#39;],  # 这里把上面定义的两个handler都加上，即log数据既写入文件又打印到屏幕
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &#39;level&#39;: &#39;DEBUG&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &#39;propagate&#39;: True,  # 向上（更高level的logger）传递
+</span></span></span><span class="line"><span class="cl"><span class="s2">        },
+</span></span></span><span class="line"><span class="cl"><span class="s2">    },
+</span></span></span><span class="line"><span class="cl"><span class="s2">}
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">def get_logger(user_type):
+</span></span><span class="line"><span class="cl">    # 1.加载log配置字典到logging模块的配置中
+</span></span><span class="line"><span class="cl">    logging.config.dictConfig(LOGGING_DIC)
+</span></span><span class="line"><span class="cl">    # 2.获取日志对象
+</span></span><span class="line"><span class="cl">    logger = logging.getLogger(user_type)
+</span></span><span class="line"><span class="cl">    return logger
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">logger = get_logger(&#39;user&#39;)
+</span></span><span class="line"><span class="cl">logger.info(&#39;学习不要浮躁，一步一个脚印!&#39;)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以上记牢即可</p>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2023-11-14 16:29:52">更新于 2023-11-14&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/posts/python-16-%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.qilitang.top/posts/python-16-%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/" data-title="python 常用模块" data-hashtags="常用模块,爬虫"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.qilitang.top/posts/python-16-%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/" data-hashtag="常用模块"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.qilitang.top/posts/python-16-%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/" data-title="python 常用模块"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/' class="post-tag">常用模块</a><a href='/tags/%E7%88%AC%E8%99%AB/' class="post-tag">爬虫</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/python-15-%E5%8C%85%E4%B8%8E%E6%A8%A1%E5%9D%97/" class="post-nav-item" rel="prev" title="python 包与模块"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>python 包与模块</a>
+      <a href="/posts/python-17-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" class="post-nav-item" rel="next" title="python 面向对象">python 面向对象<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/qilitang"target="_blank" rel="external nofollow noopener noreferrer">Qilitang</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":15},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>

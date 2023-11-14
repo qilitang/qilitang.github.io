@@ -1,0 +1,56 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>面向对象 - 标签 - </title>
+    <link>https://www.qilitang.top/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
+    <description>面向对象 - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Thu, 02 Mar 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="self" type="application/rss+xml" /><item>
+  <title>python 面向对象高级</title>
+  <link>https://www.qilitang.top/posts/python-22-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E9%AB%98%E7%BA%A7/</link>
+  <pubDate>Thu, 02 Mar 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-22-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E9%AB%98%E7%BA%A7/</guid>
+  <description><![CDATA[一 isinstance(obj,cls)和issubclass(sub,super) isinstance(obj,cls)检查是否obj是否是类 cls 的对象 1 2 3 4 5 6 1 class Foo(object): 2 pass 3 4 obj = Foo() 5 6 isinstance(obj, Foo) issubclass(sub, super)检查sub类是否是 super 类的派生类 1 2 3 4 5 6 7 1 class Foo(object): 2 pass 3 4 class Bar(Foo): 5 pass 6 7 issubclass(Bar, Foo) 二 反射 1 什么是反射 反]]></description>
+</item>
+<item>
+  <title>python 反射及内置方法</title>
+  <link>https://www.qilitang.top/posts/python-21-%E5%8F%8D%E5%B0%84%E5%8F%8A%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95/</link>
+  <pubDate>Wed, 01 Mar 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-21-%E5%8F%8D%E5%B0%84%E5%8F%8A%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95/</guid>
+  <description><![CDATA[一 反射 在Python中，反射指的是通过字符串来操作对象的属性，涉及到四个内置函数的使用（Python中一切皆对象，类和对象都可以用下述四个方法） 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 class Teacher: def __init__(self,full_name): self.full_name =full_name t=Teacher(&#39;Egon Lin&#39;) # hasattr(object,&#39;name&#39;) hasattr(t,&#39;full_name&#39;) # 按字符串&#39;full_name&#39;判断有无属性t.full_name # getattr(object, &#39;name&#39;, default=None) getattr(t,&#39;full_name&#39;,None) # 等同于]]></description>
+</item>
+<item>
+  <title>python 面向对象之 绑定方法与非绑定方法</title>
+  <link>https://www.qilitang.top/posts/python-20-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B-%E7%BB%91%E5%AE%9A%E6%96%B9%E6%B3%95%E4%B8%8E%E9%9D%9E%E7%BB%91%E5%AE%9A%E6%96%B9%E6%B3%95/</link>
+  <pubDate>Tue, 28 Feb 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-20-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B-%E7%BB%91%E5%AE%9A%E6%96%B9%E6%B3%95%E4%B8%8E%E9%9D%9E%E7%BB%91%E5%AE%9A%E6%96%B9%E6%B3%95/</guid>
+  <description><![CDATA[一 绑定方法 类中定义的函数分为两大类：绑定方法和非绑定方法 其中绑定方法又分为绑定到对象的对象方法和绑定到类的类方法。 在类中正常定义的函数默认是绑定到对象的，而为某个函数加上装饰器@classmethod后，该函数就绑定到了类。 类方法通常用来在__init__的基础上提供额外的初始化实例的方式 1 2 3 4 5]]></description>
+</item>
+<item>
+  <title>python 面向对象之 继承</title>
+  <link>https://www.qilitang.top/posts/python-19-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B-%E7%BB%A7%E6%89%BF/</link>
+  <pubDate>Mon, 27 Feb 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-19-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B-%E7%BB%A7%E6%89%BF/</guid>
+  <description><![CDATA[继承的定义 继承是创建新类的一种方式, 这种方式解决了 代码冗余的问题. 在python中, 子类可以继承多个父类. 父类又称之为 &ldquo;基类&rdquo; 或 &ldquo;超类&rdquo; 在其他语言中, 子类只能继承一个父类. 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 # 父类1 class Father1: pass # 父类2 class Father2: pass # 子类-- 单继]]></description>
+</item>
+<item>
+  <title>python 面向对象之 封装</title>
+  <link>https://www.qilitang.top/posts/python-18-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B-%E5%B0%81%E8%A3%85/</link>
+  <pubDate>Fri, 24 Feb 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-18-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B-%E5%B0%81%E8%A3%85/</guid>
+  <description><![CDATA[组合 什么是组合? 在一个类中, 以另外一个类的对象作为数据属性, 称之为组合 组合有什么用? 组合与继承都是用来解决代码的重用性问题 继承是一种&quot;是&quot;的关系. 例如, 老师是人, 学生也是人 都有, 名字, 年龄 性别 组合是一种 &ldquo;有&rdquo; 的关系, 怎么用组合? 看下面代码 1 2 3 4 5 6 7 8 9]]></description>
+</item>
+<item>
+  <title>python 面向对象</title>
+  <link>https://www.qilitang.top/posts/python-17-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/</link>
+  <pubDate>Thu, 23 Feb 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-17-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/</guid>
+  <description><![CDATA[面向对象编程 我们以前已经学了面向过程编程思想. 那什么是面向对象编程呢? 首先我们要搞明白 什么是对象, 然后才能去了解什么是面向对象编程. 对象的概念 面向对象的核心是 &ldquo;对象&rdquo; 二字, 而对象的精髓在于 &ldquo;整合&rdquo;, 即 对象是 &ldquo;特征与技能&quot;的结合体.]]></description>
+</item>
+</channel>
+</rss>

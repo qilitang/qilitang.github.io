@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>列表生成式 - 标签 - </title>
+    <link>https://www.qilitang.top/tags/%E5%88%97%E8%A1%A8%E7%94%9F%E6%88%90%E5%BC%8F/</link>
+    <description>列表生成式 - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Sun, 12 Feb 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/%E5%88%97%E8%A1%A8%E7%94%9F%E6%88%90%E5%BC%8F/" rel="self" type="application/rss+xml" /><item>
+  <title>python 面向过程编程, 三元表达式, 列表生成式, 匿名函数</title>
+  <link>https://www.qilitang.top/posts/python-13-%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%E5%8F%98%E6%88%90-%E4%B8%89%E5%85%83%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%88%97%E8%A1%A8%E7%94%9F%E6%88%90%E5%BC%8F-%E7%94%9F%E6%88%90%E5%BC%8F%E7%94%9F%E6%88%90%E5%BC%8F-%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0/</link>
+  <pubDate>Sun, 12 Feb 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-13-%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%E5%8F%98%E6%88%90-%E4%B8%89%E5%85%83%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%88%97%E8%A1%A8%E7%94%9F%E6%88%90%E5%BC%8F-%E7%94%9F%E6%88%90%E5%BC%8F%E7%94%9F%E6%88%90%E5%BC%8F-%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0/</guid>
+  <description><![CDATA[面向过程编程 面向过程编程是一门编程思想。 面向 过程 编程: 核心是 &lsquo;过程&rsquo; 二字，过程 指的是一种解决问题的步骤，即先干什么再干什么 基于该编程思想编写程序，就好比在设计一条工厂流水线，一种机械式的思维方式。 优点: 将复杂的问题流程化，进而简单化 缺点: -若修改当前程序设计的某一部分，会导致]]></description>
+</item>
+</channel>
+</rss>

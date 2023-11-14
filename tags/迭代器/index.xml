@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>迭代器 - 标签 - </title>
+    <link>https://www.qilitang.top/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/</link>
+    <description>迭代器 - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Sat, 11 Feb 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/" rel="self" type="application/rss+xml" /><item>
+  <title>python 迭代器</title>
+  <link>https://www.qilitang.top/posts/python-11-%E8%BF%AD%E4%BB%A3%E5%99%A8/</link>
+  <pubDate>Sat, 11 Feb 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-11-%E8%BF%AD%E4%BB%A3%E5%99%A8/</guid>
+  <description><![CDATA[什么是迭代器? 迭代器就是用来迭代取值的工具. 迭代 迭代是重复反馈过程的活动, 其目的是为了逼近所需目标或结果, 每一次对过程的重复称之为一次&quot;迭代&quot;, 而每一次迭代得到的结果会作为下一次迭代的初始值, 单纯的重复不是迭代. 示例1- 非迭代 1 2 3 msg = 1 while True: print(msg) 示例2 迭代 1 2 3 4 5 msg = &#34;w shi ni baba&#34; index= 0]]></description>
+</item>
+</channel>
+</rss>

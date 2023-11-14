@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>反射 - 标签 - </title>
+    <link>https://www.qilitang.top/tags/%E5%8F%8D%E5%B0%84/</link>
+    <description>反射 - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Wed, 01 Mar 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/%E5%8F%8D%E5%B0%84/" rel="self" type="application/rss+xml" /><item>
+  <title>python 反射及内置方法</title>
+  <link>https://www.qilitang.top/posts/python-21-%E5%8F%8D%E5%B0%84%E5%8F%8A%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95/</link>
+  <pubDate>Wed, 01 Mar 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-21-%E5%8F%8D%E5%B0%84%E5%8F%8A%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95/</guid>
+  <description><![CDATA[一 反射 在Python中，反射指的是通过字符串来操作对象的属性，涉及到四个内置函数的使用（Python中一切皆对象，类和对象都可以用下述四个方法） 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 class Teacher: def __init__(self,full_name): self.full_name =full_name t=Teacher(&#39;Egon Lin&#39;) # hasattr(object,&#39;name&#39;) hasattr(t,&#39;full_name&#39;) # 按字符串&#39;full_name&#39;判断有无属性t.full_name # getattr(object, &#39;name&#39;, default=None) getattr(t,&#39;full_name&#39;,None) # 等同于]]></description>
+</item>
+</channel>
+</rss>

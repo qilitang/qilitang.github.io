@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Go 指针/结构体/方法 - </title><meta name="author" content="Qilitang">
+<meta name="author-link" content="https://github.com/qilitang">
+<meta name="description" content="指针 1、定义指针 1 2 // 指向int类型的指针（指向什么类型指针，就是在什么类型前加星号） var a *int 2、指针的零值 1 fmt.Println(a) //nil 3、使用指针 1 2 3 4 5 var a *int var b int=100 // a指针指向b （取谁的地址，就是在谁前面加一个&amp;） a=&amp;b fmt.Println(a) // 0xc0000b4008 4、了解（骚操作） 1 2 3 4 5 var a *int var b **int= &amp;a var c ***int= &amp;b var d ****int =&amp;c fmt.Println(d) 5、 解引用 （把指针反解成值）" /><meta name="keywords" content='golang, 指针' /><meta itemprop="name" content="Go 指针/结构体/方法">
+<meta itemprop="description" content="指针 1、定义指针 1 2 // 指向int类型的指针（指向什么类型指针，就是在什么类型前加星号） var a *int 2、指针的零值 1 fmt.Println(a) //nil 3、使用指针 1 2 3 4 5 var a *int var b int=100 // a指针指向b （取谁的地址，就是在谁前面加一个&amp;） a=&amp;b fmt.Println(a) // 0xc0000b4008 4、了解（骚操作） 1 2 3 4 5 var a *int var b **int= &amp;a var c ***int= &amp;b var d ****int =&amp;c fmt.Println(d) 5、 解引用 （把指针反解成值）"><meta itemprop="datePublished" content="2020-01-08T17:06:11+08:00" />
+<meta itemprop="dateModified" content="2023-11-14T16:18:58+08:00" />
+<meta itemprop="wordCount" content="2934">
+<meta itemprop="keywords" content="golang,指针," /><meta property="og:title" content="Go 指针/结构体/方法" />
+<meta property="og:description" content="指针 1、定义指针 1 2 // 指向int类型的指针（指向什么类型指针，就是在什么类型前加星号） var a *int 2、指针的零值 1 fmt.Println(a) //nil 3、使用指针 1 2 3 4 5 var a *int var b int=100 // a指针指向b （取谁的地址，就是在谁前面加一个&amp;） a=&amp;b fmt.Println(a) // 0xc0000b4008 4、了解（骚操作） 1 2 3 4 5 var a *int var b **int= &amp;a var c ***int= &amp;b var d ****int =&amp;c fmt.Println(d) 5、 解引用 （把指针反解成值）" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.qilitang.top/posts/go-08-%E6%8C%87%E9%92%88-%E7%BB%93%E6%9E%84%E4%BD%93/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-01-08T17:06:11+08:00" />
+<meta property="article:modified_time" content="2023-11-14T16:18:58+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go 指针/结构体/方法"/>
+<meta name="twitter:description" content="指针 1、定义指针 1 2 // 指向int类型的指针（指向什么类型指针，就是在什么类型前加星号） var a *int 2、指针的零值 1 fmt.Println(a) //nil 3、使用指针 1 2 3 4 5 var a *int var b int=100 // a指针指向b （取谁的地址，就是在谁前面加一个&amp;） a=&amp;b fmt.Println(a) // 0xc0000b4008 4、了解（骚操作） 1 2 3 4 5 var a *int var b **int= &amp;a var c ***int= &amp;b var d ****int =&amp;c fmt.Println(d) 5、 解引用 （把指针反解成值）"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://www.qilitang.top/posts/go-08-%E6%8C%87%E9%92%88-%E7%BB%93%E6%9E%84%E4%BD%93/" /><link rel="prev" href="https://www.qilitang.top/posts/go-07-%E6%95%B0%E7%BB%84%E5%88%87%E7%89%87/" /><link rel="next" href="https://www.qilitang.top/posts/go-09-%E6%8E%A5%E5%8F%A3/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Go 指针/结构体/方法",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/www.qilitang.top\/posts\/go-08-%E6%8C%87%E9%92%88-%E7%BB%93%E6%9E%84%E4%BD%93\/"
+    },"genre": "posts","keywords": "golang, 指针","wordcount":  2934 ,
+    "url": "https:\/\/www.qilitang.top\/posts\/go-08-%E6%8C%87%E9%92%88-%E7%BB%93%E6%9E%84%E4%BD%93\/","datePublished": "2020-01-08T17:06:11+08:00","dateModified": "2023-11-14T16:18:58+08:00","publisher": {
+      "@type": "Organization",
+      "name": "","logo": "https:\/\/www.qilitang.top\/favicon.ico"},"author": {
+        "@type": "Person",
+        "name": "Qilitang"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Go 指针/结构体/方法</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img loading="lazy" src="/avatar/avatar.jpg" srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x" sizes="auto" data-title="Qilitang" data-alt="Qilitang" class="avatar" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>&nbsp;Qilitang</a></span>
+          <span class="post-category">收录于 <a href="/categories/go/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> GO</a></span></div>
+      <div class="post-meta-line"><span title="发布于 2020-01-08 17:06:11"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2020-01-08">2020-01-08</time></span>&nbsp;<span title="更新于 2023-11-14 16:18:58"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2023-11-14">2023-11-14</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 2934 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 6 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#指针">指针</a>
+      <ul>
+        <li><a href="#1定义指针">1、定义指针</a></li>
+        <li><a href="#2指针的零值">2、指针的零值</a></li>
+        <li><a href="#3使用指针">3、使用指针</a></li>
+        <li><a href="#4了解骚操作">4、了解（骚操作）</a></li>
+        <li><a href="#5-解引用-把指针反解成值在指针变量前加表示解引用">5、 解引用 （把指针反解成值）（在指针变量前加*，表示解引用）</a></li>
+        <li><a href="#6-向函数传递指针参数">6、 向函数传递指针参数</a></li>
+        <li><a href="#7不要向函数传递数组指针-而应该使用切片">7、不要向函数传递数组指针， 而应该使用切片</a></li>
+        <li><a href="#8go-不支持指针运算在c中可以通过数组指针的运算进行取值">8、go 不支持指针运算(在c中可以通过数组指针的运算进行取值)</a></li>
+        <li><a href="#9-指针数组和数组指针">9、 指针数组和数组指针</a></li>
+      </ul>
+    </li>
+    <li><a href="#结构体">结构体</a>
+      <ul>
+        <li><a href="#1-什么是结构体">1、 什么是结构体</a></li>
+        <li><a href="#2-定义一个结构体">2、 定义一个结构体</a></li>
+        <li><a href="#3使用结构体">3、使用结构体</a></li>
+        <li><a href="#4-定义并初始化">4、 定义并初始化</a></li>
+        <li><a href="#5-使用结构体">5、 使用结构体</a></li>
+        <li><a href="#6-匿名结构体没有名字没有type关键字定义在函数内部">6、 匿名结构体（没有名字,没有type关键字，定义在函数内部）</a></li>
+        <li><a href="#7结构体的指针结构体是值类型">7、结构体的指针（结构体是值类型）</a></li>
+        <li><a href="#8-匿名字段字段没有名字不允许有多个同类型的字段">8、 匿名字段（字段没有名字,不允许有多个同类型的字段）</a></li>
+        <li><a href="#9嵌套结构体结构体套结构体">9、嵌套结构体（结构体套结构体）</a></li>
+        <li><a href="#10-提升字段">10、 提升字段</a></li>
+      </ul>
+    </li>
+    <li><a href="#方法">方法</a>
+      <ul>
+        <li><a href="#1-什么是方法">1、 什么是方法</a></li>
+        <li><a href="#2方法的定义">2、方法的定义</a></li>
+        <li><a href="#3-为什么要有结构体的绑定方法">3、 为什么要有结构体的绑定方法</a></li>
+        <li><a href="#4值接收器和指针接收器">4、值接收器和指针接收器</a></li>
+        <li><a href="#5值接收器和指针接收器的应用场景">5、值接收器和指针接收器的应用场景</a></li>
+        <li><a href="#6匿名字段的方法重点">6、匿名字段的方法（重点）</a></li>
+        <li><a href="#7在方法中使用值接收器-与-在函数中使用值参数">7、在方法中使用值接收器 与 在函数中使用值参数</a></li>
+        <li><a href="#8在方法中使用指针接收器-与-在函数中使用指针参数">8、在方法中使用指针接收器 与 在函数中使用指针参数</a></li>
+        <li><a href="#9在非结构体上的方法">9、在非结构体上的方法</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h2 id="指针">指针</h2>
+<h3 id="1定义指针">1、定义指针</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 指向int类型的指针（指向什么类型指针，就是在什么类型前加星号）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">a</span> <span class="o">*</span><span class="kt">int</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2指针的零值">2、指针的零值</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="c1">//nil
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3使用指针">3、使用指针</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="o">*</span><span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">=</span><span class="mi">100</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// a指针指向b  （取谁的地址，就是在谁前面加一个&amp;）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">a</span><span class="p">=</span><span class="o">&amp;</span><span class="nx">b</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>  <span class="c1">// 0xc0000b4008
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4了解骚操作">4、了解（骚操作）</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="o">*</span><span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">b</span> <span class="o">**</span><span class="kt">int</span><span class="p">=</span> <span class="o">&amp;</span><span class="nx">a</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">c</span> <span class="o">***</span><span class="kt">int</span><span class="p">=</span> <span class="o">&amp;</span><span class="nx">b</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">d</span> <span class="o">****</span><span class="kt">int</span> <span class="p">=</span><span class="o">&amp;</span><span class="nx">c</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="5-解引用-把指针反解成值在指针变量前加表示解引用">5、 解引用 （把指针反解成值）（在指针变量前加*，表示解引用）</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-GO" data-lang="GO"><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">*</span><span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">***</span><span class="nx">d</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="6-向函数传递指针参数">6、 向函数传递指针参数</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="kt">int</span> <span class="p">=</span><span class="mi">100</span>
+</span></span><span class="line"><span class="cl"><span class="c1">////在函数中把a的值改成101
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">test2</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">test2</span><span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="kt">int</span><span class="p">)</span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//解引用然后，自增1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//*a++
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">*</span><span class="nx">a</span><span class="p">=</span><span class="o">*</span><span class="nx">a</span><span class="o">+</span><span class="mi">100</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">*</span><span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="7不要向函数传递数组指针-而应该使用切片">7、不要向函数传递数组指针， 而应该使用切片</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">int</span>  <span class="p">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//test3(&amp;a)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">test4</span><span class="p">(</span><span class="nx">a</span><span class="p">[:])</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="8go-不支持指针运算在c中可以通过数组指针的运算进行取值">8、go 不支持指针运算(在c中可以通过数组指针的运算进行取值)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">=</span><span class="mi">100</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="o">*</span><span class="kt">int</span><span class="p">=</span><span class="o">&amp;</span><span class="nx">b</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//a++
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="9-指针数组和数组指针">9、 指针数组和数组指针</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 指针数组 --&gt; 数组里面放指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">a</span> <span class="kt">int</span> <span class="p">=</span><span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">b</span> <span class="kt">int</span> <span class="p">=</span><span class="mi">20</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">c</span> <span class="kt">int</span> <span class="p">=</span><span class="mi">30</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">d</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="kt">int</span><span class="p">=[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="kt">int</span><span class="p">{</span><span class="o">&amp;</span><span class="nx">a</span><span class="p">,</span><span class="o">&amp;</span><span class="nx">b</span><span class="p">,</span><span class="o">&amp;</span><span class="nx">c</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 数组指针  --&gt; 指针数组指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">a</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="kt">int</span><span class="p">=[</span><span class="mi">3</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">b</span> <span class="o">*</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="kt">int</span><span class="p">=</span><span class="o">&amp;</span><span class="nx">a</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="结构体">结构体</h2>
+<h3 id="1-什么是结构体">1、 什么是结构体</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//结构体,go语言中的面向对象
+</span></span></span><span class="line"><span class="cl"><span class="c1">//结构体是用户定义的类型,表示若干个字段（Field）的集合
+</span></span></span><span class="line"><span class="cl"><span class="c1">//类比面向对象中的类，只有属性，没有方法
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-定义一个结构体">2、 定义一个结构体</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// type关键字 结构体名字 struct关键字 {一个一个的字段}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">age</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">sex</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3使用结构体">3、使用结构体</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//（结构体的零值，是属性的零值)不是nil，它不是引用类型，是值类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">a</span> <span class="nx">Person</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4-定义并初始化">4、 定义并初始化</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">a</span> <span class="nx">Person</span><span class="p">=</span><span class="nx">Person</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">a</span> <span class="nx">Person</span><span class="p">=</span><span class="nx">Person</span><span class="p">{</span><span class="nx">name</span><span class="p">:</span><span class="s">&#34;lqz&#34;</span><span class="p">,</span><span class="nx">age</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="nx">sex</span><span class="p">:</span><span class="s">&#34;男&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 3
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">a</span> <span class="p">=</span><span class="nx">Person</span><span class="p">{</span><span class="nx">name</span><span class="p">:</span><span class="s">&#34;lqz&#34;</span><span class="p">,</span><span class="nx">age</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="nx">sex</span><span class="p">:</span><span class="s">&#34;男&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 4
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">a</span> <span class="o">:=</span><span class="nx">Person</span><span class="p">{</span><span class="nx">name</span><span class="p">:</span><span class="s">&#34;lqz&#34;</span><span class="p">,</span><span class="nx">age</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="nx">sex</span><span class="p">:</span><span class="s">&#34;男&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 5
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">a</span> <span class="o">:=</span><span class="nx">Person</span><span class="p">{</span><span class="nx">sex</span><span class="p">:</span><span class="s">&#34;男&#34;</span><span class="p">,</span><span class="nx">name</span><span class="p">:</span><span class="s">&#34;lqz&#34;</span><span class="p">,</span><span class="nx">age</span><span class="p">:</span><span class="mi">19</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 6 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">a</span> <span class="o">:=</span><span class="nx">Person</span><span class="p">{</span><span class="nx">sex</span><span class="p">:</span><span class="s">&#34;男&#34;</span><span class="p">,</span><span class="nx">name</span><span class="p">:</span><span class="s">&#34;lqz&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//按位置初始化(固定位置，并且都传)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">a</span> <span class="o">:=</span><span class="nx">Person</span><span class="p">{</span><span class="s">&#34;lqz&#34;</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="s">&#34;男&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="5-使用结构体">5、 使用结构体</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="nx">Person</span><span class="p">=</span><span class="nx">Person</span><span class="p">{</span><span class="nx">name</span><span class="p">:</span><span class="s">&#34;zhang&#34;</span><span class="p">,</span><span class="nx">age</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="nx">sex</span><span class="p">:</span><span class="s">&#34;男&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">a</span><span class="p">.</span><span class="nx">name</span><span class="p">=</span><span class="s">&#34;wang&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="6-匿名结构体没有名字没有type关键字定义在函数内部">6、 匿名结构体（没有名字,没有type关键字，定义在函数内部）</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//什么情况下用？只使用一次，数据整合在一起
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">a</span><span class="o">:=</span><span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">age</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">sex</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}{</span><span class="s">&#34;lqz&#34;</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="s">&#34;男&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="7结构体的指针结构体是值类型">7、结构体的指针（结构体是值类型）</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="o">*</span><span class="nx">Person</span><span class="p">=</span><span class="o">&amp;</span><span class="nx">Person</span><span class="p">{</span><span class="s">&#34;zhang&#34;</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="s">&#34;男&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//Go 语言允许我们在访问 字段时，可以使用 emp8.firstName 来代替显式的解引用 (*emp8).firstName
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">((</span><span class="o">*</span><span class="nx">a</span><span class="p">).</span><span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="8-匿名字段字段没有名字不允许有多个同类型的字段">8、 匿名字段（字段没有名字,不允许有多个同类型的字段）</h3>
+<p><strong>有什么用？用来做字段提升，面向对象中的继承</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	 <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	 <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//按位置实例化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">a</span><span class="o">:=</span><span class="nx">Person</span><span class="p">{</span><span class="s">&#34;zhang&#34;</span><span class="p">,</span><span class="mi">19</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//按关键字实例化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">a</span><span class="o">:=</span><span class="nx">Person</span><span class="p">{</span><span class="kt">int</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="kt">string</span><span class="p">:</span><span class="s">&#34;zhang&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="kt">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="kt">int</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="9嵌套结构体结构体套结构体">9、嵌套结构体（结构体套结构体）</h3>
+<p><strong>不管是结构体名字还是字段名字，大写字母开头，表示导出字段，表示在外部包可以使用</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//面向对象封装（python __）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Age</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Sex</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">hobby</span> <span class="nx">Hobby</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Hobby</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">HobbyId</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">HobbyName</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="10-提升字段">10、 提升字段</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Age</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Sex</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Hobby</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Hobby</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">HobbyId</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">HobbyName</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 此处就相当于是python中 类的继承， 求中 Hobby 是父类  Person 是子类
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 提升字段可以直接在Person 结构体的实例中以点的方式进行访问
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>11、字段冲突</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Age</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Sex</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Hobby</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Hobby</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">HobbyId</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 当父结构体（父类）Hobby 中有Name  Person中也有Name  当进行实例化的时候， 优先访问的是子结构体Person中的name  这也是子类重写父类的属性。
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="方法">方法</h2>
+<p>结构体+方法就是实现面向对象中的类</p>
+<h3 id="1-什么是方法">1、 什么是方法</h3>
+<p>方法其实就是一个函数，在 func 这个关键字和方法名中间加入了一个特殊的接收器类型。接收器可以是结构体类型或者是非结构体类型。接收器是可以在方法的内部访问的</p>
+<ul>
+<li>
+<p>python中什么是方法， 什么是函数？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">1、 方法是面向对象中的概念，对象绑定方法，类的绑定方法，可以自动传值，
+</span></span></span><span class="line"><span class="cl"><span class="s2">2、 类中不加任何装饰器定义的函数，是对象的绑定方法，对象来调用，可以自动传值，类也可以来掉，如果类来调用，他就是普通函数，有几个值就传几个值
+</span></span></span><span class="line"><span class="cl"><span class="s2">3、 类的绑定方法，类来调用，会把类自动传入
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h3 id="2方法的定义">2、方法的定义</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//定义一个结构体
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">age</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">sex</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//给结构体绑定方法(无参数)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="nx">Person1</span><span class="p">)</span><span class="nf">PrintName</span><span class="p">()</span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 绑定一个修改名字的方法(有参数)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="nx">Person1</span><span class="p">)</span><span class="nf">ChangeName</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">=</span><span class="nx">name</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;--------&#34;</span><span class="p">,</span><span class="nx">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//普通函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">PrintName</span><span class="p">(</span><span class="nx">p</span> <span class="nx">Person1</span><span class="p">)</span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">p</span><span class="o">:=</span><span class="nx">Person1</span><span class="p">{</span><span class="s">&#34;zhang&#34;</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="s">&#34;男&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">p</span><span class="p">.</span><span class="nf">PrintName</span><span class="p">()</span> <span class="c1">// zhang
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-为什么要有结构体的绑定方法">3、 为什么要有结构体的绑定方法</h3>
+<p><a href="https://golang.org/doc/faq#Is_Go_an_object-oriented_language"target="_blank" rel="external nofollow noopener noreferrer">Go 不是纯粹的面向对象编程语言</a>，而且Go不支持类。因此，基于类型的方法是一种实现和类相似行为的途径。</p>
+<p>相同的名字的方法可以定义在不同的类型上，而相同名字的函数是不被允许的。假设我们有一个 <code>Square</code> 和 <code>Circle</code> 结构体。可以在 <code>Square</code> 和 <code>Circle</code> 上分别定义一个 <code>Area</code> 方法。见下面的程序。</p>
+<h3 id="4值接收器和指针接收器">4、值接收器和指针接收器</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//指针类型接收器，修改age的方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Person1</span><span class="p">)</span><span class="nf">ChangeAge</span><span class="p">(</span><span class="nx">age</span> <span class="kt">int</span><span class="p">)</span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">.</span><span class="nx">age</span><span class="p">=</span><span class="nx">age</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//(*p).age=age   //正常操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;--------&#34;</span><span class="p">,</span><span class="nx">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">p</span><span class="o">:=</span><span class="nx">Person1</span><span class="p">{</span><span class="s">&#34;zhang&#34;</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="s">&#34;男&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">p</span><span class="p">.</span><span class="nf">ChangeName</span><span class="p">(</span><span class="s">&#34;wang&#34;</span><span class="p">)</span>  <span class="c1">// 值接收器，改新的，不会影响原来的，不会影响当前的p对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 调用指针类型接收器的方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">p</span><span class="p">.</span><span class="nf">ChangeAge</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>  <span class="c1">//指针类型接收器，会影响原来的，会影响当前的p对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="5值接收器和指针接收器的应用场景">5、值接收器和指针接收器的应用场景</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">//用指针接收器的情况
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//1 方法内部的改变，影响调用者
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//2 当拷贝一个结构体的代价过于昂贵时 ,就用指针接收器
+</span></span></span><span class="line"><span class="cl"><span class="c1">//其他情况，值接收器和指针接收器都可以
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="6匿名字段的方法重点">6、匿名字段的方法（重点）</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">p</span><span class="o">:=</span><span class="nx">Person1</span><span class="p">{</span><span class="s">&#34;wang&#34;</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="s">&#34;男&#34;</span><span class="p">,</span><span class="nx">Hobby1</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="s">&#34;篮球&#34;</span><span class="p">}}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//匿名字段，属性可以提升
+</span></span></span><span class="line"><span class="cl"><span class="c1">//匿名字段，方法也提升
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">p</span><span class="p">.</span><span class="nf">printName</span><span class="p">()</span>  <span class="c1">// 也提升了  子类对象调用父类中的方法，子类中没有，就是调用父类的--》 对象.方法名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">p</span><span class="p">.</span><span class="nx">Hobby1</span><span class="p">.</span><span class="nf">printName</span><span class="p">()</span> <span class="c1">// 正常操作 直接指名道姓的调用父类中的方法---》 super().方法名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 子类中重写了父类的方法（嵌套结构体中有重名的方法）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">p</span><span class="p">.</span><span class="nf">printName</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="7在方法中使用值接收器-与-在函数中使用值参数">7、在方法中使用值接收器 与 在函数中使用值参数</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Person1</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">age</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">sex</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//方法中使用值接收器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="nx">Person1</span><span class="p">)</span><span class="nf">printName</span><span class="p">()</span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">p</span><span class="o">:=</span><span class="nx">Person1</span><span class="p">{</span><span class="s">&#34;zhang&#34;</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="s">&#34;男&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">p</span><span class="p">.</span><span class="nf">printName</span><span class="p">()</span>    <span class="c1">// zhang
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">printName</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//在函数中使用值参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">printName</span><span class="p">(</span><span class="nx">p</span> <span class="nx">Person1</span><span class="p">)</span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="8在方法中使用指针接收器-与-在函数中使用指针参数">8、在方法中使用指针接收器 与 在函数中使用指针参数</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Person1</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">age</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">sex</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//在方法中使用指针接收器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Person1</span><span class="p">)</span><span class="nf">printName</span><span class="p">()</span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//在函数中使用指针参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">printName</span><span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Person1</span><span class="p">)</span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>  <span class="c1">// printName(&amp;a) 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="9在非结构体上的方法">9、在非结构体上的方法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 给数据类型加方法
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 错误方式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span><span class="nf">add</span><span class="p">()</span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">i</span><span class="p">=</span><span class="nx">i</span><span class="o">+</span><span class="nx">i</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 自己定义类型， 可以绑定方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">myInt</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">myInt</span><span class="p">)</span><span class="nf">add</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="o">*</span><span class="nx">i</span><span class="p">)</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">*</span><span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">i</span><span class="o">:=</span><span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="nx">i</span><span class="p">.</span><span class="nf">add</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>[toc]</p>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2023-11-14 16:18:58">更新于 2023-11-14&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/posts/go-08-%E6%8C%87%E9%92%88-%E7%BB%93%E6%9E%84%E4%BD%93/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.qilitang.top/posts/go-08-%E6%8C%87%E9%92%88-%E7%BB%93%E6%9E%84%E4%BD%93/" data-title="Go 指针/结构体/方法" data-hashtags="golang,指针"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.qilitang.top/posts/go-08-%E6%8C%87%E9%92%88-%E7%BB%93%E6%9E%84%E4%BD%93/" data-hashtag="golang"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.qilitang.top/posts/go-08-%E6%8C%87%E9%92%88-%E7%BB%93%E6%9E%84%E4%BD%93/" data-title="Go 指针/结构体/方法"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/golang/' class="post-tag">golang</a><a href='/tags/%E6%8C%87%E9%92%88/' class="post-tag">指针</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/go-07-%E6%95%B0%E7%BB%84%E5%88%87%E7%89%87/" class="post-nav-item" rel="prev" title="Go 数组/切片/map"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Go 数组/切片/map</a>
+      <a href="/posts/go-09-%E6%8E%A5%E5%8F%A3/" class="post-nav-item" rel="next" title="Go 接口 协程 信道 异常处理">Go 接口 协程 信道 异常处理<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/qilitang"target="_blank" rel="external nofollow noopener noreferrer">Qilitang</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":15},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>

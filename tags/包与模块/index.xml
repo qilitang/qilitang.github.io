@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>包与模块 - 标签 - </title>
+    <link>https://www.qilitang.top/tags/%E5%8C%85%E4%B8%8E%E6%A8%A1%E5%9D%97/</link>
+    <description>包与模块 - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Thu, 16 Feb 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/%E5%8C%85%E4%B8%8E%E6%A8%A1%E5%9D%97/" rel="self" type="application/rss+xml" /><item>
+  <title>python 包与模块</title>
+  <link>https://www.qilitang.top/posts/python-15-%E5%8C%85%E4%B8%8E%E6%A8%A1%E5%9D%97/</link>
+  <pubDate>Thu, 16 Feb 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-15-%E5%8C%85%E4%B8%8E%E6%A8%A1%E5%9D%97/</guid>
+  <description><![CDATA[什么是包? 包指的是内部包含__init__.py的文件夹。 包的作用: 存放模块，包可以更好的管理模块。 一 什么是模块？ 模块是一系列功能的结合体。 相当于与模块包着一堆函数与代码。 模块本质上是一个个的.py文件。 模块的三种来源: 1.python内置的模块: (python解释器的) 比如: sys\time\os\turtle 2.第三方的模块: (]]></description>
+</item>
+</channel>
+</rss>

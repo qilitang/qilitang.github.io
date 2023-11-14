@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>格式化输出 - 标签 - </title>
+    <link>https://www.qilitang.top/tags/%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/</link>
+    <description>格式化输出 - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Fri, 03 Feb 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/" rel="self" type="application/rss+xml" /><item>
+  <title>python 变量</title>
+  <link>https://www.qilitang.top/posts/python-04-%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/</link>
+  <pubDate>Fri, 03 Feb 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-04-%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/</guid>
+  <description><![CDATA[格式化输出 什么是格式化输出？ 格式化输出就是将数据按照特定格式输出到屏幕上。 为什么要用格式化输出？ 一个事物有多种特性，当描述一个具体的事物的时候， 用一种特定的格式把此事物描述清楚，就需要用到格式化输出。 格式化输出有哪几种？ 1、%的方法 整数的输出 %o ——oct 八进制输出 %d ——dec 十进制输出 %c ——hex 十]]></description>
+</item>
+</channel>
+</rss>

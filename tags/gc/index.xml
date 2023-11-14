@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>GC - 标签 - </title>
+    <link>https://www.qilitang.top/tags/gc/</link>
+    <description>GC - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Sun, 05 Mar 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/gc/" rel="self" type="application/rss+xml" /><item>
+  <title>python GIL全局解释器锁</title>
+  <link>https://www.qilitang.top/posts/python-23-gil-%E5%85%A8%E5%B1%80%E8%A7%A3%E9%87%8A%E5%99%A8%E9%94%81/</link>
+  <pubDate>Sun, 05 Mar 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-23-gil-%E5%85%A8%E5%B1%80%E8%A7%A3%E9%87%8A%E5%99%A8%E9%94%81/</guid>
+  <description><![CDATA[GIL 全局解释器锁 什么是GIL 全局解释器锁 1 2 3 &#34;&#34;&#34; In CPython, the global interpreter lock, or GIL, is a mutex that prevents multiple native threads from executing Python bytecodes at once. This lock is necessary mainly because CPython’s memory management is not thread-safe. (However, since the GIL exists, other features have grown to depend on the guarantees that it enforces.) &#34;&#34;&#34; GIL 本质就是一把互斥锁， 本质上是将并发变为串行 每个进程内都会存在一把GIl ， 同一进程内的多个线程必须要抢到GIL才行使用Cpython解]]></description>
+</item>
+<item>
+  <title>python 垃圾回收机制</title>
+  <link>https://www.qilitang.top/posts/python-07-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/</link>
+  <pubDate>Sat, 04 Feb 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-07-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/</guid>
+  <description><![CDATA[引入 当我们的cpython(C语言编写的python 解释器) 执行到定义变量的语法时, 会向系统申请内存空间来存储变量, 而 内存的容量是有限的, 那么这就牵扯到一个内存空间的回收问题. 当一个变量不再被使用, 就需要把这个变量所占用的内存空间回收. 由于变量名是访问变量值的唯一方式, 所以当一个变量值不再关联任何的]]></description>
+</item>
+</channel>
+</rss>

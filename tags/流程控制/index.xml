@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>流程控制 - 标签 - </title>
+    <link>https://www.qilitang.top/tags/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/</link>
+    <description>流程控制 - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Sat, 04 Feb 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" rel="self" type="application/rss+xml" /><item>
+  <title>python 流程控制</title>
+  <link>https://www.qilitang.top/posts/python-06-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/</link>
+  <pubDate>Sat, 04 Feb 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-06-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/</guid>
+  <description><![CDATA[流程控制 流程控制即 控制流程, 具体指控制程序的执行流程, 而程序的流程分为三种, 顺序结构(以前写的代码都是顺序结构) 分支结构(if 判断) 循环结构(while 和 for 循环) 分支结构 什么是分支结构 分支结构就是根据条件判断的真假去执行不同的代码块. 为什么要用分支结构 人类某些时候要根据条件决定做什么事情, 比如, 今天]]></description>
+</item>
+</channel>
+</rss>

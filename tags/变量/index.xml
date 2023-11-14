@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>变量 - 标签 - </title>
+    <link>https://www.qilitang.top/tags/%E5%8F%98%E9%87%8F/</link>
+    <description>变量 - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Thu, 02 Feb 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/%E5%8F%98%E9%87%8F/" rel="self" type="application/rss+xml" /><item>
+  <title>python 变量</title>
+  <link>https://www.qilitang.top/posts/python-03-%E5%8F%98%E9%87%8F/</link>
+  <pubDate>Thu, 02 Feb 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-03-%E5%8F%98%E9%87%8F/</guid>
+  <description><![CDATA[变量 什么是变量? 变量指的是现实生活中, 某种事物&quot;特性&quot;的某种&quot;衡量状态&quot; 变量的核心是&quot;变&quot;和&quot;量&quot; &ldquo;变&rdquo; 指的是,这种特性不是一成不变的 &ldquo;量&rdquo; 指的是这种衡量状态 为什么要用变量]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>常用模块 - 标签 - </title>
+    <link>https://www.qilitang.top/tags/%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/</link>
+    <description>常用模块 - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Mon, 20 Feb 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/" rel="self" type="application/rss+xml" /><item>
+  <title>python 常用模块</title>
+  <link>https://www.qilitang.top/posts/python-16-%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/</link>
+  <pubDate>Mon, 20 Feb 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-16-%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/</guid>
+  <description><![CDATA[time 模块 1 2 time 模块是内置时间模块 time.time() 是当前时间戳 返回的是float 类型的时间 是从1970 年一月一号到现在的秒数 格式化时间输出 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 time.strftime() 格式化时间输出 传入格式 %Y Year with century as a decimal number. %m Month as a decimal number [01,12]. %d Day of the month as a decimal number [01,31]. %H Hour (24-hour clock) as a decimal number [00,23]. %M Minute as a decimal number [00,59]. %S Second as a decimal number [00,61]. %z Time zone offset from UTC. %a Locale&#39;s abbreviated weekday name. %A Locale&#39;s full]]></description>
+</item>
+</channel>
+</rss>

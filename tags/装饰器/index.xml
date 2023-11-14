@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>装饰器 - 标签 - </title>
+    <link>https://www.qilitang.top/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/</link>
+    <description>装饰器 - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Thu, 09 Feb 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/" rel="self" type="application/rss+xml" /><item>
+  <title>python 闭包函数及装饰器</title>
+  <link>https://www.qilitang.top/posts/python-10-%E9%97%AD%E5%8C%85%E5%87%BD%E6%95%B0%E5%92%8C%E8%A3%85%E9%A5%B0%E5%99%A8/</link>
+  <pubDate>Thu, 09 Feb 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-10-%E9%97%AD%E5%8C%85%E5%87%BD%E6%95%B0%E5%92%8C%E8%A3%85%E9%A5%B0%E5%99%A8/</guid>
+  <description><![CDATA[闭包函数 什么是闭包函数呢? 闭: 封闭 包: 包裹 比如手机是闭包函数（内层函数），被手机包装盒 (外层函数) 包裹起来， 手机可以使用包装盒中的东西，内层函数可以引用外层函数的名字。 闭包函数必须在函数内部定义 闭包函数可以引用外层函数的名字. 闭包函数是 函数嵌套, 函数对象, 名称空间与作用域的 结合体 1 2 3 4 5 6 7 8 9 10]]></description>
+</item>
+</channel>
+</rss>

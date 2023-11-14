@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>内置函数 - 标签 - </title>
+    <link>https://www.qilitang.top/tags/%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/</link>
+    <description>内置函数 - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Mon, 13 Feb 2017 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/" rel="self" type="application/rss+xml" /><item>
+  <title>python 内置函数</title>
+  <link>https://www.qilitang.top/posts/python-14-%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/</link>
+  <pubDate>Mon, 13 Feb 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-14-%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/</guid>
+  <description><![CDATA[内置函数 由python提供的函数功能, 就是内置函数, 常见内置函数有以下几种. 本节示例都是和匿名函数连用 max 去一个可迭代对象的最大值 , 是按照 ASCII 码的先后顺序进行比较. 参数: max(可迭代对象, key= 比较对象) 示例1 1 2 3 4 5 l = [2, 3, 6, 8, 1, 10] res = max(l) print(res) 示例2 1 2 3 4 5 6 7 8 9 10 # 要求, 取出薪资最大的人员 dict1 = { &#39;tank&#39;: 1000,]]></description>
+</item>
+</channel>
+</rss>

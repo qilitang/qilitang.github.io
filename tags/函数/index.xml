@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>函数 - 标签 - </title>
+    <link>https://www.qilitang.top/tags/%E5%87%BD%E6%95%B0/</link>
+    <description>函数 - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Sat, 04 Jan 2020 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/%E5%87%BD%E6%95%B0/" rel="self" type="application/rss+xml" /><item>
+  <title>函数</title>
+  <link>https://www.qilitang.top/posts/go-04-%E5%87%BD%E6%95%B0/</link>
+  <pubDate>Sat, 04 Jan 2020 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/go-04-%E5%87%BD%E6%95%B0/</guid>
+  <description><![CDATA[函数 go为编译型语言, 需要先编译后执行, 所以 go中函数不会像python 一样需要先定义后执行, go 中函数 可以写在任意位置 语法 1 // 语法 func(关键字) 函数名() {} 无参 无返回值函数 1 2 3 4 5 6 7 8 9 package main import &#34;fmt&#34; func main() { t1() } // 无参数, 无返回值 func t1() { fmt.Println(&#34;231&#34;) } 有参数 无返回值 1 2 3 4 5 6 7 8 9 10 11 12 13 14 package main import &#34;fmt&#34; func main() { t1(132) }]]></description>
+</item>
+<item>
+  <title>python 函数</title>
+  <link>https://www.qilitang.top/posts/python-09-%E5%87%BD%E6%95%B0%E7%9A%84%E4%BB%8B%E7%BB%8D%E5%8F%8A%E5%AE%9A%E4%B9%89/</link>
+  <pubDate>Wed, 08 Feb 2017 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/python-09-%E5%87%BD%E6%95%B0%E7%9A%84%E4%BB%8B%E7%BB%8D%E5%8F%8A%E5%AE%9A%E4%B9%89/</guid>
+  <description><![CDATA[引子 如今我们已经编写一些简单的程序, 但是随着功能的增多, 代码量随之增大. 此时如果仍然不区分把实现不同的功能的代码放到一起, 将会使得程序结构不清晰, 代码的可读性差, 和代码的冗余. 什么是函数 函数就是具备某一功能的&quot;工具&quot; 为什么用函数 为了解决代码的冗余 为了使代码有更强的可读性. 函数应该]]></description>
+</item>
+</channel>
+</rss>
