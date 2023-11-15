@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>ElasticSearch集成Django - </title><meta name="author" content="Qilitang">
+<meta name="author-link" content="https://github.com/qilitang">
+<meta name="description" content="介绍: 业务需要, 为了增加mysql一张数据库表的查询速率, 特实现es作为传统数据库使用的方案. django-elasticsearch 的使用 一 安装 1 2 pip install django-elasticsearch-dsl # 会同时安装 elasticsearch-dsl 和 elasticsearch 二 注册 &#43; 配置 1 2 3 4 5 6 7 8 9 10 11 12 INSTALLED_APPS = [ ... &#39;django_elasticsearch_dsl&#39;, ... ] # Es 配置 ELASTICSEARCH_DSL={ &#39;default&#39;: { &#39;hosts&#39;: &#39;localhost:9200&#39; }, } 三 创建documents.py文件,做 orm 与 es 索引的映射 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19" /><meta name="keywords" content='文档操作' /><meta itemprop="name" content="ElasticSearch集成Django">
+<meta itemprop="description" content="介绍: 业务需要, 为了增加mysql一张数据库表的查询速率, 特实现es作为传统数据库使用的方案. django-elasticsearch 的使用 一 安装 1 2 pip install django-elasticsearch-dsl # 会同时安装 elasticsearch-dsl 和 elasticsearch 二 注册 &#43; 配置 1 2 3 4 5 6 7 8 9 10 11 12 INSTALLED_APPS = [ ... &#39;django_elasticsearch_dsl&#39;, ... ] # Es 配置 ELASTICSEARCH_DSL={ &#39;default&#39;: { &#39;hosts&#39;: &#39;localhost:9200&#39; }, } 三 创建documents.py文件,做 orm 与 es 索引的映射 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19"><meta itemprop="datePublished" content="2023-08-31T17:06:11+08:00" />
+<meta itemprop="dateModified" content="2023-11-15T16:40:04+08:00" />
+<meta itemprop="wordCount" content="3823">
+<meta itemprop="keywords" content="文档操作," /><meta property="og:title" content="ElasticSearch集成Django" />
+<meta property="og:description" content="介绍: 业务需要, 为了增加mysql一张数据库表的查询速率, 特实现es作为传统数据库使用的方案. django-elasticsearch 的使用 一 安装 1 2 pip install django-elasticsearch-dsl # 会同时安装 elasticsearch-dsl 和 elasticsearch 二 注册 &#43; 配置 1 2 3 4 5 6 7 8 9 10 11 12 INSTALLED_APPS = [ ... &#39;django_elasticsearch_dsl&#39;, ... ] # Es 配置 ELASTICSEARCH_DSL={ &#39;default&#39;: { &#39;hosts&#39;: &#39;localhost:9200&#39; }, } 三 创建documents.py文件,做 orm 与 es 索引的映射 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.qilitang.top/posts/21-elasticsearch-%E9%9B%86%E6%88%90-django%E4%BC%A0%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-31T17:06:11+08:00" />
+<meta property="article:modified_time" content="2023-11-15T16:40:04+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ElasticSearch集成Django"/>
+<meta name="twitter:description" content="介绍: 业务需要, 为了增加mysql一张数据库表的查询速率, 特实现es作为传统数据库使用的方案. django-elasticsearch 的使用 一 安装 1 2 pip install django-elasticsearch-dsl # 会同时安装 elasticsearch-dsl 和 elasticsearch 二 注册 &#43; 配置 1 2 3 4 5 6 7 8 9 10 11 12 INSTALLED_APPS = [ ... &#39;django_elasticsearch_dsl&#39;, ... ] # Es 配置 ELASTICSEARCH_DSL={ &#39;default&#39;: { &#39;hosts&#39;: &#39;localhost:9200&#39; }, } 三 创建documents.py文件,做 orm 与 es 索引的映射 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://www.qilitang.top/posts/21-elasticsearch-%E9%9B%86%E6%88%90-django%E4%BC%A0%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93/" /><link rel="prev" href="https://www.qilitang.top/posts/14-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87/" /><link rel="next" href="https://www.qilitang.top/posts/16-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "ElasticSearch集成Django",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/www.qilitang.top\/posts\/21-elasticsearch-%E9%9B%86%E6%88%90-django%E4%BC%A0%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93\/"
+    },"genre": "posts","keywords": "文档操作","wordcount":  3823 ,
+    "url": "https:\/\/www.qilitang.top\/posts\/21-elasticsearch-%E9%9B%86%E6%88%90-django%E4%BC%A0%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93\/","datePublished": "2023-08-31T17:06:11+08:00","dateModified": "2023-11-15T16:40:04+08:00","publisher": {
+      "@type": "Organization",
+      "name": "","logo": "https:\/\/www.qilitang.top\/favicon.ico"},"author": {
+        "@type": "Person",
+        "name": "Qilitang"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>ElasticSearch集成Django</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img loading="lazy" src="/avatar/avatar.jpg" srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x" sizes="auto" data-title="Qilitang" data-alt="Qilitang" class="avatar" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>&nbsp;Qilitang</a></span>
+          <span class="post-category">收录于 <a href="/categories/elasticsearch/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> ElasticSearch</a></span></div>
+      <div class="post-meta-line"><span title="发布于 2023-08-31 17:06:11"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2023-08-31">2023-08-31</time></span>&nbsp;<span title="更新于 2023-11-15 16:40:04"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2023-11-15">2023-11-15</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 3823 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 8 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#django-elasticsearch-的使用">django-elasticsearch 的使用</a>
+      <ul>
+        <li><a href="#一-安装">一 安装</a></li>
+        <li><a href="#二-注册--配置">二 注册 + 配置</a></li>
+        <li><a href="#三-创建documentspy文件做-orm-与-es-索引的映射">三 创建documents.py文件,做 orm 与 es 索引的映射</a></li>
+        <li><a href="#四-执行迁移">四 执行迁移</a></li>
+        <li><a href="#五-查看索引信息">五 查看索引信息</a></li>
+      </ul>
+    </li>
+    <li><a href="#elasticsearch-的搭建">ElasticSearch 的搭建</a>
+      <ul>
+        <li><a href="#一-安装jdk环境">一 安装JDK环境</a></li>
+        <li><a href="#二-官网下载最新版本">二 官网下载最新版本</a></li>
+        <li><a href="#三-下载其他版本">三 下载其他版本</a></li>
+        <li><a href="#三-下载完成启动">三 下载完成，启动</a></li>
+        <li><a href="#四-测试启动是否成功">四 测试启动是否成功</a></li>
+        <li><a href="#五-关闭es">五 关闭es</a></li>
+        <li><a href="#六-es-集群配置">六 Es 集群配置</a>
+          <ul>
+            <li><a href="#node1">node1</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#封装-elasticsearch-集成-drf-只查询接口使用">封装  elasticsearch  集成 drf  (只查询接口使用)</a></li>
+    <li><a href="#封装包的使用-快速写接口">封装包的使用, 快速写接口</a>
+      <ul>
+        <li><a href="#视图">视图</a></li>
+        <li><a href="#过滤组件">过滤组件</a></li>
+        <li><a href="#聚合查询">聚合查询</a></li>
+      </ul>
+    </li>
+    <li><a href="#使用-go-mysql-elasticsearch-对-mysql-数据库进行数据的同步">使用 go-mysql-elasticsearch 对 mysql 数据库进行数据的同步.</a>
+      <ul>
+        <li><a href="#mysql-开启-binlog">mysql 开启 binlog</a></li>
+        <li><a href="#下载go-mysql-elasticsearch">下载go-mysql-elasticsearch</a></li>
+        <li><a href="#编译">编译</a></li>
+        <li><a href="#配置文件">配置文件</a></li>
+        <li><a href="#执行监控">执行监控</a></li>
+      </ul>
+    </li>
+    <li><a href="#elasticsearch-head-的使用">elasticsearch-head 的使用</a>
+      <ul>
+        <li><a href="#下载">下载</a></li>
+        <li><a href="#安装依赖">安装依赖</a></li>
+        <li><a href="#运行">运行</a></li>
+        <li><a href="#kibana-安装及使用">Kibana 安装及使用</a></li>
+        <li><a href="#kibana的配置">Kibana的配置</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>介绍:  业务需要, 为了增加mysql一张数据库表的查询速率, 特实现es作为传统数据库使用的方案.</p>
+<h2 id="django-elasticsearch-的使用">django-elasticsearch 的使用</h2>
+<h3 id="一-安装">一 安装</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">pip</span> <span class="n">install</span> <span class="n">django</span><span class="o">-</span><span class="n">elasticsearch</span><span class="o">-</span><span class="n">dsl</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  会同时安装 elasticsearch-dsl 和  elasticsearch</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="二-注册--配置">二 注册 + 配置</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;django_elasticsearch_dsl&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Es 配置</span>
+</span></span><span class="line"><span class="cl"><span class="n">ELASTICSEARCH_DSL</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;hosts&#39;</span><span class="p">:</span> <span class="s1">&#39;localhost:9200&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="三-创建documentspy文件做-orm-与-es-索引的映射">三 创建documents.py文件,做 orm 与 es 索引的映射</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 注意, 在app 目录下创建 documents.py 文件   名字一定要对, 不然执行命令时 会找不到索引</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django_elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">Document</span><span class="p">,</span> <span class="n">fields</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django_elasticsearch_dsl.registries</span> <span class="kn">import</span> <span class="n">registry</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">public_app.models</span> <span class="kn">import</span> <span class="n">NcInfo</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@registry.register_document</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">NcInfoDocument</span><span class="p">(</span><span class="n">Document</span><span class="p">):</span>  <span class="c1">#  注意命名规范</span>
+</span></span><span class="line"><span class="cl">     <span class="c1"># 自定义索引字段类型  因为要作为mysql数据库的延伸 , 所以 需要自定义字段为keyword 类型. 否则会被es自动分词</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pk</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>  
+</span></span><span class="line"><span class="cl">    <span class="n">base_product_name</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">KeywordField</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">base_standard_model</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">KeywordField</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">business_sla_category</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">KeywordField</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ds</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">KeywordField</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ip</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">KeywordField</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ops_azone_id</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">KeywordField</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ops_cluster_id</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">KeywordField</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ops_region_name</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">KeywordField</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">business_nc_id</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">KeywordField</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">business_instance_family</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">KeywordField</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">Index</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;nc_info&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">settings</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 设置最大索引深度(**重要)  分页查询时要用到</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;max_result_window&#39;</span><span class="p">:</span> <span class="mi">10000000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 切片个数</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;number_of_shards&#39;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 保存副本数</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;number_of_replicas&#39;</span><span class="p">:</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">Django</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">model</span> <span class="o">=</span> <span class="n">NcInfo</span>  <span class="c1"># 与此文档关联的模型</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 要在Elasticsearch中建立索引的模型的字段</span>
+</span></span><span class="line"><span class="cl">     	<span class="c1">#  fields 置空 则会根据上方的对象的属性进行映射,  可直接写orm模型类字段名, 会根据orm中的字段类型进行自动选择文档字段类型</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fields</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 执行迁移时的 每次从mysql中数据读取的条数. </span>
+</span></span><span class="line"><span class="cl">        <span class="n">queryset_pagination</span> <span class="o">=</span> <span class="mi">50000</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="四-执行迁移">四 执行迁移</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">search_index</span> <span class="o">--</span><span class="n">rebuild</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行成功后 如下图所示</p>
+<p>![image-20201215113559893](C:\Users\zhang\Desktop\工作记录\Elasticsearch 集成 django(传统数据库).assets\image-20201215113559893.png)</p>
+<h3 id="五-查看索引信息">五 查看索引信息</h3>
+<p>![image-20201215151341060](C:\Users\zhang\Desktop\工作记录\Elasticsearch 集成 django(传统数据库).assets\image-20201215151341060.png)</p>
+<h2 id="elasticsearch-的搭建">ElasticSearch 的搭建</h2>
+<h3 id="一-安装jdk环境">一 安装JDK环境</h3>
+<p>因为ElasticSearch是用Java语言编写的，所以必须安装JDK的环境，并且是JDK 1.8以上，具体操作步骤自行百度</p>
+<p>安装完成查看java版本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">java -version
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="二-官网下载最新版本">二 官网下载最新版本</h3>
+<p>下载地址[https://www.elastic.co/cn/downloads/elasticsearch],选择相应版本下载即可</p>
+<p><img loading="lazy" src="https://tva1.sinaimg.cn/large/006tNbRwgy1g9kts83vzbj31o80tsjvo.jpg#alt=image" srcset="https://tva1.sinaimg.cn/large/006tNbRwgy1g9kts83vzbj31o80tsjvo.jpg#alt=image, https://tva1.sinaimg.cn/large/006tNbRwgy1g9kts83vzbj31o80tsjvo.jpg#alt=image 1.5x, https://tva1.sinaimg.cn/large/006tNbRwgy1g9kts83vzbj31o80tsjvo.jpg#alt=image 2x" sizes="auto" data-title="https://tva1.sinaimg.cn/large/006tNbRwgy1g9kts83vzbj31o80tsjvo.jpg#alt=image" data-alt="https://tva1.sinaimg.cn/large/006tNbRwgy1g9kts83vzbj31o80tsjvo.jpg#alt=image" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h3 id="三-下载其他版本">三 下载其他版本</h3>
+<p>直接点击https://www.elastic.co/cn/downloads/past-releases#elasticsearch</p>
+<p><img loading="lazy" src="https://tva1.sinaimg.cn/large/006tNbRwgy1g9kttpffz5j31320u0ags.jpg#alt=image" srcset="https://tva1.sinaimg.cn/large/006tNbRwgy1g9kttpffz5j31320u0ags.jpg#alt=image, https://tva1.sinaimg.cn/large/006tNbRwgy1g9kttpffz5j31320u0ags.jpg#alt=image 1.5x, https://tva1.sinaimg.cn/large/006tNbRwgy1g9kttpffz5j31320u0ags.jpg#alt=image 2x" sizes="auto" data-title="https://tva1.sinaimg.cn/large/006tNbRwgy1g9kttpffz5j31320u0ags.jpg#alt=image" data-alt="https://tva1.sinaimg.cn/large/006tNbRwgy1g9kttpffz5j31320u0ags.jpg#alt=image" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h3 id="三-下载完成启动">三 下载完成，启动</h3>
+<p>解压文件，切换到解压文件路径下，执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cd elasticsearch-&lt;version&gt; #切换到路径下
+</span></span><span class="line"><span class="cl">./bin/elasticsearch  #启动es
+</span></span><span class="line"><span class="cl">#如果你想把 Elasticsearch 作为一个守护进程在后台运行，那么可以在后面添加参数 -d 。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#如果你是在 Windows 上面运行 Elasticseach，你应该运行 bin\elasticsearch.bat 而不是 bin\elasticsearch
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="四-测试启动是否成功">四 测试启动是否成功</h3>
+<p>在浏览器输入以下地址：<a href="http://127.0.0.1:9200/"target="_blank" rel="external nofollow noopener noreferrer">http://127.0.0.1:9200/</a></p>
+<p>即可看到如下内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;name&#34; : &#34;lqzMacBook.local&#34;,
+</span></span><span class="line"><span class="cl">  &#34;cluster_name&#34; : &#34;elasticsearch&#34;,
+</span></span><span class="line"><span class="cl">  &#34;cluster_uuid&#34; : &#34;G1DFg-u6QdGFvz8Z-XMZqQ&#34;,
+</span></span><span class="line"><span class="cl">  &#34;version&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;number&#34; : &#34;7.5.0&#34;,
+</span></span><span class="line"><span class="cl">    &#34;build_flavor&#34; : &#34;default&#34;,
+</span></span><span class="line"><span class="cl">    &#34;build_type&#34; : &#34;tar&#34;,
+</span></span><span class="line"><span class="cl">    &#34;build_hash&#34; : &#34;e9ccaed468e2fac2275a3761849cbee64b39519f&#34;,
+</span></span><span class="line"><span class="cl">    &#34;build_date&#34; : &#34;2019-11-26T01:06:52.518245Z&#34;,
+</span></span><span class="line"><span class="cl">    &#34;build_snapshot&#34; : false,
+</span></span><span class="line"><span class="cl">    &#34;lucene_version&#34; : &#34;8.3.0&#34;,
+</span></span><span class="line"><span class="cl">    &#34;minimum_wire_compatibility_version&#34; : &#34;6.8.0&#34;,
+</span></span><span class="line"><span class="cl">    &#34;minimum_index_compatibility_version&#34; : &#34;6.0.0-beta1&#34;
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;tagline&#34; : &#34;You Know, for Search&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="五-关闭es">五 关闭es</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#查看进程
+</span></span><span class="line"><span class="cl">ps -ef | grep elastic
+</span></span><span class="line"><span class="cl">#干掉进程
+</span></span><span class="line"><span class="cl">kill -9 2382（进程号）
+</span></span><span class="line"><span class="cl">#以守护进程方式启动es
+</span></span><span class="line"><span class="cl">elasticsearch -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="六-es-集群配置">六 Es 集群配置</h3>
+<h4 id="node1">node1</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="c"># 集群名称</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">cluster.name</span><span class="p">:</span><span class="w"> </span><span class="l">online-virt-elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 节点名称</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">node.name</span><span class="p">:</span><span class="w"> </span><span class="l">es-node-1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 是否可以成为master节点</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">node.master</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 是否允许该节点存储数据,默认开启</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">node.data</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 网络绑定,写自己的主机</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">network.host</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 设置对外服务的http端口，默认为9200,为和单机分开，我设置9201</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">http.port</span><span class="p">:</span><span class="w"> </span><span class="m">9200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 设置节点间交互的tcp端口,默认是9300，为和单机分开，我设置9301</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">transport.tcp.port</span><span class="p">:</span><span class="w"> </span><span class="m">9401</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 手动指定可以成为 mater 的所有节点的 name 或者 ip，这些配置将会在第一次选举中进行计算</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">cluster.initial_master_nodes</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;es-node-1&#34;</span><span class="p">,</span><span class="s2">&#34;es-node-2&#34;</span><span class="p">,</span><span class="s2">&#34;es-node-3&#34;</span><span class="p">,</span><span class="s2">&#34;es-node-4&#34;</span><span class="p">,</span><span class="s2">&#34;es-node-5&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c">##设置集群自动发现机器ip的集合</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">discovery.seed_hosts</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;localhost:9401&#34;</span><span class="p">,</span><span class="s2">&#34;localhost:9402&#34;</span><span class="p">,</span><span class="s2">&#34;localhost:9403&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;localhost:9404&#34;</span><span class="p">,</span><span class="s2">&#34;localhost:9405&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">bootstrap.memory_lock</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">bootstrap.system_call_filter</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#允许跨域访问</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">http.cors.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">http.cors.allow-origin</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;*&#34;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="封装-elasticsearch-集成-drf-只查询接口使用">封装  elasticsearch  集成 drf  (只查询接口使用)</h2>
+<p>elasticsearch 自定义包封装</p>
+<ul>
+<li></li>
+</ul>
+<p><code>__init__</code> .py</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">.filterset</span> <span class="kn">import</span> <span class="n">EsFilterSet</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">.elasticsearch_generic</span> <span class="kn">import</span> <span class="n">ElasticSearch</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">.pagination</span> <span class="kn">import</span> <span class="n">EsStandardPagination</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li></li>
+</ul>
+<p>elasticsearch_generic.py</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># -*- coding: utf-8 -*-</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">elasticsearch_dsl.document</span> <span class="kn">import</span> <span class="n">IndexMeta</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">filter_backend</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ElasticSearch</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">search_object</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    <span class="n">es_filter_class</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    <span class="n">es_paginate_class</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    <span class="n">es_paginator</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get_search_object</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_object</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;&#39;</span><span class="si">%s</span><span class="s2">&#39; should either include a `search_object` attribute, &#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;or override the `get_search_object()` method.&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">search_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_object</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">search_object</span><span class="p">,</span> <span class="n">IndexMeta</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">search_object</span> <span class="o">=</span> <span class="n">search_object</span><span class="o">.</span><span class="n">search</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">search_object</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">filter_search_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search_object</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">es_filter_class</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">filter_backend</span><span class="o">.</span><span class="n">EsFilterBackend</span><span class="p">()</span><span class="o">.</span><span class="n">filter_search_object</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="n">search_object</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">search_object</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">paginate_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search_obj</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">es_paginate_class</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">es_paginator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">es_paginate_class</span><span class="p">(</span><span class="n">search_obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="n">sort</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">es_paginator</span><span class="o">.</span><span class="n">paginate</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get_es_paginated_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Return a paginated style `Response` object for the given output data.
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">es_paginator</span><span class="o">.</span><span class="n">get_paginated_response</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li></li>
+</ul>
+<p>filter_backend.py</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># -*- coding: utf-8 -*-</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">EsFilterBackend</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@staticmethod</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get_es_filter_class</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">search_object</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">es_filter_class</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="s1">&#39;es_filter_class&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">es_filter_class</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">filter_model</span> <span class="o">=</span> <span class="n">es_filter_class</span><span class="o">.</span><span class="n">Meta</span><span class="o">.</span><span class="n">model</span>
+</span></span><span class="line"><span class="cl">            <span class="k">assert</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">search_object</span><span class="o">.</span><span class="n">_model</span><span class="p">,</span> <span class="n">filter_model</span><span class="p">),</span> \
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;EsFilterSet model </span><span class="si">%s</span><span class="s1"> does not match search_object model </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> \
+</span></span><span class="line"><span class="cl">                <span class="p">(</span><span class="n">filter_model</span><span class="p">,</span> <span class="n">search_object</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">es_filter_class</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">filter_search_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">search_object</span><span class="p">,</span> <span class="n">view</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">es_filter_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_es_filter_class</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">search_object</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">es_filter_class</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">es_filter_class</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">query_params</span><span class="p">,</span> <span class="n">search_object</span><span class="o">=</span><span class="n">search_object</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">qs</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">search_object</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li></li>
+</ul>
+<p>filters.py</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># -*- coding: utf-8 -*-</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django_elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">fields</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">Q</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Filter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">field_class</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Field</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lookup_expr</span><span class="o">=</span><span class="s1">&#39;exact&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">field_name</span> <span class="o">=</span> <span class="n">field_name</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">field_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s1">&#39;name&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">field_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">lookup_expr</span> <span class="o">=</span> <span class="n">lookup_expr</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="ow">not</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup_expr</span> <span class="o">==</span> <span class="s1">&#39;term&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">param</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;term&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="s1">&#39;&amp;&#39;</span> <span class="ow">in</span> <span class="n">param</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">values</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;terms&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="s1">&#39;,&#39;</span> <span class="ow">in</span> <span class="n">param</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">values</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;terms&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">values</span> <span class="o">=</span> <span class="n">param</span>
+</span></span><span class="line"><span class="cl">            <span class="n">query</span> <span class="o">=</span> <span class="n">Q</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">field_name</span><span class="p">:</span> <span class="n">values</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup_expr</span> <span class="o">==</span> <span class="s1">&#39;gte&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup_expr</span> <span class="o">==</span> <span class="s2">&#34;lte&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lookup_expr</span><span class="p">:</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">q</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">field_name</span><span class="p">:</span> <span class="n">m</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># query = {&#39;range&#39;: q}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">query</span> <span class="o">=</span> <span class="n">Q</span><span class="p">(</span><span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">q</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">{}</span><span class="s2"> can not set lookup_expr=&#39;</span><span class="si">{}</span><span class="s2">&#39;&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup_expr</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">query</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">KeywordField</span><span class="p">(</span><span class="n">Filter</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">field_class</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">KeywordField</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">IntegerField</span><span class="p">(</span><span class="n">Filter</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">field_class</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">IntegerField</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DateField</span><span class="p">(</span><span class="n">Filter</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">field_class</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">DateField</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li></li>
+</ul>
+<p>filterset.py</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># -*- coding: utf-8 -*-</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">copy</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">Q</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FilterSetOptions</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">fields</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="s1">&#39;fields&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">exclude</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="s1">&#39;exclude&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FilterSetMetaclass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">new_class</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">FilterSetMetaclass</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">new_class</span><span class="o">.</span><span class="n">_meta</span> <span class="o">=</span> <span class="n">FilterSetOptions</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">new_class</span><span class="p">,</span> <span class="s1">&#39;Meta&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">new_class</span><span class="o">.</span><span class="n">base_filters</span> <span class="o">=</span> <span class="n">new_class</span><span class="o">.</span><span class="n">get_filters</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">new_class</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">BaseFilterSet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">search_object</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">data</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">search_object</span> <span class="o">=</span> <span class="n">search_object</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">is_bound</span> <span class="o">=</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">request</span> <span class="o">=</span> <span class="n">request</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_filters</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@property</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">qs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_eqs&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_bound</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="bp">self</span><span class="o">.</span><span class="n">_eqs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_object</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eqs</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_eqs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_object</span>
+</span></span><span class="line"><span class="cl">            <span class="n">must_query</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">filter_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">                <span class="n">query_</span> <span class="o">=</span> <span class="n">filter_</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">query_</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">must_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">query_</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">q</span> <span class="o">=</span> <span class="n">Q</span><span class="p">(</span><span class="s1">&#39;bool&#39;</span><span class="p">,</span> <span class="n">must</span><span class="o">=</span><span class="n">must_query</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">_eqs</span> <span class="o">=</span> <span class="n">_eqs</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eqs</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@classmethod</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get_filters</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">filters</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">model</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fields</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">fields</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">assert</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> \
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;EsFilterSet filter field </span><span class="si">%s</span><span class="s1"> does not match  </span><span class="si">%s</span><span class="s1"> fields &#39;</span> <span class="o">%</span> \
+</span></span><span class="line"><span class="cl">                <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">filters</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">)})</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">filters</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">EsFilterSet</span><span class="p">(</span><span class="n">BaseFilterSet</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">FilterSetMetaclass</span>
+</span></span><span class="line"><span class="cl">    <span class="k">pass</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li></li>
+</ul>
+<p>pagination.py</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># -*- coding: utf-8 -*-</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">utils.response</span> <span class="kn">import</span> <span class="n">APIResponse</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">EsStandardPagination</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">page_size</span> <span class="o">=</span> <span class="mi">20</span>
+</span></span><span class="line"><span class="cl">    <span class="n">page_size_query_param</span> <span class="o">=</span> <span class="s1">&#39;per_page&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">page_query_param</span> <span class="o">=</span> <span class="s2">&#34;page&#34;</span>  <span class="c1"># url参数</span>
+</span></span><span class="line"><span class="cl">    <span class="n">max_page_size</span> <span class="o">=</span> <span class="mi">100</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search_object</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">search_object</span> <span class="o">=</span> <span class="n">search_object</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">query_params</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">page</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="n">search_object</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">total_page</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">sort</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="s1">&#39;asc&#39;</span><span class="p">}}</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">sort</span> <span class="k">else</span> <span class="n">sort</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@property</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">paginate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">page_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">page_size_query_param</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">page_size_query_param</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">page</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">page_query_param</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">page_query_param</span><span class="p">)</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">page</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_size</span>
+</span></span><span class="line"><span class="cl">        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_size</span>
+</span></span><span class="line"><span class="cl">        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_object</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sort</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">total_page</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_size</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="n">queryset</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span><span class="o">.</span><span class="n">to_queryset</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">queryset</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get_paginated_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">APIResponse</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;count&#34;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;page&#34;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;per_page&#34;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_size</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;total_page&#34;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_page</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># &#39;next&#39;: self.get_next_link(),</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># &#39;previous&#39;: self.get_previous_link(),</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;results&#34;</span><span class="p">:</span> <span class="n">data</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="封装包的使用-快速写接口">封装包的使用, 快速写接口</h2>
+<h3 id="视图">视图</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 导入自定义的 ElasticSearch 和 EsStandardPagination</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">utils.elasticsearch</span> <span class="kn">import</span> <span class="n">ElasticSearch</span><span class="p">,</span> <span class="n">EsStandardPagination</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 继承  GenericAPIView 和 ElasticSearch</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">NcInfoShowEsView</span><span class="p">(</span><span class="n">GenericAPIView</span><span class="p">,</span> <span class="n">ElasticSearch</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 获取 search_object, 此为 documents 定义的文档类. </span>
+</span></span><span class="line"><span class="cl">    <span class="n">search_object</span> <span class="o">=</span> <span class="n">documents</span><span class="o">.</span><span class="n">NcInfoDocument</span><span class="o">.</span><span class="n">search</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 搜索类</span>
+</span></span><span class="line"><span class="cl">    <span class="n">es_filter_class</span> <span class="o">=</span> <span class="n">es_filter</span><span class="o">.</span><span class="n">NcInfoFilter</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 分页类</span>
+</span></span><span class="line"><span class="cl">    <span class="n">es_paginate_class</span> <span class="o">=</span> <span class="n">EsStandardPagination</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_search_object</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_search_object</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 分页组件会把分页后的es对象 转换成 queryset 对象. paginate_search 有两个参数, 一是查询后的 search对象, 第二个是排序参数, 默认是 {&#39;pk&#39;: {&#39;order&#39;: &#39;asc&#39;}} pk为从orm 获取的 id,或 pk . </span>
+</span></span><span class="line"><span class="cl">        <span class="n">page</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">paginate_search</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">page</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 视图中 分页组件会把分页后的es对象 转换成 queryset 对象.  可以使用序列化类进行序列化. 完成</span>
+</span></span><span class="line"><span class="cl">            <span class="n">serializer</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">NcInfoSerializer</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_es_paginated_response</span><span class="p">(</span><span class="n">serializer</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">serializer</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">NcInfoSerializer</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">APIResponse</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">serializer</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="过滤组件">过滤组件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">models</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">utils.elasticsearch</span> <span class="kn">import</span> <span class="n">EsFilterSet</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">utils.elasticsearch</span> <span class="kn">import</span> <span class="n">filters</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 继承自定义esFilterSet</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">NcInfoFilter</span><span class="p">(</span><span class="n">EsFilterSet</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 前端携带参数来的key  对应的文档字段类型</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># field_name:  对应的es索引 文档中的字段</span>
+</span></span><span class="line"><span class="cl">   	<span class="c1"># lookup_expr: 过滤方式, 目前有 term方式 为精准匹配.  lte, gte  大于小于.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">base_product_name</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">KeywordField</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="s1">&#39;base_product_name&#39;</span><span class="p">,</span> <span class="n">lookup_expr</span><span class="o">=</span><span class="s1">&#39;term&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">business_sla_category</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">KeywordField</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="s1">&#39;business_sla_category&#39;</span><span class="p">,</span> <span class="n">lookup_expr</span><span class="o">=</span><span class="s1">&#39;term&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ds</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">KeywordField</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="s1">&#39;ds&#39;</span><span class="p">,</span> <span class="n">lookup_expr</span><span class="o">=</span><span class="s1">&#39;term&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 过滤所对应的orm表</span>
+</span></span><span class="line"><span class="cl">        <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">NcInfo</span>
+</span></span><span class="line"><span class="cl">		<span class="c1"># 参与过滤的字段, 需要在此注册, 否则不参与过滤. </span>
+</span></span><span class="line"><span class="cl">        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;base_product_name&#39;</span><span class="p">,</span> <span class="s1">&#39;business_sla_category&#39;</span><span class="p">,</span> <span class="s1">&#39;ds&#39;</span><span class="p">,</span> <span class="s1">&#39;business_instance_family&#39;</span><span class="p">,</span> <span class="s1">&#39;ops_cluster_id&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                  <span class="s1">&#39;ops_region_name&#39;</span><span class="p">,</span> <span class="s1">&#39;ops_azone_id&#39;</span><span class="p">,</span><span class="s1">&#39;base_standard_model&#39;</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="聚合查询">聚合查询</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#  聚合查询 elasticsearch  没有提供很好的接口.  目前使用 collapse 进行聚合查询</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">NcInfoOptionsView</span><span class="p">(</span><span class="n">GenericAPIView</span><span class="p">,</span> <span class="n">ElasticSearch</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    nc_info数据展示列表页筛选数据
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">search_object</span> <span class="o">=</span> <span class="n">documents</span><span class="o">.</span><span class="n">NcInfoDocument</span><span class="o">.</span><span class="n">search</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">es_filter_class</span> <span class="o">=</span> <span class="n">es_filter</span><span class="o">.</span><span class="n">NcInfoFilter</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">params_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;standard_model_list&#39;</span><span class="p">:</span> <span class="s1">&#39;base_standard_model&#39;</span><span class="p">,</span> <span class="s1">&#39;region_name_list&#39;</span><span class="p">:</span> <span class="s1">&#39;ops_region_name&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                      <span class="s1">&#39;azone_id_list&#39;</span><span class="p">:</span> <span class="s1">&#39;ops_azone_id&#39;</span><span class="p">,</span> <span class="s1">&#39;cluster_id_list&#39;</span><span class="p">:</span> <span class="s1">&#39;ops_cluster_id&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                      <span class="s1">&#39;instance_family_list&#39;</span><span class="p">:</span> <span class="s1">&#39;business_instance_family&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">all_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_search_object</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sla_category_list</span> <span class="o">=</span> <span class="n">all_s</span><span class="o">.</span><span class="n">extra</span><span class="p">(</span><span class="n">collapse</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;field&#39;</span><span class="p">:</span> <span class="s1">&#39;business_sla_category&#39;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="n">results</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;sla_category_list&#39;</span><span class="p">:</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;business_sla_category&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sla_category_list</span><span class="p">]})</span>
+</span></span><span class="line"><span class="cl">        <span class="n">product_name_list</span> <span class="o">=</span> <span class="n">all_s</span><span class="o">.</span><span class="n">extra</span><span class="p">(</span><span class="n">collapse</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;field&#39;</span><span class="p">:</span> <span class="s1">&#39;base_product_name&#39;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="n">results</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;product_name_list&#39;</span><span class="p">:</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;base_product_name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">product_name_list</span><span class="p">]})</span>
+</span></span><span class="line"><span class="cl">        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_search_object</span><span class="p">(</span><span class="n">all_s</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">params_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">extra</span><span class="p">(</span><span class="n">collapse</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;field&#39;</span><span class="p">:</span> <span class="n">param</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="n">results</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">100</span><span class="p">]]})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">APIResponse</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用 search对象的 .extra()  进行聚合查询 具体请去看官方文档</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="使用-go-mysql-elasticsearch-对-mysql-数据库进行数据的同步">使用 go-mysql-elasticsearch 对 mysql 数据库进行数据的同步.</h2>
+<p>**如果所有的数据都是通过orm 进行操作 则可以使用此方法, 不需要使用 go-mysql-elasticsearch **</p>
+<p>django-elasticsearch-dsl 可以使用信号量对mysql数据自动更新同步进es  只需要在 settings.py 文件中 添加以下配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 实时同步 用的是 django的信号量, 不需要额外的参数</span>
+</span></span><span class="line"><span class="cl"><span class="n">ELASTICSEARCH_DSL_SIGNAL_PROCESSOR</span> <span class="o">=</span> <span class="s1">&#39;django_elasticsearch_dsl.signals.RealTimeSignalProcessor&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="mysql-开启-binlog">mysql 开启 binlog</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">server_id = 7578
+</span></span><span class="line"><span class="cl">log_bin = /apsarapangu/disk8/mysql/mysql-bin/bin-log
+</span></span><span class="line"><span class="cl">binlog_format = ROW
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="下载go-mysql-elasticsearch">下载go-mysql-elasticsearch</h3>
+<h3 id="编译">编译</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /apsarapangu/disk8/go-mysql-elasticsearch
+</span></span><span class="line"><span class="cl">make
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="配置文件">配置文件</h3>
+<p>配置文件在 项目目录的 etc文件夹下, river.toml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># MySQL address, user and password</span>
+</span></span><span class="line"><span class="cl"><span class="c"># user must have replication privilege in MySQL.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">my_addr</span> <span class="p">=</span> <span class="s2">&#34;127.0.0.1:3306&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">my_user</span> <span class="p">=</span> <span class="s2">&#34;root&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">my_pass</span> <span class="p">=</span> <span class="s2">&#34;virtweb@2017&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">my_charset</span> <span class="p">=</span> <span class="s2">&#34;utf8&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Set true when elasticsearch use https</span>
+</span></span><span class="line"><span class="cl"><span class="c">#es_https = false</span>
+</span></span><span class="line"><span class="cl"><span class="c"># Elasticsearch address</span>
+</span></span><span class="line"><span class="cl"><span class="nx">es_addr</span> <span class="p">=</span> <span class="s2">&#34;localhost:9200&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c"># Elasticsearch user and password, maybe set by shield, nginx, or x-pack</span>
+</span></span><span class="line"><span class="cl"><span class="nx">es_user</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">es_pass</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Path to store data, like master.info, if not set or empty,</span>
+</span></span><span class="line"><span class="cl"><span class="c"># we must use this to support breakpoint resume syncing.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># TODO: support other storage, like etcd.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">data_dir</span> <span class="p">=</span> <span class="s2">&#34;./var&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Inner Http status address</span>
+</span></span><span class="line"><span class="cl"><span class="nx">stat_addr</span> <span class="p">=</span> <span class="s2">&#34;127.0.0.1:12800&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">stat_path</span> <span class="p">=</span> <span class="s2">&#34;/metrics&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># pseudo server id like a slave</span>
+</span></span><span class="line"><span class="cl"><span class="nx">server_id</span> <span class="p">=</span> <span class="mi">1001</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># mysql or mariadb</span>
+</span></span><span class="line"><span class="cl"><span class="nx">flavor</span> <span class="p">=</span> <span class="s2">&#34;mysql&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># mysqldump execution path</span>
+</span></span><span class="line"><span class="cl"><span class="c"># if not set or empty, ignore mysqldump.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># mysqldump = &#34;mysqldump&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># if we have no privilege to use mysqldump with --master-data,</span>
+</span></span><span class="line"><span class="cl"><span class="c"># we must skip it.</span>
+</span></span><span class="line"><span class="cl"><span class="c">#skip_master_data = false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># minimal items to be inserted in one bulk</span>
+</span></span><span class="line"><span class="cl"><span class="nx">bulk_size</span> <span class="p">=</span> <span class="mi">128</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># force flush the pending requests if we don&#39;t have enough items &gt;= bulk_size</span>
+</span></span><span class="line"><span class="cl"><span class="nx">flush_bulk_time</span> <span class="p">=</span> <span class="s2">&#34;200ms&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Ignore table without primary key</span>
+</span></span><span class="line"><span class="cl"><span class="nx">skip_no_pk_table</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># MySQL data source</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">source</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">schema</span> <span class="p">=</span> <span class="s2">&#34;virt_dashboard&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Only below tables will be synced into Elasticsearch.</span>
+</span></span><span class="line"><span class="cl"><span class="c"># &#34;t_[0-9]{4}&#34; is a wildcard table format, you can use it if you have many sub tables, like table_0000 - table_1023</span>
+</span></span><span class="line"><span class="cl"><span class="c"># I don&#39;t think it is necessary to sync all tables in a database.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">tables</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;nc_info&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">rule</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">schema</span> <span class="p">=</span> <span class="s2">&#34;virt_dashboard&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">table</span> <span class="p">=</span> <span class="s2">&#34;nc_info&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">index</span> <span class="p">=</span> <span class="s2">&#34;nc_info&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">type</span> <span class="p">=</span> <span class="s2">&#34;_doc&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">(</span><span class="nx">virt-dashboard</span><span class="err">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="执行监控">执行监控</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./bin/go-mysql-elasticsearch --config<span class="o">=</span>./etc/river.toml 
+</span></span><span class="line"><span class="cl"><span class="c1"># 加 &amp; 为后台运行</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>注意</strong>  在go-mysql-elasticsearch 目录下会 生成 var 文件夹.  里面有 监测mysql binlog 日志的记录, 当 go-mysql-elasticsearch 意外停止后 启动后会从停止的节点开始继续同步, 不必担心数据的丢失.</p>
+<h2 id="elasticsearch-head-的使用">elasticsearch-head 的使用</h2>
+<p>此工具需要npm</p>
+<h3 id="下载">下载</h3>
+<h3 id="安装依赖">安装依赖</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">npm</span> <span class="nx">install</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="运行">运行</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">npm</span> <span class="nx">run</span> <span class="nx">start</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行成功后 会出现此界面</p>
+<p>![image-20201215151450248](C:\Users\zhang\Desktop\工作记录\Elasticsearch 集成 django(传统数据库).assets\image-20201215151450248.png)</p>
+<h3 id="kibana-安装及使用">Kibana 安装及使用</h3>
+<p><strong>Kibana 应该与 es 保持版本的一致</strong></p>
+<p>自己百度吧. 很简单 不想写了.</p>
+<h3 id="kibana的配置">Kibana的配置</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="c"># Kibana is served by a back end server. This setting specifies the port to use.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">server.port</span><span class="p">:</span><span class="w"> </span><span class="m">5601</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">server.host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.0.0.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">elasticsearch.hosts</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;http://localhost:9200&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">xpack.monitoring.ui.container.elasticsearch.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2023-11-15 16:40:04">更新于 2023-11-15&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/posts/21-elasticsearch-%E9%9B%86%E6%88%90-django%E4%BC%A0%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.qilitang.top/posts/21-elasticsearch-%E9%9B%86%E6%88%90-django%E4%BC%A0%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93/" data-title="ElasticSearch集成Django" data-hashtags="文档操作"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.qilitang.top/posts/21-elasticsearch-%E9%9B%86%E6%88%90-django%E4%BC%A0%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93/" data-hashtag="文档操作"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.qilitang.top/posts/21-elasticsearch-%E9%9B%86%E6%88%90-django%E4%BC%A0%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93/" data-title="ElasticSearch集成Django"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C/' class="post-tag">文档操作</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/14-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87/" class="post-nav-item" rel="prev" title="ElasticSearch集群搭建, 数据分片"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>ElasticSearch集群搭建, 数据分片</a>
+      <a href="/posts/16-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95/" class="post-nav-item" rel="next" title="ElasticSearch倒排索引">ElasticSearch倒排索引<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/qilitang"target="_blank" rel="external nofollow noopener noreferrer">Qilitang</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":3},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>

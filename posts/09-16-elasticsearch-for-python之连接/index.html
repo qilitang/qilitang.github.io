@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>文档操作-python连接 - </title><meta name="author" content="Qilitang">
+<meta name="author-link" content="https://github.com/qilitang">
+<meta name="description" content="一 前言 现在，我们来学习Python如何操作elasticsearch。 二 依赖下载 首先，我们必须拥有Python的环境，如何搭建Python环境，请参阅。 要用Python来操作elasticsearch，首先安装Python的elasticsearch包： 1 2 3 4 pip install elasticsearch pip install elasticsearch==6.3.1 # 豆瓣源 pip install -i https://pypi.doubanio.com/simple/ elasticsearch 三 Pyt" /><meta name="keywords" content='文档操作' /><meta itemprop="name" content="文档操作-python连接">
+<meta itemprop="description" content="一 前言 现在，我们来学习Python如何操作elasticsearch。 二 依赖下载 首先，我们必须拥有Python的环境，如何搭建Python环境，请参阅。 要用Python来操作elasticsearch，首先安装Python的elasticsearch包： 1 2 3 4 pip install elasticsearch pip install elasticsearch==6.3.1 # 豆瓣源 pip install -i https://pypi.doubanio.com/simple/ elasticsearch 三 Pyt"><meta itemprop="datePublished" content="2023-08-31T17:06:11+08:00" />
+<meta itemprop="dateModified" content="2023-11-15T16:36:28+08:00" />
+<meta itemprop="wordCount" content="511">
+<meta itemprop="keywords" content="文档操作," /><meta property="og:title" content="文档操作-python连接" />
+<meta property="og:description" content="一 前言 现在，我们来学习Python如何操作elasticsearch。 二 依赖下载 首先，我们必须拥有Python的环境，如何搭建Python环境，请参阅。 要用Python来操作elasticsearch，首先安装Python的elasticsearch包： 1 2 3 4 pip install elasticsearch pip install elasticsearch==6.3.1 # 豆瓣源 pip install -i https://pypi.doubanio.com/simple/ elasticsearch 三 Pyt" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.qilitang.top/posts/09-16-elasticsearch-for-python%E4%B9%8B%E8%BF%9E%E6%8E%A5/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-31T17:06:11+08:00" />
+<meta property="article:modified_time" content="2023-11-15T16:36:28+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="文档操作-python连接"/>
+<meta name="twitter:description" content="一 前言 现在，我们来学习Python如何操作elasticsearch。 二 依赖下载 首先，我们必须拥有Python的环境，如何搭建Python环境，请参阅。 要用Python来操作elasticsearch，首先安装Python的elasticsearch包： 1 2 3 4 pip install elasticsearch pip install elasticsearch==6.3.1 # 豆瓣源 pip install -i https://pypi.doubanio.com/simple/ elasticsearch 三 Pyt"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://www.qilitang.top/posts/09-16-elasticsearch-for-python%E4%B9%8B%E8%BF%9E%E6%8E%A5/" /><link rel="prev" href="https://www.qilitang.top/posts/09-3-term%E4%B8%8Ematch%E6%9F%A5%E8%AF%A2/" /><link rel="next" href="https://www.qilitang.top/posts/09-17-elasticsearch-for-python%E4%B9%8B%E6%93%8D%E4%BD%9C/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "文档操作-python连接",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/www.qilitang.top\/posts\/09-16-elasticsearch-for-python%E4%B9%8B%E8%BF%9E%E6%8E%A5\/"
+    },"genre": "posts","keywords": "文档操作","wordcount":  511 ,
+    "url": "https:\/\/www.qilitang.top\/posts\/09-16-elasticsearch-for-python%E4%B9%8B%E8%BF%9E%E6%8E%A5\/","datePublished": "2023-08-31T17:06:11+08:00","dateModified": "2023-11-15T16:36:28+08:00","publisher": {
+      "@type": "Organization",
+      "name": "","logo": "https:\/\/www.qilitang.top\/favicon.ico"},"author": {
+        "@type": "Person",
+        "name": "Qilitang"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>文档操作-python连接</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img loading="lazy" src="/avatar/avatar.jpg" srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x" sizes="auto" data-title="Qilitang" data-alt="Qilitang" class="avatar" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>&nbsp;Qilitang</a></span>
+          <span class="post-category">收录于 <a href="/categories/elasticsearch/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> ElasticSearch</a></span></div>
+      <div class="post-meta-line"><span title="发布于 2023-08-31 17:06:11"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2023-08-31">2023-08-31</time></span>&nbsp;<span title="更新于 2023-11-15 16:36:28"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2023-11-15">2023-11-15</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 511 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 2 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一-前言">一 前言</a></li>
+    <li><a href="#二-依赖下载">二 依赖下载</a></li>
+    <li><a href="#三-python连接elasticsearch">三 Python连接elasticsearch</a></li>
+    <li><a href="#四-配置忽略响应状态码">四 配置忽略响应状态码</a></li>
+    <li><a href="#五-一个简单的示例">五 一个简单的示例</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h2 id="一-前言">一 前言</h2>
+<p>现在，我们来学习Python如何操作elasticsearch。</p>
+<h2 id="二-依赖下载">二 依赖下载</h2>
+<p>首先，我们必须<strong>拥有Python的环境</strong>，如何搭建Python环境，请<a href="https://www.cnblogs.com/Neeo/p/9681427.html"target="_blank" rel="external nofollow noopener noreferrer">参阅</a>。</p>
+<p>要用Python来操作elasticsearch，首先安装Python的elasticsearch包：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pip install elasticsearch
+</span></span><span class="line"><span class="cl">pip install elasticsearch==6.3.1
+</span></span><span class="line"><span class="cl"># 豆瓣源
+</span></span><span class="line"><span class="cl">pip install -i https://pypi.doubanio.com/simple/ elasticsearch
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="三-python连接elasticsearch">三 Python连接elasticsearch</h2>
+<p>Python连接elasticsearch有以下几种连接方式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">from elasticsearch import  Elasticsearch
+</span></span><span class="line"><span class="cl"># es = Elasticsearch()    # 默认连接本地elasticsearch
+</span></span><span class="line"><span class="cl"># es = Elasticsearch([&#39;127.0.0.1:9200&#39;])  # 连接本地9200端口
+</span></span><span class="line"><span class="cl">es = Elasticsearch(
+</span></span><span class="line"><span class="cl">    [&#34;192.168.1.10&#34;, &#34;192.168.1.11&#34;, &#34;192.168.1.12&#34;], # 连接集群，以列表的形式存放各节点的IP地址
+</span></span><span class="line"><span class="cl">    sniff_on_start=True,    # 连接前测试
+</span></span><span class="line"><span class="cl">    sniff_on_connection_fail=True,  # 节点无响应时刷新节点
+</span></span><span class="line"><span class="cl">    sniff_timeout=60    # 设置超时时间
+</span></span><span class="line"><span class="cl">)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="四-配置忽略响应状态码">四 配置忽略响应状态码</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">es = Elasticsearch([&#39;127.0.0.1:9200&#39;],ignore=400)  # 忽略返回的400状态码
+</span></span><span class="line"><span class="cl">es = Elasticsearch([&#39;127.0.0.1:9200&#39;],ignore=[400, 405, 502])  # 以列表的形式忽略多个状态码
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="五-一个简单的示例">五 一个简单的示例</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">from elasticsearch import  Elasticsearch
+</span></span><span class="line"><span class="cl">es = Elasticsearch()    # 默认连接本地elasticsearch
+</span></span><span class="line"><span class="cl">print(es.index(index=&#39;py2&#39;, doc_type=&#39;doc&#39;, id=1, body={&#39;name&#39;: &#34;张开&#34;, &#34;age&#34;: 18}))
+</span></span><span class="line"><span class="cl">print(es.get(index=&#39;py2&#39;, doc_type=&#39;doc&#39;, id=1))
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>第1个print为创建<code>py2</code>索引，并插入一条数据，第2个print查询指定文档。</p>
+<p>查询结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{&#39;_index&#39;: &#39;py2&#39;, &#39;_type&#39;: &#39;doc&#39;, &#39;_id&#39;: &#39;1&#39;, &#39;_version&#39;: 1, &#39;result&#39;: &#39;created&#39;, &#39;_shards&#39;: {&#39;total&#39;: 2, &#39;successful&#39;: 1, &#39;failed&#39;: 0}, &#39;_seq_no&#39;: 0, &#39;_primary_term&#39;: 1}
+</span></span><span class="line"><span class="cl">{&#39;_index&#39;: &#39;py2&#39;, &#39;_type&#39;: &#39;doc&#39;, &#39;_id&#39;: &#39;1&#39;, &#39;_version&#39;: 1, &#39;found&#39;: True, &#39;_source&#39;: {&#39;name&#39;: &#39;张开&#39;, &#39;age&#39;: 18}}
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2023-11-15 16:36:28">更新于 2023-11-15&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/posts/09-16-elasticsearch-for-python%E4%B9%8B%E8%BF%9E%E6%8E%A5/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.qilitang.top/posts/09-16-elasticsearch-for-python%E4%B9%8B%E8%BF%9E%E6%8E%A5/" data-title="文档操作-python连接" data-hashtags="文档操作"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.qilitang.top/posts/09-16-elasticsearch-for-python%E4%B9%8B%E8%BF%9E%E6%8E%A5/" data-hashtag="文档操作"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.qilitang.top/posts/09-16-elasticsearch-for-python%E4%B9%8B%E8%BF%9E%E6%8E%A5/" data-title="文档操作-python连接"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C/' class="post-tag">文档操作</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/09-3-term%E4%B8%8Ematch%E6%9F%A5%E8%AF%A2/" class="post-nav-item" rel="prev" title="文档操作-term于match查询"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>文档操作-term于match查询</a>
+      <a href="/posts/09-17-elasticsearch-for-python%E4%B9%8B%E6%93%8D%E4%BD%9C/" class="post-nav-item" rel="next" title="文档操作-python操作">文档操作-python操作<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/qilitang"target="_blank" rel="external nofollow noopener noreferrer">Qilitang</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":15},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>ElasticSearch常见错误 - </title><meta name="author" content="Qilitang">
+<meta name="author-link" content="https://github.com/qilitang">
+<meta name="description" content="一 read_only_allow_delete&quot; : &ldquo;true&rdquo; 当我们在向某个索引添加一条数据的时候，可能（极少情况）会碰到下面的报错： 1 2 3 4 5 6 7 8 9 10 11 12 13 { &#34;error&#34;: { &#34;root_cause&#34;: [ { &#34;type&#34;: &#34;cluster_block_exception&#34;, &#34;reason&#34;: &#34;blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];&#34; } ], &#34;type&#34;: &#34;cluster_block_exception&#34;, &#34;reason&#34;: &#34;blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];&#34; }, &#34;status&#34;: 403 } 上述报错是说索引现在的状态是只读模式（read-only），如果查看该索引此时的状态： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20" /><meta name="keywords" content='文档操作' /><meta itemprop="name" content="ElasticSearch常见错误">
+<meta itemprop="description" content="一 read_only_allow_delete&quot; : &ldquo;true&rdquo; 当我们在向某个索引添加一条数据的时候，可能（极少情况）会碰到下面的报错： 1 2 3 4 5 6 7 8 9 10 11 12 13 { &#34;error&#34;: { &#34;root_cause&#34;: [ { &#34;type&#34;: &#34;cluster_block_exception&#34;, &#34;reason&#34;: &#34;blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];&#34; } ], &#34;type&#34;: &#34;cluster_block_exception&#34;, &#34;reason&#34;: &#34;blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];&#34; }, &#34;status&#34;: 403 } 上述报错是说索引现在的状态是只读模式（read-only），如果查看该索引此时的状态： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20"><meta itemprop="datePublished" content="2023-08-31T17:06:11+08:00" />
+<meta itemprop="dateModified" content="2023-11-15T16:40:07+08:00" />
+<meta itemprop="wordCount" content="1712">
+<meta itemprop="keywords" content="文档操作," /><meta property="og:title" content="ElasticSearch常见错误" />
+<meta property="og:description" content="一 read_only_allow_delete&quot; : &ldquo;true&rdquo; 当我们在向某个索引添加一条数据的时候，可能（极少情况）会碰到下面的报错： 1 2 3 4 5 6 7 8 9 10 11 12 13 { &#34;error&#34;: { &#34;root_cause&#34;: [ { &#34;type&#34;: &#34;cluster_block_exception&#34;, &#34;reason&#34;: &#34;blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];&#34; } ], &#34;type&#34;: &#34;cluster_block_exception&#34;, &#34;reason&#34;: &#34;blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];&#34; }, &#34;status&#34;: 403 } 上述报错是说索引现在的状态是只读模式（read-only），如果查看该索引此时的状态： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.qilitang.top/posts/20-elasticsearch%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-31T17:06:11+08:00" />
+<meta property="article:modified_time" content="2023-11-15T16:40:07+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ElasticSearch常见错误"/>
+<meta name="twitter:description" content="一 read_only_allow_delete&quot; : &ldquo;true&rdquo; 当我们在向某个索引添加一条数据的时候，可能（极少情况）会碰到下面的报错： 1 2 3 4 5 6 7 8 9 10 11 12 13 { &#34;error&#34;: { &#34;root_cause&#34;: [ { &#34;type&#34;: &#34;cluster_block_exception&#34;, &#34;reason&#34;: &#34;blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];&#34; } ], &#34;type&#34;: &#34;cluster_block_exception&#34;, &#34;reason&#34;: &#34;blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];&#34; }, &#34;status&#34;: 403 } 上述报错是说索引现在的状态是只读模式（read-only），如果查看该索引此时的状态： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://www.qilitang.top/posts/20-elasticsearch%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" /><link rel="prev" href="https://www.qilitang.top/posts/18-elasticsearch%E4%B9%8B%E6%89%93%E5%88%86%E6%9C%BA%E5%88%B6/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "ElasticSearch常见错误",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/www.qilitang.top\/posts\/20-elasticsearch%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF\/"
+    },"genre": "posts","keywords": "文档操作","wordcount":  1712 ,
+    "url": "https:\/\/www.qilitang.top\/posts\/20-elasticsearch%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF\/","datePublished": "2023-08-31T17:06:11+08:00","dateModified": "2023-11-15T16:40:07+08:00","publisher": {
+      "@type": "Organization",
+      "name": "","logo": "https:\/\/www.qilitang.top\/favicon.ico"},"author": {
+        "@type": "Person",
+        "name": "Qilitang"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>ElasticSearch常见错误</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img loading="lazy" src="/avatar/avatar.jpg" srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x" sizes="auto" data-title="Qilitang" data-alt="Qilitang" class="avatar" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>&nbsp;Qilitang</a></span>
+          <span class="post-category">收录于 <a href="/categories/elasticsearch/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> ElasticSearch</a></span></div>
+      <div class="post-meta-line"><span title="发布于 2023-08-31 17:06:11"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2023-08-31">2023-08-31</time></span>&nbsp;<span title="更新于 2023-11-15 16:40:07"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2023-11-15">2023-11-15</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 1712 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一-read_only_allow_delete--true">一 read_only_allow_delete&quot; : &ldquo;true&rdquo;</a></li>
+    <li><a href="#二-illegal_argument_exception">二 illegal_argument_exception</a></li>
+    <li><a href="#三-result-window-is-too-large">三 Result window is too large</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h2 id="一-read_only_allow_delete--true">一 read_only_allow_delete&quot; : &ldquo;true&rdquo;</h2>
+<p>当我们在向某个索引添加一条数据的时候，可能（极少情况）会碰到下面的报错：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;error&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;root_cause&#34;: [
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;type&#34;: &#34;cluster_block_exception&#34;,
+</span></span><span class="line"><span class="cl">        &#34;reason&#34;: &#34;blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];&#34;
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    ],
+</span></span><span class="line"><span class="cl">    &#34;type&#34;: &#34;cluster_block_exception&#34;,
+</span></span><span class="line"><span class="cl">    &#34;reason&#34;: &#34;blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];&#34;
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;status&#34;: 403
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上述报错是说索引现在的状态是只读模式（read-only），如果查看该索引此时的状态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET z1/_settings
+</span></span><span class="line"><span class="cl"># 结果如下
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;z1&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;settings&#34; : {
+</span></span><span class="line"><span class="cl">      &#34;index&#34; : {
+</span></span><span class="line"><span class="cl">        &#34;number_of_shards&#34; : &#34;5&#34;,
+</span></span><span class="line"><span class="cl">        &#34;blocks&#34; : {
+</span></span><span class="line"><span class="cl">          &#34;read_only_allow_delete&#34; : &#34;true&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;provided_name&#34; : &#34;z1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;creation_date&#34; : &#34;1556204559161&#34;,
+</span></span><span class="line"><span class="cl">        &#34;number_of_replicas&#34; : &#34;1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;uuid&#34; : &#34;3PEevS9xSm-r3tw54p0o9w&#34;,
+</span></span><span class="line"><span class="cl">        &#34;version&#34; : {
+</span></span><span class="line"><span class="cl">          &#34;created&#34; : &#34;6050499&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到<code>&quot;read_only_allow_delete&quot; : &quot;true&quot;</code>，说明此时无法插入数据，当然，我们也可以模拟出来这个错误：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PUT z1
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;mappings&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;doc&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;properties&#34;: {
+</span></span><span class="line"><span class="cl">        &#34;title&#34;: {
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;text&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;settings&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;index.blocks.read_only_allow_delete&#34;: true
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PUT z1/doc/1
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;title&#34;: &#34;es真难学&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>现在我们如果执行插入数据，就会报开始的错误。那么怎么解决呢？</p>
+<ul>
+<li>清理磁盘，使占用率低于85%。</li>
+<li>手动调整该项，具体参考<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/disk-allocator.html"target="_blank" rel="external nofollow noopener noreferrer">官网</a></li>
+</ul>
+<p>这里介绍一种，我们将该字段重新设置为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PUT z1/_settings
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;index.blocks.read_only_allow_delete&#34;: null
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>现在再查看该索引就正常了，也可以正常的插入数据和查询了。</p>
+<h2 id="二-illegal_argument_exception">二 illegal_argument_exception</h2>
+<p>有时候，在聚合中，我们会发现如下报错：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;error&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;root_cause&#34;: [
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;type&#34;: &#34;illegal_argument_exception&#34;,
+</span></span><span class="line"><span class="cl">        &#34;reason&#34;: &#34;Fielddata is disabled on text fields by default. Set fielddata=true on [age] in order to load fielddata in memory by uninverting the inverted index. Note that this can however use significant memory. Alternatively use a keyword field instead.&#34;
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    ],
+</span></span><span class="line"><span class="cl">    &#34;type&#34;: &#34;search_phase_execution_exception&#34;,
+</span></span><span class="line"><span class="cl">    &#34;reason&#34;: &#34;all shards failed&#34;,
+</span></span><span class="line"><span class="cl">    &#34;phase&#34;: &#34;query&#34;,
+</span></span><span class="line"><span class="cl">    &#34;grouped&#34;: true,
+</span></span><span class="line"><span class="cl">    &#34;failed_shards&#34;: [
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;shard&#34;: 0,
+</span></span><span class="line"><span class="cl">        &#34;index&#34;: &#34;z2&#34;,
+</span></span><span class="line"><span class="cl">        &#34;node&#34;: &#34;NRwiP9PLRFCTJA7w3H9eqA&#34;,
+</span></span><span class="line"><span class="cl">        &#34;reason&#34;: {
+</span></span><span class="line"><span class="cl">          &#34;type&#34;: &#34;illegal_argument_exception&#34;,
+</span></span><span class="line"><span class="cl">          &#34;reason&#34;: &#34;Fielddata is disabled on text fields by default. Set fielddata=true on [age] in order to load fielddata in memory by uninverting the inverted index. Note that this can however use significant memory. Alternatively use a keyword field instead.&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    ],
+</span></span><span class="line"><span class="cl">    &#34;caused_by&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;type&#34;: &#34;illegal_argument_exception&#34;,
+</span></span><span class="line"><span class="cl">      &#34;reason&#34;: &#34;Fielddata is disabled on text fields by default. Set fielddata=true on [age] in order to load fielddata in memory by uninverting the inverted index. Note that this can however use significant memory. Alternatively use a keyword field instead.&#34;,
+</span></span><span class="line"><span class="cl">      &#34;caused_by&#34;: {
+</span></span><span class="line"><span class="cl">        &#34;type&#34;: &#34;illegal_argument_exception&#34;,
+</span></span><span class="line"><span class="cl">        &#34;reason&#34;: &#34;Fielddata is disabled on text fields by default. Set fielddata=true on [age] in order to load fielddata in memory by uninverting the inverted index. Note that this can however use significant memory. Alternatively use a keyword field instead.&#34;
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;status&#34;: 400
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这是怎么回事呢？是因为，聚合查询时，指定字段不能是<code>text</code>类型。比如下列示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PUT z2/doc/1
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;age&#34;:&#34;18&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">PUT z2/doc/2
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;age&#34;:20
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">GET z2/doc/_search
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;query&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;match_all&#34;: {}
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;aggs&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;my_sum&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;sum&#34;: {
+</span></span><span class="line"><span class="cl">        &#34;field&#34;: &#34;age&#34;
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当我们向<code>elasticsearch</code>中，添加一条数据时（此时，如果索引存在则直接新增或者更新文档，不存在则先创建索引），首先检查该<code>age</code>字段的映射类型。如上示例中，我们添加第一篇文档时（<code>z1</code>索引不存在），<code>elasticsearch</code>会自动的创建索引，然后为<code>age</code>字段创建映射关系（es就猜此时<code>age</code>字段的值是什么类型，如果发现是<code>text</code>类型，那么存储该字段的映射类型就是<code>text</code>），此时<code>age</code>字段的值是<code>text</code>类型，所以，第二条插入数据，<code>age</code>的值也是<code>text</code>类型，而不是我们看到的<code>long</code>类型。我们可以查看一下该索引的<code>mappings</code>信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET z2/_mapping
+</span></span><span class="line"><span class="cl"># mapping信息如下
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;z2&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;mappings&#34; : {
+</span></span><span class="line"><span class="cl">      &#34;doc&#34; : {
+</span></span><span class="line"><span class="cl">        &#34;properties&#34; : {
+</span></span><span class="line"><span class="cl">          &#34;age&#34; : {
+</span></span><span class="line"><span class="cl">            &#34;type&#34; : &#34;text&#34;,
+</span></span><span class="line"><span class="cl">            &#34;fields&#34; : {
+</span></span><span class="line"><span class="cl">              &#34;keyword&#34; : {
+</span></span><span class="line"><span class="cl">                &#34;type&#34; : &#34;keyword&#34;,
+</span></span><span class="line"><span class="cl">                &#34;ignore_above&#34; : 256
+</span></span><span class="line"><span class="cl">              }
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">          }
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上述返回结果发现，<code>age</code>类型是<code>text</code>。而该类型又不支持聚合，所以，就会报错了。解决办法就是：</p>
+<ul>
+<li>如果选择动态创建一篇文档，映射关系取决于你添加的第一条文档的各字段都对应什么类型。而不是我们看到的那样，第一次是<code>text</code>，第二次不加引号，就是<code>long</code>类型了不是这样的。</li>
+<li>如果嫌弃上面的解决办法麻烦，那就选择手动创建映射关系。首先指定好各字段对应什么类型。后续才不至于出错。</li>
+</ul>
+<h2 id="三-result-window-is-too-large">三 Result window is too large</h2>
+<p>很多时候，我们在查询文档时，一次查询结果很可能会有很多，而elasticsearch一次返回多少条结果，由<code>size</code>参数决定：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET e2/doc/_search
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;size&#34;: 100000,
+</span></span><span class="line"><span class="cl">  &#34;query&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;match_all&#34;: {}
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>而默认是最多范围一万条，那么当我们的请求超过一万条时（比如有十万条），就会报：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Result window is too large, from + size must be less than or equal to: [10000] but was [100000]. See the scroll api for a more efficient way to request large data sets. This limit can be set by changing the [index.max_result_window] index level setting.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>意思是一次请求返回的结果太大，可以另行参考 <code>scroll API</code>或者设置<code>index.max_result_window</code>参数手动调整<code>size</code>的最大默认值：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># kibana中设置
+</span></span><span class="line"><span class="cl">PUT e2/_settings
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;index&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;max_result_window&#34;: &#34;100000&#34;
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl"># Python中设置
+</span></span><span class="line"><span class="cl">from elasticsearch import Elasticsearch
+</span></span><span class="line"><span class="cl">es = Elasticsearch()
+</span></span><span class="line"><span class="cl">es.indices.put_settings(index=&#39;e2&#39;, body={&#34;index&#34;: {&#34;max_result_window&#34;: 100000}})
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如上例，我们手动调整索引<code>e2</code>的<code>size</code>参数最大默认值到十万，这时，一次查询结果只要不超过10万就都会一次返回。</p>
+<p>注意，这个设置对于索引<code>es</code>的<code>size</code>参数是永久生效的。</p>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2023-11-15 16:40:07">更新于 2023-11-15&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/posts/20-elasticsearch%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.qilitang.top/posts/20-elasticsearch%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" data-title="ElasticSearch常见错误" data-hashtags="文档操作"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.qilitang.top/posts/20-elasticsearch%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" data-hashtag="文档操作"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.qilitang.top/posts/20-elasticsearch%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" data-title="ElasticSearch常见错误"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C/' class="post-tag">文档操作</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/18-elasticsearch%E4%B9%8B%E6%89%93%E5%88%86%E6%9C%BA%E5%88%B6/" class="post-nav-item" rel="prev" title="ElasticSearch打分机制"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>ElasticSearch打分机制</a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/qilitang"target="_blank" rel="external nofollow noopener noreferrer">Qilitang</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":3},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>

@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>Elasticsearch安装 - 标签 - </title>
+    <link>https://www.qilitang.top/tags/elasticsearch%E5%AE%89%E8%A3%85/</link>
+    <description>Elasticsearch安装 - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Tue, 31 Aug 2021 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/elasticsearch%E5%AE%89%E8%A3%85/" rel="self" type="application/rss+xml" /><item>
+  <title>安装ElasticSearch</title>
+  <link>https://www.qilitang.top/posts/01-mac%E5%AE%89%E8%A3%85elasticsearch/</link>
+  <pubDate>Tue, 31 Aug 2021 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/01-mac%E5%AE%89%E8%A3%85elasticsearch/</guid>
+  <description><![CDATA[一 安装JDK环境 因为ElasticSearch是用Java语言编写的，所以必须安装JDK的环境，并且是JDK 1.8以上，具体操作步骤自行百度 安装完成查看java版本 1 java -version 二 官网下载最新版本 下载地址[https://www.elastic.co/cn/downloads/elasticsearch],]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>ElasticSearch删除映射类型 - </title><meta name="author" content="Qilitang">
+<meta name="author-link" content="https://github.com/qilitang">
+<meta name="description" content="一 前言 官方解释：https://www.elastic.co/guide/en/elasticsearch/reference/6.0/removal-of-types.html 在elasticsearch6.0.0或更高的版本中创建索引仅能包含单个映射类型。在具有多种映射类型的5.x版本中创建的索" /><meta name="keywords" content='文档操作' /><meta itemprop="name" content="ElasticSearch删除映射类型">
+<meta itemprop="description" content="一 前言 官方解释：https://www.elastic.co/guide/en/elasticsearch/reference/6.0/removal-of-types.html 在elasticsearch6.0.0或更高的版本中创建索引仅能包含单个映射类型。在具有多种映射类型的5.x版本中创建的索"><meta itemprop="datePublished" content="2023-08-31T17:06:11+08:00" />
+<meta itemprop="dateModified" content="2023-11-15T16:40:16+08:00" />
+<meta itemprop="wordCount" content="3822">
+<meta itemprop="keywords" content="文档操作," /><meta property="og:title" content="ElasticSearch删除映射类型" />
+<meta property="og:description" content="一 前言 官方解释：https://www.elastic.co/guide/en/elasticsearch/reference/6.0/removal-of-types.html 在elasticsearch6.0.0或更高的版本中创建索引仅能包含单个映射类型。在具有多种映射类型的5.x版本中创建的索" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.qilitang.top/posts/17-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%88%A0%E9%99%A4%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-31T17:06:11+08:00" />
+<meta property="article:modified_time" content="2023-11-15T16:40:16+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ElasticSearch删除映射类型"/>
+<meta name="twitter:description" content="一 前言 官方解释：https://www.elastic.co/guide/en/elasticsearch/reference/6.0/removal-of-types.html 在elasticsearch6.0.0或更高的版本中创建索引仅能包含单个映射类型。在具有多种映射类型的5.x版本中创建的索"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://www.qilitang.top/posts/17-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%88%A0%E9%99%A4%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B/" /><link rel="prev" href="https://www.qilitang.top/posts/15-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E4%BD%8D%E7%BD%AE%E5%9D%90%E6%A0%87%E5%AE%9E%E7%8E%B0%E9%99%84%E8%BF%91%E7%9A%84%E4%BA%BA%E6%90%9C%E7%B4%A2/" /><link rel="next" href="https://www.qilitang.top/posts/19-elasticsearch%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "ElasticSearch删除映射类型",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/www.qilitang.top\/posts\/17-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%88%A0%E9%99%A4%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B\/"
+    },"genre": "posts","keywords": "文档操作","wordcount":  3822 ,
+    "url": "https:\/\/www.qilitang.top\/posts\/17-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%88%A0%E9%99%A4%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B\/","datePublished": "2023-08-31T17:06:11+08:00","dateModified": "2023-11-15T16:40:16+08:00","publisher": {
+      "@type": "Organization",
+      "name": "","logo": "https:\/\/www.qilitang.top\/favicon.ico"},"author": {
+        "@type": "Person",
+        "name": "Qilitang"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>ElasticSearch删除映射类型</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img loading="lazy" src="/avatar/avatar.jpg" srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x" sizes="auto" data-title="Qilitang" data-alt="Qilitang" class="avatar" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>&nbsp;Qilitang</a></span>
+          <span class="post-category">收录于 <a href="/categories/elasticsearch/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> ElasticSearch</a></span></div>
+      <div class="post-meta-line"><span title="发布于 2023-08-31 17:06:11"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2023-08-31">2023-08-31</time></span>&nbsp;<span title="更新于 2023-11-15 16:40:16"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2023-11-15">2023-11-15</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 3822 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 8 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一-前言">一 前言</a></li>
+    <li><a href="#二-什么是映射类型">二 什么是映射类型？</a></li>
+    <li><a href="#三-为什么要删除映射类型">三 为什么要删除映射类型？</a></li>
+    <li><a href="#四-映射类型的替代方法">四 映射类型的替代方法</a>
+      <ul>
+        <li><a href="#41-将映射类型分开存储在索引中">4.1 将映射类型分开存储在索引中</a></li>
+        <li><a href="#42-自定义类型字段回到顶部">4.2 自定义类型字段回到顶部</a></li>
+      </ul>
+    </li>
+    <li><a href="#五-没有映射类型的父子">五 没有映射类型的父/子</a></li>
+    <li><a href="#六-删除映射类型的计划">六 删除映射类型的计划</a></li>
+    <li><a href="#七将多类型索引迁移到单一类型">七将多类型索引迁移到单一类型</a>
+      <ul>
+        <li><a href="#71-每种文档类型的索引">7.1 每种文档类型的索引</a></li>
+        <li><a href="#72-自定义类型字段">7.2 自定义类型字段</a></li>
+      </ul>
+    </li>
+    <li><a href="#八-总结">八 总结</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h2 id="一-前言">一 前言</h2>
+<p>官方解释：<a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/removal-of-types.html"target="_blank" rel="external nofollow noopener noreferrer">https://www.elastic.co/guide/en/elasticsearch/reference/6.0/removal-of-types.html</a></p>
+<p>在elasticsearch6.0.0或更高的版本中创建索引仅能包含单个映射类型。在具有多种映射类型的5.x版本中创建的索引将继续像以前一样在elasticsearch6.x中运行。类型将在elasticsearch7.0.0中的API中弃用，并在8.0.0中完全删除。</p>
+<h2 id="二-什么是映射类型">二 什么是映射类型？</h2>
+<p>从elasticsearch发布以来，每个文档都存储在单个索引中并分配了单个映射类型。映射类型用于表示要编制索引的文档或实体的类型。例如微博（twitter）索引可能具有用户（user）类型和推文（tweet）两个类型。</p>
+<p>每种映射类型都可以有自己的字段，因此用户（user）类型可能有<code>full_name</code>、<code>user_name</code>、<code>email</code>字段；而推文（tweet）类型可能有<code>content</code>、<code>tweet_at</code>字段和用户（user）类型的<code>user_name</code>字段。</p>
+<p>每个文档都有一个<code>_type</code>包含类型名称的元字段，通过在URL中指定类型名称，搜索可以限制为一种或多种类型：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET twitter/user,tweet/_search
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;query&#34;:{
+</span></span><span class="line"><span class="cl">    &#34;match&#34;:{
+</span></span><span class="line"><span class="cl">      &#34;user_name&#34;:&#34;kimchy&#34;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>该<code>_type</code>字段与文档组合<code>_id</code>以生成<code>_uid</code>字段，因此具有相同类型的文档<code>_id</code>可以存储在单个索引中。</p>
+<p>映射类型也用于在文档中建立<a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/mapping-parent-field.html"target="_blank" rel="external nofollow noopener noreferrer">父子关系</a>，因此类型的文档<code>question</code>可以是类型文档的父类<code>answer</code>。</p>
+<p>扯了半天淡，一切不都是挺好的嘛？那还为啥要删除映射类型呢？</p>
+<h2 id="三-为什么要删除映射类型">三 为什么要删除映射类型？</h2>
+<p>最初（其实到现在），为了便于理解elasticsearch的数据组织，通常拿elasticsearch和关系型数据库做对比，比如我们谈到一个es索引（index）时，通常将它比喻为类似于SQL数据库中的<code>database</code>，而类型（type）等同于SQL数据库中的表。</p>
+<p>这真是一个糟糕的比喻！让我们有了错误理解。因为在SQL数据库中，表彼此独立，一个表中的字段与另一个表中具有相同名称的字段无关，而映射类型中的字段不是这种情况。</p>
+<p>在elasticsearch的索引中，不同映射类型具有相同名称的字段在内部由相同的Lucene字段支持。换句话说，使用上面的示例，用户（user）类型中的<code>user_name</code>字段存储在和推文（tweet）类型中的<code>user_name</code>字段完全相同的字段中，而且两种类型中的<code>user_name</code>字段必须具有相同的映射（定义）。</p>
+<p>当我们希望删除一个类型的日期字段和同一个索引中另一个类型的布尔字段时，这可能会导致挫败感（可以理解为删除失败）。</p>
+<p>最重要的是，在同一索引中存储具有很少或没有共同字段的不同实体会导致稀疏数据并干扰Lucene有效压缩文档的能力。</p>
+<p>出于这些原因，我们决定从elasticsearch中删除映射类型的概念。</p>
+<h2 id="四-映射类型的替代方法">四 映射类型的替代方法</h2>
+<h3 id="41-将映射类型分开存储在索引中">4.1 将映射类型分开存储在索引中</h3>
+<p>第一种方法是每个文档类型都有一个索引，例如微博（twitter）索引中，我们可以将推文（tweet）类型和用户（user）类型分开，分别存储在独立的索引中。这样两个相互的索引就不会引起字段冲突了。</p>
+<p>这中方法有两个好处：</p>
+<ul>
+<li>数据更可能是密集的，因此受益于Lucene中使用的压缩技术。</li>
+<li>用于全文搜索评分的词条统计将会更精确，应为同一索引中的所有文档都代表单个实体。</li>
+</ul>
+<p>每个索引的大小可以根据其包含的文档数量进行适当的调整，比如我们为用户（user）类型分配较少的主分片，而为推文（tweet）类型分配较多的主分片。</p>
+<h3 id="42-自定义类型字段回到顶部">4.2 自定义类型字段回到顶部</h3>
+<p>当然了，集群中可以存储多少个主分片是有限制的，我们不希望仅为几千个文档的集合而浪费整个分片。在这种情况下，我们可以实现自己的自定义<code>type</code>字段，该字段的工作方式与旧的<code>_type</code>相似。</p>
+<p>还是上面微博（twitter）例子，最初，它的映射类型看起来是这样的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PUT twitter
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;mappings&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;user&#34;:{
+</span></span><span class="line"><span class="cl">      &#34;properties&#34;:{
+</span></span><span class="line"><span class="cl">        &#34;name&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;text&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;user_name&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;keyword&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;email&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;keyword&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    &#34;tweet&#34;:{
+</span></span><span class="line"><span class="cl">      &#34;properties&#34;:{
+</span></span><span class="line"><span class="cl">        &#34;content&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;text&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;user_name&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;keyword&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;tweet_at&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;date&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PUT twitter/user/kimchy
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;name&#34;:&#34;狗子&#34;,
+</span></span><span class="line"><span class="cl">  &#34;user_name&#34;:&#34;二狗子&#34;,
+</span></span><span class="line"><span class="cl">  &#34;email&#34;:&#34;dog@twodog.com&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PUT twitter/tweet/1
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;name&#34;:&#34;kimchy&#34;,
+</span></span><span class="line"><span class="cl">  &#34;tweet_ad&#34;:&#34;2019-04-30T10:26:20Z&#34;,
+</span></span><span class="line"><span class="cl">  &#34;content&#34;:&#34;单身狗求包养&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">GET twitter/tweet/_search
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;query&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;match&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;user_name&#34;: &#34;kimchy&#34;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如上示例，请在5.x及以下版本测试</p>
+<p>我们也可以通过添加自定义<code>type</code>字段来实现相同目的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PUT twitter
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;mappings&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;doc&#34;:{
+</span></span><span class="line"><span class="cl">      &#34;properties&#34;:{
+</span></span><span class="line"><span class="cl">        &#34;type&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;keyword&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;name&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;text&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;user_name&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;keyword&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;email&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;text&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;content&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;text&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;tweet_at&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;date&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }  
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PUT twitter/doc/user-kimchy
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;type&#34;:&#34;user&#34;,
+</span></span><span class="line"><span class="cl">  &#34;name&#34;:&#34;狗子&#34;,
+</span></span><span class="line"><span class="cl">  &#34;user_name&#34;:&#34;二狗子&#34;,
+</span></span><span class="line"><span class="cl">  &#34;email&#34;:&#34;dog@twodog.com&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PUT twitter/doc/tweet-1
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;type&#34;:&#34;tweet&#34;,
+</span></span><span class="line"><span class="cl">  &#34;user_name&#34;:&#34;kimchy&#34;,
+</span></span><span class="line"><span class="cl">  &#34;tweet_at&#34;:&#34;2019-04-30T10:26:20Z&#34;,
+</span></span><span class="line"><span class="cl">  &#34;content&#34;:&#34;单身狗求包养&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">GET twitter/_search
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;query&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;bool&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;must&#34;:[
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">          &#34;match&#34;: {
+</span></span><span class="line"><span class="cl">            &#34;user_name&#34;: &#34;kimchy&#34;
+</span></span><span class="line"><span class="cl">          }
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      ],
+</span></span><span class="line"><span class="cl">      &#34;filter&#34;: {
+</span></span><span class="line"><span class="cl">        &#34;match&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;tweet&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上述示例6.5.4版本运行无误。</p>
+<h2 id="五-没有映射类型的父子">五 没有映射类型的父/子</h2>
+<p>以前，通过将一个映射类型设置为父级，将一个或多个其他映射类型设置为子级来表示父子关系。现在，没有了多类型，我们就不能再使用这种语法了。除了表示文档之间的关系方式已改为使用新的<a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/parent-join.html"target="_blank" rel="external nofollow noopener noreferrer">join字段</a>之外，父子特征将继续像以前一样运行。</p>
+<h2 id="六-删除映射类型的计划">六 删除映射类型的计划</h2>
+<p>这个删除映射类型的计划，对于用户来说是一个很大的变化，所以我们试图让它尽可能轻松，更改将如下所示：</p>
+<p>在elasticsearch5.6.0中：</p>
+<ul>
+<li>index.mapping.single_type:true在索引上设置将启用在6.0中强制执行的单索引类型。</li>
+<li>父子的<a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/parent-join.html"target="_blank" rel="external nofollow noopener noreferrer">join字段</a>替换可用于在5.6中创建索引。</li>
+</ul>
+<p>在elasticsearch6.x中：</p>
+<ul>
+<li>在5.x中创建的索引将继续在6.x中运行，就像在5.x中一样。</li>
+<li>在6.x中创建的索引仅允许每个索引使用单一类型，任何字段都可以用于该类型，但必须是唯一的。</li>
+<li>该<code>_type</code>名称可以不再与<code>_id</code>组合形成<code>_uid</code>字段，<code>_uid</code>字段已成为<code>_id</code>字段的别名。</li>
+<li>新索引不再支持旧的父/子关系，而是应该使用连接字段。</li>
+<li>不推荐使用<code>_default_mapping</code>类型。</li>
+<li>在6.7中，索引创建、索引模板和映射API支持查询字符串参数（include_type_name），该参数仅表示请求和响应是否应该包含类型名称，默认为true，应该设置为一个显式值，以便准备升级到7.0。未设置<code>include_type_name</code>将导致一个弃用警告，没有显式类型的索引将使用默认的类型名称<code>_doc</code>。</li>
+</ul>
+<p>在elasticsearch7.x中：</p>
+<ul>
+<li>不推荐在请求中指定类型。例如，索引文档不再需要文档类型。对于自动生成的id，新的索引API在显式ids和<code>POST {index_name}/_doc</code>的情况下是<code>PUT {index_name}/_doc/{id}</code>。</li>
+<li>索引创建，索引模板和映射API中的<code>include_type_name</code>参数将默认为false，未设置参数将导致启动警告。</li>
+<li>删除了<code>_default_mapping</code>类型。</li>
+</ul>
+<p>在elasticsearch8.x中：</p>
+<ul>
+<li>不在支持在请求中指定类型。</li>
+<li><code>include_type_name</code>参数已删除。</li>
+</ul>
+<h2 id="七将多类型索引迁移到单一类型">七将多类型索引迁移到单一类型</h2>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/docs-reindex.html"target="_blank" rel="external nofollow noopener noreferrer">Reindex API</a>可用于将多类型索引转换为单类型索引。下面的例子可以在Elasticsearch 5.6或Elasticsearch 6.x中使用。在6.x中，不需要指定<code>index.mapping</code>。默认为单一类型。</p>
+<h3 id="71-每种文档类型的索引">7.1 每种文档类型的索引</h3>
+<p>第一个示例将微博（twitter）索引拆分为推文（tweets）索引和用户（users）索引：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PUT users
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;mappings&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;user&#34;:{
+</span></span><span class="line"><span class="cl">      &#34;properties&#34;:{
+</span></span><span class="line"><span class="cl">        &#34;name&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;text&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;user_name&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;keyword&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;email&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;keyword&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PUT tweets
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;mappings&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;tweet&#34;:{
+</span></span><span class="line"><span class="cl">      &#34;properties&#34;:{
+</span></span><span class="line"><span class="cl">        &#34;content&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;text&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;user_name&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;keyword&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;tweet_at&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;date&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">POST _reindex
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;source&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;index&#34;:&#34;twitter&#34;,
+</span></span><span class="line"><span class="cl">    &#34;type&#34;:&#34;user&#34;
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;dest&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;index&#34;:&#34;users&#34;
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">POST _reindex
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;source&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;index&#34;:&#34;twitter&#34;,
+</span></span><span class="line"><span class="cl">    &#34;type&#34;:&#34;tweet&#34;
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;dest&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;index&#34;: &#34;tweets&#34;
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上述代码在6.5.4版本中运行无误。</p>
+<p>上述的示例意思是，在之前我们在微博（twitter）索引中，有两个类型（tweet和user）。现在要将两个类型分开，成为独立的索引。所以，首先先创建出各自的索引（tweets和users），然后通过<code>POST _reindex</code>来完成迁移工作。</p>
+<h3 id="72-自定义类型字段">7.2 自定义类型字段</h3>
+<p>第二个示例添加自自定义的<code>type</code>字段，并将其设置为原始值<code>_type</code>。它还添加了类型到id，以防有任何不同类型的文档具有冲突的id：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PUT new_twitter
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;mappings&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;doc&#34;:{
+</span></span><span class="line"><span class="cl">      &#34;properties&#34;:{
+</span></span><span class="line"><span class="cl">        &#34;type&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;keyword&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;name&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;text&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;user_name&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;keyword&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;email&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;keyword&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;content&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;text&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;tweet_at&#34;:{
+</span></span><span class="line"><span class="cl">          &#34;type&#34;:&#34;date&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">POST _reindex
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;source&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;index&#34;:&#34;twitter&#34;
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;dest&#34;:{
+</span></span><span class="line"><span class="cl">    &#34;index&#34;: &#34;new_twitter&#34;
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;script&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;source&#34;: &#34;&#34;&#34;
+</span></span><span class="line"><span class="cl">      ctx._source.type = ctx._type;
+</span></span><span class="line"><span class="cl">      ctx._id = ctx._type + &#34;-&#34; + ctx._id;
+</span></span><span class="line"><span class="cl">      ctx._type = &#34;doc&#34;;
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">    &#34;&#34;&#34;
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上述代码在6.5.4版本运行无误。</p>
+<h2 id="八-总结">八 总结</h2>
+<p>总之，通篇看下来，如果对elasticsearch，尤其是各版本不太了解的话，这篇文档看着索然无味！重要的是看不懂，如果我们是新手，接触elasticsearch的时候，就是从6.x版本开始的，那只要记得，一个索引下面只能创建一个类型就行了，其中各字段都具有唯一性，如果在创建映射的时候，如果没有指定文档类型，那么该索引的默认索引类型是<code>_doc</code>，不指定文档id则会内部帮我们生成一个id字符串。其他的，who care？</p>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2023-11-15 16:40:16">更新于 2023-11-15&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/posts/17-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%88%A0%E9%99%A4%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.qilitang.top/posts/17-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%88%A0%E9%99%A4%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B/" data-title="ElasticSearch删除映射类型" data-hashtags="文档操作"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.qilitang.top/posts/17-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%88%A0%E9%99%A4%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B/" data-hashtag="文档操作"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.qilitang.top/posts/17-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%88%A0%E9%99%A4%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B/" data-title="ElasticSearch删除映射类型"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C/' class="post-tag">文档操作</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/15-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E4%BD%8D%E7%BD%AE%E5%9D%90%E6%A0%87%E5%AE%9E%E7%8E%B0%E9%99%84%E8%BF%91%E7%9A%84%E4%BA%BA%E6%90%9C%E7%B4%A2/" class="post-nav-item" rel="prev" title="ElasticSearch位置做不及附近的人搜索"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>ElasticSearch位置做不及附近的人搜索</a>
+      <a href="/posts/19-elasticsearch%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="post-nav-item" rel="next" title="ElasticSearch配置文件">ElasticSearch配置文件<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/qilitang"target="_blank" rel="external nofollow noopener noreferrer">Qilitang</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":3},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>

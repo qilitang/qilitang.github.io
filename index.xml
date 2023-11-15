@@ -4,87 +4,87 @@
     <link>https://www.qilitang.top/</link>
     <description>七里塘的个人站</description>
     <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
-      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Sat, 05 Sep 2020 17:06:11 &#43;0800</lastBuildDate>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</lastBuildDate>
       <atom:link href="https://www.qilitang.top/index.xml" rel="self" type="application/rss+xml" />
     <item>
-  <title>Elasticsearch term 与 match</title>
-  <link>https://www.qilitang.top/posts/elasticsearch-09-term%E4%B8%8Ematch/</link>
-  <pubDate>Sat, 05 Sep 2020 17:06:11 &#43;0800</pubDate>
+  <title>ElasticSearch常见错误</title>
+  <link>https://www.qilitang.top/posts/20-elasticsearch%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
   <author>Qilitang</author>
-  <guid>https://www.qilitang.top/posts/elasticsearch-09-term%E4%B8%8Ematch/</guid>
-  <description><![CDATA[<p>Elasticsearch 常用的es 查询</p>]]></description>
+  <guid>https://www.qilitang.top/posts/20-elasticsearch%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/</guid>
+  <description><![CDATA[一 read_only_allow_delete&quot; : &ldquo;true&rdquo; 当我们在向某个索引添加一条数据的时候，可能（极少情况）会碰到下面的报错： 1 2 3 4 5 6 7 8 9 10 11 12 13 { &#34;error&#34;: { &#34;root_cause&#34;: [ { &#34;type&#34;: &#34;cluster_block_exception&#34;, &#34;reason&#34;: &#34;blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];&#34; } ], &#34;type&#34;: &#34;cluster_block_exception&#34;, &#34;reason&#34;: &#34;blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];&#34; }, &#34;status&#34;: 403 } 上述报错是说索引现在的状态是只读模式（read-only），如果查看该索引此时的状态： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20]]></description>
 </item>
 <item>
-  <title>Elasticsearch 简单操作</title>
-  <link>https://www.qilitang.top/posts/elasticsearch-08-es%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C/</link>
-  <pubDate>Sat, 05 Sep 2020 17:06:11 &#43;0800</pubDate>
+  <title>ElasticSearch打分机制</title>
+  <link>https://www.qilitang.top/posts/18-elasticsearch%E4%B9%8B%E6%89%93%E5%88%86%E6%9C%BA%E5%88%B6/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
   <author>Qilitang</author>
-  <guid>https://www.qilitang.top/posts/elasticsearch-08-es%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C/</guid>
-  <description><![CDATA[<p>Elasticsearch 简单操作</p>]]></description>
+  <guid>https://www.qilitang.top/posts/18-elasticsearch%E4%B9%8B%E6%89%93%E5%88%86%E6%9C%BA%E5%88%B6/</guid>
+  <description><![CDATA[一 例子 现在，讲述一个真实的故事！ 故事一定是伴随着赵忠祥老师的声音开始的，雨季就要来临了，又到了动物们发情的季节了&hellip; 还记得，之前发生的作家六六吐槽xx的事情吗？对了，有图有真相！上图上图： 身为吃瓜群众，要从专业的角度来分析，就事论事哈： 就搜索结果本身而言，xx返回了正确的结果（是的，人家]]></description>
 </item>
 <item>
-  <title>Elasticsearch 与Kibana通讯及 es-head 开源管理项目</title>
-  <link>https://www.qilitang.top/posts/elasticsearch-07-kibana-%E4%B8%8E-es-%E8%BF%9E%E6%8E%A5/</link>
-  <pubDate>Fri, 04 Sep 2020 17:06:11 &#43;0800</pubDate>
+  <title>ElasticSearch倒排索引</title>
+  <link>https://www.qilitang.top/posts/16-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
   <author>Qilitang</author>
-  <guid>https://www.qilitang.top/posts/elasticsearch-07-kibana-%E4%B8%8E-es-%E8%BF%9E%E6%8E%A5/</guid>
-  <description><![CDATA[<p>Elasticsearch 与Kibana通讯及 es-head 开源管理项目</p>]]></description>
+  <guid>https://www.qilitang.top/posts/16-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95/</guid>
+  <description><![CDATA[随着央视诗词大会的热播，小史开始对诗词感兴趣，最喜欢的就是飞花令的环节。 但是由于小史很久没有背过诗词了，飞一个字很难说出一句，很多之前很熟悉的诗句也想不起来。 倒排索引 **吕老师：**但是我让你说出带“前”字的诗句，由于没有索引，你只能遍历脑海中所有诗词，当你的脑海中诗词量大的时候，就很难在短时间内得]]></description>
 </item>
 <item>
-  <title>Elasticsearch 配置文件详解</title>
-  <link>https://www.qilitang.top/posts/elasticsearch-06-es-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/</link>
-  <pubDate>Thu, 03 Sep 2020 17:06:11 &#43;0800</pubDate>
+  <title>ElasticSearch集成Django</title>
+  <link>https://www.qilitang.top/posts/21-elasticsearch-%E9%9B%86%E6%88%90-django%E4%BC%A0%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
   <author>Qilitang</author>
-  <guid>https://www.qilitang.top/posts/elasticsearch-06-es-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/</guid>
-  <description><![CDATA[<p>Elasticsearch 配置文件详解</p>]]></description>
+  <guid>https://www.qilitang.top/posts/21-elasticsearch-%E9%9B%86%E6%88%90-django%E4%BC%A0%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+  <description><![CDATA[介绍: 业务需要, 为了增加mysql一张数据库表的查询速率, 特实现es作为传统数据库使用的方案. django-elasticsearch 的使用 一 安装 1 2 pip install django-elasticsearch-dsl # 会同时安装 elasticsearch-dsl 和 elasticsearch 二 注册 + 配置 1 2 3 4 5 6 7 8 9 10 11 12 INSTALLED_APPS = [ ... &#39;django_elasticsearch_dsl&#39;, ... ] # Es 配置 ELASTICSEARCH_DSL={ &#39;default&#39;: { &#39;hosts&#39;: &#39;localhost:9200&#39; }, } 三 创建documents.py文件,做 orm 与 es 索引的映射 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19]]></description>
 </item>
 <item>
-  <title>Kibana Docker 容器安装</title>
-  <link>https://www.qilitang.top/posts/elasticsearch-05-kibana/</link>
-  <pubDate>Thu, 03 Sep 2020 17:06:11 &#43;0800</pubDate>
+  <title>ElasticSearch集群搭建, 数据分片</title>
+  <link>https://www.qilitang.top/posts/14-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
   <author>Qilitang</author>
-  <guid>https://www.qilitang.top/posts/elasticsearch-05-kibana/</guid>
-  <description><![CDATA[<p>docker 容器安装 Kibana</p>]]></description>
+  <guid>https://www.qilitang.top/posts/14-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87/</guid>
+  <description><![CDATA[es使用两种不同的方式来发现对方： 广播 单播 也可以同时使用两者，但默认的广播，单播需要已知节点列表来完成 一 广播方式 当es实例启动的时候，它发送了广播的ping请求到地址224.2.2.4:54328。而其他的es实例使用同样的集群名称响应了这个请求。 一般这个默认的集群名称就是上面的cluster_na]]></description>
 </item>
 <item>
-  <title>使用docker安装Elasticsearch 集群</title>
-  <link>https://www.qilitang.top/posts/elasticsearch-04-docker-%E9%9B%86%E7%BE%A4/</link>
-  <pubDate>Wed, 02 Sep 2020 17:06:11 &#43;0800</pubDate>
+  <title>ElasticSearch配置文件</title>
+  <link>https://www.qilitang.top/posts/19-elasticsearch%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
   <author>Qilitang</author>
-  <guid>https://www.qilitang.top/posts/elasticsearch-04-docker-%E9%9B%86%E7%BE%A4/</guid>
-  <description><![CDATA[<p>什么是ElasticSearch</p>]]></description>
+  <guid>https://www.qilitang.top/posts/19-elasticsearch%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</guid>
+  <description><![CDATA[一 前言 在elasticsearch\config目录下，有三个核心的配置文件： elasticsearch.yml，es相关的配置。 jvm.options，Java jvm相关参数的配置。 log4j2.properties，日志相关的配置，因为es采用了log4j的日志框架。 这里以elasticsear]]></description>
 </item>
 <item>
-  <title>Apache Lucene</title>
-  <link>https://www.qilitang.top/posts/elasticsearch-02-apache-lucene/</link>
-  <pubDate>Mon, 31 Aug 2020 17:06:11 &#43;0800</pubDate>
+  <title>ElasticSearch删除映射类型</title>
+  <link>https://www.qilitang.top/posts/17-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%88%A0%E9%99%A4%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
   <author>Qilitang</author>
-  <guid>https://www.qilitang.top/posts/elasticsearch-02-apache-lucene/</guid>
-  <description><![CDATA[<p>什么是 Apache Lucene</p>]]></description>
+  <guid>https://www.qilitang.top/posts/17-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%88%A0%E9%99%A4%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B/</guid>
+  <description><![CDATA[一 前言 官方解释：https://www.elastic.co/guide/en/elasticsearch/reference/6.0/removal-of-types.html 在elasticsearch6.0.0或更高的版本中创建索引仅能包含单个映射类型。在具有多种映射类型的5.x版本中创建的索]]></description>
 </item>
 <item>
-  <title>Linux 安装 Elasticsearch</title>
-  <link>https://www.qilitang.top/posts/elasticsearch-03-linux%E5%AE%89%E8%A3%85/</link>
-  <pubDate>Mon, 31 Aug 2020 17:06:11 &#43;0800</pubDate>
+  <title>ElasticSearch位置做不及附近的人搜索</title>
+  <link>https://www.qilitang.top/posts/15-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E4%BD%8D%E7%BD%AE%E5%9D%90%E6%A0%87%E5%AE%9E%E7%8E%B0%E9%99%84%E8%BF%91%E7%9A%84%E4%BA%BA%E6%90%9C%E7%B4%A2/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
   <author>Qilitang</author>
-  <guid>https://www.qilitang.top/posts/elasticsearch-03-linux%E5%AE%89%E8%A3%85/</guid>
-  <description><![CDATA[<p>在linux 上安装 elasticsearch</p>]]></description>
+  <guid>https://www.qilitang.top/posts/15-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E4%BD%8D%E7%BD%AE%E5%9D%90%E6%A0%87%E5%AE%9E%E7%8E%B0%E9%99%84%E8%BF%91%E7%9A%84%E4%BA%BA%E6%90%9C%E7%B4%A2/</guid>
+  <description><![CDATA[一 创建mapping 1 2 3 4 5 6 7 8 9 10 11 12 PUT test { &#34;mappings&#34;: { &#34;test&#34;:{ &#34;properties&#34;: { &#34;location&#34;:{ &#34;type&#34;: &#34;geo_point&#34; } } } } } 二 导入数据 1 2 3 4 5 6 7 POST test/test { &#34;location&#34;:{ &#34;lat&#34;:12, &#34;lon&#34;:24 } } 三 查询 3.1根据给定两个点组成的矩形，查询矩形内的点 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 GET test/test/_search { &#34;query&#34;: { &#34;geo_bounding_box&#34;: { &#34;location&#34;: { &#34;top_left&#34;: { &#34;lat&#34;: 28, &#34;lon&#34;: 10 }, &#34;bottom_right&#34;: { &#34;lat&#34;: 10, &#34;lon&#34;: 30 } } } } } 3.2根据给定的多个点组成的多边形，查询范围]]></description>
 </item>
 <item>
-  <title>什么是ElasticSearch</title>
-  <link>https://www.qilitang.top/posts/elasticsearch-01-%E5%85%A5%E9%97%A8/</link>
-  <pubDate>Mon, 31 Aug 2020 17:06:11 &#43;0800</pubDate>
+  <title>Kibana介绍</title>
+  <link>https://www.qilitang.top/posts/04-elasticsearch%E4%B9%8B-kibana/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
   <author>Qilitang</author>
-  <guid>https://www.qilitang.top/posts/elasticsearch-01-%E5%85%A5%E9%97%A8/</guid>
-  <description><![CDATA[<p>什么是ElasticSearch</p>]]></description>
+  <guid>https://www.qilitang.top/posts/04-elasticsearch%E4%B9%8B-kibana/</guid>
+  <description><![CDATA[一 Kibana介绍 Kibana 是一款开源的数据分析和可视化平台，它是 Elastic Stack 成员之一，设计用于和 Elasticsearch 协作。 您、可以使用 Kibana 对 Elasticsearch 索引中的数据进行搜索、查看、交互操作。 可以很方便的利用图表、表格及地图对数据进行多元化的分析和呈现 详情可见用户手册： https://www.elastic.co/guide/cn/kibana/current/index.html 注意跟Elasticsearch版本兼容情况，详情见： https://www.elastic.co/cn/support/matrix#matrix_compatibility 下载地址为： https://www.elastic.co/cn/downloads/past-releases 二 下]]></description>
 </item>
 <item>
-  <title>Go 接口 协程 信道 异常处理</title>
-  <link>https://www.qilitang.top/posts/go-09-%E6%8E%A5%E5%8F%A3/</link>
-  <pubDate>Thu, 09 Jan 2020 17:06:11 &#43;0800</pubDate>
+  <title>nodejs 安装</title>
+  <link>https://www.qilitang.top/posts/03-%E5%AE%89%E8%A3%85nodejs/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
   <author>Qilitang</author>
-  <guid>https://www.qilitang.top/posts/go-09-%E6%8E%A5%E5%8F%A3/</guid>
-  <description><![CDATA[1 接口 接口定义一个对象的行为。接口只指定了对象应该做什么，至于如何实现这个行为（即实现细节），则由对象本身去确定。 （python中 abc 模块 可以强制要求子类必须重写父类的方法 否则报错） python和go都属于鸭子类型，非侵入式接口 java：侵入式接口 1、定义接口 （接口是一系列行为的集合：一系列方法的集合]]></description>
+  <guid>https://www.qilitang.top/posts/03-%E5%AE%89%E8%A3%85nodejs/</guid>
+  <description><![CDATA[一 nodejs介绍 Node.js 就是运行在服务端的 JavaScript。 Node.js 是一个基于Chrome JavaScript 运行时建立的一个平台。 Node.js是一个事件驱动I/O服务端JavaScript环境，基于Google的V8引擎，V8引擎执行Javascript的速度非常快，性能非常好。 为什么要安装Node.js呢，下面用到的]]></description>
 </item>
 </channel>
 </rss>

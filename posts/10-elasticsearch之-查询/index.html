@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>文档操作-查询 - </title><meta name="author" content="Qilitang">
+<meta name="author-link" content="https://github.com/qilitang">
+<meta name="description" content="1 2 3 4 查询分类： 基本查询：使用es内置查询条件进行查询 组合查询：把多个查询组合在一起进行复合查询 过滤：查询的同时，通过filter条件在不影响打分的情况下筛选数据 一 基本查询 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 #添加映射 PUT lago { &#34;mappings&#34;:" /><meta name="keywords" content='文档操作' /><meta itemprop="name" content="文档操作-查询">
+<meta itemprop="description" content="1 2 3 4 查询分类： 基本查询：使用es内置查询条件进行查询 组合查询：把多个查询组合在一起进行复合查询 过滤：查询的同时，通过filter条件在不影响打分的情况下筛选数据 一 基本查询 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 #添加映射 PUT lago { &#34;mappings&#34;:"><meta itemprop="datePublished" content="2023-08-31T17:06:11+08:00" />
+<meta itemprop="dateModified" content="2023-11-15T16:37:01+08:00" />
+<meta itemprop="wordCount" content="2209">
+<meta itemprop="keywords" content="文档操作," /><meta property="og:title" content="文档操作-查询" />
+<meta property="og:description" content="1 2 3 4 查询分类： 基本查询：使用es内置查询条件进行查询 组合查询：把多个查询组合在一起进行复合查询 过滤：查询的同时，通过filter条件在不影响打分的情况下筛选数据 一 基本查询 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 #添加映射 PUT lago { &#34;mappings&#34;:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.qilitang.top/posts/10-elasticsearch%E4%B9%8B-%E6%9F%A5%E8%AF%A2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-31T17:06:11+08:00" />
+<meta property="article:modified_time" content="2023-11-15T16:37:01+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="文档操作-查询"/>
+<meta name="twitter:description" content="1 2 3 4 查询分类： 基本查询：使用es内置查询条件进行查询 组合查询：把多个查询组合在一起进行复合查询 过滤：查询的同时，通过filter条件在不影响打分的情况下筛选数据 一 基本查询 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 #添加映射 PUT lago { &#34;mappings&#34;:"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://www.qilitang.top/posts/10-elasticsearch%E4%B9%8B-%E6%9F%A5%E8%AF%A2/" /><link rel="prev" href="https://www.qilitang.top/posts/09-2-elasticsearch%E4%B9%8B%E6%9F%A5%E8%AF%A2%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F/" /><link rel="next" href="https://www.qilitang.top/posts/09-6-elasticsearch%E4%B9%8B%E5%B8%83%E5%B0%94%E6%9F%A5%E8%AF%A2/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "文档操作-查询",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/www.qilitang.top\/posts\/10-elasticsearch%E4%B9%8B-%E6%9F%A5%E8%AF%A2\/"
+    },"genre": "posts","keywords": "文档操作","wordcount":  2209 ,
+    "url": "https:\/\/www.qilitang.top\/posts\/10-elasticsearch%E4%B9%8B-%E6%9F%A5%E8%AF%A2\/","datePublished": "2023-08-31T17:06:11+08:00","dateModified": "2023-11-15T16:37:01+08:00","publisher": {
+      "@type": "Organization",
+      "name": "","logo": "https:\/\/www.qilitang.top\/favicon.ico"},"author": {
+        "@type": "Person",
+        "name": "Qilitang"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>文档操作-查询</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img loading="lazy" src="/avatar/avatar.jpg" srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x" sizes="auto" data-title="Qilitang" data-alt="Qilitang" class="avatar" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>&nbsp;Qilitang</a></span>
+          <span class="post-category">收录于 <a href="/categories/elasticsearch/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> ElasticSearch</a></span></div>
+      <div class="post-meta-line"><span title="发布于 2023-08-31 17:06:11"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2023-08-31">2023-08-31</time></span>&nbsp;<span title="更新于 2023-11-15 16:37:01"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2023-11-15">2023-11-15</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 2209 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 5 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一-基本查询">一 基本查询</a>
+      <ul>
+        <li><a href="#11-match查询">1.1 match查询</a></li>
+        <li><a href="#12-term查询">1.2 term查询</a></li>
+        <li><a href="#13-terms查询">1.3 terms查询</a></li>
+        <li><a href="#14-控制查询的返回数量分页">1.4 控制查询的返回数量（分页）</a></li>
+        <li><a href="#15-match_all-查询">1.5 match_all 查询</a></li>
+        <li><a href="#16-match_phrase查询">1.6 match_phrase查询</a></li>
+        <li><a href="#17-multi_match">1.7 multi_match</a></li>
+        <li><a href="#18-指定返回的字段">1.8 指定返回的字段</a></li>
+        <li><a href="#19-sort-结果排序">1.9 sort 结果排序</a></li>
+        <li><a href="#110-range范围查询">1.10 range范围查询</a></li>
+        <li><a href="#111-wildcard查询">1.11 wildcard查询</a></li>
+      </ul>
+    </li>
+    <li><a href="#二-组合查询">二 组合查询</a>
+      <ul>
+        <li><a href="#21-bool查询">2.1 bool查询</a></li>
+        <li><a href="#22-简单过滤查询">2.2 简单过滤查询</a></li>
+        <li><a href="#13-查询多个值">1.3 查询多个值</a></li>
+        <li><a href="#14-bool过滤查询可以做组合过滤查询">1.4 bool过滤查询，可以做组合过滤查询</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">查询分类：
+</span></span><span class="line"><span class="cl">基本查询：使用es内置查询条件进行查询
+</span></span><span class="line"><span class="cl">组合查询：把多个查询组合在一起进行复合查询
+</span></span><span class="line"><span class="cl">过滤：查询的同时，通过filter条件在不影响打分的情况下筛选数据
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="一-基本查询">一 基本查询</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#添加映射</span>
+</span></span><span class="line"><span class="cl"><span class="n">PUT</span> <span class="n">lago</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;mappings&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;properties&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;title&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;stort&#34;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;analyzer&#34;</span><span class="p">:</span><span class="s2">&#34;ik_max_word&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;company_name&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">         <span class="s2">&#34;stort&#34;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        	<span class="s2">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;desc&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;text&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;comments&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;integer&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;add_time&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;date&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;format&#34;</span><span class="p">:</span><span class="s2">&#34;yyy-MM-dd&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#测试数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">POST</span> <span class="n">lago</span><span class="o">/</span><span class="n">job</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;python django 开发工程师&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;company_name&#34;</span><span class="p">:</span><span class="s2">&#34;美团科技有限公司&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;desc&#34;</span><span class="p">:</span><span class="s2">&#34;对django熟悉，掌握mysql和非关系型数据库，网站开发&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;comments:200,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;add_time&#34;</span><span class="p">:</span><span class="s2">&#34;2018-4-1&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">POST</span> <span class="n">lago</span><span class="o">/</span><span class="n">job</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;python数据分析&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;company_name&#34;</span><span class="p">:</span><span class="s2">&#34;百度科技有限公司&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;desc&#34;</span><span class="p">:</span><span class="s2">&#34;熟悉python基础语法，熟悉数据分析&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;comments:5,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;add_time&#34;</span><span class="p">:</span><span class="s2">&#34;2018-10-1&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">POST</span> <span class="n">lago</span><span class="o">/</span><span class="n">job</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;python自动化运维&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;company_name&#34;</span><span class="p">:</span><span class="s2">&#34;上海华为&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;desc&#34;</span><span class="p">:</span><span class="s2">&#34;熟悉python基础语法，精通Linux&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;comments:90,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;add_time&#34;</span><span class="p">:</span><span class="s2">&#34;2019-9-18&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="11-match查询">1.1 match查询</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">lagou</span><span class="o">/</span><span class="n">job</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;match&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;python&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#因为title字段做了分词，python都能搜索出来</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#搜索python网站也能搜索出来，把python和网站分成两个词</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#搜索爬取也能搜索到，把爬和取分词，去搜索</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#只搜取 搜不到</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="12-term查询">1.2 term查询</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">lagou</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;term&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;python&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#会拿着要查询的词不做任何处理，直接查询</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#用python爬虫，查不到，用match就能查到</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;term&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;company_name&#34;</span><span class="p">:</span><span class="s2">&#34;美团&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#通过美团，就查询不到</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="13-terms查询">1.3 terms查询</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">lagou</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;terms&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;title&#34;</span><span class="p">:[</span><span class="s2">&#34;工程师&#34;</span><span class="p">,</span><span class="s2">&#34;django&#34;</span><span class="p">,</span><span class="s2">&#34;运维&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#三个词，只要有一个，就会查询出来</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="14-控制查询的返回数量分页">1.4 控制查询的返回数量（分页）</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">lagou</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;match&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;python&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span><span class="err">，</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;form&#34;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;size&#34;</span><span class="p">:</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#从第一条开始，大小为2</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="15-match_all-查询">1.5 match_all 查询</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">lagou</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;match_all&#34;</span><span class="p">:{}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#所有数据都返回</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="16-match_phrase查询">1.6 match_phrase查询</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">lagou</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;match_phrase&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;title&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;query&#34;</span><span class="p">:</span><span class="s2">&#34;python系统&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;slop&#34;</span><span class="p">:</span><span class="mi">6</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#短语查询， </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#会把查询条件python和系统分词，放到列表中，再去搜索的时候，必须满足python和系统同时存在的才能搜出来</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&#34;slop&#34;:6 ：python和系统这两个词之间最小的距离</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="17-multi_match">1.7 multi_match</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">lagou</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;multy_match&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">   			<span class="s2">&#34;query&#34;</span><span class="p">:</span><span class="s2">&#34;python&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      	<span class="s2">&#34;fields&#34;</span><span class="p">:[</span><span class="s2">&#34;title&#34;</span><span class="p">,</span><span class="s2">&#34;desc&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#可以指定多个字段</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#比如查询title和desc这个两个字段中包含python关键词的文档</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&#34;fields&#34;:[&#34;title^3&#34;,&#34;desc&#34;]:权重，title中的python是desc中的三倍</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="18-指定返回的字段">1.8 指定返回的字段</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">lagou</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;stored_fields&#34;</span><span class="p">:[</span><span class="s2">&#34;title&#34;</span><span class="p">,</span><span class="s2">&#34;company_name&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;match&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">   			<span class="s2">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;python&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#只返回title和company_name字段</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&#34;stored_fields&#34;:[&#34;title&#34;,&#34;company_name&#34;,&#39;dsc&#39;],不会返回dsc，因为我们要求stroed_fields，之前desc字段设为false（默认），不会显示</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="19-sort-结果排序">1.9 sort 结果排序</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">lagou</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl"> 			<span class="s2">&#34;match_all&#34;</span><span class="p">:{}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;sort&#34;</span><span class="p">:[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;comments&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;order&#34;</span><span class="p">:</span><span class="s2">&#34;desc&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#查询所有文档，按comments按desc降序排序</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="110-range范围查询">1.10 range范围查询</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">lagou</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl"> 			<span class="s2">&#34;range&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;comments&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;gte&#34;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;lte&#34;</span><span class="p">:</span><span class="mi">20</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;boost&#34;</span><span class="p">:</span><span class="mf">2.0</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#指定comments字段大于等于10，小于等于20</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#boost：权重</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">lagou</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl"> 			<span class="s2">&#34;range&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;add_time&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;gte&#34;</span><span class="p">:</span><span class="s2">&#34;2019-10-11&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;lte&#34;</span><span class="p">:</span><span class="s2">&#34;now&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#对时间进行查询</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="111-wildcard查询">1.11 wildcard查询</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">lagou</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;wildcard&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;title&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;value&#34;</span><span class="p">:</span><span class="s2">&#34;pyth*n&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;boost&#34;</span><span class="p">:</span><span class="mf">2.0</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#模糊查询，title中，有pyth任意值n得都能查出来</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="二-组合查询">二 组合查询</h2>
+<h3 id="21-bool查询">2.1 bool查询</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#bool查询包括must should must_not filter</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">bool:{
+</span></span></span><span class="line"><span class="cl"><span class="s1">	&#34;filter&#34;:[],   字段过滤
+</span></span></span><span class="line"><span class="cl"><span class="s1">	&#34;must&#34;:[],     所有查询条件都满足
+</span></span></span><span class="line"><span class="cl"><span class="s1">	&#34;should&#34;:[],   满足一个或多个
+</span></span></span><span class="line"><span class="cl"><span class="s1">	&#34;must_not&#34;:</span><span class="si">{}</span><span class="s1">  都不满足于must相反
+</span></span></span><span class="line"><span class="cl"><span class="s1">}
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 建立测试数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">POST</span> <span class="n">lago</span><span class="o">/</span><span class="n">testjob</span><span class="o">/</span><span class="n">_bulk</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="s2">&#34;index&#34;</span><span class="p">:{</span><span class="s2">&#34;_id&#34;</span><span class="p">:</span><span class="mi">1</span><span class="p">}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="s2">&#34;salary&#34;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="s2">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;Python&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="s2">&#34;index&#34;</span><span class="p">:{</span><span class="s2">&#34;_id&#34;</span><span class="p">:</span><span class="mi">2</span><span class="p">}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="s2">&#34;salary&#34;</span><span class="p">:</span><span class="mi">20</span><span class="p">,</span><span class="s2">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;Scrapy&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="s2">&#34;index&#34;</span><span class="p">:{</span><span class="s2">&#34;_id&#34;</span><span class="p">:</span><span class="mi">3</span><span class="p">}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="s2">&#34;salary&#34;</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span><span class="s2">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;Django&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="s2">&#34;index&#34;</span><span class="p">:{</span><span class="s2">&#34;_id&#34;</span><span class="p">:</span><span class="mi">4</span><span class="p">}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="s2">&#34;salary&#34;</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span><span class="s2">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;Elasticsearch&#34;</span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="22-简单过滤查询">2.2 简单过滤查询</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#select * from testjob where salary=20</span>
+</span></span><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">lagou</span><span class="o">/</span><span class="n">testjob</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">   	<span class="s2">&#34;bool&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">       <span class="s2">&#34;must&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">         <span class="s2">&#34;match_all&#34;</span><span class="p">:{}</span>
+</span></span><span class="line"><span class="cl">       <span class="p">},</span>
+</span></span><span class="line"><span class="cl">       <span class="s2">&#34;filter&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">         <span class="s2">&#34;term&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">           <span class="s2">&#34;salary&#34;</span><span class="p">:</span><span class="mi">20</span>
+</span></span><span class="line"><span class="cl">         <span class="p">}</span>
+</span></span><span class="line"><span class="cl">       <span class="p">}</span>
+</span></span><span class="line"><span class="cl">     <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="13-查询多个值">1.3 查询多个值</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#查询薪资是10k或20k的</span>
+</span></span><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">lagou</span><span class="o">/</span><span class="n">testjob</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    	<span class="s2">&#34;bool&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;must&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;match_all&#34;</span><span class="p">:{}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;filter&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;terms&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;salary&#34;</span><span class="p">:[</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#select * from testjob where title=&#34;python&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">lagou</span><span class="o">/</span><span class="n">testjob</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    	<span class="s2">&#34;bool&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;must&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;match_all&#34;</span><span class="p">:{}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;filter&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;term&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;Python&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#title 是text字段，会做大小写转换，term不会预处理，拿着大写Python去查查不到</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#可以改成小写，或者用match来查询</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">   &#34;filter&#34;:{
+</span></span></span><span class="line"><span class="cl"><span class="s1">          &#34;match&#34;:{
+</span></span></span><span class="line"><span class="cl"><span class="s1">            &#34;title&#34;:&#34;Python&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">          }
+</span></span></span><span class="line"><span class="cl"><span class="s1">        }
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#查看分析器解析结果</span>
+</span></span><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">_analyze</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;analyzer&#34;</span><span class="p">:</span><span class="s2">&#34;ik_max_word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;text&#34;</span><span class="p">:</span><span class="s2">&#34;python网络开发工程师&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="14-bool过滤查询可以做组合过滤查询">1.4 bool过滤查询，可以做组合过滤查询</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#select * from testjob where (salary=20 or title=Python) and (salary!=30)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#查询薪资等于20k或者工作为python的工作，排除价格为30k的</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;bool&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;should&#34;</span><span class="p">:[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="s2">&#34;term&#34;</span><span class="p">:{</span><span class="s2">&#34;salary&#34;</span><span class="p">:</span><span class="mi">20</span><span class="p">}},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="s2">&#34;term&#34;</span><span class="p">:{</span><span class="s2">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;python&#34;</span><span class="p">}}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;must_not&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;term&#34;</span><span class="p">:{</span><span class="s2">&#34;salary&#34;</span><span class="p">:</span><span class="mi">30</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#select * from testjob where title=python or (title=django and salary=30)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;bool&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;should&#34;</span><span class="p">:[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="s2">&#34;term&#34;</span><span class="p">:{</span><span class="s2">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;python&#34;</span><span class="p">}},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;bool&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;must&#34;</span><span class="p">:[</span>
+</span></span><span class="line"><span class="cl">              <span class="p">{</span><span class="s2">&#34;term&#34;</span><span class="p">:{</span><span class="s2">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;django&#34;</span><span class="p">}},</span>
+</span></span><span class="line"><span class="cl">              <span class="p">{</span><span class="s2">&#34;term&#34;</span><span class="p">:{</span><span class="s2">&#34;salary&#34;</span><span class="p">:</span><span class="mi">30</span><span class="p">}}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2023-11-15 16:37:01">更新于 2023-11-15&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/posts/10-elasticsearch%E4%B9%8B-%E6%9F%A5%E8%AF%A2/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.qilitang.top/posts/10-elasticsearch%E4%B9%8B-%E6%9F%A5%E8%AF%A2/" data-title="文档操作-查询" data-hashtags="文档操作"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.qilitang.top/posts/10-elasticsearch%E4%B9%8B-%E6%9F%A5%E8%AF%A2/" data-hashtag="文档操作"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.qilitang.top/posts/10-elasticsearch%E4%B9%8B-%E6%9F%A5%E8%AF%A2/" data-title="文档操作-查询"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C/' class="post-tag">文档操作</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/09-2-elasticsearch%E4%B9%8B%E6%9F%A5%E8%AF%A2%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F/" class="post-nav-item" rel="prev" title="文档操作-查询的两种方式"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>文档操作-查询的两种方式</a>
+      <a href="/posts/09-6-elasticsearch%E4%B9%8B%E5%B8%83%E5%B0%94%E6%9F%A5%E8%AF%A2/" class="post-nav-item" rel="next" title="文档操作-布尔查询">文档操作-布尔查询<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/qilitang"target="_blank" rel="external nofollow noopener noreferrer">Qilitang</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":15},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>

@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>ElasticSearch打分机制 - </title><meta name="author" content="Qilitang">
+<meta name="author-link" content="https://github.com/qilitang">
+<meta name="description" content="一 例子 现在，讲述一个真实的故事！ 故事一定是伴随着赵忠祥老师的声音开始的，雨季就要来临了，又到了动物们发情的季节了&hellip; 还记得，之前发生的作家六六吐槽xx的事情吗？对了，有图有真相！上图上图： 身为吃瓜群众，要从专业的角度来分析，就事论事哈： 就搜索结果本身而言，xx返回了正确的结果（是的，人家" /><meta name="keywords" content='文档操作' /><meta itemprop="name" content="ElasticSearch打分机制">
+<meta itemprop="description" content="一 例子 现在，讲述一个真实的故事！ 故事一定是伴随着赵忠祥老师的声音开始的，雨季就要来临了，又到了动物们发情的季节了&hellip; 还记得，之前发生的作家六六吐槽xx的事情吗？对了，有图有真相！上图上图： 身为吃瓜群众，要从专业的角度来分析，就事论事哈： 就搜索结果本身而言，xx返回了正确的结果（是的，人家"><meta itemprop="datePublished" content="2023-08-31T17:06:11+08:00" />
+<meta itemprop="dateModified" content="2023-11-15T16:40:14+08:00" />
+<meta itemprop="wordCount" content="4917">
+<meta itemprop="keywords" content="文档操作," /><meta property="og:title" content="ElasticSearch打分机制" />
+<meta property="og:description" content="一 例子 现在，讲述一个真实的故事！ 故事一定是伴随着赵忠祥老师的声音开始的，雨季就要来临了，又到了动物们发情的季节了&hellip; 还记得，之前发生的作家六六吐槽xx的事情吗？对了，有图有真相！上图上图： 身为吃瓜群众，要从专业的角度来分析，就事论事哈： 就搜索结果本身而言，xx返回了正确的结果（是的，人家" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.qilitang.top/posts/18-elasticsearch%E4%B9%8B%E6%89%93%E5%88%86%E6%9C%BA%E5%88%B6/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-31T17:06:11+08:00" />
+<meta property="article:modified_time" content="2023-11-15T16:40:14+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ElasticSearch打分机制"/>
+<meta name="twitter:description" content="一 例子 现在，讲述一个真实的故事！ 故事一定是伴随着赵忠祥老师的声音开始的，雨季就要来临了，又到了动物们发情的季节了&hellip; 还记得，之前发生的作家六六吐槽xx的事情吗？对了，有图有真相！上图上图： 身为吃瓜群众，要从专业的角度来分析，就事论事哈： 就搜索结果本身而言，xx返回了正确的结果（是的，人家"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://www.qilitang.top/posts/18-elasticsearch%E4%B9%8B%E6%89%93%E5%88%86%E6%9C%BA%E5%88%B6/" /><link rel="prev" href="https://www.qilitang.top/posts/16-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95/" /><link rel="next" href="https://www.qilitang.top/posts/20-elasticsearch%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "ElasticSearch打分机制",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/www.qilitang.top\/posts\/18-elasticsearch%E4%B9%8B%E6%89%93%E5%88%86%E6%9C%BA%E5%88%B6\/"
+    },"genre": "posts","keywords": "文档操作","wordcount":  4917 ,
+    "url": "https:\/\/www.qilitang.top\/posts\/18-elasticsearch%E4%B9%8B%E6%89%93%E5%88%86%E6%9C%BA%E5%88%B6\/","datePublished": "2023-08-31T17:06:11+08:00","dateModified": "2023-11-15T16:40:14+08:00","publisher": {
+      "@type": "Organization",
+      "name": "","logo": "https:\/\/www.qilitang.top\/favicon.ico"},"author": {
+        "@type": "Person",
+        "name": "Qilitang"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>ElasticSearch打分机制</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img loading="lazy" src="/avatar/avatar.jpg" srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x" sizes="auto" data-title="Qilitang" data-alt="Qilitang" class="avatar" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>&nbsp;Qilitang</a></span>
+          <span class="post-category">收录于 <a href="/categories/elasticsearch/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> ElasticSearch</a></span></div>
+      <div class="post-meta-line"><span title="发布于 2023-08-31 17:06:11"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2023-08-31">2023-08-31</time></span>&nbsp;<span title="更新于 2023-11-15 16:40:14"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2023-11-15">2023-11-15</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 4917 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 10 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一-例子">一 例子</a></li>
+    <li><a href="#二-文档打分的运作机制tf-idf">二 文档打分的运作机制：TF-IDF</a>
+      <ul>
+        <li><a href="#21-词频tf">2.1 词频：TF</a></li>
+        <li><a href="#22-逆文档频率idf">2.2 逆文档频率：IDF</a></li>
+      </ul>
+    </li>
+    <li><a href="#三-lucene评分公式">三 Lucene评分公式</a></li>
+    <li><a href="#四-其他的打分方法">四 其他的打分方法</a></li>
+    <li><a href="#五-配置打分模型">五 配置打分模型</a>
+      <ul>
+        <li><a href="#51-简要配置bm25打分模型">5.1 简要配置BM25打分模型</a></li>
+        <li><a href="#52-为bm25配置高级的settings">5.2 为BM25配置高级的settings</a></li>
+        <li><a href="#53-配置全局打分模型">5.3 配置全局打分模型</a></li>
+      </ul>
+    </li>
+    <li><a href="#六-boosting">六 boosting</a>
+      <ul>
+        <li><a href="#61-索引期间的boosting">6.1 索引期间的boosting</a></li>
+        <li><a href="#62-查询期间的boosting">6.2 查询期间的boosting</a></li>
+        <li><a href="#63-跨越多个字段的查询">6.3 跨越多个字段的查询</a></li>
+      </ul>
+    </li>
+    <li><a href="#七-使用解释来理解文档是如何评分的">七 使用“解释”来理解文档是如何评分的</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h2 id="一-例子">一 例子</h2>
+<p>现在，讲述一个真实的故事！</p>
+<p>故事一定是伴随着赵忠祥老师的声音开始的，雨季就要来临了，又到了动物们发情的季节了&hellip;</p>
+<p>还记得，之前发生的作家六六吐槽xx的事情吗？对了，有图有真相！上图上图：</p>
+<p><img loading="lazy" src="https://img2018.cnblogs.com/blog/1168165/201904/1168165-20190417001048486-214033720.png#alt=img" srcset="https://img2018.cnblogs.com/blog/1168165/201904/1168165-20190417001048486-214033720.png#alt=img, https://img2018.cnblogs.com/blog/1168165/201904/1168165-20190417001048486-214033720.png#alt=img 1.5x, https://img2018.cnblogs.com/blog/1168165/201904/1168165-20190417001048486-214033720.png#alt=img 2x" sizes="auto" data-title="https://img2018.cnblogs.com/blog/1168165/201904/1168165-20190417001048486-214033720.png#alt=img" data-alt="https://img2018.cnblogs.com/blog/1168165/201904/1168165-20190417001048486-214033720.png#alt=img" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>身为吃瓜群众，要从专业的角度来分析，就事论事哈：</p>
+<p>就搜索结果本身而言，xx返回了正确的结果（是的，人家已经调整了，现在搜没问题！）。因为返回的结果中，都包含了搜索的关键字。而我们从逻辑上来看，这他娘的一堆广告算是咋回事！这个吐槽是从用户的角度出发的。很显然，返回的结果中，尤其是前几条，有时甚至是前几页，都跟我们想要的结果相差深远！</p>
+<p>进一步说，仅仅以二元的方式来考虑文档和查询的匹配可能是有意义的，也就是百度搜索引擎返回了二元的匹配结果：是的，找到了，不，老娘没找到！虽然返回了结果，其中也包含了我们想要的结果，即便你要在大堆的广告中找正确的结果实属不易，但就像大家都习惯了广告中插播电视剧一样，习惯就好嘛！xx从x的角度出发，为广告的词条增加权重，至于那个真正的结果，我擦，你也没给我钱&hellip;&hellip;..</p>
+<p>而需要xx才能访问的xx浏览器，在正确的给用户返回二元结果之前，更多的考虑文档的相关性（relevancy），因为就某个结果而言，如果A文档要比B文档更和结果相关，那么A文档在结果中就要比B文档靠前，再加上以其他的优化，最终将所有结果返回，而用户最期待的那条结果很可能排在最高位，这岂不美哉？</p>
+<p><strong>确定文档和查询有多么相关的过程被称为打分（scoring）</strong>。</p>
+<h2 id="二-文档打分的运作机制tf-idf">二 文档打分的运作机制：TF-IDF</h2>
+<p><code>Lucene</code>和<code>es</code>的打分机制是一个公式。将查询作为输入，使用不同的手段来确定每一篇文档的得分，将每一个因素最后通过公式综合起来，返回该文档的最终得分。这个综合考量的过程，就是我们希望相关的文档被优先返回的考量过程。在<code>Lucene</code>和<code>es</code>中这种相关性称为得分。</p>
+<p>在开始计算得分之前，<code>es</code>使用了被搜索词条的频率和它有多常见来影响得分，从两个方面理解：</p>
+<ul>
+<li>一个词条在某篇文档中出现的次数越多，该文档就越相关。</li>
+<li>一个词条如果在不同的文档中出现的次数越多，它就越不相关！</li>
+</ul>
+<p>我们称之为<code>TF-IDF</code>，<code>TF</code>是词频（term frequency），而<code>IDF</code>是逆文档频率（inverse document frequency）。</p>
+<h3 id="21-词频tf">2.1 词频：TF</h3>
+<p>考虑一篇文档得分的首要方式，是查看一个词条在文档中出现的次数，比如某篇文章围绕<code>es</code>的打分展开的，那么文章中肯定会多次出现相关字眼，当查询时，我们认为该篇文档更符合，所以，这篇文档的得分会更高。</p>
+<p>闲的蛋疼的可以<code>Ctrl + f</code>搜一下相关的关键词（es，得分、打分）之类的试试。</p>
+<h3 id="22-逆文档频率idf">2.2 逆文档频率：IDF</h3>
+<p>相对于词频，逆文档频率稍显复杂，如果一个词条在索引中的不同文档中出现的次数越多，那么它就越不重要。</p>
+<p>来个例子，示例<a href="http://www.kekenet.com/read/201904/583147.shtml"target="_blank" rel="external nofollow noopener noreferrer">地址</a>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">The rules-which require employees to work from 9 am to 9 pm
+</span></span><span class="line"><span class="cl">In the weeks that followed the creation of 996.ICU in March
+</span></span><span class="line"><span class="cl">The 996.ICU page was soon blocked on multiple platforms including the messaging tool WeChat and the UC Browser.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>假如<code>es</code>索引中，有上述3篇文档：</p>
+<ul>
+<li>词条<code>ICU</code>的文档频率是<code>2</code>，因为它出现在2篇文档中，文档的逆源自得分乘以<code>1/DF</code>，<code>DF</code>是该词条的文档频率，这就意味着，由于<code>ICU</code>词条拥有更高的文档频率，所以，它的权重会降低。</li>
+<li>词条<code>the</code>的文档频率是<code>3</code>，它在3篇文档中都出现了，注意：<strong>尽管<code>the</code>在后两篇文档出都出现两次，但是它的词频是还是<code>3</code>，因为，逆文档词频只检查词条是否出现在某篇文档中，而不检查它在这篇文档中出现了多少次，那是词频该干的事儿</strong>。</li>
+</ul>
+<p>逆文档词频是一个重要的因素，用来平衡词条的词频。比如我们搜索<code>the 996.ICU</code>。单词<code>the</code>几乎出现在所有的文档中（中文中比如<code>的</code>），如果这个鬼东西要不被均衡一下，那么<code>the</code>的频率将完全淹没<code>996.ICU</code>。所以，逆文档词频就有效的均衡了<code>the</code>这个常见词的相关性影响。以达到实际的相关性得分将会对查询的词条有一个更准确地描述。</p>
+<p>当词频和逆文档词频计算完成。就可以使用<code>TF-IDF</code>公式来计算文档的得分了。</p>
+<h2 id="三-lucene评分公式">三 Lucene评分公式</h2>
+<p>之前的讨论<code>Lucene</code>默认评分公式被称为<code>TF-IDF</code>，一个基于词频和逆文档词频的公式。<code>Lucene</code>实用评分公式如下：</p>
+<p><img loading="lazy" src="https://img2018.cnblogs.com/blog/1168165/201904/1168165-20190417002013739-30143345.png#alt=img" srcset="https://img2018.cnblogs.com/blog/1168165/201904/1168165-20190417002013739-30143345.png#alt=img, https://img2018.cnblogs.com/blog/1168165/201904/1168165-20190417002013739-30143345.png#alt=img 1.5x, https://img2018.cnblogs.com/blog/1168165/201904/1168165-20190417002013739-30143345.png#alt=img 2x" sizes="auto" data-title="https://img2018.cnblogs.com/blog/1168165/201904/1168165-20190417002013739-30143345.png#alt=img" data-alt="https://img2018.cnblogs.com/blog/1168165/201904/1168165-20190417002013739-30143345.png#alt=img" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>你以为我会着重介绍这个该死的公式？！</p>
+<p>我只能说，词条的词频越高，得分越高；相似地，索引中词条越罕见，逆文档频率越高，其中再加商调和因子和查询标准化，调和因子考虑了搜索过多少文档以及发现了多少词条；查询标准化，是试图让不同的查询结果具有可比性，这显然&hellip;..很困难。</p>
+<p>我们称这种默认的打分方法是<code>TF-IDF</code>和向量空间模型（vector space model）的结合。</p>
+<h2 id="四-其他的打分方法">四 其他的打分方法</h2>
+<p>除了<code>TF-IDF</code>结合向量空间模型的实用评分模式，是<code>es</code>和<code>Lucene</code>最为主流的评分机制，但这并不是唯一的，除了<code>TF-IDF</code>这种实用模型之外，其他的模型包括：</p>
+<ul>
+<li>Okapi BM25。</li>
+<li>随机性分歧（Divergence from randomness），即DFR相似度。</li>
+<li>LM Dirichlet相似度。</li>
+<li>LM Jelinek Mercer相似度。</li>
+</ul>
+<p>这里简要的介绍<code>BM25</code>几种主要设置，即<code>k1</code>、<code>b</code>和<code>discount_overlaps</code>：</p>
+<ul>
+<li>k1和b是数值的设置，用于调整得分是如何计算的。</li>
+<li>k1控制对于得分而言词频（TF）的重要性。</li>
+<li>b是介于<code>0 ~ 1</code>之间的数值，它控制了文档篇幅对于得分的影响程度。</li>
+<li>默认情况下，<code>k1</code>设置为<code>1.2</code>，而<code>b</code>则被设置为<code>0.75</code></li>
+<li><code>discount_overlaps</code>的设置用于告诉<code>es</code>，在某个字段中，多少个分词出现在同一位置，是否应该影响长度的标准化，默认值是<code>true</code>。</li>
+</ul>
+<h2 id="五-配置打分模型">五 配置打分模型</h2>
+<h3 id="51-简要配置bm25打分模型">5.1 简要配置BM25打分模型</h3>
+<p><code>BM25</code>（是不是跟pm2.5好像！！！）是一种基于概率的打分框架。我们来简要的配置一下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PUT w2
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;mappings&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;doc&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;properties&#34;: {
+</span></span><span class="line"><span class="cl">        &#34;title&#34;: {
+</span></span><span class="line"><span class="cl">          &#34;type&#34;: &#34;text&#34;,
+</span></span><span class="line"><span class="cl">          &#34;similarity&#34;: &#34;BM25&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PUT w2/doc/1
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;title&#34;:&#34;The rules-which require employees to work from 9 am to 9 pm&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PUT w2/doc/2
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;title&#34;:&#34;In the weeks that followed the creation of 996.ICU in March&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PUT w2/doc/3
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;title&#34;:&#34;The 996.ICU page was soon blocked on multiple platforms including the messaging tool WeChat and the UC Browser.&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">GET w2/doc/_search
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;query&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;match&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;title&#34;: &#34;the 996&#34;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上例是通过<code>similarity</code>参数来指定打分模型。至于查询，还是当数据量比较大的时候，多试几次，比较容易发现不同之处。</p>
+<h3 id="52-为bm25配置高级的settings">5.2 为BM25配置高级的settings</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PUT w3
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;settings&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;index&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;analysis&#34;: {
+</span></span><span class="line"><span class="cl">        &#34;analyzer&#34;:&#34;ik_smart&#34;
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    &#34;similarity&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;my_custom_similarity&#34;: {
+</span></span><span class="line"><span class="cl">        &#34;type&#34;: &#34;BM25&#34;,
+</span></span><span class="line"><span class="cl">        &#34;k1&#34;: 1.2,
+</span></span><span class="line"><span class="cl">        &#34;b&#34;: 0.75,
+</span></span><span class="line"><span class="cl">        &#34;discount_overlaps&#34;: false
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;mappings&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;doc&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;properties&#34;: {
+</span></span><span class="line"><span class="cl">        &#34;title&#34;: {
+</span></span><span class="line"><span class="cl">          &#34;type&#34;: &#34;text&#34;,
+</span></span><span class="line"><span class="cl">          &#34;similarity&#34;:&#34;my_custom_similarity&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PUT w3/doc/1
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;title&#34;:&#34;The rules-which require employees to work from 9 am to 9 pm&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PUT w3/doc/2
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;title&#34;:&#34;In the weeks that followed the creation of 996.ICU in March&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PUT w3/doc/3
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;title&#34;:&#34;The 996.ICU page was soon blocked on multiple platforms including the messaging tool WeChat and the UC Browser.&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">GET w3/doc/_search
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;query&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;match&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;title&#34;: &#34;the 996&#34;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="53-配置全局打分模型">5.3 配置全局打分模型</h3>
+<p>如果我们要使用某种特定的打分模型，并且希望应用到全局，那么就在<code>elasticsearch.yml</code>配置文件中加入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">index.similarity.default.type: BM25
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="六-boosting">六 boosting</h2>
+<p><code>boosting</code>是一个用来修改文档相关性的程序。<code>boosting</code>有两种类型：</p>
+<ul>
+<li>索引的时候，比如我们在定义mappings的时候。</li>
+<li>查询一篇文档的时候。</li>
+</ul>
+<p>以上两种方式都可以提升一个篇文档的得分。需要注意的是：<strong>在索引期间修改的文档boosting是存储在索引中的，要想修改boosting必须重新索引该篇文档</strong>。</p>
+<h3 id="61-索引期间的boosting">6.1 索引期间的boosting</h3>
+<p>啥也不说了，都在酒里！上代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PUT w4
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;mappings&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;doc&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;properties&#34;: {
+</span></span><span class="line"><span class="cl">        &#34;name&#34;: {
+</span></span><span class="line"><span class="cl">          &#34;boost&#34;: 2.0,
+</span></span><span class="line"><span class="cl">          &#34;type&#34;: &#34;text&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;age&#34;: {
+</span></span><span class="line"><span class="cl">          &#34;type&#34;: &#34;long&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>一劳永逸是没错，但一般不推荐这么玩。</p>
+<p>原因之一是因为一旦映射建立完成，那么所有<code>name</code>字段都会自动拥有一个<code>boost</code>值。要想修改这个值，那就必须重新索引文档。</p>
+<p>另一个原因是，<code>boost</code>值是以降低精度的数值存储在<code>Lucene</code>内部的索引结构中。只有一个字节用于存储浮点型数值（存不下就损失精度了），所以，计算文档的最终得分时可能会损失精度。</p>
+<p>最后，<code>boost</code>是应用与词条的。因此，再被<code>boost</code>的字段中如果匹配上了多个词条，就意味着计算多次的<code>boost</code>，这将会进一步增加字段的权重，可能会影响最终的文档得分。</p>
+<p>现在我们再来介绍另一种方式。</p>
+<h3 id="62-查询期间的boosting">6.2 查询期间的boosting</h3>
+<p>在<code>es</code>中，几乎所有的查询类型都支持<code>boost</code>，正如你想象的那些<code>match、multi_match</code>等等。</p>
+<p>来个示例，在查询期间，使用match查询进行<code>boosting</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PUT w5
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;mappings&#34;:{
+</span></span><span class="line"><span class="cl">    &#34;doc&#34;:{
+</span></span><span class="line"><span class="cl">      &#34;properties&#34;: {
+</span></span><span class="line"><span class="cl">        &#34;title&#34;: {
+</span></span><span class="line"><span class="cl">          &#34;type&#34;: &#34;text&#34;,
+</span></span><span class="line"><span class="cl">          &#34;analyzer&#34;: &#34;ik_max_word&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;content&#34;: {
+</span></span><span class="line"><span class="cl">          &#34;type&#34;: &#34;text&#34;,
+</span></span><span class="line"><span class="cl">          &#34;analyzer&#34;: &#34;ik_max_word&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PUT w5/doc/1
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;title&#34;:&#34;Lucene is cool&#34;,
+</span></span><span class="line"><span class="cl">  &#34;content&#34;: &#34;Lucene is cool&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PUT w5/doc/2
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;title&#34;:&#34;Elasticsearch builds on top of lucene&#34;,
+</span></span><span class="line"><span class="cl">  &#34;content&#34;:&#34;Elasticsearch builds on top of lucene&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PUT w5/doc/3
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;title&#34;:&#34;Elasticsearch rocks&#34;,
+</span></span><span class="line"><span class="cl">  &#34;content&#34;:&#34;Elasticsearch rocks&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>来查询：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET w5/doc/_search
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;query&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;bool&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;should&#34;: [
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">          &#34;match&#34;: {
+</span></span><span class="line"><span class="cl">            &#34;title&#34;:{
+</span></span><span class="line"><span class="cl">              &#34;query&#34;: &#34;elasticserach rocks&#34;,
+</span></span><span class="line"><span class="cl">              &#34;boost&#34;: 2.5
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">          }
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">          &#34;match&#34;: {
+</span></span><span class="line"><span class="cl">            &#34;content&#34;: &#34;elasticserach rocks&#34;
+</span></span><span class="line"><span class="cl">          }
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      ]
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>就对于最终得分而言，<code>content</code>字段，加了<code>boost</code>的<code>title</code>查询更有影响力。也只有在<code>bool</code>查询中，<code>boost</code>更有意义。</p>
+<h3 id="63-跨越多个字段的查询">6.3 跨越多个字段的查询</h3>
+<p><code>boost</code>也可以用于<code>multi_match</code>查询。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET w5/doc/_search
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;query&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;multi_match&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;query&#34;: &#34;elasticserach rocks&#34;,
+</span></span><span class="line"><span class="cl">      &#34;fields&#34;: [&#34;title&#34;, &#34;content&#34;],
+</span></span><span class="line"><span class="cl">      &#34;boost&#34;: 2.5
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>除此之外，我们还可以使用特殊的语法，只为特定的字段指定一个<code>boost</code>。通过在字段名称后添加一个<code>^</code>符号和<code>boost</code>的值。告诉es只需对那个字段进行<code>boost</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET w5/doc/_search
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;query&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;multi_match&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;query&#34;: &#34;elasticserach rocks&#34;,
+</span></span><span class="line"><span class="cl">      &#34;fields&#34;: [&#34;title^3&#34;, &#34;content&#34;]
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上例中，<code>title</code>字段被<code>boost</code>了3倍。</p>
+<p>需要注意的是：在使用<code>boost</code>的时候，无论是字段或者词条，都是按照相对值来<code>boost</code>的，而不是乘以乘数。如果对于所有的待搜索词条<code>boost</code>了同样的值，那么就好像没有<code>boost</code>一样（废话，就像大家都同时长高一米似的）！因为Lucene会标准化<code>boost</code>的值。如果<code>boost</code>一个字段<code>4</code>倍，不是意味着该字段的得分就是乘以<code>4</code>的结果。所以，如果你的得分不是按照严格的乘法结果，也不要担心。</p>
+<h2 id="七-使用解释来理解文档是如何评分的">七 使用“解释”来理解文档是如何评分的</h2>
+<p>一切都不是你想的那样！是的，在<code>es</code>中，一个文档要比另一个文档更符合某个查询很可能跟我们想象的不太一样！</p>
+<p>这一小节，我们来研究下<code>es</code>和<code>Lucene</code>内部使用了怎样的公式来计算得分。</p>
+<p>我们通过<code>explain=true</code>来告诉<code>es</code>，你要给洒家解释一下为什么这个得分是这样的？！背后到底以有什么py交易！</p>
+<p>比如我们来查询：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET py1/doc/_search
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;query&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;match&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;title&#34;: &#34;北京&#34;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;explain&#34;: true,
+</span></span><span class="line"><span class="cl">  &#34;_source&#34;: &#34;title&#34;, 
+</span></span><span class="line"><span class="cl">  &#34;size&#34;: 1
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>由于结果太长，我们这里对结果进行了过滤（<code>&quot;size&quot;: 1</code>返回一篇文档），只查看指定的字段（<code>&quot;_source&quot;: &quot;title&quot;</code>只返回<code>title</code>字段）。</p>
+<p>看结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;took&#34; : 1,
+</span></span><span class="line"><span class="cl">  &#34;timed_out&#34; : false,
+</span></span><span class="line"><span class="cl">  &#34;_shards&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;total&#34; : 5,
+</span></span><span class="line"><span class="cl">    &#34;successful&#34; : 5,
+</span></span><span class="line"><span class="cl">    &#34;skipped&#34; : 0,
+</span></span><span class="line"><span class="cl">    &#34;failed&#34; : 0
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;hits&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;total&#34; : 24,
+</span></span><span class="line"><span class="cl">    &#34;max_score&#34; : 4.9223156,
+</span></span><span class="line"><span class="cl">    &#34;hits&#34; : [
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;_shard&#34; : &#34;[py1][1]&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_node&#34; : &#34;NRwiP9PLRFCTJA7w3H9eqA&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_index&#34; : &#34;py1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_type&#34; : &#34;doc&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_id&#34; : &#34;NIjS1mkBuoj17MYtV-dX&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_score&#34; : 4.9223156,
+</span></span><span class="line"><span class="cl">        &#34;_source&#34; : {
+</span></span><span class="line"><span class="cl">          &#34;title&#34; : &#34;大写的尴尬 插混为啥在北京不受待见？&#34;
+</span></span><span class="line"><span class="cl">        },
+</span></span><span class="line"><span class="cl">        &#34;_explanation&#34; : {
+</span></span><span class="line"><span class="cl">          &#34;value&#34; : 4.9223156,
+</span></span><span class="line"><span class="cl">          &#34;description&#34; : &#34;weight(title:北京 in 36) [PerFieldSimilarity], result of:&#34;,
+</span></span><span class="line"><span class="cl">          &#34;details&#34; : [
+</span></span><span class="line"><span class="cl">            {
+</span></span><span class="line"><span class="cl">              &#34;value&#34; : 4.9223156,
+</span></span><span class="line"><span class="cl">              &#34;description&#34; : &#34;score(doc=36,freq=1.0 = termFreq=1.0\n), product of:&#34;,
+</span></span><span class="line"><span class="cl">              &#34;details&#34; : [
+</span></span><span class="line"><span class="cl">                {
+</span></span><span class="line"><span class="cl">                  &#34;value&#34; : 4.562031,
+</span></span><span class="line"><span class="cl">                  &#34;description&#34; : &#34;idf, computed as log(1 + (docCount - docFreq + 0.5) / (docFreq + 0.5)) from:&#34;,
+</span></span><span class="line"><span class="cl">                  &#34;details&#34; : [
+</span></span><span class="line"><span class="cl">                    {
+</span></span><span class="line"><span class="cl">                      &#34;value&#34; : 4.0,
+</span></span><span class="line"><span class="cl">                      &#34;description&#34; : &#34;docFreq&#34;,
+</span></span><span class="line"><span class="cl">                      &#34;details&#34; : [ ]
+</span></span><span class="line"><span class="cl">                    },
+</span></span><span class="line"><span class="cl">                    {
+</span></span><span class="line"><span class="cl">                      &#34;value&#34; : 430.0,
+</span></span><span class="line"><span class="cl">                      &#34;description&#34; : &#34;docCount&#34;,
+</span></span><span class="line"><span class="cl">                      &#34;details&#34; : [ ]
+</span></span><span class="line"><span class="cl">                    }
+</span></span><span class="line"><span class="cl">                  ]
+</span></span><span class="line"><span class="cl">                },
+</span></span><span class="line"><span class="cl">                {
+</span></span><span class="line"><span class="cl">                  &#34;value&#34; : 1.0789746,
+</span></span><span class="line"><span class="cl">                  &#34;description&#34; : &#34;tfNorm, computed as (freq * (k1 + 1)) / (freq + k1 * (1 - b + b * fieldLength / avgFieldLength)) from:&#34;,
+</span></span><span class="line"><span class="cl">                  &#34;details&#34; : [
+</span></span><span class="line"><span class="cl">                    {
+</span></span><span class="line"><span class="cl">                      &#34;value&#34; : 1.0,
+</span></span><span class="line"><span class="cl">                      &#34;description&#34; : &#34;termFreq=1.0&#34;,
+</span></span><span class="line"><span class="cl">                      &#34;details&#34; : [ ]
+</span></span><span class="line"><span class="cl">                    },
+</span></span><span class="line"><span class="cl">                    {
+</span></span><span class="line"><span class="cl">                      &#34;value&#34; : 1.2,
+</span></span><span class="line"><span class="cl">                      &#34;description&#34; : &#34;parameter k1&#34;,
+</span></span><span class="line"><span class="cl">                      &#34;details&#34; : [ ]
+</span></span><span class="line"><span class="cl">                    },
+</span></span><span class="line"><span class="cl">                    {
+</span></span><span class="line"><span class="cl">                      &#34;value&#34; : 0.75,
+</span></span><span class="line"><span class="cl">                      &#34;description&#34; : &#34;parameter b&#34;,
+</span></span><span class="line"><span class="cl">                      &#34;details&#34; : [ ]
+</span></span><span class="line"><span class="cl">                    },
+</span></span><span class="line"><span class="cl">                    {
+</span></span><span class="line"><span class="cl">                      &#34;value&#34; : 12.1790695,
+</span></span><span class="line"><span class="cl">                      &#34;description&#34; : &#34;avgFieldLength&#34;,
+</span></span><span class="line"><span class="cl">                      &#34;details&#34; : [ ]
+</span></span><span class="line"><span class="cl">                    },
+</span></span><span class="line"><span class="cl">                    {
+</span></span><span class="line"><span class="cl">                      &#34;value&#34; : 10.0,
+</span></span><span class="line"><span class="cl">                      &#34;description&#34; : &#34;fieldLength&#34;,
+</span></span><span class="line"><span class="cl">                      &#34;details&#34; : [ ]
+</span></span><span class="line"><span class="cl">                    }
+</span></span><span class="line"><span class="cl">                  ]
+</span></span><span class="line"><span class="cl">                }
+</span></span><span class="line"><span class="cl">              ]
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">          ]
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    ]
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在新增的<code>_explanation</code>字段中，可以看到<code>value</code>值是<code>4.9223156</code>，那么是怎么算出来的呢？</p>
+<p>来分析，分词<code>北京</code>在描述字段（title）出现了<code>1</code>次，所以<code>TF</code>的综合得分经过<code>&quot;description&quot; : &quot;tfNorm, computed as (freq * (k1 + 1)) / (freq + k1 * (1 - b + b * fieldLength / avgFieldLength)) from:&quot;</code>计算，得分是<code>1.0789746</code>。</p>
+<p>那么逆文档词频呢？根据<code>&quot;description&quot; : &quot;idf, computed as log(1 + (docCount - docFreq + 0.5) / (docFreq + 0.5)) from:&quot;</code>计算得分是<code>4.562031</code>。</p>
+<p>所以最终得分是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1.0789746 * 4.562031 = 4.9223155734126
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果在四舍五入后就是<code>4.9223156</code>。</p>
+<p>需要注意的是，<code>explain</code>的特性会给<code>es</code>带来额外的性能开销。所以，除了在调试时可以使用，生产环境下，应避免使用<code>explain</code>。</p>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2023-11-15 16:40:14">更新于 2023-11-15&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/posts/18-elasticsearch%E4%B9%8B%E6%89%93%E5%88%86%E6%9C%BA%E5%88%B6/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.qilitang.top/posts/18-elasticsearch%E4%B9%8B%E6%89%93%E5%88%86%E6%9C%BA%E5%88%B6/" data-title="ElasticSearch打分机制" data-hashtags="文档操作"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.qilitang.top/posts/18-elasticsearch%E4%B9%8B%E6%89%93%E5%88%86%E6%9C%BA%E5%88%B6/" data-hashtag="文档操作"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.qilitang.top/posts/18-elasticsearch%E4%B9%8B%E6%89%93%E5%88%86%E6%9C%BA%E5%88%B6/" data-title="ElasticSearch打分机制"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C/' class="post-tag">文档操作</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/16-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95/" class="post-nav-item" rel="prev" title="ElasticSearch倒排索引"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>ElasticSearch倒排索引</a>
+      <a href="/posts/20-elasticsearch%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" class="post-nav-item" rel="next" title="ElasticSearch常见错误">ElasticSearch常见错误<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/qilitang"target="_blank" rel="external nofollow noopener noreferrer">Qilitang</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":3},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>

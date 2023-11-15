@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>ElasticSearch集群搭建, 数据分片 - </title><meta name="author" content="Qilitang">
+<meta name="author-link" content="https://github.com/qilitang">
+<meta name="description" content="es使用两种不同的方式来发现对方： 广播 单播 也可以同时使用两者，但默认的广播，单播需要已知节点列表来完成 一 广播方式 当es实例启动的时候，它发送了广播的ping请求到地址224.2.2.4:54328。而其他的es实例使用同样的集群名称响应了这个请求。 一般这个默认的集群名称就是上面的cluster_na" /><meta name="keywords" content='文档操作' /><meta itemprop="name" content="ElasticSearch集群搭建, 数据分片">
+<meta itemprop="description" content="es使用两种不同的方式来发现对方： 广播 单播 也可以同时使用两者，但默认的广播，单播需要已知节点列表来完成 一 广播方式 当es实例启动的时候，它发送了广播的ping请求到地址224.2.2.4:54328。而其他的es实例使用同样的集群名称响应了这个请求。 一般这个默认的集群名称就是上面的cluster_na"><meta itemprop="datePublished" content="2023-08-31T17:06:11+08:00" />
+<meta itemprop="dateModified" content="2023-11-15T16:37:48+08:00" />
+<meta itemprop="wordCount" content="2724">
+<meta itemprop="keywords" content="文档操作," /><meta property="og:title" content="ElasticSearch集群搭建, 数据分片" />
+<meta property="og:description" content="es使用两种不同的方式来发现对方： 广播 单播 也可以同时使用两者，但默认的广播，单播需要已知节点列表来完成 一 广播方式 当es实例启动的时候，它发送了广播的ping请求到地址224.2.2.4:54328。而其他的es实例使用同样的集群名称响应了这个请求。 一般这个默认的集群名称就是上面的cluster_na" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.qilitang.top/posts/14-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-31T17:06:11+08:00" />
+<meta property="article:modified_time" content="2023-11-15T16:37:48+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ElasticSearch集群搭建, 数据分片"/>
+<meta name="twitter:description" content="es使用两种不同的方式来发现对方： 广播 单播 也可以同时使用两者，但默认的广播，单播需要已知节点列表来完成 一 广播方式 当es实例启动的时候，它发送了广播的ping请求到地址224.2.2.4:54328。而其他的es实例使用同样的集群名称响应了这个请求。 一般这个默认的集群名称就是上面的cluster_na"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://www.qilitang.top/posts/14-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87/" /><link rel="prev" href="https://www.qilitang.top/posts/19-elasticsearch%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" /><link rel="next" href="https://www.qilitang.top/posts/21-elasticsearch-%E9%9B%86%E6%88%90-django%E4%BC%A0%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "ElasticSearch集群搭建, 数据分片",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/www.qilitang.top\/posts\/14-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87\/"
+    },"genre": "posts","keywords": "文档操作","wordcount":  2724 ,
+    "url": "https:\/\/www.qilitang.top\/posts\/14-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87\/","datePublished": "2023-08-31T17:06:11+08:00","dateModified": "2023-11-15T16:37:48+08:00","publisher": {
+      "@type": "Organization",
+      "name": "","logo": "https:\/\/www.qilitang.top\/favicon.ico"},"author": {
+        "@type": "Person",
+        "name": "Qilitang"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>ElasticSearch集群搭建, 数据分片</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img loading="lazy" src="/avatar/avatar.jpg" srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x" sizes="auto" data-title="Qilitang" data-alt="Qilitang" class="avatar" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>&nbsp;Qilitang</a></span>
+          <span class="post-category">收录于 <a href="/categories/elasticsearch/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> ElasticSearch</a></span></div>
+      <div class="post-meta-line"><span title="发布于 2023-08-31 17:06:11"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2023-08-31">2023-08-31</time></span>&nbsp;<span title="更新于 2023-11-15 16:37:48"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2023-11-15">2023-11-15</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 2724 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 6 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一-广播方式">一 广播方式</a></li>
+    <li><a href="#二-单播方式">二 单播方式</a></li>
+    <li><a href="#三-选取主节点">三 选取主节点</a></li>
+    <li><a href="#四-什么是脑裂">四 什么是脑裂</a></li>
+    <li><a href="#五-错误识别">五 错误识别</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>es使用两种不同的方式来发现对方：</p>
+<ul>
+<li>广播</li>
+<li>单播</li>
+</ul>
+<p>也可以同时使用两者，但默认的广播，单播需要已知节点列表来完成</p>
+<h2 id="一-广播方式">一 广播方式</h2>
+<p>当es实例启动的时候，它发送了广播的ping请求到地址<code>224.2.2.4:54328</code>。而其他的es实例使用同样的集群名称响应了这个请求。</p>
+<p><img loading="lazy" src="https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwu5a3xj30h00dijs7.jpg#alt=img" srcset="https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwu5a3xj30h00dijs7.jpg#alt=img, https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwu5a3xj30h00dijs7.jpg#alt=img 1.5x, https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwu5a3xj30h00dijs7.jpg#alt=img 2x" sizes="auto" data-title="https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwu5a3xj30h00dijs7.jpg#alt=img" data-alt="https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwu5a3xj30h00dijs7.jpg#alt=img" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>一般这个默认的集群名称就是上面的<code>cluster_name</code>对应的<code>elasticsearch</code>。通常而言，广播是个很好地方式。想象一下，广播发现就像你大吼一声：别说话了，再说话我就发红包了！然后所有听见的纷纷响应你。</p>
+<p>但是，广播也有不好之处，过程不可控。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#1 在本地单独的目录中，再复制一份elasticsearch文件</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2 分别启动bin目录中的启动文件</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3 在浏览器里输入：http://127.0.0.1:9200/_cluster/health?pretty</span>
+</span></span><span class="line"><span class="cl">	<span class="o">-</span><span class="n">通过number_of_nodes可以看到</span><span class="err">，</span><span class="n">目前集群中已经有了两个节点了</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="二-单播方式">二 单播方式</h2>
+<p>当节点的ip(想象一下我们的ip地址是不是一直在变)不经常变化的时候，或者es只连接特定的节点。单播发现是个很理想的模式。使用单播时，我们告诉es集群其他节点的ip及（可选的）端口及端口范围。我们在<code>elasticsearch.yml</code>配置文件中设置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">discovery.zen.ping.unicast.hosts: [&#34;10.0.0.1&#34;, &#34;10.0.0.3:9300&#34;, &#34;10.0.0.6[9300-9400]&#34;]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>大家就像交换微信名片一样，相互传传就加群了&hellip;..</p>
+<p><img loading="lazy" src="https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwoyyxlj30ci0cmq3a.jpg#alt=img" srcset="https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwoyyxlj30ci0cmq3a.jpg#alt=img, https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwoyyxlj30ci0cmq3a.jpg#alt=img 1.5x, https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwoyyxlj30ci0cmq3a.jpg#alt=img 2x" sizes="auto" data-title="https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwoyyxlj30ci0cmq3a.jpg#alt=img" data-alt="https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwoyyxlj30ci0cmq3a.jpg#alt=img" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>一般的，我们没必要关闭单播发现，如果你需要广播发现的话，配置文件中的列表保持空白即可。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#现在，我们为这个集群增加一些单播配置，打开各节点内的\config\elasticsearch.yml文件。每个节点的配置如下（原配置文件都被注释了，可以理解为空，我写好各节点的配置，直接粘贴进去，没有动注释的，出现问题了好恢复）：</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#1 elasticsearch1节点，,集群名称是my_es1,集群端口是9300；节点名称是node1，监听本地9200端口，可以有权限成为主节点和读写磁盘（不写就是默认的）。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">cluster</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">my_es1</span>
+</span></span><span class="line"><span class="cl"><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">node1</span>
+</span></span><span class="line"><span class="cl"><span class="n">network</span><span class="o">.</span><span class="n">host</span><span class="p">:</span> <span class="mf">127.0.0.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">http</span><span class="o">.</span><span class="n">port</span><span class="p">:</span> <span class="mi">9200</span>
+</span></span><span class="line"><span class="cl"><span class="n">transport</span><span class="o">.</span><span class="n">tcp</span><span class="o">.</span><span class="n">port</span><span class="p">:</span> <span class="mi">9300</span>
+</span></span><span class="line"><span class="cl"><span class="n">discovery</span><span class="o">.</span><span class="n">zen</span><span class="o">.</span><span class="n">ping</span><span class="o">.</span><span class="n">unicast</span><span class="o">.</span><span class="n">hosts</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;127.0.0.1:9300&#34;</span><span class="p">,</span> <span class="s2">&#34;127.0.0.1:9302&#34;</span><span class="p">,</span> <span class="s2">&#34;127.0.0.1:9303&#34;</span><span class="p">,</span> <span class="s2">&#34;127.0.0.1:9304&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2 elasticsearch2节点,集群名称是my_es1,集群端口是9302；节点名称是node2，监听本地9202端口，可以有权限成为主节点和读写磁盘。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">cluster</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">my_es1</span>
+</span></span><span class="line"><span class="cl"><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">node2</span>
+</span></span><span class="line"><span class="cl"><span class="n">network</span><span class="o">.</span><span class="n">host</span><span class="p">:</span> <span class="mf">127.0.0.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">http</span><span class="o">.</span><span class="n">port</span><span class="p">:</span> <span class="mi">9202</span>
+</span></span><span class="line"><span class="cl"><span class="n">transport</span><span class="o">.</span><span class="n">tcp</span><span class="o">.</span><span class="n">port</span><span class="p">:</span> <span class="mi">9302</span>
+</span></span><span class="line"><span class="cl"><span class="n">node</span><span class="o">.</span><span class="n">master</span><span class="p">:</span> <span class="n">true</span>
+</span></span><span class="line"><span class="cl"><span class="n">node</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="n">true</span>
+</span></span><span class="line"><span class="cl"><span class="n">discovery</span><span class="o">.</span><span class="n">zen</span><span class="o">.</span><span class="n">ping</span><span class="o">.</span><span class="n">unicast</span><span class="o">.</span><span class="n">hosts</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;127.0.0.1:9300&#34;</span><span class="p">,</span> <span class="s2">&#34;127.0.0.1:9302&#34;</span><span class="p">,</span> <span class="s2">&#34;127.0.0.1:9303&#34;</span><span class="p">,</span> <span class="s2">&#34;127.0.0.1:9304&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3 elasticsearch3节点，集群名称是my_es1,集群端口是9303；节点名称是node3，监听本地9203端口，可以有权限成为主节点和读写磁盘。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">cluster</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">my_es1</span>
+</span></span><span class="line"><span class="cl"><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">node3</span>
+</span></span><span class="line"><span class="cl"><span class="n">network</span><span class="o">.</span><span class="n">host</span><span class="p">:</span> <span class="mf">127.0.0.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">http</span><span class="o">.</span><span class="n">port</span><span class="p">:</span> <span class="mi">9203</span>
+</span></span><span class="line"><span class="cl"><span class="n">transport</span><span class="o">.</span><span class="n">tcp</span><span class="o">.</span><span class="n">port</span><span class="p">:</span> <span class="mi">9303</span>
+</span></span><span class="line"><span class="cl"><span class="n">discovery</span><span class="o">.</span><span class="n">zen</span><span class="o">.</span><span class="n">ping</span><span class="o">.</span><span class="n">unicast</span><span class="o">.</span><span class="n">hosts</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;127.0.0.1:9300&#34;</span><span class="p">,</span> <span class="s2">&#34;127.0.0.1:9302&#34;</span><span class="p">,</span> <span class="s2">&#34;127.0.0.1:9303&#34;</span><span class="p">,</span> <span class="s2">&#34;127.0.0.1:9304&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4 elasticsearch4节点，集群名称是my_es1,集群端口是9304；节点名称是node4，监听本地9204端口，仅能读写磁盘而不能被选举为主节点。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">cluster</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">my_es1</span>
+</span></span><span class="line"><span class="cl"><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">node4</span>
+</span></span><span class="line"><span class="cl"><span class="n">network</span><span class="o">.</span><span class="n">host</span><span class="p">:</span> <span class="mf">127.0.0.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">http</span><span class="o">.</span><span class="n">port</span><span class="p">:</span> <span class="mi">9204</span>
+</span></span><span class="line"><span class="cl"><span class="n">transport</span><span class="o">.</span><span class="n">tcp</span><span class="o">.</span><span class="n">port</span><span class="p">:</span> <span class="mi">9304</span>
+</span></span><span class="line"><span class="cl"><span class="n">node</span><span class="o">.</span><span class="n">master</span><span class="p">:</span> <span class="n">false</span>
+</span></span><span class="line"><span class="cl"><span class="n">node</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="n">true</span>
+</span></span><span class="line"><span class="cl"><span class="n">discovery</span><span class="o">.</span><span class="n">zen</span><span class="o">.</span><span class="n">ping</span><span class="o">.</span><span class="n">unicast</span><span class="o">.</span><span class="n">hosts</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;127.0.0.1:9300&#34;</span><span class="p">,</span> <span class="s2">&#34;127.0.0.1:9302&#34;</span><span class="p">,</span> <span class="s2">&#34;127.0.0.1:9303&#34;</span><span class="p">,</span> <span class="s2">&#34;127.0.0.1:9304&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">由上例的配置可以看到</span><span class="err">，</span><span class="n">各节点有一个共同的名字my_es1</span><span class="p">,</span><span class="n">但由于是本地环境</span><span class="err">，</span><span class="n">所以各节点的名字不能一致</span><span class="err">，</span><span class="n">我们分别启动它们</span><span class="err">，</span><span class="n">它们通过单播列表相互介绍</span><span class="err">，</span><span class="n">发现彼此</span><span class="err">，</span><span class="n">然后组成一个my_es1集群</span><span class="err">。</span><span class="n">谁是老大则是要看谁先启动了</span><span class="err">！</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="三-选取主节点">三 选取主节点</h2>
+<p>无论是广播发现还是到单播发现，一旦集群中的节点发生变化，它们就会协商谁将成为主节点，elasticsearch认为所有节点都有资格成为主节点。如果集群中只有一个节点，那么该节点首先会等一段时间，如果还是没有发现其他节点，就会任命自己为主节点。</p>
+<p>对于节点数较少的集群，我们可以设置主节点的最小数量，虽然这么设置看上去集群可以拥有多个主节点。实际上这么设置是告诉集群有多少个节点有资格成为主节点。怎么设置呢？修改配置文件中的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">discovery.zen.minimum_master_nodes: 3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>一般的规则是集群节点数除以2（向下取整）再加一。比如3个节点集群要设置为2。这么着是为了防止脑裂（split brain）问题。</p>
+<h2 id="四-什么是脑裂">四 什么是脑裂</h2>
+<p>脑裂这个词描述的是这样的一个场景：（通常是在重负荷或网络存在问题时）elasticsearch集群中一个或者多个节点失去和主节点的通信，然后各节点就开始选举新的主节点，继续处理请求。这个时候，可能有两个不同的集群在相互运行着，这就是脑裂一词的由来，因为单一集群被分成了两部分。为了防止这种情况的发生，我们就需要设置集群节点的总数，规则就是节点总数除以2再加一（半数以上）。这样，当一个或者多个节点失去通信，小老弟们就无法选举出新的主节点来形成新的集群。因为这些小老弟们无法满足设置的规则数量。</p>
+<p>我们通过下图来说明如何防止脑裂。比如现在，有这样一个5个节点的集群，并且都有资格成为主节点：</p>
+<p><img loading="lazy" src="https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwiwvsqj30h008n3ym.jpg#alt=img" srcset="https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwiwvsqj30h008n3ym.jpg#alt=img, https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwiwvsqj30h008n3ym.jpg#alt=img 1.5x, https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwiwvsqj30h008n3ym.jpg#alt=img 2x" sizes="auto" data-title="https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwiwvsqj30h008n3ym.jpg#alt=img" data-alt="https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwiwvsqj30h008n3ym.jpg#alt=img" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>为了防止脑裂，我们对该集群设置参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">discovery.zen.minimum_master_nodes: 3   # 3=5/2+1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>之前原集群的主节点是<code>node1</code>，由于网络和负荷等原因，原集群被分为了两个<code>switch</code>：<code>node1 、2</code>和<code>node3、4、5</code>。因为<code>minimum_master_nodes</code>参数是3，所以<code>node3、4、5</code>可以组成集群，并且选举出了主节点<code>node3</code>。而<code>node1、2</code>节点因为不满足<code>minimum_master_nodes</code>条件而无法选举，只能一直寻求加入集群（还记得单播列表吗？），要么网络和负荷恢复正常后加入<code>node3、4、5</code>组成的集群中，要么就是一直处于寻找集群状态，这样就防止了集群的脑裂问题。</p>
+<p>除了设置<code>minimum_master_nodes</code>参数，有时候还需要设置<code>node_master</code>参数，比如有两个节点的集群，如果出现脑裂问题，那么它们自己都无法选举，因为都不符合半数以上。这时我们可以指定<code>node_master</code>，让其中一个节点有资格成为主节点，另外一个节点只能做存储用。当然这是特殊情况。</p>
+<p>那么，主节点是如何知道某个节点还活着呢？这就要说到错误识别了。</p>
+<h2 id="五-错误识别">五 错误识别</h2>
+<p>其实错误识别，就是当主节点被确定后，建立起内部的ping机制来确保每个节点在集群中保持活跃和健康，这就是错误识别。</p>
+<p>主节点ping集群中的其他节点，而且每个节点也会ping主节点来确认主节点还活着，如果没有响应，则宣布该节点失联。想象一下，老大要时不常的看看（循环）小弟们是否还活着，而小老弟们也要时不常的看看老大还在不在，不在了就赶紧再选举一个出来！</p>
+<p><img loading="lazy" src="https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwzd84sj30gy0evjry.jpg#alt=img" srcset="https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwzd84sj30gy0evjry.jpg#alt=img, https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwzd84sj30gy0evjry.jpg#alt=img 1.5x, https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwzd84sj30gy0evjry.jpg#alt=img 2x" sizes="auto" data-title="https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwzd84sj30gy0evjry.jpg#alt=img" data-alt="https://tva1.sinaimg.cn/large/007S8ZIlly1gdtpwzd84sj30gy0evjry.jpg#alt=img" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>但是，怎么看？多久没联系算是失联？这些细节都是可以设置的，不是一拍脑门子，就说某个小老弟挂了！在配置文件中，可以设置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">discovery.zen.fd.ping_interval: 1
+</span></span><span class="line"><span class="cl">discovery.zen.fd.ping_timeout: 30
+</span></span><span class="line"><span class="cl">discovery_zen.fd.ping_retries: 3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>每个节点每隔<code>discovery.zen.fd.ping_interval</code>的时间（默认1秒）发送一个ping请求，等待<code>discovery.zen.fd.ping_timeout</code>的时间（默认30秒），并尝试最多<code>discovery.zen.fd.ping_retries</code>次（默认3次），无果的话，宣布节点失联，并且在需要的时候进行新的分片和主节点选举。</p>
+<p>根据开发环境，适当修改这些值。</p>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2023-11-15 16:37:48">更新于 2023-11-15&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/posts/14-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.qilitang.top/posts/14-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87/" data-title="ElasticSearch集群搭建, 数据分片" data-hashtags="文档操作"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.qilitang.top/posts/14-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87/" data-hashtag="文档操作"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.qilitang.top/posts/14-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87/" data-title="ElasticSearch集群搭建, 数据分片"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C/' class="post-tag">文档操作</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/19-elasticsearch%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="post-nav-item" rel="prev" title="ElasticSearch配置文件"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>ElasticSearch配置文件</a>
+      <a href="/posts/21-elasticsearch-%E9%9B%86%E6%88%90-django%E4%BC%A0%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-nav-item" rel="next" title="ElasticSearch集成Django">ElasticSearch集成Django<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/qilitang"target="_blank" rel="external nofollow noopener noreferrer">Qilitang</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":15},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>

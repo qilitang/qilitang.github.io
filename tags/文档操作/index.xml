@@ -1,0 +1,88 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>文档操作 - 标签 - </title>
+    <link>https://www.qilitang.top/tags/%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C/</link>
+    <description>文档操作 - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C/" rel="self" type="application/rss+xml" /><item>
+  <title>ElasticSearch常见错误</title>
+  <link>https://www.qilitang.top/posts/20-elasticsearch%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/20-elasticsearch%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/</guid>
+  <description><![CDATA[一 read_only_allow_delete&quot; : &ldquo;true&rdquo; 当我们在向某个索引添加一条数据的时候，可能（极少情况）会碰到下面的报错： 1 2 3 4 5 6 7 8 9 10 11 12 13 { &#34;error&#34;: { &#34;root_cause&#34;: [ { &#34;type&#34;: &#34;cluster_block_exception&#34;, &#34;reason&#34;: &#34;blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];&#34; } ], &#34;type&#34;: &#34;cluster_block_exception&#34;, &#34;reason&#34;: &#34;blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];&#34; }, &#34;status&#34;: 403 } 上述报错是说索引现在的状态是只读模式（read-only），如果查看该索引此时的状态： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20]]></description>
+</item>
+<item>
+  <title>ElasticSearch打分机制</title>
+  <link>https://www.qilitang.top/posts/18-elasticsearch%E4%B9%8B%E6%89%93%E5%88%86%E6%9C%BA%E5%88%B6/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/18-elasticsearch%E4%B9%8B%E6%89%93%E5%88%86%E6%9C%BA%E5%88%B6/</guid>
+  <description><![CDATA[一 例子 现在，讲述一个真实的故事！ 故事一定是伴随着赵忠祥老师的声音开始的，雨季就要来临了，又到了动物们发情的季节了&hellip; 还记得，之前发生的作家六六吐槽xx的事情吗？对了，有图有真相！上图上图： 身为吃瓜群众，要从专业的角度来分析，就事论事哈： 就搜索结果本身而言，xx返回了正确的结果（是的，人家]]></description>
+</item>
+<item>
+  <title>ElasticSearch倒排索引</title>
+  <link>https://www.qilitang.top/posts/16-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/16-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95/</guid>
+  <description><![CDATA[随着央视诗词大会的热播，小史开始对诗词感兴趣，最喜欢的就是飞花令的环节。 但是由于小史很久没有背过诗词了，飞一个字很难说出一句，很多之前很熟悉的诗句也想不起来。 倒排索引 **吕老师：**但是我让你说出带“前”字的诗句，由于没有索引，你只能遍历脑海中所有诗词，当你的脑海中诗词量大的时候，就很难在短时间内得]]></description>
+</item>
+<item>
+  <title>ElasticSearch集成Django</title>
+  <link>https://www.qilitang.top/posts/21-elasticsearch-%E9%9B%86%E6%88%90-django%E4%BC%A0%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/21-elasticsearch-%E9%9B%86%E6%88%90-django%E4%BC%A0%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+  <description><![CDATA[介绍: 业务需要, 为了增加mysql一张数据库表的查询速率, 特实现es作为传统数据库使用的方案. django-elasticsearch 的使用 一 安装 1 2 pip install django-elasticsearch-dsl # 会同时安装 elasticsearch-dsl 和 elasticsearch 二 注册 + 配置 1 2 3 4 5 6 7 8 9 10 11 12 INSTALLED_APPS = [ ... &#39;django_elasticsearch_dsl&#39;, ... ] # Es 配置 ELASTICSEARCH_DSL={ &#39;default&#39;: { &#39;hosts&#39;: &#39;localhost:9200&#39; }, } 三 创建documents.py文件,做 orm 与 es 索引的映射 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19]]></description>
+</item>
+<item>
+  <title>ElasticSearch集群搭建, 数据分片</title>
+  <link>https://www.qilitang.top/posts/14-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/14-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87/</guid>
+  <description><![CDATA[es使用两种不同的方式来发现对方： 广播 单播 也可以同时使用两者，但默认的广播，单播需要已知节点列表来完成 一 广播方式 当es实例启动的时候，它发送了广播的ping请求到地址224.2.2.4:54328。而其他的es实例使用同样的集群名称响应了这个请求。 一般这个默认的集群名称就是上面的cluster_na]]></description>
+</item>
+<item>
+  <title>ElasticSearch配置文件</title>
+  <link>https://www.qilitang.top/posts/19-elasticsearch%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/19-elasticsearch%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</guid>
+  <description><![CDATA[一 前言 在elasticsearch\config目录下，有三个核心的配置文件： elasticsearch.yml，es相关的配置。 jvm.options，Java jvm相关参数的配置。 log4j2.properties，日志相关的配置，因为es采用了log4j的日志框架。 这里以elasticsear]]></description>
+</item>
+<item>
+  <title>ElasticSearch删除映射类型</title>
+  <link>https://www.qilitang.top/posts/17-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%88%A0%E9%99%A4%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/17-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%88%A0%E9%99%A4%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B/</guid>
+  <description><![CDATA[一 前言 官方解释：https://www.elastic.co/guide/en/elasticsearch/reference/6.0/removal-of-types.html 在elasticsearch6.0.0或更高的版本中创建索引仅能包含单个映射类型。在具有多种映射类型的5.x版本中创建的索]]></description>
+</item>
+<item>
+  <title>ElasticSearch位置做不及附近的人搜索</title>
+  <link>https://www.qilitang.top/posts/15-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E4%BD%8D%E7%BD%AE%E5%9D%90%E6%A0%87%E5%AE%9E%E7%8E%B0%E9%99%84%E8%BF%91%E7%9A%84%E4%BA%BA%E6%90%9C%E7%B4%A2/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/15-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E4%BD%8D%E7%BD%AE%E5%9D%90%E6%A0%87%E5%AE%9E%E7%8E%B0%E9%99%84%E8%BF%91%E7%9A%84%E4%BA%BA%E6%90%9C%E7%B4%A2/</guid>
+  <description><![CDATA[一 创建mapping 1 2 3 4 5 6 7 8 9 10 11 12 PUT test { &#34;mappings&#34;: { &#34;test&#34;:{ &#34;properties&#34;: { &#34;location&#34;:{ &#34;type&#34;: &#34;geo_point&#34; } } } } } 二 导入数据 1 2 3 4 5 6 7 POST test/test { &#34;location&#34;:{ &#34;lat&#34;:12, &#34;lon&#34;:24 } } 三 查询 3.1根据给定两个点组成的矩形，查询矩形内的点 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 GET test/test/_search { &#34;query&#34;: { &#34;geo_bounding_box&#34;: { &#34;location&#34;: { &#34;top_left&#34;: { &#34;lat&#34;: 28, &#34;lon&#34;: 10 }, &#34;bottom_right&#34;: { &#34;lat&#34;: 10, &#34;lon&#34;: 30 } } } } } 3.2根据给定的多个点组成的多边形，查询范围]]></description>
+</item>
+<item>
+  <title>文档操作</title>
+  <link>https://www.qilitang.top/posts/09-0-elasticsearch%E4%B9%8B-%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/09-0-elasticsearch%E4%B9%8B-%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C/</guid>
+  <description><![CDATA[一 新增文档 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 #新增一个id为1的书籍（POST和PUT都可以） POST lqz/_doc/1/_create #POST lqz/_doc/1 #POST lqz/_doc 会自动创建id,必须用Post { &#34;title&#34;:&#34;红楼梦&#34;, &#34;price&#34;:12, &#34;publish_addr&#34;:{ &#34;province&#34;:&#34;黑龙江&#34;, &#34;city&#34;:&#3]]></description>
+</item>
+<item>
+  <title>文档操作- ik分词器</title>
+  <link>https://www.qilitang.top/posts/09-15-elasticsearch-ik%E5%88%86%E8%AF%8D%E5%99%A8/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/09-15-elasticsearch-ik%E5%88%86%E8%AF%8D%E5%99%A8/</guid>
+  <description><![CDATA[一 前言 在知名的中分分词器中，ik中文分词器的大名可以说是无人不知，elasticsearch有了ik分词器的加持，就像男人有了神油&hellip;&hellip;.要了解ik中文分词器，就首先要了解一下它的由来。 二 ik分词器的由来 IK Analyzer是一个开源的，基于java语言开发的轻量级的中文分词]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>ElasticSearch位置做不及附近的人搜索 - </title><meta name="author" content="Qilitang">
+<meta name="author-link" content="https://github.com/qilitang">
+<meta name="description" content="一 创建mapping 1 2 3 4 5 6 7 8 9 10 11 12 PUT test { &#34;mappings&#34;: { &#34;test&#34;:{ &#34;properties&#34;: { &#34;location&#34;:{ &#34;type&#34;: &#34;geo_point&#34; } } } } } 二 导入数据 1 2 3 4 5 6 7 POST test/test { &#34;location&#34;:{ &#34;lat&#34;:12, &#34;lon&#34;:24 } } 三 查询 3.1根据给定两个点组成的矩形，查询矩形内的点 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 GET test/test/_search { &#34;query&#34;: { &#34;geo_bounding_box&#34;: { &#34;location&#34;: { &#34;top_left&#34;: { &#34;lat&#34;: 28, &#34;lon&#34;: 10 }, &#34;bottom_right&#34;: { &#34;lat&#34;: 10, &#34;lon&#34;: 30 } } } } } 3.2根据给定的多个点组成的多边形，查询范围" /><meta name="keywords" content='文档操作' /><meta itemprop="name" content="ElasticSearch位置做不及附近的人搜索">
+<meta itemprop="description" content="一 创建mapping 1 2 3 4 5 6 7 8 9 10 11 12 PUT test { &#34;mappings&#34;: { &#34;test&#34;:{ &#34;properties&#34;: { &#34;location&#34;:{ &#34;type&#34;: &#34;geo_point&#34; } } } } } 二 导入数据 1 2 3 4 5 6 7 POST test/test { &#34;location&#34;:{ &#34;lat&#34;:12, &#34;lon&#34;:24 } } 三 查询 3.1根据给定两个点组成的矩形，查询矩形内的点 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 GET test/test/_search { &#34;query&#34;: { &#34;geo_bounding_box&#34;: { &#34;location&#34;: { &#34;top_left&#34;: { &#34;lat&#34;: 28, &#34;lon&#34;: 10 }, &#34;bottom_right&#34;: { &#34;lat&#34;: 10, &#34;lon&#34;: 30 } } } } } 3.2根据给定的多个点组成的多边形，查询范围"><meta itemprop="datePublished" content="2023-08-31T17:06:11+08:00" />
+<meta itemprop="dateModified" content="2023-11-15T16:38:18+08:00" />
+<meta itemprop="wordCount" content="345">
+<meta itemprop="keywords" content="文档操作," /><meta property="og:title" content="ElasticSearch位置做不及附近的人搜索" />
+<meta property="og:description" content="一 创建mapping 1 2 3 4 5 6 7 8 9 10 11 12 PUT test { &#34;mappings&#34;: { &#34;test&#34;:{ &#34;properties&#34;: { &#34;location&#34;:{ &#34;type&#34;: &#34;geo_point&#34; } } } } } 二 导入数据 1 2 3 4 5 6 7 POST test/test { &#34;location&#34;:{ &#34;lat&#34;:12, &#34;lon&#34;:24 } } 三 查询 3.1根据给定两个点组成的矩形，查询矩形内的点 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 GET test/test/_search { &#34;query&#34;: { &#34;geo_bounding_box&#34;: { &#34;location&#34;: { &#34;top_left&#34;: { &#34;lat&#34;: 28, &#34;lon&#34;: 10 }, &#34;bottom_right&#34;: { &#34;lat&#34;: 10, &#34;lon&#34;: 30 } } } } } 3.2根据给定的多个点组成的多边形，查询范围" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.qilitang.top/posts/15-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E4%BD%8D%E7%BD%AE%E5%9D%90%E6%A0%87%E5%AE%9E%E7%8E%B0%E9%99%84%E8%BF%91%E7%9A%84%E4%BA%BA%E6%90%9C%E7%B4%A2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-31T17:06:11+08:00" />
+<meta property="article:modified_time" content="2023-11-15T16:38:18+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ElasticSearch位置做不及附近的人搜索"/>
+<meta name="twitter:description" content="一 创建mapping 1 2 3 4 5 6 7 8 9 10 11 12 PUT test { &#34;mappings&#34;: { &#34;test&#34;:{ &#34;properties&#34;: { &#34;location&#34;:{ &#34;type&#34;: &#34;geo_point&#34; } } } } } 二 导入数据 1 2 3 4 5 6 7 POST test/test { &#34;location&#34;:{ &#34;lat&#34;:12, &#34;lon&#34;:24 } } 三 查询 3.1根据给定两个点组成的矩形，查询矩形内的点 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 GET test/test/_search { &#34;query&#34;: { &#34;geo_bounding_box&#34;: { &#34;location&#34;: { &#34;top_left&#34;: { &#34;lat&#34;: 28, &#34;lon&#34;: 10 }, &#34;bottom_right&#34;: { &#34;lat&#34;: 10, &#34;lon&#34;: 30 } } } } } 3.2根据给定的多个点组成的多边形，查询范围"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://www.qilitang.top/posts/15-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E4%BD%8D%E7%BD%AE%E5%9D%90%E6%A0%87%E5%AE%9E%E7%8E%B0%E9%99%84%E8%BF%91%E7%9A%84%E4%BA%BA%E6%90%9C%E7%B4%A2/" /><link rel="prev" href="https://www.qilitang.top/posts/04-elasticsearch%E4%B9%8B-kibana/" /><link rel="next" href="https://www.qilitang.top/posts/17-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%88%A0%E9%99%A4%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "ElasticSearch位置做不及附近的人搜索",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/www.qilitang.top\/posts\/15-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E4%BD%8D%E7%BD%AE%E5%9D%90%E6%A0%87%E5%AE%9E%E7%8E%B0%E9%99%84%E8%BF%91%E7%9A%84%E4%BA%BA%E6%90%9C%E7%B4%A2\/"
+    },"genre": "posts","keywords": "文档操作","wordcount":  345 ,
+    "url": "https:\/\/www.qilitang.top\/posts\/15-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E4%BD%8D%E7%BD%AE%E5%9D%90%E6%A0%87%E5%AE%9E%E7%8E%B0%E9%99%84%E8%BF%91%E7%9A%84%E4%BA%BA%E6%90%9C%E7%B4%A2\/","datePublished": "2023-08-31T17:06:11+08:00","dateModified": "2023-11-15T16:38:18+08:00","publisher": {
+      "@type": "Organization",
+      "name": "","logo": "https:\/\/www.qilitang.top\/favicon.ico"},"author": {
+        "@type": "Person",
+        "name": "Qilitang"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>ElasticSearch位置做不及附近的人搜索</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img loading="lazy" src="/avatar/avatar.jpg" srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x" sizes="auto" data-title="Qilitang" data-alt="Qilitang" class="avatar" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>&nbsp;Qilitang</a></span>
+          <span class="post-category">收录于 <a href="/categories/elasticsearch/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> ElasticSearch</a></span></div>
+      <div class="post-meta-line"><span title="发布于 2023-08-31 17:06:11"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2023-08-31">2023-08-31</time></span>&nbsp;<span title="更新于 2023-11-15 16:38:18"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2023-11-15">2023-11-15</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 345 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 1 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一-创建mapping">一 创建mapping</a></li>
+    <li><a href="#二-导入数据">二 导入数据</a></li>
+    <li><a href="#三-查询">三 查询</a>
+      <ul>
+        <li><a href="#31根据给定两个点组成的矩形查询矩形内的点">3.1根据给定两个点组成的矩形，查询矩形内的点</a></li>
+        <li><a href="#32根据给定的多个点组成的多边形查询范围内的点">3.2根据给定的多个点组成的多边形，查询范围内的点</a></li>
+        <li><a href="#33查询给定1000km距离范围内的点">3.3查询给定1000KM距离范围内的点</a></li>
+        <li><a href="#34查询距离范围区间内的点的数量">3.4查询距离范围区间内的点的数量</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h2 id="一-创建mapping">一 创建mapping</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">PUT</span> <span class="n">test</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;mappings&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;test&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;location&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;geo_point&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="二-导入数据">二 导入数据</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">POST</span> <span class="n">test</span><span class="o">/</span><span class="n">test</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;location&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;lat&#34;</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;lon&#34;</span><span class="p">:</span><span class="mi">24</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="三-查询">三 查询</h2>
+<h3 id="31根据给定两个点组成的矩形查询矩形内的点">3.1根据给定两个点组成的矩形，查询矩形内的点</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">test</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;geo_bounding_box&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;location&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;top_left&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;lat&#34;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;lon&#34;</span><span class="p">:</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;bottom_right&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;lat&#34;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;lon&#34;</span><span class="p">:</span> <span class="mi">30</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="32根据给定的多个点组成的多边形查询范围内的点">3.2根据给定的多个点组成的多边形，查询范围内的点</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">test</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;geo_polygon&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;location&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;points&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;lat&#34;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;lon&#34;</span><span class="p">:</span> <span class="mi">25</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;lat&#34;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;lon&#34;</span><span class="p">:</span> <span class="mi">25</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;lat&#34;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;lon&#34;</span><span class="p">:</span> <span class="mi">23</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;lat&#34;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;lon&#34;</span><span class="p">:</span> <span class="mi">23</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="33查询给定1000km距离范围内的点">3.3查询给定1000KM距离范围内的点</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">test</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;geo_distance&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;distance&#34;</span><span class="p">:</span> <span class="s2">&#34;1000km&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;location&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;lat&#34;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;lon&#34;</span><span class="p">:</span> <span class="mi">23</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="34查询距离范围区间内的点的数量">3.4查询距离范围区间内的点的数量</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">GET</span> <span class="n">test</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;size&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;aggs&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;myaggs&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;geo_distance&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;field&#34;</span><span class="p">:</span> <span class="s2">&#34;location&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;origin&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;lat&#34;</span><span class="p">:</span> <span class="mf">52.376</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;lon&#34;</span><span class="p">:</span> <span class="mf">4.894</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;unit&#34;</span><span class="p">:</span> <span class="s2">&#34;km&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;ranges&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;from&#34;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;to&#34;</span><span class="p">:</span> <span class="mi">30000</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2023-11-15 16:38:18">更新于 2023-11-15&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/posts/15-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E4%BD%8D%E7%BD%AE%E5%9D%90%E6%A0%87%E5%AE%9E%E7%8E%B0%E9%99%84%E8%BF%91%E7%9A%84%E4%BA%BA%E6%90%9C%E7%B4%A2/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.qilitang.top/posts/15-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E4%BD%8D%E7%BD%AE%E5%9D%90%E6%A0%87%E5%AE%9E%E7%8E%B0%E9%99%84%E8%BF%91%E7%9A%84%E4%BA%BA%E6%90%9C%E7%B4%A2/" data-title="ElasticSearch位置做不及附近的人搜索" data-hashtags="文档操作"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.qilitang.top/posts/15-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E4%BD%8D%E7%BD%AE%E5%9D%90%E6%A0%87%E5%AE%9E%E7%8E%B0%E9%99%84%E8%BF%91%E7%9A%84%E4%BA%BA%E6%90%9C%E7%B4%A2/" data-hashtag="文档操作"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.qilitang.top/posts/15-elasticsearch%E9%AB%98%E7%BA%A7%E4%B9%8B-%E4%BD%8D%E7%BD%AE%E5%9D%90%E6%A0%87%E5%AE%9E%E7%8E%B0%E9%99%84%E8%BF%91%E7%9A%84%E4%BA%BA%E6%90%9C%E7%B4%A2/" data-title="ElasticSearch位置做不及附近的人搜索"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C/' class="post-tag">文档操作</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/04-elasticsearch%E4%B9%8B-kibana/" class="post-nav-item" rel="prev" title="Kibana介绍"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Kibana介绍</a>
+      <a href="/posts/17-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB-%E5%88%A0%E9%99%A4%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B/" class="post-nav-item" rel="next" title="ElasticSearch删除映射类型">ElasticSearch删除映射类型<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/qilitang"target="_blank" rel="external nofollow noopener noreferrer">Qilitang</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":15},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>

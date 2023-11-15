@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>映射 - 标签 - </title>
+    <link>https://www.qilitang.top/tags/%E6%98%A0%E5%B0%84/</link>
+    <description>映射 - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/%E6%98%A0%E5%B0%84/" rel="self" type="application/rss+xml" /><item>
+  <title>映射介绍</title>
+  <link>https://www.qilitang.top/posts/08-elasticsearch%E4%B9%8B-%E6%98%A0%E5%B0%84%E7%AE%A1%E7%90%86/</link>
+  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/08-elasticsearch%E4%B9%8B-%E6%98%A0%E5%B0%84%E7%AE%A1%E7%90%86/</guid>
+  <description><![CDATA[在Elasticsearch 6.0.0或更高版本中创建的索引只包含一个mapping type。 在5.x中使用multiple mapping types创建的索引将继续像以前一样在Elasticsearch 6.x中运行。 Mapping types将在Elasticsearch 7.0.0中完全删除 一 映射介绍 在创建索引的时候，可以预]]></description>
+</item>
+</channel>
+</rss>

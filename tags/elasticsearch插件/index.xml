@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>Elasticsearch插件 - 标签 - </title>
+    <link>https://www.qilitang.top/tags/elasticsearch%E6%8F%92%E4%BB%B6/</link>
+    <description>Elasticsearch插件 - 标签 - </description>
+    <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Tue, 31 Aug 2021 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/tags/elasticsearch%E6%8F%92%E4%BB%B6/" rel="self" type="application/rss+xml" /><item>
+  <title>Elasticsearch插件介绍</title>
+  <link>https://www.qilitang.top/posts/02-elasticsearch%E6%8F%92%E4%BB%B6%E4%BB%8B%E7%BB%8D/</link>
+  <pubDate>Tue, 31 Aug 2021 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/02-elasticsearch%E6%8F%92%E4%BB%B6%E4%BB%8B%E7%BB%8D/</guid>
+  <description><![CDATA[一 Elasticsearch插件介绍 es插件是一种增强Elasticsearch核心功能的途径。它们可以为es添加自定义映射类型、自定义分词器、原生脚本、自伸缩等等扩展功能。 es插件包含JAR文件，也可能包含脚本和配置文件，并且必须在集群中的每个节点上安装。安装之后，需要重启集群中的每个节点才能使插]]></description>
+</item>
+</channel>
+</rss>

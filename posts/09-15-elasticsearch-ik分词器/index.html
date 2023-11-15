@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>文档操作- ik分词器 - </title><meta name="author" content="Qilitang">
+<meta name="author-link" content="https://github.com/qilitang">
+<meta name="description" content="一 前言 在知名的中分分词器中，ik中文分词器的大名可以说是无人不知，elasticsearch有了ik分词器的加持，就像男人有了神油&hellip;&hellip;.要了解ik中文分词器，就首先要了解一下它的由来。 二 ik分词器的由来 IK Analyzer是一个开源的，基于java语言开发的轻量级的中文分词" /><meta name="keywords" content='文档操作, 分词器' /><meta itemprop="name" content="文档操作- ik分词器">
+<meta itemprop="description" content="一 前言 在知名的中分分词器中，ik中文分词器的大名可以说是无人不知，elasticsearch有了ik分词器的加持，就像男人有了神油&hellip;&hellip;.要了解ik中文分词器，就首先要了解一下它的由来。 二 ik分词器的由来 IK Analyzer是一个开源的，基于java语言开发的轻量级的中文分词"><meta itemprop="datePublished" content="2023-08-31T17:06:11+08:00" />
+<meta itemprop="dateModified" content="2023-11-15T16:36:17+08:00" />
+<meta itemprop="wordCount" content="4054">
+<meta itemprop="keywords" content="文档操作,分词器," /><meta property="og:title" content="文档操作- ik分词器" />
+<meta property="og:description" content="一 前言 在知名的中分分词器中，ik中文分词器的大名可以说是无人不知，elasticsearch有了ik分词器的加持，就像男人有了神油&hellip;&hellip;.要了解ik中文分词器，就首先要了解一下它的由来。 二 ik分词器的由来 IK Analyzer是一个开源的，基于java语言开发的轻量级的中文分词" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.qilitang.top/posts/09-15-elasticsearch-ik%E5%88%86%E8%AF%8D%E5%99%A8/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-31T17:06:11+08:00" />
+<meta property="article:modified_time" content="2023-11-15T16:36:17+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="文档操作- ik分词器"/>
+<meta name="twitter:description" content="一 前言 在知名的中分分词器中，ik中文分词器的大名可以说是无人不知，elasticsearch有了ik分词器的加持，就像男人有了神油&hellip;&hellip;.要了解ik中文分词器，就首先要了解一下它的由来。 二 ik分词器的由来 IK Analyzer是一个开源的，基于java语言开发的轻量级的中文分词"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://www.qilitang.top/posts/09-15-elasticsearch-ik%E5%88%86%E8%AF%8D%E5%99%A8/" /><link rel="prev" href="https://www.qilitang.top/posts/09-10-elasticsearch%E4%B9%8Bmappings/" /><link rel="next" href="https://www.qilitang.top/posts/09-0-elasticsearch%E4%B9%8B-%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "文档操作- ik分词器",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/www.qilitang.top\/posts\/09-15-elasticsearch-ik%E5%88%86%E8%AF%8D%E5%99%A8\/"
+    },"genre": "posts","keywords": "文档操作, 分词器","wordcount":  4054 ,
+    "url": "https:\/\/www.qilitang.top\/posts\/09-15-elasticsearch-ik%E5%88%86%E8%AF%8D%E5%99%A8\/","datePublished": "2023-08-31T17:06:11+08:00","dateModified": "2023-11-15T16:36:17+08:00","publisher": {
+      "@type": "Organization",
+      "name": "","logo": "https:\/\/www.qilitang.top\/favicon.ico"},"author": {
+        "@type": "Person",
+        "name": "Qilitang"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>文档操作- ik分词器</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img loading="lazy" src="/avatar/avatar.jpg" srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x" sizes="auto" data-title="Qilitang" data-alt="Qilitang" class="avatar" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>&nbsp;Qilitang</a></span>
+          <span class="post-category">收录于 <a href="/categories/elasticsearch/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> ElasticSearch</a></span></div>
+      <div class="post-meta-line"><span title="发布于 2023-08-31 17:06:11"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2023-08-31">2023-08-31</time></span>&nbsp;<span title="更新于 2023-11-15 16:36:17"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2023-11-15">2023-11-15</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 4054 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 9 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一-前言">一 前言</a></li>
+    <li><a href="#二-ik分词器的由来">二 ik分词器的由来</a></li>
+    <li><a href="#三-ik分词器插件的安装">三 IK分词器插件的安装</a>
+      <ul>
+        <li><a href="#31-安装">3.1 安装</a></li>
+        <li><a href="#32-测试">3.2 测试</a></li>
+        <li><a href="#33-ik目录简介">3.3 ik目录简介</a></li>
+      </ul>
+    </li>
+    <li><a href="#四-ik分词器的使用">四 ik分词器的使用</a>
+      <ul>
+        <li><a href="#41-第一个ik示例">4.1 第一个ik示例</a></li>
+        <li><a href="#42-ik_max_word">4.2 ik_max_word</a></li>
+        <li><a href="#43-ik_smart">4.3 ik_smart</a></li>
+        <li><a href="#44-ik之短语查询">4.4 ik之短语查询</a></li>
+        <li><a href="#45-ik之短语前缀查询">4.5 ik之短语前缀查询</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h2 id="一-前言">一 前言</h2>
+<p>在知名的中分分词器中，ik中文分词器的大名可以说是无人不知，elasticsearch有了ik分词器的加持，就像男人有了神油&hellip;&hellip;.要了解ik中文分词器，就首先要了解一下它的由来。</p>
+<h2 id="二-ik分词器的由来">二 ik分词器的由来</h2>
+<p>IK Analyzer是一个开源的，基于java语言开发的轻量级的中文分词工具包。从2006年12月推出1.0版开始， IK  Analyzer已经推出了4个大版本。最初，它是以开源项目Luence为应用主体的，结合词典分词和文法分析算法的中文分词组件。从3.0版本开始，IK发展为面向Java的公用分词组件，独立于Lucene项目，同时提供了对Lucene的默认优化实现。在2012版本中，IK实现了简单的分词歧义排除算法，标志着IK分词器从单纯的词典分词向模拟语义分词衍化。</p>
+<p>IK Analyzer 2012特性：</p>
+<ul>
+<li>采用了特有的<code>正向迭代最细粒度切分算法</code>，支持细粒度和智能分词两种切分模式。在系统环境：Core2 i7 3.4G双核，4G内存，window 7 64位， Sun JDK 1.6_29 64位 普通pc环境测试，IK2012具有160万字/秒（3000KB/S）的高速处理能力。</li>
+<li>2012版本的智能分词模式支持简单的分词排歧义处理和数量词合并输出。</li>
+<li>采用了多子处理器分析模式，支持：英文字母、数字、中文词汇等分词处理，兼容韩文、日文字符</li>
+<li>优化的词典存储，更小的内存占用。支持用户词典扩展定义。特别的，在2012版本，词典支持中文，英文，数字混合词语。</li>
+</ul>
+<p>后来，被一个叫medcl（曾勇 elastic开发工程师与布道师，elasticsearch开源社区负责人，2015年加入elastic）的人集成到了elasticsearch中， 并支持自定义字典&hellip;&hellip;.</p>
+<p>ps：elasticsearch的ik中文分词器插件由medcl的github上下载，而 IK Analyzer 这个分词器，如果百度搜索的，在开源中国中的提交者是<a href="https://www.oschina.net/p/ikanalyzer"target="_blank" rel="external nofollow noopener noreferrer">林良益</a>，由此推断之下，才有了上面的一番由来&hellip;&hellip;&hellip;..</p>
+<p>才有了接下来一系列的扯淡&hellip;&hellip;&hellip;.</p>
+<h2 id="三-ik分词器插件的安装">三 IK分词器插件的安装</h2>
+<ul>
+<li>打开<code>Github</code>官网，搜索<code>elasticsearch-analysis-ik</code>，单击<code>medcl/elasticsearch-analysis-ik</code>。或者直接<a href="https://github.com/medcl/elasticsearch-analysis-ik/releases"target="_blank" rel="external nofollow noopener noreferrer">点击</a></li>
+</ul>
+<p><img loading="lazy" src="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191757485-1981917922.bmp#alt=img" srcset="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191757485-1981917922.bmp#alt=img, https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191757485-1981917922.bmp#alt=img 1.5x, https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191757485-1981917922.bmp#alt=img 2x" sizes="auto" data-title="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191757485-1981917922.bmp#alt=img" data-alt="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191757485-1981917922.bmp#alt=img" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<ul>
+<li>在<code>readme.md</code>文件中，下拉选择历史版本连接。</li>
+</ul>
+<p><img loading="lazy" src="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191829088-847504045.bmp#alt=img" srcset="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191829088-847504045.bmp#alt=img, https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191829088-847504045.bmp#alt=img 1.5x, https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191829088-847504045.bmp#alt=img 2x" sizes="auto" data-title="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191829088-847504045.bmp#alt=img" data-alt="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191829088-847504045.bmp#alt=img" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<ul>
+<li>由于<code>ik</code>与<code>elasticsearch</code>存在兼容问题。所以在下载<code>ik</code>时要选择和<code>elasticsearch</code>版本一致的，也就是选择<code>v6.5.4</code>版本，单击<code>elasticsearch-analysis-ik-6.5.4.zip</code>包，自动进入下载到本地。</li>
+</ul>
+<p><img loading="lazy" src="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191844439-1785689661.bmp#alt=img" srcset="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191844439-1785689661.bmp#alt=img, https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191844439-1785689661.bmp#alt=img 1.5x, https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191844439-1785689661.bmp#alt=img 2x" sizes="auto" data-title="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191844439-1785689661.bmp#alt=img" data-alt="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191844439-1785689661.bmp#alt=img" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<ul>
+<li>本地下载成功后，是个<code>zip</code>包。</li>
+</ul>
+<p><img loading="lazy" src="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191855331-831606928.bmp#alt=img" srcset="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191855331-831606928.bmp#alt=img, https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191855331-831606928.bmp#alt=img 1.5x, https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191855331-831606928.bmp#alt=img 2x" sizes="auto" data-title="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191855331-831606928.bmp#alt=img" data-alt="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191855331-831606928.bmp#alt=img" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h3 id="31-安装">3.1 安装</h3>
+<ul>
+<li>首先打开<code>C:\Program Files\elasticseach-6.5.4\plugins</code>目录，新建一个名为<code>ik</code>的子目录，并将<code>elasticsearch-analysis-ik-6.5.4.zip</code>包解压到该<code>ik</code>目录内也就是<code>C:\Program Files\elasticseach-6.5.4\plugins\ik</code>目录。</li>
+</ul>
+<p><img loading="lazy" src="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191910004-1297092259.bmp#alt=img" srcset="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191910004-1297092259.bmp#alt=img, https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191910004-1297092259.bmp#alt=img 1.5x, https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191910004-1297092259.bmp#alt=img 2x" sizes="auto" data-title="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191910004-1297092259.bmp#alt=img" data-alt="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191910004-1297092259.bmp#alt=img" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h3 id="32-测试">3.2 测试</h3>
+<ul>
+<li>首先将<code>elascticsearch</code>和<code>kibana</code>服务重启。</li>
+<li>然后地址栏输入<code>http://localhost:5601</code>，在<code>Dev Tools</code>中的<code>Console</code>界面的左侧输入命令，再点击绿色的执行按钮执行。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET _analyze
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;analyzer&#34;: &#34;ik_max_word&#34;,
+</span></span><span class="line"><span class="cl">  &#34;text&#34;: &#34;上海自来水来自海上&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>右侧就显示出结果了如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;tokens&#34; : [
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;上海&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 0,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 2,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_WORD&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 0
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;自来水&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 2,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 5,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_WORD&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 1
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;自来&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 2,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 4,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_WORD&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 2
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;水&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 4,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 5,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_CHAR&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 3
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;来自&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 5,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 7,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_WORD&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 4
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;海上&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 7,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 9,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_WORD&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 5
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  ]
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img loading="lazy" src="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191716062-2127554231.bmp#alt=img" srcset="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191716062-2127554231.bmp#alt=img, https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191716062-2127554231.bmp#alt=img 1.5x, https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191716062-2127554231.bmp#alt=img 2x" sizes="auto" data-title="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191716062-2127554231.bmp#alt=img" data-alt="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190318191716062-2127554231.bmp#alt=img" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>OK，安装完毕，非常的简单。</p>
+<h3 id="33-ik目录简介">3.3 ik目录简介</h3>
+<p>我们简要的介绍一下ik分词配置文件：</p>
+<ul>
+<li>IKAnalyzer.cfg.xml，用来配置自定义的词库</li>
+<li>main.dic，ik原生内置的中文词库，大约有27万多条，只要是这些单词，都会被分在一起。</li>
+<li>surname.dic，中国的姓氏。</li>
+<li>suffix.dic，特殊（后缀）名词，例如<code>乡、江、所、省</code>等等。</li>
+<li>preposition.dic，中文介词，例如<code>不、也、了、仍</code>等等。</li>
+<li>stopword.dic，英文停用词库，例如<code>a、an、and、the</code>等。</li>
+<li>quantifier.dic，单位名词，如<code>厘米、件、倍、像素</code>等。</li>
+</ul>
+<h2 id="四-ik分词器的使用">四 ik分词器的使用</h2>
+<p><strong>before</strong></p>
+<ul>
+<li>首先将<code>elascticsearch</code>和<code>kibana</code>服务重启，让插件生效。</li>
+<li>然后地址栏输入<code>http://localhost:5601</code>，在<code>Dev Tools</code>中的<code>Console</code>界面的左侧输入命令，再点击绿色的执行按钮执行。</li>
+</ul>
+<h3 id="41-第一个ik示例">4.1 第一个ik示例</h3>
+<p>来个简单的示例。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET _analyze
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;analyzer&#34;: &#34;ik_max_word&#34;,
+</span></span><span class="line"><span class="cl">  &#34;text&#34;: &#34;上海自来水来自海上&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>右侧就显示出结果了如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;tokens&#34; : [
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;上海&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 0,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 2,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_WORD&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 0
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;自来水&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 2,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 5,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_WORD&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 1
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;自来&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 2,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 4,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_WORD&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 2
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;水&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 4,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 5,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_CHAR&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 3
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;来自&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 5,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 7,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_WORD&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 4
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;海上&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 7,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 9,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_WORD&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 5
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  ]
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img loading="lazy" src="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190328115659298-1742391491.bmp#alt=img" srcset="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190328115659298-1742391491.bmp#alt=img, https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190328115659298-1742391491.bmp#alt=img 1.5x, https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190328115659298-1742391491.bmp#alt=img 2x" sizes="auto" data-title="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190328115659298-1742391491.bmp#alt=img" data-alt="https://img2018.cnblogs.com/blog/1168165/201903/1168165-20190328115659298-1742391491.bmp#alt=img" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>那么你可能对开始的<code>analyzer：ik_max_word</code>有一丝的疑惑，这个家伙是干嘛的呀？我们就来看看这个家伙到底是什么鬼！</p>
+<h3 id="42-ik_max_word">4.2 ik_max_word</h3>
+<p>现在有这样的一个索引：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PUT ik1
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;mappings&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;doc&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;dynamic&#34;: false,
+</span></span><span class="line"><span class="cl">      &#34;properties&#34;: {
+</span></span><span class="line"><span class="cl">        &#34;name&#34;: {
+</span></span><span class="line"><span class="cl">          &#34;type&#34;: &#34;text&#34;,
+</span></span><span class="line"><span class="cl">          &#34;analyzer&#34;: &#34;ik_max_word&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上例中，ik_max_word参数会将文档做最细粒度的拆分，以穷尽尽可能的组合。</p>
+<p>接下来为该索引添加几条数据：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PUT ik1/doc/1
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;content&#34;:&#34;今天是个好日子&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">PUT ik1/doc/2
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;content&#34;:&#34;心想的事儿都能成&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">PUT ik1/doc/3
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;content&#34;:&#34;我今天不活了&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>现在让我们开始查询，随便查！</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET ik1/_search
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;query&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;match&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;content&#34;: &#34;心想&#34;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查询结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;took&#34; : 1,
+</span></span><span class="line"><span class="cl">  &#34;timed_out&#34; : false,
+</span></span><span class="line"><span class="cl">  &#34;_shards&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;total&#34; : 5,
+</span></span><span class="line"><span class="cl">    &#34;successful&#34; : 5,
+</span></span><span class="line"><span class="cl">    &#34;skipped&#34; : 0,
+</span></span><span class="line"><span class="cl">    &#34;failed&#34; : 0
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;hits&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;total&#34; : 1,
+</span></span><span class="line"><span class="cl">    &#34;max_score&#34; : 0.2876821,
+</span></span><span class="line"><span class="cl">    &#34;hits&#34; : [
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;_index&#34; : &#34;ik1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_type&#34; : &#34;doc&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_id&#34; : &#34;2&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_score&#34; : 0.2876821,
+</span></span><span class="line"><span class="cl">        &#34;_source&#34; : {
+</span></span><span class="line"><span class="cl">          &#34;content&#34; : &#34;心想的事儿都能成&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    ]
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>成功的返回了一条数据。我们再来以<strong>今天</strong>为条件来查询。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET ik1/_search
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;query&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;match&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;content&#34;: &#34;今天&#34;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;took&#34; : 2,
+</span></span><span class="line"><span class="cl">  &#34;timed_out&#34; : false,
+</span></span><span class="line"><span class="cl">  &#34;_shards&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;total&#34; : 5,
+</span></span><span class="line"><span class="cl">    &#34;successful&#34; : 5,
+</span></span><span class="line"><span class="cl">    &#34;skipped&#34; : 0,
+</span></span><span class="line"><span class="cl">    &#34;failed&#34; : 0
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;hits&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;total&#34; : 2,
+</span></span><span class="line"><span class="cl">    &#34;max_score&#34; : 0.2876821,
+</span></span><span class="line"><span class="cl">    &#34;hits&#34; : [
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;_index&#34; : &#34;ik1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_type&#34; : &#34;doc&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_id&#34; : &#34;1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_score&#34; : 0.2876821,
+</span></span><span class="line"><span class="cl">        &#34;_source&#34; : {
+</span></span><span class="line"><span class="cl">          &#34;content&#34; : &#34;今天是个好日子&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      },
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;_index&#34; : &#34;ik1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_type&#34; : &#34;doc&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_id&#34; : &#34;3&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_score&#34; : 0.2876821,
+</span></span><span class="line"><span class="cl">        &#34;_source&#34; : {
+</span></span><span class="line"><span class="cl">          &#34;content&#34; : &#34;我今天不活了&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    ]
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上例的返回中，成功的查询到了两条结果。</p>
+<p>与<code>ik_max_word</code>对应还有另一个参数。让我们一起来看下。</p>
+<h3 id="43-ik_smart">4.3 ik_smart</h3>
+<p>与<code>ik_max_word</code>对应的是<code>ik_smart</code>参数，该参数将文档作最粗粒度的拆分。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET _analyze
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;analyzer&#34;: &#34;ik_smart&#34;,
+</span></span><span class="line"><span class="cl">  &#34;text&#34;: &#34;今天是个好日子&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上例中，我们以最粗粒度的拆分文档。</p>
+<p>结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;tokens&#34; : [
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;今天是&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 0,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 3,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_WORD&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 0
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;个&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 3,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 4,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_CHAR&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 1
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;好日子&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 4,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 7,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_WORD&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 2
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  ]
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>再来看看以最细粒度的拆分文档。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET _analyze
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;analyzer&#34;: &#34;ik_max_word&#34;,
+</span></span><span class="line"><span class="cl">  &#34;text&#34;: &#34;今天是个好日子&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;tokens&#34; : [
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;今天是&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 0,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 3,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_WORD&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 0
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;今天&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 0,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 2,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_WORD&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 1
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;是&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 2,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 3,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_CHAR&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 2
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;个&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 3,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 4,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_CHAR&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 3
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;好日子&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 4,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 7,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_WORD&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 4
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      &#34;token&#34; : &#34;日子&#34;,
+</span></span><span class="line"><span class="cl">      &#34;start_offset&#34; : 5,
+</span></span><span class="line"><span class="cl">      &#34;end_offset&#34; : 7,
+</span></span><span class="line"><span class="cl">      &#34;type&#34; : &#34;CN_WORD&#34;,
+</span></span><span class="line"><span class="cl">      &#34;position&#34; : 5
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  ]
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>由上面的对比可以发现，两个参数的不同，所以查询结果也肯定不一样，视情况而定用什么粒度。</p>
+<p>在基本操作方面，除了粗细粒度，别的按照之前的操作即可，就像下面两个短语查询和短语前缀查询一样。</p>
+<h3 id="44-ik之短语查询">4.4 ik之短语查询</h3>
+<p>ik中的短语查询参照之前的短语查询即可。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET ik1/_search
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;query&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;match_phrase&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;content&#34;: &#34;今天&#34;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;took&#34; : 1,
+</span></span><span class="line"><span class="cl">  &#34;timed_out&#34; : false,
+</span></span><span class="line"><span class="cl">  &#34;_shards&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;total&#34; : 5,
+</span></span><span class="line"><span class="cl">    &#34;successful&#34; : 5,
+</span></span><span class="line"><span class="cl">    &#34;skipped&#34; : 0,
+</span></span><span class="line"><span class="cl">    &#34;failed&#34; : 0
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;hits&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;total&#34; : 2,
+</span></span><span class="line"><span class="cl">    &#34;max_score&#34; : 0.2876821,
+</span></span><span class="line"><span class="cl">    &#34;hits&#34; : [
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;_index&#34; : &#34;ik1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_type&#34; : &#34;doc&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_id&#34; : &#34;1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_score&#34; : 0.2876821,
+</span></span><span class="line"><span class="cl">        &#34;_source&#34; : {
+</span></span><span class="line"><span class="cl">          &#34;content&#34; : &#34;今天是个好日子&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      },
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;_index&#34; : &#34;ik1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_type&#34; : &#34;doc&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_id&#34; : &#34;3&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_score&#34; : 0.2876821,
+</span></span><span class="line"><span class="cl">        &#34;_source&#34; : {
+</span></span><span class="line"><span class="cl">          &#34;content&#34; : &#34;我今天不活了&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    ]
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="45-ik之短语前缀查询">4.5 ik之短语前缀查询</h3>
+<p>同样的，我们第2部分的快速上手部分的操作在ik中同样适用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">GET ik1/_search
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;query&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;match_phrase_prefix&#34;: {
+</span></span><span class="line"><span class="cl">      &#34;content&#34;: {
+</span></span><span class="line"><span class="cl">        &#34;query&#34;: &#34;今天好日子&#34;,
+</span></span><span class="line"><span class="cl">        &#34;slop&#34;: 2
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  &#34;took&#34; : 1,
+</span></span><span class="line"><span class="cl">  &#34;timed_out&#34; : false,
+</span></span><span class="line"><span class="cl">  &#34;_shards&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;total&#34; : 5,
+</span></span><span class="line"><span class="cl">    &#34;successful&#34; : 5,
+</span></span><span class="line"><span class="cl">    &#34;skipped&#34; : 0,
+</span></span><span class="line"><span class="cl">    &#34;failed&#34; : 0
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  &#34;hits&#34; : {
+</span></span><span class="line"><span class="cl">    &#34;total&#34; : 2,
+</span></span><span class="line"><span class="cl">    &#34;max_score&#34; : 0.2876821,
+</span></span><span class="line"><span class="cl">    &#34;hits&#34; : [
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;_index&#34; : &#34;ik1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_type&#34; : &#34;doc&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_id&#34; : &#34;1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_score&#34; : 0.2876821,
+</span></span><span class="line"><span class="cl">        &#34;_source&#34; : {
+</span></span><span class="line"><span class="cl">          &#34;content&#34; : &#34;今天是个好日子&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      },
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;_index&#34; : &#34;ik1&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_type&#34; : &#34;doc&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_id&#34; : &#34;3&#34;,
+</span></span><span class="line"><span class="cl">        &#34;_score&#34; : 0.2876821,
+</span></span><span class="line"><span class="cl">        &#34;_source&#34; : {
+</span></span><span class="line"><span class="cl">          &#34;content&#34; : &#34;我今天不活了&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    ]
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2023-11-15 16:36:17">更新于 2023-11-15&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/posts/09-15-elasticsearch-ik%E5%88%86%E8%AF%8D%E5%99%A8/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.qilitang.top/posts/09-15-elasticsearch-ik%E5%88%86%E8%AF%8D%E5%99%A8/" data-title="文档操作- ik分词器" data-hashtags="文档操作,分词器"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.qilitang.top/posts/09-15-elasticsearch-ik%E5%88%86%E8%AF%8D%E5%99%A8/" data-hashtag="文档操作"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.qilitang.top/posts/09-15-elasticsearch-ik%E5%88%86%E8%AF%8D%E5%99%A8/" data-title="文档操作- ik分词器"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C/' class="post-tag">文档操作</a><a href='/tags/%E5%88%86%E8%AF%8D%E5%99%A8/' class="post-tag">分词器</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/09-10-elasticsearch%E4%B9%8Bmappings/" class="post-nav-item" rel="prev" title="文档操作-mapping"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>文档操作-mapping</a>
+      <a href="/posts/09-0-elasticsearch%E4%B9%8B-%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C/" class="post-nav-item" rel="next" title="文档操作">文档操作<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/qilitang"target="_blank" rel="external nofollow noopener noreferrer">Qilitang</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":15},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>
