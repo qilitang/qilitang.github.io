@@ -4,7 +4,15 @@
     <link>https://www.qilitang.top/posts/</link>
     <description>所有文章 | </description>
     <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>zhangspring@live.com (Qilitang)</managingEditor>
-      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/posts/" rel="self" type="application/rss+xml" /><item>
+      <webMaster>zhangspring@live.com (Qilitang)</webMaster><lastBuildDate>Sun, 19 Nov 2023 17:06:11 &#43;0800</lastBuildDate><atom:link href="https://www.qilitang.top/posts/" rel="self" type="application/rss+xml" /><item>
+  <title>Docker 镜像制作教程:减小镜像体积</title>
+  <link>https://www.qilitang.top/posts/docker-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%95%99%E7%A8%8B-%E5%87%8F%E5%B0%8F%E9%95%9C%E5%83%8F%E4%BD%93%E7%A7%AF/</link>
+  <pubDate>Sun, 19 Nov 2023 17:06:11 &#43;0800</pubDate>
+  <author>Qilitang</author>
+  <guid>https://www.qilitang.top/posts/docker-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%95%99%E7%A8%8B-%E5%87%8F%E5%B0%8F%E9%95%9C%E5%83%8F%E4%BD%93%E7%A7%AF/</guid>
+  <description><![CDATA[Docker 镜像制作教程：减小镜像体积 原文链接： Docker Images : Part I - Reducing Image Size 对于刚接触容器的人来说，他们很容易被自己制作的 Docker 镜像体积吓到，我只需要一个几 MB 的可执行文件而已，为何镜像的体积会达到 1 GB 以上？本文将会介绍几个奇技淫巧来帮助你精简镜像，同时又不牺牲开发人员和运维人员的操作便利性。本系列文章将分为三个部分： 第一部]]></description>
+</item>
+<item>
   <title>ElasticSearch常见错误</title>
   <link>https://www.qilitang.top/posts/20-elasticsearch%E4%B9%8B%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/</link>
   <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
@@ -75,14 +83,6 @@
   <author>Qilitang</author>
   <guid>https://www.qilitang.top/posts/04-elasticsearch%E4%B9%8B-kibana/</guid>
   <description><![CDATA[一 Kibana介绍 Kibana 是一款开源的数据分析和可视化平台，它是 Elastic Stack 成员之一，设计用于和 Elasticsearch 协作。 您、可以使用 Kibana 对 Elasticsearch 索引中的数据进行搜索、查看、交互操作。 可以很方便的利用图表、表格及地图对数据进行多元化的分析和呈现 详情可见用户手册： https://www.elastic.co/guide/cn/kibana/current/index.html 注意跟Elasticsearch版本兼容情况，详情见： https://www.elastic.co/cn/support/matrix#matrix_compatibility 下载地址为： https://www.elastic.co/cn/downloads/past-releases 二 下]]></description>
-</item>
-<item>
-  <title>nodejs 安装</title>
-  <link>https://www.qilitang.top/posts/03-%E5%AE%89%E8%A3%85nodejs/</link>
-  <pubDate>Thu, 31 Aug 2023 17:06:11 &#43;0800</pubDate>
-  <author>Qilitang</author>
-  <guid>https://www.qilitang.top/posts/03-%E5%AE%89%E8%A3%85nodejs/</guid>
-  <description><![CDATA[一 nodejs介绍 Node.js 就是运行在服务端的 JavaScript。 Node.js 是一个基于Chrome JavaScript 运行时建立的一个平台。 Node.js是一个事件驱动I/O服务端JavaScript环境，基于Google的V8引擎，V8引擎执行Javascript的速度非常快，性能非常好。 为什么要安装Node.js呢，下面用到的]]></description>
 </item>
 </channel>
 </rss>
