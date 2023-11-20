@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Docker 镜像制作教程:针对不同语言的精简策略 - </title><meta name="author" content="Qilitang">
+<meta name="author-link" content="https://github.com/qilitang">
+<meta name="description" content="Docker 镜像制作教程：针对不同语言的精简策略 原文链接： Docker Images : Part II - Details Specific To Different Languages 对于刚接触容器的人来说，他们很容易被自己制作的 Docker 镜像体积吓到，我只需要一个几 MB 的可执行文件而已，为何镜像的体积会达到 1 GB 以上？本文将会介绍几个奇技淫巧来帮助你精简镜像，同时又不牺牲开发人员和运维人员的操作便利性。本系列文章将分为三" /><meta name="keywords" content='Docker' /><meta itemprop="name" content="Docker 镜像制作教程:针对不同语言的精简策略">
+<meta itemprop="description" content="Docker 镜像制作教程：针对不同语言的精简策略 原文链接： Docker Images : Part II - Details Specific To Different Languages 对于刚接触容器的人来说，他们很容易被自己制作的 Docker 镜像体积吓到，我只需要一个几 MB 的可执行文件而已，为何镜像的体积会达到 1 GB 以上？本文将会介绍几个奇技淫巧来帮助你精简镜像，同时又不牺牲开发人员和运维人员的操作便利性。本系列文章将分为三"><meta itemprop="datePublished" content="2023-11-20T16:06:11+08:00" />
+<meta itemprop="dateModified" content="2023-11-20T16:32:10+08:00" />
+<meta itemprop="wordCount" content="6392">
+<meta itemprop="keywords" content="Docker," /><meta property="og:title" content="Docker 镜像制作教程:针对不同语言的精简策略" />
+<meta property="og:description" content="Docker 镜像制作教程：针对不同语言的精简策略 原文链接： Docker Images : Part II - Details Specific To Different Languages 对于刚接触容器的人来说，他们很容易被自己制作的 Docker 镜像体积吓到，我只需要一个几 MB 的可执行文件而已，为何镜像的体积会达到 1 GB 以上？本文将会介绍几个奇技淫巧来帮助你精简镜像，同时又不牺牲开发人员和运维人员的操作便利性。本系列文章将分为三" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.qilitang.top/posts/docker-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%95%99%E7%A8%8B-%E9%92%88%E5%AF%B9%E4%B8%8D%E5%90%8C%E8%AF%AD%E8%A8%80%E7%9A%84%E7%B2%BE%E7%AE%80%E7%AD%96%E7%95%A5/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-20T16:06:11+08:00" />
+<meta property="article:modified_time" content="2023-11-20T16:32:10+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker 镜像制作教程:针对不同语言的精简策略"/>
+<meta name="twitter:description" content="Docker 镜像制作教程：针对不同语言的精简策略 原文链接： Docker Images : Part II - Details Specific To Different Languages 对于刚接触容器的人来说，他们很容易被自己制作的 Docker 镜像体积吓到，我只需要一个几 MB 的可执行文件而已，为何镜像的体积会达到 1 GB 以上？本文将会介绍几个奇技淫巧来帮助你精简镜像，同时又不牺牲开发人员和运维人员的操作便利性。本系列文章将分为三"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content=""><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://www.qilitang.top/posts/docker-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%95%99%E7%A8%8B-%E9%92%88%E5%AF%B9%E4%B8%8D%E5%90%8C%E8%AF%AD%E8%A8%80%E7%9A%84%E7%B2%BE%E7%AE%80%E7%AD%96%E7%95%A5/" /><link rel="prev" href="https://www.qilitang.top/posts/docker-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%95%99%E7%A8%8B-%E5%87%8F%E5%B0%8F%E9%95%9C%E5%83%8F%E4%BD%93%E7%A7%AF/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Docker 镜像制作教程:针对不同语言的精简策略",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/www.qilitang.top\/posts\/docker-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%95%99%E7%A8%8B-%E9%92%88%E5%AF%B9%E4%B8%8D%E5%90%8C%E8%AF%AD%E8%A8%80%E7%9A%84%E7%B2%BE%E7%AE%80%E7%AD%96%E7%95%A5\/"
+    },"genre": "posts","keywords": "Docker","wordcount":  6392 ,
+    "url": "https:\/\/www.qilitang.top\/posts\/docker-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%95%99%E7%A8%8B-%E9%92%88%E5%AF%B9%E4%B8%8D%E5%90%8C%E8%AF%AD%E8%A8%80%E7%9A%84%E7%B2%BE%E7%AE%80%E7%AD%96%E7%95%A5\/","datePublished": "2023-11-20T16:06:11+08:00","dateModified": "2023-11-20T16:32:10+08:00","publisher": {
+      "@type": "Organization",
+      "name": "","logo": "https:\/\/www.qilitang.top\/favicon.ico"},"author": {
+        "@type": "Person",
+        "name": "Qilitang"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title=""><img loading="lazy" src="/favicon.ico" srcset="/favicon.ico, /favicon.ico 1.5x, /favicon.ico 2x" sizes="auto" data-title="/favicon.ico" data-alt="/favicon.ico" class="logo" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/><span class="header-title-text">七里塘的小窝</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                ><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> 文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                ><i class="fa-solid fa-th fa-fw fa-sm" aria-hidden="true"></i> 分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                ><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> 标签</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Docker 镜像制作教程:针对不同语言的精简策略</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/qilitang" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><img loading="lazy" src="/avatar/avatar.jpg" srcset="/avatar/avatar.jpg, /avatar/avatar.jpg 1.5x, /avatar/avatar.jpg 2x" sizes="auto" data-title="Qilitang" data-alt="Qilitang" class="avatar" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>&nbsp;Qilitang</a></span>
+          <span class="post-category">收录于 <a href="/categories/docker/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Docker</a></span></div>
+      <div class="post-meta-line"><span title="发布于 2023-11-20 16:06:11"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2023-11-20">2023-11-20</time></span>&nbsp;<span title="更新于 2023-11-20 16:32:10"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2023-11-20">2023-11-20</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 6392 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 13 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-go-语言镜像精简">1. Go 语言镜像精简</a></li>
+    <li><a href="#2-alpine-镜像探秘">2. Alpine 镜像探秘</a>
+      <ul>
+        <li><a href="#run-阶段使用-alpine">run 阶段使用 Alpine</a></li>
+        <li><a href="#所有阶段使用-alpine">所有阶段使用 Alpine</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-java-语言镜像精简">3. Java 语言镜像精简</a>
+      <ul>
+        <li><a href="#静态还是动态">静态还是动态？</a></li>
+        <li><a href="#类文件格式">类文件格式</a></li>
+        <li><a href="#jdk-vs-jre">JDK vs JRE</a></li>
+        <li><a href="#java-vs-openjdk">Java vs OpenJDK</a></li>
+        <li><a href="#开始构建">开始构建</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-解释型语言镜像精简">4. 解释型语言镜像精简</a>
+      <ul>
+        <li><a href="#alpine-镜像">Alpine 镜像</a></li>
+        <li><a href="#slim-镜像">:slim 镜像</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-rust-语言镜像精简">5. Rust 语言镜像精简</a></li>
+    <li><a href="#6-总结">6. 总结</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h1 id="docker-镜像制作教程针对不同语言的精简策略">Docker 镜像制作教程：针对不同语言的精简策略</h1>
+<blockquote>
+<p>原文链接： <a href="https://www.ardanlabs.com/blog/2020/02/docker-images-part2-details-specific-to-different-languages.html"target="_blank" rel="external nofollow noopener noreferrer">Docker Images : Part II - Details Specific To Different Languages</a></p>
+</blockquote>
+<p>对于刚接触容器的人来说，他们很容易被自己制作的 Docker 镜像体积吓到，我只需要一个几 MB 的可执行文件而已，为何镜像的体积会达到 <code>1 GB</code> 以上？本文将会介绍几个奇技淫巧来帮助你精简镜像，同时又不牺牲开发人员和运维人员的操作便利性。本系列文章将分为三个部分：</p>
+<p>第一部分着重介绍多阶段构建（multi-stage builds），因为这是镜像精简之路至关重要的一环。在这部分内容中，我会解释静态链接和动态链接的区别，它们对镜像带来的影响，以及如何避免那些不好的影响。中间会穿插一部分对 <code>Alpine</code> 镜像的介绍。链接： <a href="https://www.qilitang.top/posts/posts/docker-%e9%95%9c%e5%83%8f%e5%88%b6%e4%bd%9c%e6%95%99%e7%a8%8b-%e5%87%8f%e5%b0%8f%e9%95%9c%e5%83%8f%e4%bd%93%e7%a7%af/"target="_blank" rel="external nofollow noopener noreferrer">Docker 镜像制作教程：减小镜像体积</a></p>
+<p>第二部分将会针对不同的语言来选择适当的精简策略，其中主要讨论 <code>Go</code>，同时也涉及到了 <code>Java</code>，<code>Node</code>，<code>Python</code>，<code>Ruby</code> 和 <code>Rust</code>。这一部分也会详细介绍 Alpine 镜像的避坑指南。什么？你不知道 <code>Alpine</code> 镜像有哪些坑？我来告诉你。链接： <a href="https://www.qilitang.top/posts/docker-%e9%95%9c%e5%83%8f%e5%88%b6%e4%bd%9c%e6%95%99%e7%a8%8b-%e9%92%88%e5%af%b9%e4%b8%8d%e5%90%8c%e8%af%ad%e8%a8%80%e7%9a%84%e7%b2%be%e7%ae%80%e7%ad%96%e7%95%a5/"target="_blank" rel="external nofollow noopener noreferrer">Docker 镜像制作教程：针对不同语言的精简策略</a></p>
+<p>第三部分将会探讨适用于大多数语言和框架的通用精简策略，例如使用常见的基础镜像、提取可执行文件和减小每一层的体积。同时还会介绍一些更加奇特或激进的工具，例如 <code>Bazel</code>，<code>Distroless</code>，<code>DockerSlim</code> 和 <code>UPX</code>，虽然这些工具在某些特定场景下能带来奇效，但大多情况下会起到反作用。</p>
+<p>本文介绍第二部分。</p>
+<h2 id="1-go-语言镜像精简">1. Go 语言镜像精简</h2>
+<hr>
+<p><code>Go</code> 语言程序编译时会将所有必须的依赖编译到二进制文件中，但也不能完全肯定它使用的是静态链接，因为 <code>Go</code> 的某些包是依赖系统标准库的，例如使用到 DNS 解析的包。只要代码中导入了这些包，编译的二进制文件就需要调用到某些系统库，为了这个需求，Go 实现了一种机制叫 <code>cgo</code>，以允许 Go 调用 C 代码，这样编译好的二进制文件就可以调用系统库。</p>
+<p>也就是说，如果 Go 程序使用了 <code>net</code> 包，就会生成一个动态的二进制文件，如果想让镜像能够正常工作，必须将需要的库文件复制到镜像中，或者直接使用 <code>busybox:glibc</code> 镜像。</p>
+<p>当然，你也可以禁止 <code>cgo</code>，这样 Go 就不会使用系统库，使用内置的实现来替代系统库（例如使用内置的 DNS 解析器），这种情况下生成的二进制文件就是静态的。可以通过设置环境变量 <code>CGO_ENABLED=0</code> 来禁用 cgo，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> golang</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> whatsmyip.go .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENV</span> <span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">RUN</span> go build whatsmyip.go<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> scratch</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span><span class="m">0</span> /go/whatsmyip .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;./whatsmyip&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>由于编译生成的是静态二进制文件，因此可以直接跑在 <code>scratch</code> 镜像中 🎉</p>
+<p>当然，也可以不用完全禁用 <code>cgo</code>，可以通过 <code>-tags</code> 参数指定需要使用的内建库，例如 <code>-tags netgo</code> 就表示使用内建的 net 包，不依赖系统库：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ go build -tags netgo whatsmyip.go
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样指定之后，如果导入的其他包都没有用到系统库，那么编译得到的就是静态二进制文件。也就是说，只要还有一个包用到了系统库，都会开启 <code>cgo</code>，最后得到的就是动态二进制文件。要想一劳永逸，还是设置环境变量 <code>CGO_ENABLED=0</code> 吧。</p>
+<h2 id="2-alpine-镜像探秘">2. Alpine 镜像探秘</h2>
+<hr>
+<p>上篇文章已经对 <code>Alpine</code> 镜像作了简要的介绍，并保证会在后面的文章中花很大的篇幅来讨论 <code>Alpine</code> 镜像，现在时候到了！</p>
+<p><code>Alpine</code> 是众多 Linux 发行版中的一员，和 <code>CentOS</code>、<code>Ubuntu</code>、<code>Archlinux</code> 之类一样，只是一个发行版的名字，号称小巧安全，有自己的包管理工具 <code>apk</code>。</p>
+<p>与 CentOS 和 Ubuntu 不同，Alpine 并没有像 <code>Red Hat</code> 或 <code>Canonical</code> 之类的大公司为其提供维护支持，软件包的数量也比这些发行版少很多（如果只看开箱即用的默认软件仓库，Alpine 只有 <code>10000</code> 个软件包，而 Ubuntu、Debian 和 Fedora 的软件包数量均大于 <code>50000</code>。）</p>
+<p>容器崛起之前，<code>Alpine</code> 还是个无名之辈，可能是因为大家并不是很关心操作系统本身的大小，毕竟大家只关心业务数据和文档，程序、库文件和系统本身的大小通常可以忽略不计。</p>
+<p>容器技术席卷整个软件产业之后，大家都注意到了一个问题，那就是容器的镜像太大了，浪费磁盘空间，拉取镜像的时间也很长。于是，人们开始寻求适用于容器的更小的镜像。对于那些耳熟能详的发行版（例如 Ubuntu、Debian、Fedora）来说，只能通过删除某些工具（例如 <code>ifconfig</code> 和 <code>netstat</code>）将镜像体积控制在 <code>100M</code> 以下。而对于 Alpine 而言，什么都不用删除，镜像大小也就只有 <code>5M</code> 而已。</p>
+<p>Alpine 镜像的另一个优势是包管理工具的执行速度非常快，安装软件体验非常顺滑。诚然，在传统的虚拟机上不需要太关心软件包的安装速度，同一个包只需要装一次即可，无需不停重复安装。容器就不一样了，你可能会定期构建新镜像，也可能会在运行的容器中临时安装某些调试工具，如果软件包的安装速度很慢，会很快消磨掉我们的耐心。</p>
+<p>为了更直观，我们来做个简单的对比测试，看看不同的发行版安装 <code>tcpdump</code> 需要多长时间，测试命令如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">🐳 → <span class="nb">time</span> docker run &lt;image&gt; &lt;packagemanager&gt; install tcpdump
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>测试结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Base image           Size      Time to install tcpdump
+</span></span><span class="line"><span class="cl">---------------------------------------------------------
+</span></span><span class="line"><span class="cl">alpine:3.11          5.6 MB      1-2s
+</span></span><span class="line"><span class="cl">archlinux:20200106   <span class="m">409</span> MB      7-9s
+</span></span><span class="line"><span class="cl">centos:8             <span class="m">237</span> MB      5-6s
+</span></span><span class="line"><span class="cl">debian:10            <span class="m">114</span> MB      5-7s
+</span></span><span class="line"><span class="cl">fedora:31            <span class="m">194</span> MB    35-60s
+</span></span><span class="line"><span class="cl">ubuntu:18.04          <span class="m">64</span> MB      6-8s
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果你想了解更多关于 Alpine 的内幕，可以看看 <a href="https://dockercon.docker.com/watch/6nK1TVGjuTpFfnZNKEjCEr"target="_blank" rel="external nofollow noopener noreferrer">Natanel Copa 的演讲</a>。</p>
+<p>好吧，既然 Alpine 这么棒，为什么不用它作为所有镜像的基础镜像呢？别急，先一步一步来，为了趟平所有的坑，需要分两种情况来考虑：</p>
+<ol>
+<li>使用 Alpine 作为第二构建阶段（<code>run</code> 阶段）的基础镜像</li>
+<li>使用 ALpine 作为所有构建阶段（<code>run</code> 阶段和 <code>build</code> 阶段）的基础镜像</li>
+</ol>
+<h3 id="run-阶段使用-alpine">run 阶段使用 Alpine</h3>
+<p>带着激动的心情，将 Alpine 镜像加入了 Dockerfile：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> gcc AS mybuildstage</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> hello.c .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> gcc -o hello hello.c<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> alpine</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span>mybuildstage hello .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;./hello&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>第一个坑来了，启动容器出现了错误：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">standard_init_linux.go:211: <span class="nb">exec</span> user process caused <span class="s2">&#34;no such file or directory&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个报错在上篇文章已经见识过了，上篇文章的场景是使用 <code>scratch</code> 镜像作为 <code>C</code> 语言程序的基础镜像，错误的原因是 <code>scratch</code> 镜像中缺少动态库文件。可是为什么使用 Alpine 镜像也有报错，难道它也缺少动态库文件？</p>
+<p>也不完全是，Alpine 使用的也是动态库，毕竟它的设计目标之一就是占用更少的空间。但 Alpine 使用的标准库与大多数发行版不同，它使用的是 <code>musl libc</code>，这个库相比于 <code>glibc</code> 更小、更简单、更安全，但是与大家常用的标准库 <code>glibc</code> 并不兼容。</p>
+<p>你可能又要问了：『既然 <code>musl libc</code> 更小、更简单，还特么更安全，为啥其他发行版还在用 <code>glibc</code>？』</p>
+<p>mmm。。。因为 <code>glibc</code> 有很多额外的扩展，并且很多程序都用到了这些扩展，而 <code>musl libc</code> 是不包含这些扩展的。详情可以参考 <a href="https://wiki.musl-libc.org/functional-differences-from-glibc.html"target="_blank" rel="external nofollow noopener noreferrer">musl 的文档</a>。</p>
+<p>也就是说，如果想让程序跑在 Alpine 镜像中，必须在编译时使用 <code>musl libc</code> 作为动态库。</p>
+<h3 id="所有阶段使用-alpine">所有阶段使用 Alpine</h3>
+<p>为了生成一个与 <code>musl libc</code> 链接的二进制文件，有两条路：</p>
+<ul>
+<li>某些官方镜像提供了 Alpine 版本，可以直接拿来用。</li>
+<li>还有些官方镜像没有提供 Alpine 版本，我们需要自己构建。</li>
+</ul>
+<p>golang 镜像就属于第一种情况，<code>golang:alpine</code> 提供了基于 Alpine 构建的 <code>Go</code> 工具链。</p>
+<p>构建 Go 程序可以使用下面的 <code>Dockerfile</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> golang:alpine</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> hello.go .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> go build hello.go<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> alpine</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span><span class="m">0</span> /go/hello .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;./hello&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>生成的镜像大小为 7.5M，对于一个只打印 『hello world』的程序来说确实有点大了，但我们可以换个角度：</p>
+<ul>
+<li>即使程序很复杂，生成的镜像也不会很大。</li>
+<li>包含了很多有用的调试工具。</li>
+<li>即使运行时缺少某些特殊的调试工具，也可以迅速安装。</li>
+</ul>
+<p>Go 语言搞定了，C 语言呢？并没有 <code>gcc:alpine</code> 这样的镜像啊。只能以 Alpine 镜像作为基础镜像，自己安装 C 编译器了，Dockerfile 如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> alpine</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apk add build-base<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> hello.c .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> gcc -o hello hello.c<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> alpine</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span><span class="m">0</span> hello .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;./hello&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>必须安装 <code>build-base</code>，如果安装 <code>gcc</code>，就只有编译器，没有标准库。build-base 相当于 Ubuntu 的 <code>build-essentials</code>，引入了编译器、标准库和 make 之类的工具。</p>
+<p>最后来对比一下不同构建方法得到的 『hello world』镜像大小：</p>
+<ul>
+<li>使用基础镜像 <code>golang</code> 构建：805MB</li>
+<li>多阶段构建，build 阶段使用基础镜像 <code>golang</code>，run 阶段使用基础镜像 <code>ubuntu</code>：66.2MB</li>
+<li>多阶段构建，build 阶段使用基础镜像 <code>golang:alpine</code>，run 阶段使用基础镜像 <code>alpine</code>：7.6MB</li>
+<li>多阶段构建，build 阶段使用基础镜像 <code>golang</code>，run 阶段使用基础镜像 <code>scratch</code>：2MB</li>
+</ul>
+<p>最终镜像体积减少了 <code>99.75%</code>，相当惊人了。再来看一个更实际的例子，上一节提到的使用 <code>net</code> 的程序，最终的镜像大小对比：</p>
+<ul>
+<li>使用基础镜像 <code>golang</code> 构建：810MB</li>
+<li>多阶段构建，build 阶段使用基础镜像 <code>golang</code>，run 阶段使用基础镜像 <code>ubuntu</code>：71.2MB</li>
+<li>多阶段构建，build 阶段使用基础镜像 <code>golang:alpine</code>，run 阶段使用基础镜像 <code>alpine</code>：12.6MB</li>
+<li>多阶段构建，build 阶段使用基础镜像 <code>golang</code>，run 阶段使用基础镜像 <code>busybox:glibc</code>：12.2MB</li>
+<li>多阶段构建，build 阶段使用基础镜像 <code>golang</code> 并使用参数 CGO_ENABLED=0，run 阶段使用基础镜像 <code>ubuntu</code>：7MB</li>
+</ul>
+<p>镜像体积仍然减少了 <code>99%</code>。</p>
+<h2 id="3-java-语言镜像精简">3. Java 语言镜像精简</h2>
+<hr>
+<p><code>Java</code> 属于编译型语言，但运行时还是要跑在 <code>JVM</code> 中。那么对于 Java 语言来说，该如何使用多阶段构建呢？</p>
+<h3 id="静态还是动态">静态还是动态？</h3>
+<p>从概念上来看，Java 使用的是动态链接，因为 Java 代码需要调用 <code>JVM</code> 提供的 <code>Java API</code>，这些 API 的代码都在可执行文件之外，通常是 <code>JAR</code> 文件或 <code>WAR</code> 文件。</p>
+<p>然而这些 Java 库并不是完全独立于系统库的，某些 Java 函数最终还是会调用系统库，例如打开文件时需要调用 <code>open()</code>, <code>fopen()</code> 或它们的变体，因此 <code>JVM</code> 本身可能会与系统库动态链接。</p>
+<p>这就意味着理论上可以使用任意的 <code>JVM</code> 来运行 Java 程序，系统标准库是 <code>musl libc</code> 还是 <code>glibc</code> 都无所谓。因此，也就可以使用任意带有 <code>JVM</code> 的基础镜像来构建 Java 程序，也可以使用任意带有 <code>JVM</code> 的镜像作为运行 Java 程序的基础镜像。</p>
+<h3 id="类文件格式">类文件格式</h3>
+<p>Java 类文件（Java 编译器生成的字节码）的格式会随着版本而变化，且大部分变化都是 <code>Java API</code> 的变化。还有一部分更改与 Java 语言本身有关，例如 <code>Java 5</code> 中添加了泛型，这种变化就可能会导致类文件格式的变化，从而破坏与旧版本的兼容性。</p>
+<p>所以默认情况下，使用给定版本的 Java 编译器编译的类不能与更早版本的 JVM 兼容，但可以指定编译器的 <code>-target</code> （Java 8 及其以下版本）参数或者 <code>--release</code> （Java 9 及其以上版本）参数来使用较旧的类文件格式。<code>--release</code> 参数还可以指定类文件的路径，以确保程序运行在指定的 JVM 版本中（例如 Java 11），不会意外调用 Java 12 的 API。</p>
+<h3 id="jdk-vs-jre">JDK vs JRE</h3>
+<p>如果你对大多数平台上的 Java 打包方式很熟悉，那你应该知道 <code>JDK</code> 和 <code>JRE</code>。</p>
+<p><code>JRE</code> 即 Java 运行时环境（<code>Java Runtime Environment</code>），包含了运行 Java 程序所需要的环境，即 <code>JVM</code>。</p>
+<p><code>JDK</code> 即 Java 开发工具包（<code>Java Development Kit</code>），既包含了 JRE，也包含了开发 Java 程序所需的工具，即 Java 编译器。</p>
+<p>大多数 Java 镜像都提供了 JDK 和 JRE 两种标签，因此可以在多阶段构建的 <code>build</code> 阶段使用 <code>JDK</code> 作为基础镜像，<code>run</code> 阶段使用 <code>JRE</code> 作为基础镜像。</p>
+<h3 id="java-vs-openjdk">Java vs OpenJDK</h3>
+<p>推荐使用 <code>openjdk</code>，因为开源啊，更新勤快啊~~</p>
+<p>也可以使用 <a href="https://hub.docker.com/_/amazoncorretto"target="_blank" rel="external nofollow noopener noreferrer">amazoncorretto</a>，这是 <code>Amazon</code> fork OpenJDK 后打了补丁的版本，号称企业级。</p>
+<h3 id="开始构建">开始构建</h3>
+<p>说了那么多，到底该用哪个镜像呢？这里给出几个参考：</p>
+<ul>
+<li><strong>openjdk:8-jre-alpine</strong>（85MB）</li>
+<li><strong>openjdk:11-jre</strong>（267MB）或者 <strong>openjdk:11-jre-slim</strong>（204MB）</li>
+<li><strong>openjdk:14-alpine</strong>（338MB）</li>
+</ul>
+<p>如果你想要更直观的数据，可以看我的例子，还是搬出屡试不爽的 『hello world』，只不过这次是 Java 版本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">hello</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Hello, world!&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>不同构建方法得到的镜像大小：</p>
+<ul>
+<li>使用基础镜像 <code>java</code> 构建：643MB</li>
+<li>使用基础镜像 <code>openjdk</code> 构建：490MB</li>
+<li>多阶段构建，build 阶段使用基础镜像 <code>openjdk</code>，run 阶段使用基础镜像 <code>openjdk:jre</code>：479MB</li>
+<li>使用基础镜像 <code>amazoncorretto</code> 构建：390MB</li>
+<li>多阶段构建，build 阶段使用基础镜像 <code>openjdk:11</code>，run 阶段使用基础镜像 <code>openjdk:11-jre</code>：267MB</li>
+<li>多阶段构建，build 阶段使用基础镜像 <code>openjdk:8</code>，run 阶段使用基础镜像 <code>openjdk:8-jre-alpine</code>：85MB</li>
+</ul>
+<p>所有的 Dockerfile 都可以在 <a href="https://github.com/jpetazzo/minimage"target="_blank" rel="external nofollow noopener noreferrer">这个仓库</a>找到。</p>
+<h2 id="4-解释型语言镜像精简">4. 解释型语言镜像精简</h2>
+<hr>
+<p>对于诸如 <code>Node</code>、<code>Python</code>、<code>Rust</code> 之类的解释型语言来说，情况就比较复杂一点了。先来看看 Alpine 镜像。</p>
+<h3 id="alpine-镜像">Alpine 镜像</h3>
+<p>对于解释型语言来说，如果程序仅用到了标准库或者依赖项和程序本身使用的是同一种语言，且无需调用 C 库和外部依赖，那么使用 <code>Alpine</code> 作为基础镜像一般是没有啥问题的。一旦你的程序需要调用外部依赖，情况就复杂了，想继续使用 Alpine 镜像，就得安装这些依赖。根据难度可以划分为三个等级：</p>
+<ul>
+<li><strong>简单</strong>：依赖库有针对 Alpine 的安装说明，一般会说明需要安装哪些软件包以及如何建立依赖关系。但这种情况非常罕见，原因前面也提到了，Alpine 的软件包数量比大多数流行的发行版要少得多。</li>
+<li><strong>中等</strong>：依赖库没有针对 Alpine 的安装说明，但有针对别的发行版的安装说明。我们可以通过对比找到与别的发行版的软件包相匹配的 Alpine 软件包（假如有的话）。</li>
+<li><strong>困难</strong>：依赖库没有针对 Alpine 的安装说明，但有针对别的发行版的安装说明，但是 Alpine 也没有与之对应的软件包。这种情况就必须从源码开始构建！</li>
+</ul>
+<p>最后一种情况最不推荐使用 Alpine 作为基础镜像，不但不能减小体积，可能还会适得其反，因为你需要安装编译器、依赖库、头文件等等。。。更重要的是，构建时间会很长，效率低下。如果非要考虑多阶段构建，就更复杂了，<strong>你得搞清楚如何将所有的依赖编译成二进制文件，想想就头大</strong>。因此一般不推荐在解释型语言中使用多阶段构建。</p>
+<p>有一种特殊情况会同时遇到 Alpine 的绝大多数问题：<strong>将 Python 用于数据科学</strong>。<code>numpy</code> 和 <code>pandas</code> 之类的包都被预编译成了 <a href="https://pythonwheels.com/"target="_blank" rel="external nofollow noopener noreferrer">wheel</a>，<code>wheel</code> 是 Python 新的打包格式，被编译成了二进制，用于替代 Python 传统的 <code>egg</code> 文件，可以通过 <code>pip</code> 直接安装。但这些 wheel 都绑定了特定的 C 库，这就意味着在大多数使用 <code>glibc</code> 的镜像中都可以正常安装，但 Alpine 镜像就不行，原因你懂得，前面已经说过了。如果非要在 Alpine 中安装，你需要安装很多依赖，重头构建，耗时又费力，有一篇文章专门解释了这个问题： <a href="https://pythonspeed.com/articles/alpine-docker-python/"target="_blank" rel="external nofollow noopener noreferrer">使用 Alpine 构建 Pyhton 镜像会将构建速度拖慢 50 倍！</a>。</p>
+<p>既然 Alpine 镜像这么坑，那么是不是只要是 Python 写的程序就不推荐使用 Alpine 镜像来构建呢？也不能完全这么肯定，至少 Python 用于数据科学时不推荐使用 Alpine，其他情况还是要具体情况具体分析，如果有可能，还是可以试一试 Alpine 的。</p>
+<h3 id="slim-镜像">:slim 镜像</h3>
+<p>如果实在不想折腾，可以选择一个折衷的镜像 <code>xxx:slim</code>。slim 镜像一般都基于 <code>Debian</code> 和 <code>glibc</code>，删除了许多非必需的软件包，优化了体积。如果构建过程中需要编译器，那么 slim 镜像不适合，除此之外大多数情况下还是可以使用 slim 作为基础镜像的。</p>
+<p>下面是主流的解释型语言的 Alpine 镜像和 slim 镜像大小对比：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Image            Size
+</span></span><span class="line"><span class="cl">---------------------------
+</span></span><span class="line"><span class="cl">node             <span class="m">939</span> MB
+</span></span><span class="line"><span class="cl">node:alpine      <span class="m">113</span> MB
+</span></span><span class="line"><span class="cl">node:slim        <span class="m">163</span> MB
+</span></span><span class="line"><span class="cl">python           <span class="m">932</span> MB
+</span></span><span class="line"><span class="cl">python:alpine    <span class="m">110</span> MB
+</span></span><span class="line"><span class="cl">python:slim      <span class="m">193</span> MB
+</span></span><span class="line"><span class="cl">ruby             <span class="m">842</span> MB
+</span></span><span class="line"><span class="cl">ruby:alpine       <span class="m">54</span> MB
+</span></span><span class="line"><span class="cl">ruby:slim        <span class="m">149</span> MB
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>再来举个特殊情况的例子，同时安装 <code>matplotlib</code>，<code>numpy</code> 和 <code>pandas</code>，不同的基础镜像构建的镜像大小如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Image and technique         Size
+</span></span><span class="line"><span class="cl">--------------------------------------
+</span></span><span class="line"><span class="cl">python                      1.26 GB
+</span></span><span class="line"><span class="cl">python:slim                  <span class="m">407</span> MB
+</span></span><span class="line"><span class="cl">python:alpine                <span class="m">523</span> MB
+</span></span><span class="line"><span class="cl">python:alpine multi-stage    <span class="m">517</span> MB
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到这种情况下使用 Alpine 并没有任何帮助，即使使用多阶段构建也无济于事。</p>
+<p>但也不能全盘否定 Alpine，比如下面这种情况：包含大量依赖的 <code>Django</code> 应用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Image and technique         Size
+</span></span><span class="line"><span class="cl">--------------------------------------
+</span></span><span class="line"><span class="cl">python                      1.23 GB
+</span></span><span class="line"><span class="cl">python:alpine                <span class="m">636</span> MB
+</span></span><span class="line"><span class="cl">python:alpine multi-stage    <span class="m">391</span> MB
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>最后来总结一下：<strong>到底使用哪个基础镜像并不能盖棺定论，有时使用 Alpine 效果更好，有时反而使用 slim 效果更好，如果你对镜像体积有着极致的追求，可以这两种镜像都尝试一下。相信随着时间的推移，我们就会积累足够的经验，知道哪种情况该用 Alpine，哪种情况该用 slim，不用再一个一个尝试。</strong></p>
+<h2 id="5-rust-语言镜像精简">5. Rust 语言镜像精简</h2>
+<hr>
+<p><code>Rust</code> 是最初由 <code>Mozilla</code> 设计的现代编程语言，并且在 <code>Web</code> 和基础架构领域中越来越受欢迎。Rust 编译的二进制文件动态链接到 C 库，可以正常运行于 <code>Ubuntu</code>、<code>Debian</code> 和 <code>Fedora</code> 之类的镜像中，但不能运行于 <code>busybox:glibc</code> 中。因为 Rust 二进制需要调用 <code>libdl</code> 库，<code>busybox:glibc</code> 中不包含该库。</p>
+<p>还有一个 <code>rust:alpine</code> 镜像，Rust 编译的二进制也可以正常运行其中。</p>
+<p>如果考虑编译成静态链接，可以参考 <a href="https://doc.rust-lang.org/1.9.0/book/advanced-linking.html#static-linking"target="_blank" rel="external nofollow noopener noreferrer">Rust 官方文档</a>。在 Linux 上需要构建一个特殊版本的 Rust 编译器，构建的依赖库就是 <code>musl libc</code>，你没有看错，就是 Alpine 中的那个 <code>musl libc</code>。如果你想获得更小的镜像，请按照文档中的说明进行操作，最后将生成的二进制文件扔进 <code>scratch</code> 镜像中就好了。</p>
+<h2 id="6-总结">6. 总结</h2>
+<hr>
+<p>本系列文章的前两部分介绍了优化 Docker 镜像体积的常用方法，以及如何针对不同类型的语言运用这些方法。最后一部分将会介绍如何在减少镜像体积的同时，还能减少 I/O 和内存使用量，同时还会介绍一些虽然与容器无关但对优化镜像有帮助的技术。</p>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2023-11-20 16:32:10">更新于 2023-11-20&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/posts/docker-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%95%99%E7%A8%8B-%E9%92%88%E5%AF%B9%E4%B8%8D%E5%90%8C%E8%AF%AD%E8%A8%80%E7%9A%84%E7%B2%BE%E7%AE%80%E7%AD%96%E7%95%A5/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.qilitang.top/posts/docker-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%95%99%E7%A8%8B-%E9%92%88%E5%AF%B9%E4%B8%8D%E5%90%8C%E8%AF%AD%E8%A8%80%E7%9A%84%E7%B2%BE%E7%AE%80%E7%AD%96%E7%95%A5/" data-title="Docker 镜像制作教程:针对不同语言的精简策略" data-hashtags="Docker"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.qilitang.top/posts/docker-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%95%99%E7%A8%8B-%E9%92%88%E5%AF%B9%E4%B8%8D%E5%90%8C%E8%AF%AD%E8%A8%80%E7%9A%84%E7%B2%BE%E7%AE%80%E7%AD%96%E7%95%A5/" data-hashtag="Docker"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.qilitang.top/posts/docker-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%95%99%E7%A8%8B-%E9%92%88%E5%AF%B9%E4%B8%8D%E5%90%8C%E8%AF%AD%E8%A8%80%E7%9A%84%E7%B2%BE%E7%AE%80%E7%AD%96%E7%95%A5/" data-title="Docker 镜像制作教程:针对不同语言的精简策略"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/docker/' class="post-tag">Docker</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/docker-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%95%99%E7%A8%8B-%E5%87%8F%E5%B0%8F%E9%95%9C%E5%83%8F%E4%BD%93%E7%A7%AF/" class="post-nav-item" rel="prev" title="Docker 镜像制作教程:减小镜像体积"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Docker 镜像制作教程:减小镜像体积</a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/qilitang"target="_blank" rel="external nofollow noopener noreferrer">Qilitang</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":15},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"lunr"}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>
